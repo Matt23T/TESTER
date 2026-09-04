@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Football API Tester V4</title>
+<style>
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f5f7;color:#111}
+#v4mount{min-height:100vh}
+.v4box{background:#fff;border-radius:16px;padding:20px;margin:18px auto;max-width:1200px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.v4grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.v4grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.v4btn{border:0;border-radius:10px;padding:11px 14px;font-weight:bold;background:#111;color:#fff;cursor:pointer;margin:4px}.v4btn.warn{background:#a56800}.v4btn.ok{background:#147a3e}
+.v4box select{width:100%;padding:10px;border:1px solid #d6d6d6;border-radius:10px}.v4stat{background:#f7f7f7;border-radius:12px;padding:12px}.v4small{font-size:12px;color:#777}.v4value{font-size:22px;font-weight:bold;margin-top:4px}
+.v4result{margin-top:14px;padding:12px;border-radius:10px;background:#eef3ff}.v4log{white-space:pre-wrap;max-height:360px;overflow:auto;background:#111;color:#eee;border-radius:10px;padding:12px;font-size:12px}
+.v4item{display:flex;justify-content:space-between;gap:12px;padding:11px;border:1px solid #e5e5e5;border-radius:10px;margin:7px 0;background:#fafafa}.v4tag{font-size:11px;font-weight:bold;white-space:nowrap}
+@media(max-width:700px){.v4grid,.v4grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="v4mount"><div class="v4box">Caricamento Football API Tester V3…</div></div>
+<script>
+(async()=>{
+ const mount=document.getElementById('v4mount');
+ try{
+   const html=await fetch('./index.html',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Impossibile leggere index.html: '+r.status);return r.text()});
+   const doc=new DOMParser().parseFromString(html,'text/html');
+   document.title='Football API Tester V4';
+   document.head.innerHTML=doc.head.innerHTML;
+   document.body.innerHTML=doc.body.innerHTML;
+   const scripts=[...doc.body.querySelectorAll('script')];
+   for(const old of scripts){const s=document.createElement('script');[...old.attributes].forEach(a=>s.setAttribute(a.name,a.value));s.textContent=old.textContent;document.body.appendChild(s)}
+   const box=document.createElement('section');box.className='v4box';box.id='v4ControlCenter';box.innerHTML=`
+   <h2>V4 — Dati attuali, futuri e storico</h2>
+   <p>La V3 resta la base. Qui testiamo prima ciò che l'API sa dirci sul futuro/pre-partita e separatamente lo storico utile al modello.</p>
+   <div class="v4grid">
+    <div><h3>ATTUALE / FUTURO</h3><label>Competizioni</label><select id="v4Competition" multiple size="8">
+    <option value="135" selected>Serie A</option><option value="39" selected>Premier League</option><option value="140" selected>La Liga</option><option value="78" selected>Bundesliga</option><option value="61" selected>Ligue 1</option><option value="2" selected>UEFA Champions League</option><option value="3" selected>UEFA Europa League</option><option value="848" selected>UEFA Conference League</option></select>
+    <div><button class="v4btn" onclick="V4.scan('today')">Oggi</button><button class="v4btn" onclick="V4.scan('tomorrow')">Domani</button><button class="v4btn" onclick="V4.scan('7')">Prossimi 7 giorni</button><button class="v4btn" onclick="V4.scan('30')">Prossimi 30 giorni</button><button class="v4btn" onclick="V4.scan('season')">Tutto il calendario futuro</button></div></div>
+    <div><h3>STORICO</h3><label>Stagioni</label><select id="v4Season" multiple size="5"><option selected>2025</option><option selected>2024</option><option selected>2023</option><option selected>2022</option><option selected>2021</option></select><p class="v4small">Calendario prima; dettagli solo su campioni, per evitare di bruciare la quota gratuita.</p><button class="v4btn warn" onclick="V4.history()">Scansione storica controllata</button></div>
+   </div>
+   <div class="v4grid3"><div class="v4stat"><div class="v4small">Richieste V4</div><div class="v4value" id="v4Requests">0</div></div><div class="v4stat"><div class="v4small">Partite trovate</div><div class="v4value" id="v4Matches">0</div></div><div class="v4stat"><div class="v4small">Stato</div><div class="v4value" id="v4State" style="font-size:15px">Pronto</div></div></div>
+   <div id="v4Result" class="v4result">Pronto.</div>
+   <h3>Inventario dati da verificare</h3><div id="v4Inventory"></div><pre id="v4Log" class="v4log"></pre>`;
+   document.body.appendChild(box);
+   window.V4={requests:0,matches:0,log:[],async req(path){this.requests++;document.getElementById('v4Requests').textContent=this.requests;try{const r=await proxyRequest(path,{method:'GET'});const j=tryParseJSON(r.text);const bad=!r.response.ok||(j&&j.errors&&Object.keys(j.errors).length);this.log.push((bad?'ERRORE ':'OK ')+r.response.status+' '+path);document.getElementById('v4Log').textContent=this.log.slice(-100).join('\n');return {ok:!bad,json:j,status:r.response.status}}catch(e){this.log.push('ERRORE '+e.message);document.getElementById('v4Log').textContent=this.log.slice(-100).join('\n');return {ok:false}}},selected(id){return [...document.getElementById(id).selectedOptions].map(x=>x.value)},dates(m){const n=new Date();n.setHours(12,0,0,0);if(m==='today')return [n,n];if(m==='tomorrow'){const d=new Date(n);d.setDate(d.getDate()+1);return[d,d]}const e=new Date(n);if(m==='7')e.setDate(e.getDate()+6);else if(m==='30')e.setDate(e.getDate()+29);else e.setMonth(11,31);return[n,e]},iso(d){return d.toISOString().slice(0,10)},arr(j){return Array.isArray(j?.response)?j.response:Array.isArray(j?.data)?j.data:Array.isArray(j?.results)?j.results:[]},async scan(m){if(!document.getElementById('baseUrl')?.value.toLowerCase().includes('api-sports.io')){this.result('La scansione automatica V4 è configurata per API-Sports/API-Football. Per API generiche usa la V3.','warn');return}const cs=this.selected('v4Competition');const [a,b]=this.dates(m);let total=0,ok=0;this.result('Scansione '+this.iso(a)+' → '+this.iso(b)+'…');for(const c of cs){const u=document.getElementById('baseUrl').value.replace(/\/$/,'')+'/fixtures?league='+c+'&season='+new Date().getFullYear()+'&from='+this.iso(a)+'&to='+this.iso(b);const r=await this.req(u);if(r.ok){ok++;total+=this.arr(r.json).length}}this.matches+=total;document.getElementById('v4Matches').textContent=this.matches;document.getElementById('v4State').textContent='Completato';this.result('Completato: '+ok+'/'+cs.length+' competizioni OK, '+total+' partite trovate.','ok')},async history(){if(!document.getElementById('baseUrl')?.value.toLowerCase().includes('api-sports.io')){this.result('La scansione storica automatica V4 è configurata per API-Sports/API-Football.','warn');return}const cs=this.selected('v4Competition'),ss=this.selected('v4Season');let total=0,ok=0;const n=cs.length*ss.length;if(n>50&&!confirm('La scansione può usare fino a '+n+' richieste. Continuare?'))return;this.result('Scansione storica in corso…');for(const s of ss)for(const c of cs){const u=document.getElementById('baseUrl').value.replace(/\/$/,'')+'/fixtures?league='+c+'&season='+s;const r=await this.req(u);if(r.ok){ok++;total+=this.arr(r.json).length}}this.matches+=total;document.getElementById('v4Matches').textContent=this.matches;document.getElementById('v4State').textContent='Completato';this.result('Storico completato: '+ok+'/'+n+' richieste OK, '+total+' partite restituite.','ok')},result(t,c){const e=document.getElementById('v4Result');e.textContent=t;e.style.background=c==='ok'?'#eaf8ef':c==='warn'?'#fff8e7':'#eef3ff'}};
+   const cats=['Partite','Gol','Gol 1° tempo','Gol 2° tempo','Statistiche','Tiri / tiri in porta','Possesso','Corner','Cartellini','xG / xGA','Giocatori','Infortuni / squalifiche','Formazioni','H2H','Classifiche','Predizioni','Quote','Arbitri / stadi'];
+   document.getElementById('v4Inventory').innerHTML=cats.map(x=>`<div class="v4item"><span><b>${x}</b></span><span class="v4tag">DA VERIFICARE</span></div>`).join('');
+ }catch(e){mount.innerHTML='<div class="v4box"><b>Errore caricamento:</b> '+e.message+'</div>'}
+})();
+</script>
+</body>
+</html>
