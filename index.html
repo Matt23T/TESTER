@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -348,11 +347,6 @@ textarea {
     color: #555;
 }
 
-.badge.warning {
-    background: #fff0c7;
-    color: #805600;
-}
-
 pre {
     margin: 0;
     background: #111;
@@ -464,147 +458,6 @@ pre {
     margin-right: 5px;
 }
 
-.progress-container {
-    width: 100%;
-    background: #e8e8e8;
-    height: 12px;
-    border-radius: 20px;
-    overflow: hidden;
-    margin: 12px 0;
-}
-
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background: #111;
-    transition: width .2s ease;
-}
-
-.data-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-}
-
-.data-option {
-    border: 1px solid #ddd;
-    background: #fafafa;
-    border-radius: 9px;
-    padding: 11px 8px;
-    font-size: 12px;
-    cursor: pointer;
-    text-align: center;
-    user-select: none;
-}
-
-.data-option.active {
-    background: #111;
-    color: white;
-    border-color: #111;
-}
-
-.season-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-}
-
-.season-option {
-    border: 1px solid #ddd;
-    background: #fafafa;
-    border-radius: 9px;
-    padding: 12px 8px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.season-option.active {
-    background: #111;
-    color: white;
-    border-color: #111;
-}
-
-.collection-result {
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 13px;
-    margin-top: 9px;
-    background: #fafafa;
-}
-
-.collection-result-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.collection-result-title {
-    font-weight: bold;
-    font-size: 13px;
-}
-
-.collection-result-details {
-    margin-top: 8px;
-    color: #666;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-.collection-summary {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.collection-summary-box {
-    border: 1px solid #e2e2e2;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-.collection-summary-box strong {
-    display: block;
-    font-size: 18px;
-    margin-top: 5px;
-}
-
-.request-log {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.request-log-item {
-    border-bottom: 1px solid #eee;
-    padding: 10px 0;
-    font-size: 12px;
-}
-
-.request-log-item:last-child {
-    border-bottom: none;
-}
-
-.request-log-url {
-    font-family: Consolas, monospace;
-    word-break: break-all;
-    margin-top: 4px;
-}
-
-.data-evidence {
-    margin-top: 8px;
-    padding: 9px;
-    border-radius: 8px;
-    background: white;
-    border: 1px solid #eee;
-    font-size: 12px;
-}
-
-.hidden {
-    display: none !important;
-}
-
 @keyframes spin {
     to {
         transform: rotate(360deg);
@@ -621,14 +474,6 @@ pre {
     }
 
     .category-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .data-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .collection-summary {
         grid-template-columns: repeat(3, 1fr);
     }
 }
@@ -676,18 +521,6 @@ pre {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .data-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .season-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .collection-summary {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .card {
         padding: 15px;
         border-radius: 13px;
@@ -713,7 +546,7 @@ pre {
             <h1>⚽ Football API Tester</h1>
             <p>Analizzatore API calcistiche — V3</p>
         </div>
-        <div class="version">V3.1</div>
+        <div class="version">V3.0</div>
     </div>
 </header>
 
@@ -849,218 +682,11 @@ pre {
 
     <section class="card">
 
-        <h2>2. Cosa vogliamo ottenere dall'API</h2>
-
-        <p class="small-text">
-            Questa sezione serve a verificare quali dati l'API può fornire per il nostro progetto.
-            Non devi conoscere gli endpoint: il tester utilizza la documentazione disponibile
-            e collega automaticamente gli endpoint alle categorie di dati.
-        </p>
-
-        <h3>Stagioni storiche</h3>
-
-        <div class="season-grid" id="seasonGrid">
-
-            <div class="season-option active" data-season="2025">
-                2025
-            </div>
-
-            <div class="season-option active" data-season="2024">
-                2024
-            </div>
-
-            <div class="season-option active" data-season="2023">
-                2023
-            </div>
-
-            <div class="season-option active" data-season="2022">
-                2022
-            </div>
-
-            <div class="season-option active" data-season="2021">
-                2021
-            </div>
-
-        </div>
-
-        <h3>Competizioni</h3>
-
-        <div class="grid-2">
-
-            <div class="field">
-                <label for="competitionName">
-                    Nome competizione
-                </label>
-
-                <select id="competitionName">
-
-                    <option value="Serie A">
-                        Serie A
-                    </option>
-
-                    <option value="Premier League">
-                        Premier League
-                    </option>
-
-                    <option value="La Liga">
-                        La Liga
-                    </option>
-
-                    <option value="Bundesliga">
-                        Bundesliga
-                    </option>
-
-                    <option value="Ligue 1">
-                        Ligue 1
-                    </option>
-
-                    <option value="UEFA Champions League">
-                        UEFA Champions League
-                    </option>
-
-                    <option value="UEFA Europa League">
-                        UEFA Europa League
-                    </option>
-
-                    <option value="UEFA Conference League">
-                        UEFA Conference League
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="field">
-
-                <label for="competitionId">
-                    ID competizione, se conosciuto
-                </label>
-
-                <input
-                    id="competitionId"
-                    type="text"
-                    placeholder="Es. 135"
-                >
-
-            </div>
-
-        </div>
-
-        <h3>Dati da verificare</h3>
-
-        <div class="data-grid" id="dataGrid">
-
-            <div class="data-option active" data-data-type="matches">
-                Partite
-            </div>
-
-            <div class="data-option active" data-data-type="results">
-                Risultati
-            </div>
-
-            <div class="data-option active" data-data-type="goals">
-                Gol
-            </div>
-
-            <div class="data-option active" data-data-type="halves">
-                1° / 2° tempo
-            </div>
-
-            <div class="data-option active" data-data-type="match_stats">
-                Statistiche partita
-            </div>
-
-            <div class="data-option active" data-data-type="team_stats">
-                Statistiche squadre
-            </div>
-
-            <div class="data-option active" data-data-type="form">
-                Forma
-            </div>
-
-            <div class="data-option active" data-data-type="standings">
-                Classifiche
-            </div>
-
-            <div class="data-option active" data-data-type="players">
-                Giocatori
-            </div>
-
-            <div class="data-option active" data-data-type="player_stats">
-                Statistiche giocatori
-            </div>
-
-            <div class="data-option active" data-data-type="injuries">
-                Infortuni
-            </div>
-
-            <div class="data-option active" data-data-type="lineups">
-                Formazioni
-            </div>
-
-            <div class="data-option active" data-data-type="events">
-                Eventi
-            </div>
-
-            <div class="data-option active" data-data-type="h2h">
-                H2H
-            </div>
-
-            <div class="data-option active" data-data-type="xg">
-                xG / xGA
-            </div>
-
-            <div class="data-option active" data-data-type="odds">
-                Quote
-            </div>
-
-            <div class="data-option active" data-data-type="predictions">
-                Predizioni
-            </div>
-
-            <div class="data-option active" data-data-type="referees">
-                Arbitri
-            </div>
-
-            <div class="data-option active" data-data-type="transfers">
-                Trasferimenti
-            </div>
-
-            <div class="data-option active" data-data-type="league_seasons">
-                Campionati / stagioni
-            </div>
-
-        </div>
-
-        <div class="button-row">
-
-            <button
-                class="btn secondary"
-                id="selectAllDataBtn">
-                Seleziona tutto
-            </button>
-
-            <button
-                class="btn secondary"
-                id="deselectAllDataBtn">
-                Deseleziona tutto
-            </button>
-
-        </div>
-
-        <div id="collectionStatus" class="status"></div>
-
-    </section>
-
-
-    <section class="card">
-
-        <h2>3. Ricerca automatica documentazione</h2>
+        <h2>2. Ricerca automatica documentazione</h2>
 
         <p class="small-text">
             Il tester prova automaticamente i percorsi più comuni di OpenAPI/Swagger.
-            Se trova la documentazione, cerca gli endpoint disponibili e li collega
-            alle categorie di dati che ci interessano.
+            Se trova la documentazione, cerca gli endpoint disponibili.
         </p>
 
         <div class="button-row">
@@ -1084,59 +710,7 @@ pre {
 
     <section class="card">
 
-        <h2>4. Raccolta automatica dati</h2>
-
-        <p class="small-text">
-            Dopo aver cercato la documentazione, il tester prova a collegare
-            automaticamente le categorie richieste agli endpoint trovati.
-            Le richieste vengono conteggiate una per una.
-        </p>
-
-        <div class="progress-container">
-            <div
-                class="progress-bar"
-                id="collectionProgress">
-            </div>
-        </div>
-
-        <div
-            class="small-text"
-            id="collectionProgressText">
-            Nessuna raccolta avviata.
-        </div>
-
-        <div class="button-row">
-
-            <button
-                class="btn success"
-                id="startCollectionBtn">
-                🚀 Avvia raccolta dati
-            </button>
-
-            <button
-                class="btn secondary"
-                id="stopCollectionBtn">
-                Ferma raccolta
-            </button>
-
-            <button
-                class="btn secondary"
-                id="clearCollectionBtn">
-                Cancella risultati
-            </button>
-
-        </div>
-
-        <div id="collectionSummary"></div>
-
-        <div id="collectionResults"></div>
-
-    </section>
-
-
-    <section class="card">
-
-        <h2>5. Test endpoint</h2>
+        <h2>3. Test endpoint</h2>
 
         <div class="endpoint-row">
 
@@ -1194,7 +768,7 @@ next=10"></textarea>
 
     <section class="card">
 
-        <h2>6. Categorie calcistiche</h2>
+        <h2>4. Categorie calcistiche</h2>
 
         <p class="small-text">
             Se la documentazione contiene molti endpoint, puoi filtrare quelli più interessanti
@@ -1210,7 +784,7 @@ next=10"></textarea>
 
     <section class="card">
 
-        <h2>7. Analisi automatica della risposta</h2>
+        <h2>5. Analisi automatica della risposta</h2>
 
         <div id="analysisArea">
 
@@ -1225,7 +799,7 @@ next=10"></textarea>
 
     <section class="card">
 
-        <h2>8. Headers risposta</h2>
+        <h2>6. Headers risposta</h2>
 
         <div id="headersArea">
             <div class="empty">
@@ -1240,7 +814,7 @@ next=10"></textarea>
 
         <div class="result-header">
 
-            <h2 style="margin:0;">9. Risposta API</h2>
+            <h2 style="margin:0;">7. Risposta API</h2>
 
             <div>
                 <button class="btn small secondary" id="copyResponseBtn">
@@ -1259,7 +833,7 @@ next=10"></textarea>
 
         <div class="result-header">
 
-            <h2 style="margin:0;">10. Storico sessione</h2>
+            <h2 style="margin:0;">8. Storico sessione</h2>
 
             <button class="btn small danger" id="clearHistoryBtn">
                 Cancella storico
@@ -1278,25 +852,11 @@ next=10"></textarea>
 
     <section class="card">
 
-        <h2>11. Log richieste raccolta</h2>
-
-        <div id="collectionRequestLog" class="request-log">
-            <div class="empty">
-                Nessuna richiesta automatica effettuata.
-            </div>
-        </div>
-
-    </section>
-
-
-    <section class="card">
-
-        <h2>12. Report API</h2>
+        <h2>9. Report API</h2>
 
         <p class="small-text">
             Genera un report JSON con configurazione, richieste, endpoint scoperti,
-            dati richiesti, stagioni testate, risultati della raccolta e informazioni
-            utili per confrontare questa API con le altre.
+            risultati e informazioni utili per confrontare questa API con le altre.
         </p>
 
         <div class="button-row">
@@ -1439,216 +999,6 @@ const FOOTBALL_CATEGORIES = {
     ]
 };
 
-const DATA_TYPE_LABELS = {
-
-    matches: "Partite",
-
-    results: "Risultati",
-
-    goals: "Gol",
-
-    halves: "1° / 2° tempo",
-
-    match_stats: "Statistiche partita",
-
-    team_stats: "Statistiche squadre",
-
-    form: "Forma",
-
-    standings: "Classifiche",
-
-    players: "Giocatori",
-
-    player_stats: "Statistiche giocatori",
-
-    injuries: "Infortuni",
-
-    lineups: "Formazioni",
-
-    events: "Eventi",
-
-    h2h: "H2H",
-
-    xg: "xG / xGA",
-
-    odds: "Quote",
-
-    predictions: "Predizioni",
-
-    referees: "Arbitri",
-
-    transfers: "Trasferimenti",
-
-    league_seasons: "Campionati / stagioni"
-
-};
-
-const DATA_TYPE_KEYWORDS = {
-
-    matches: [
-        "fixture",
-        "fixtures",
-        "match",
-        "matches",
-        "game",
-        "games"
-    ],
-
-    results: [
-        "fixture",
-        "fixtures",
-        "match",
-        "matches",
-        "result",
-        "results",
-        "score",
-        "scores"
-    ],
-
-    goals: [
-        "goal",
-        "goals",
-        "score",
-        "scores",
-        "event",
-        "events"
-    ],
-
-    halves: [
-        "fixture",
-        "fixtures",
-        "match",
-        "matches",
-        "goal",
-        "goals",
-        "score",
-        "scores",
-        "event",
-        "events",
-        "statistics"
-    ],
-
-    match_stats: [
-        "statistic",
-        "statistics",
-        "stats",
-        "fixture",
-        "fixtures",
-        "match",
-        "matches"
-    ],
-
-    team_stats: [
-        "team",
-        "teams",
-        "club",
-        "clubs",
-        "statistic",
-        "statistics",
-        "stats"
-    ],
-
-    form: [
-        "form",
-        "fixture",
-        "fixtures",
-        "match",
-        "matches",
-        "team",
-        "teams"
-    ],
-
-    standings: [
-        "standing",
-        "standings",
-        "table",
-        "tables",
-        "ranking",
-        "rankings"
-    ],
-
-    players: [
-        "player",
-        "players"
-    ],
-
-    player_stats: [
-        "player",
-        "players",
-        "statistic",
-        "statistics",
-        "stats"
-    ],
-
-    injuries: [
-        "injur",
-        "injuries",
-        "suspension",
-        "suspensions"
-    ],
-
-    lineups: [
-        "lineup",
-        "lineups",
-        "formation",
-        "formations"
-    ],
-
-    events: [
-        "event",
-        "events"
-    ],
-
-    h2h: [
-        "h2h",
-        "head-to-head",
-        "head_to_head"
-    ],
-
-    xg: [
-        "xg",
-        "x-ga",
-        "xga",
-        "expected-goal",
-        "expected_goals",
-        "expected"
-    ],
-
-    odds: [
-        "odds",
-        "bookmaker",
-        "bookmakers"
-    ],
-
-    predictions: [
-        "predict",
-        "prediction",
-        "predictions"
-    ],
-
-    referees: [
-        "referee",
-        "referees",
-        "official",
-        "officials"
-    ],
-
-    transfers: [
-        "transfer",
-        "transfers"
-    ],
-
-    league_seasons: [
-        "league",
-        "leagues",
-        "competition",
-        "competitions",
-        "season",
-        "seasons"
-    ]
-
-};
-
 const state = {
 
     requestsSession: 0,
@@ -1675,50 +1025,13 @@ const state = {
 
     lastRequest: null,
 
-    lastAnalysis: null,
-
-    collection: {
-
-        running: false,
-
-        stopped: false,
-
-        results: [],
-
-        requestLog: [],
-
-        selectedSeasons: [
-            "2025",
-            "2024",
-            "2023",
-            "2022",
-            "2021"
-        ],
-
-        selectedDataTypes: Object.keys(DATA_TYPE_LABELS),
-
-        currentIndex: 0,
-
-        totalTasks: 0,
-
-        successfulTasks: 0,
-
-        failedTasks: 0,
-
-        partialTasks: 0
-
-    }
+    lastAnalysis: null
 
 };
 
 const $ = id => document.getElementById(id);
 
 $("proxyDisplay").textContent = PROXY_URL;
-
-
-/* =========================================================
-   CATEGORIE ORIGINALI
-   ========================================================= */
 
 function renderCategories() {
 
@@ -1756,111 +1069,6 @@ function renderCategories() {
 
 renderCategories();
 
-
-/* =========================================================
-   NUOVE SELEZIONI
-   ========================================================= */
-
-document
-    .querySelectorAll(".season-option")
-    .forEach(option => {
-
-        option.addEventListener("click", () => {
-
-            option.classList.toggle("active");
-
-            updateSelectedSeasons();
-
-        });
-
-    });
-
-
-document
-    .querySelectorAll(".data-option")
-    .forEach(option => {
-
-        option.addEventListener("click", () => {
-
-            option.classList.toggle("active");
-
-            updateSelectedDataTypes();
-
-        });
-
-    });
-
-
-function updateSelectedSeasons() {
-
-    state.collection.selectedSeasons =
-        Array.from(
-            document.querySelectorAll(
-                ".season-option.active"
-            )
-        ).map(
-            element =>
-                element.dataset.season
-        );
-
-}
-
-
-function updateSelectedDataTypes() {
-
-    state.collection.selectedDataTypes =
-        Array.from(
-            document.querySelectorAll(
-                ".data-option.active"
-            )
-        ).map(
-            element =>
-                element.dataset.dataType
-        );
-
-}
-
-
-$("selectAllDataBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            document
-                .querySelectorAll(".data-option")
-                .forEach(
-                    element =>
-                        element.classList.add("active")
-                );
-
-            updateSelectedDataTypes();
-
-        }
-    );
-
-
-$("deselectAllDataBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            document
-                .querySelectorAll(".data-option")
-                .forEach(
-                    element =>
-                        element.classList.remove("active")
-                );
-
-            updateSelectedDataTypes();
-
-        }
-    );
-
-
-/* =========================================================
-   STATUS
-   ========================================================= */
-
 function showStatus(element, message, type = "info") {
 
     element.className = "status show " + type;
@@ -1869,7 +1077,6 @@ function showStatus(element, message, type = "info") {
 
 }
 
-
 function hideStatus(element) {
 
     element.className = "status";
@@ -1877,11 +1084,6 @@ function hideStatus(element) {
     element.innerHTML = "";
 
 }
-
-
-/* =========================================================
-   URL
-   ========================================================= */
 
 function normalizeBaseUrl(url) {
 
@@ -1898,7 +1100,6 @@ function normalizeBaseUrl(url) {
     return url.replace(/\/+$/, "");
 
 }
-
 
 function buildTargetUrl(endpoint, queryString = "") {
 
@@ -1943,11 +1144,6 @@ function buildTargetUrl(endpoint, queryString = "") {
     return target.toString();
 
 }
-
-
-/* =========================================================
-   AUTENTICAZIONE
-   ========================================================= */
 
 function applyAuthentication(url, headers) {
 
@@ -2013,11 +1209,6 @@ function applyAuthentication(url, headers) {
 
 }
 
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
 function parseHeaders(text) {
 
     const headers = {};
@@ -2045,11 +1236,6 @@ function parseHeaders(text) {
     return headers;
 
 }
-
-
-/* =========================================================
-   RICHIESTA PROXY
-   ========================================================= */
 
 async function proxyRequest(targetUrl, options = {}) {
 
@@ -2128,11 +1314,6 @@ async function proxyRequest(targetUrl, options = {}) {
 
 }
 
-
-/* =========================================================
-   JSON
-   ========================================================= */
-
 function tryParseJSON(text) {
 
     try {
@@ -2145,11 +1326,6 @@ function tryParseJSON(text) {
 
 }
 
-
-/* =========================================================
-   RESPONSE HEADERS
-   ========================================================= */
-
 function extractHeaders(response) {
 
     const headers = {};
@@ -2161,11 +1337,6 @@ function extractHeaders(response) {
     return headers;
 
 }
-
-
-/* =========================================================
-   RATE LIMIT
-   ========================================================= */
 
 function detectRateLimit(headers) {
 
@@ -2247,11 +1418,6 @@ function detectRateLimit(headers) {
     return result;
 
 }
-
-
-/* =========================================================
-   ANALISI DATI CALCISTICI
-   ========================================================= */
 
 function analyzeFootballData(data) {
 
@@ -2438,11 +1604,6 @@ function analyzeFootballData(data) {
 
 }
 
-
-/* =========================================================
-   ANALISI RISPOSTA
-   ========================================================= */
-
 function renderAnalysis(analysis, statusCode) {
 
     const area = $("analysisArea");
@@ -2522,11 +1683,6 @@ function renderAnalysis(analysis, statusCode) {
 
 }
 
-
-/* =========================================================
-   HEADERS
-   ========================================================= */
-
 function renderHeaders(headers) {
 
     const area = $("headersArea");
@@ -2573,11 +1729,6 @@ function renderHeaders(headers) {
 
 }
 
-
-/* =========================================================
-   ESCAPE
-   ========================================================= */
-
 function escapeHTML(value) {
 
     return String(value ?? "")
@@ -2588,11 +1739,6 @@ function escapeHTML(value) {
         .replace(/'/g, "&#039;");
 
 }
-
-
-/* =========================================================
-   RICHIESTA MANUALE
-   ========================================================= */
 
 async function sendRequest() {
 
@@ -2749,25 +1895,6 @@ async function sendRequest() {
         $("errorRequests").textContent =
             state.errorRequests;
 
-        state.lastRequest = {
-
-            timestamp:
-                new Date().toISOString(),
-
-            method,
-
-            endpoint,
-
-            url:
-                result.url,
-
-            status:
-                result.response.status,
-
-            elapsed
-
-        };
-
         addHistory({
 
             timestamp:
@@ -2818,11 +1945,6 @@ async function sendRequest() {
     }
 
 }
-
-
-/* =========================================================
-   TEST CONNESSIONE
-   ========================================================= */
 
 async function testConnection() {
 
@@ -2943,11 +2065,6 @@ async function testConnection() {
     }
 
 }
-
-
-/* =========================================================
-   DISCOVERY DOCUMENTAZIONE
-   ========================================================= */
 
 async function discoverDocumentation() {
 
@@ -3104,11 +2221,6 @@ async function discoverDocumentation() {
 
 }
 
-
-/* =========================================================
-   ESTRAZIONE OPENAPI
-   ========================================================= */
-
 function extractOpenAPIEndpoints(data) {
 
     const endpoints = [];
@@ -3186,18 +2298,7 @@ function extractOpenAPIEndpoints(data) {
                                 definition.tags
                             )
                             ? definition.tags
-                            : [],
-
-                        parameters:
-                            definition &&
-                            Array.isArray(
-                                definition.parameters
-                            )
-                            ? definition.parameters
-                            : [],
-
-                        definition:
-                            definition || {}
+                            : []
 
                     });
 
@@ -3210,11 +2311,6 @@ function extractOpenAPIEndpoints(data) {
     return endpoints;
 
 }
-
-
-/* =========================================================
-   LISTA ENDPOINT
-   ========================================================= */
 
 function renderEndpointList(
     endpoints,
@@ -3308,11 +2404,6 @@ function renderEndpointList(
 
 }
 
-
-/* =========================================================
-   CATEGORIA ENDPOINT
-   ========================================================= */
-
 function endpointMatchesCategory(
     endpoint,
     category
@@ -3344,7 +2435,6 @@ function endpointMatchesCategory(
 
 }
 
-
 function filterEndpoints(category) {
 
     const filtered =
@@ -3363,11 +2453,6 @@ function filterEndpoints(category) {
 
 }
 
-
-/* =========================================================
-   STORICO
-   ========================================================= */
-
 function addHistory(item) {
 
     state.history.unshift(item);
@@ -3382,7 +2467,6 @@ function addHistory(item) {
     renderHistory();
 
 }
-
 
 function renderHistory() {
 
@@ -3458,11 +2542,6 @@ function renderHistory() {
 
 }
 
-
-/* =========================================================
-   FUNZIONI CONFIGURAZIONE
-   ========================================================= */
-
 function saveConfig() {
 
     const config = {
@@ -3490,7 +2569,6 @@ function saveConfig() {
     );
 
 }
-
 
 function loadConfig() {
 
@@ -3526,7 +2604,6 @@ function loadConfig() {
 
 }
 
-
 function clearConfig() {
 
     $("apiName").value = "";
@@ -3550,1931 +2627,6 @@ function clearConfig() {
 
 }
 
-
-/* =========================================================
-   RACCOLTA DATI — FUNZIONI DI SUPPORTO
-   ========================================================= */
-
-function getSelectedSeasons() {
-
-    updateSelectedSeasons();
-
-    return [
-        ...state.collection.selectedSeasons
-    ];
-
-}
-
-
-function getSelectedDataTypes() {
-
-    updateSelectedDataTypes();
-
-    return [
-        ...state.collection.selectedDataTypes
-    ];
-
-}
-
-
-function getCompetitionName() {
-
-    return $("competitionName").value.trim();
-
-}
-
-
-function getCompetitionId() {
-
-    return $("competitionId").value.trim();
-
-}
-
-
-/*
- * Cerca parole significative all'interno di un endpoint.
- * Non assume che l'API utilizzi nomi identici.
- */
-
-function endpointMatchesDataType(endpoint, dataType) {
-
-    const keywords =
-        DATA_TYPE_KEYWORDS[dataType] || [];
-
-    const text = (
-
-        endpoint.path +
-        " " +
-        endpoint.description +
-        " " +
-        endpoint.operationId +
-        " " +
-        endpoint.tags.join(" ")
-
-    ).toLowerCase();
-
-    return keywords.some(
-        keyword =>
-            text.includes(
-                keyword.toLowerCase()
-            )
-    );
-
-}
-
-
-/*
- * Punteggio dell'endpoint.
- * Gli endpoint con parole più specifiche vengono
- * preferiti rispetto a quelli generici.
- */
-
-function scoreEndpointForDataType(
-    endpoint,
-    dataType
-) {
-
-    const keywords =
-        DATA_TYPE_KEYWORDS[dataType] || [];
-
-    const text = (
-
-        endpoint.path +
-        " " +
-        endpoint.description +
-        " " +
-        endpoint.operationId +
-        " " +
-        endpoint.tags.join(" ")
-
-    ).toLowerCase();
-
-    let score = 0;
-
-    keywords.forEach(keyword => {
-
-        if (
-            text.includes(
-                keyword.toLowerCase()
-            )
-        ) {
-
-            score +=
-                keyword.length >= 5
-                    ? 3
-                    : 1;
-
-        }
-
-    });
-
-    if (
-        endpoint.method === "GET"
-    ) {
-
-        score += 2;
-
-    }
-
-    return score;
-
-}
-
-
-/*
- * Restituisce gli endpoint più promettenti
- * per una determinata categoria.
- */
-
-function findCandidateEndpoints(dataType) {
-
-    return state.endpoints
-        .filter(
-            endpoint =>
-                endpoint.method === "GET" &&
-                endpointMatchesDataType(
-                    endpoint,
-                    dataType
-                )
-        )
-        .sort(
-            (a, b) =>
-                scoreEndpointForDataType(
-                    b,
-                    dataType
-                ) -
-                scoreEndpointForDataType(
-                    a,
-                    dataType
-                )
-        )
-        .slice(0, 8);
-
-}
-
-
-/* =========================================================
-   COSTRUZIONE AUTOMATICA PARAMETRI
-   ========================================================= */
-
-function parameterName(parameter) {
-
-    if (!parameter) {
-        return "";
-    }
-
-    return String(
-        parameter.name || ""
-    ).toLowerCase();
-
-}
-
-
-function getParameterLocation(parameter) {
-
-    if (!parameter) {
-        return "";
-    }
-
-    return String(
-        parameter.in || ""
-    ).toLowerCase();
-
-}
-
-
-/*
- * Cerca un valore ragionevole per un parametro.
- *
- * IMPORTANTE:
- * non inventiamo un valore arbitrario quando non
- * abbiamo abbastanza informazioni.
- */
-
-function inferParameterValue(
-    parameter,
-    season
-) {
-
-    const name =
-        parameterName(parameter);
-
-    const competitionId =
-        getCompetitionId();
-
-    if (
-        [
-            "season",
-            "season_id",
-            "seasonid",
-            "year"
-        ].includes(name)
-    ) {
-
-        return season;
-
-    }
-
-    if (
-        [
-            "league",
-            "league_id",
-            "leagueid",
-            "competition",
-            "competition_id",
-            "competitionid",
-            "championship",
-            "championship_id"
-        ].includes(name)
-    ) {
-
-        if (competitionId) {
-            return competitionId;
-        }
-
-        return null;
-
-    }
-
-    if (
-        [
-            "page"
-        ].includes(name)
-    ) {
-
-        return "1";
-
-    }
-
-    if (
-        [
-            "limit",
-            "per_page",
-            "perpage",
-            "page_size"
-        ].includes(name)
-    ) {
-
-        return "20";
-
-    }
-
-    if (
-        [
-            "timezone"
-        ].includes(name)
-    ) {
-
-        return "Europe/Rome";
-
-    }
-
-    return null;
-
-}
-
-
-/*
- * Inserisce parametri di query documentati.
- */
-
-function buildDocumentedQuery(
-    endpoint,
-    season
-) {
-
-    const params = new URLSearchParams();
-
-    let unresolvedRequired = [];
-
-    const parameters =
-        Array.isArray(
-            endpoint.parameters
-        )
-            ? endpoint.parameters
-            : [];
-
-    parameters.forEach(parameter => {
-
-        const location =
-            getParameterLocation(parameter);
-
-        if (
-            location !== "query"
-        ) {
-
-            return;
-
-        }
-
-        const name =
-            parameter.name;
-
-        if (!name) {
-            return;
-        }
-
-        let value =
-            inferParameterValue(
-                parameter,
-                season
-            );
-
-        if (
-            value !== null &&
-            value !== undefined &&
-            value !== ""
-        ) {
-
-            params.set(
-                name,
-                String(value)
-            );
-
-        }
-        else if (
-            parameter.required
-        ) {
-
-            unresolvedRequired.push(
-                name
-            );
-
-        }
-
-    });
-
-    return {
-
-        query:
-            params.toString(),
-
-        unresolvedRequired
-
-    };
-
-}
-
-
-/*
- * Alcune API non hanno OpenAPI completo.
- * In quel caso proviamo a riconoscere i parametri
- * direttamente dal path.
- */
-
-function replacePathParameters(
-    path,
-    season
-) {
-
-    let result =
-        String(path || "");
-
-    const competitionId =
-        getCompetitionId();
-
-    const replacements = {
-
-        "{season}":
-            season,
-
-        "{year}":
-            season,
-
-        "{league}":
-            competitionId,
-
-        "{league_id}":
-            competitionId,
-
-        "{competition}":
-            competitionId,
-
-        "{competition_id}":
-            competitionId
-
-    };
-
-    Object.entries(
-        replacements
-    ).forEach(
-        ([placeholder, value]) => {
-
-            if (
-                value !== null &&
-                value !== undefined &&
-                value !== ""
-            ) {
-
-                result =
-                    result.replace(
-                        new RegExp(
-                            placeholder.replace(
-                                /[.*+?^${}()|[\]\\]/g,
-                                "\\$&"
-                            ),
-                            "g"
-                        ),
-                        String(value)
-                    );
-
-            }
-
-        }
-    );
-
-    return result;
-
-}
-
-
-/*
- * Aggiunge parametri comuni solo se l'endpoint
- * li dichiara nella documentazione.
- */
-
-function buildCollectionRequest(
-    endpoint,
-    season
-) {
-
-    let path =
-        replacePathParameters(
-            endpoint.path,
-            season
-        );
-
-    const queryInfo =
-        buildDocumentedQuery(
-            endpoint,
-            season
-        );
-
-    if (
-        queryInfo.unresolvedRequired.length
-    ) {
-
-        return {
-
-            usable: false,
-
-            reason:
-                "Parametri obbligatori non determinabili: " +
-                queryInfo.unresolvedRequired.join(", "),
-
-            path,
-
-            query:
-                queryInfo.query
-
-        };
-
-    }
-
-    return {
-
-        usable: true,
-
-        path,
-
-        query:
-            queryInfo.query,
-
-        reason: ""
-
-    };
-
-}
-
-
-/* =========================================================
-   ANALISI PROFONDA DEI DATI
-   ========================================================= */
-
-function collectFieldNames(
-    data,
-    maxDepth = 8
-) {
-
-    const fields =
-        new Set();
-
-    function walk(value, depth) {
-
-        if (
-            depth > maxDepth ||
-            value === null ||
-            value === undefined
-        ) {
-
-            return;
-
-        }
-
-        if (
-            Array.isArray(value)
-        ) {
-
-            value.forEach(
-                item =>
-                    walk(
-                        item,
-                        depth + 1
-                    )
-            );
-
-            return;
-
-        }
-
-        if (
-            typeof value === "object"
-        ) {
-
-            Object.entries(value)
-                .forEach(
-                    ([key, val]) => {
-
-                        fields.add(key);
-
-                        walk(
-                            val,
-                            depth + 1
-                        );
-
-                    }
-                );
-
-        }
-
-    }
-
-    walk(data, 0);
-
-    return Array.from(fields);
-
-}
-
-
-function fieldContains(
-    fields,
-    words
-) {
-
-    const lowerFields =
-        fields.map(
-            field =>
-                String(field)
-                    .toLowerCase()
-        );
-
-    return words.some(
-        word =>
-            lowerFields.some(
-                field =>
-                    field.includes(
-                        word.toLowerCase()
-                    )
-            )
-    );
-
-}
-
-
-/*
- * Determina quali informazioni concrete sono state
- * trovate nella risposta.
- */
-
-function identifyAvailableData(
-    data
-) {
-
-    const fields =
-        collectFieldNames(
-            data
-        );
-
-    const detected = [];
-
-    const tests = {
-
-        matches: [
-            "fixture",
-            "match",
-            "matches",
-            "game"
-        ],
-
-        results: [
-            "score",
-            "result",
-            "fulltime",
-            "halftime"
-        ],
-
-        goals: [
-            "goal",
-            "goals",
-            "score"
-        ],
-
-        halves: [
-            "halftime",
-            "half",
-            "firsthalf",
-            "secondhalf"
-        ],
-
-        match_stats: [
-            "statistics",
-            "stats",
-            "shots",
-            "possession",
-            "corner"
-        ],
-
-        team_stats: [
-            "team",
-            "teams",
-            "statistics",
-            "stats"
-        ],
-
-        form: [
-            "form",
-            "streak",
-            "recent"
-        ],
-
-        standings: [
-            "standing",
-            "standings",
-            "ranking",
-            "table"
-        ],
-
-        players: [
-            "player",
-            "players"
-        ],
-
-        player_stats: [
-            "player",
-            "statistics",
-            "stats",
-            "appearances"
-        ],
-
-        injuries: [
-            "injury",
-            "injuries",
-            "suspension"
-        ],
-
-        lineups: [
-            "lineup",
-            "lineups",
-            "formation"
-        ],
-
-        events: [
-            "event",
-            "events"
-        ],
-
-        h2h: [
-            "h2h",
-            "head-to-head"
-        ],
-
-        xg: [
-            "xg",
-            "expected"
-        ],
-
-        odds: [
-            "odds",
-            "bookmaker"
-        ],
-
-        predictions: [
-            "prediction",
-            "predictions"
-        ],
-
-        referees: [
-            "referee",
-            "official"
-        ],
-
-        transfers: [
-            "transfer",
-            "transfers"
-        ],
-
-        league_seasons: [
-            "league",
-            "competition",
-            "season"
-        ]
-
-    };
-
-    Object.entries(
-        tests
-    ).forEach(
-        ([type, words]) => {
-
-            if (
-                fieldContains(
-                    fields,
-                    words
-                )
-            ) {
-
-                detected.push(type);
-
-            }
-
-        }
-    );
-
-    return {
-
-        fields:
-            fields.slice(
-                0,
-                250
-            ),
-
-        detected
-
-    };
-
-}
-
-
-/* =========================================================
-   REGISTRAZIONE LOG RACCOLTA
-   ========================================================= */
-
-function addCollectionRequestLog(
-    item
-) {
-
-    state.collection.requestLog.unshift(
-        item
-    );
-
-    if (
-        state.collection.requestLog.length > 500
-    ) {
-
-        state.collection.requestLog =
-            state.collection.requestLog.slice(
-                0,
-                500
-            );
-
-    }
-
-    renderCollectionRequestLog();
-
-}
-
-
-function renderCollectionRequestLog() {
-
-    const area =
-        $("collectionRequestLog");
-
-    if (
-        !state.collection.requestLog.length
-    ) {
-
-        area.innerHTML =
-            '<div class="empty">Nessuna richiesta automatica effettuata.</div>';
-
-        return;
-
-    }
-
-    area.innerHTML = "";
-
-    state.collection.requestLog.forEach(
-        item => {
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className =
-                "request-log-item";
-
-            const badgeClass =
-                item.ok
-                    ? "good"
-                    : "bad";
-
-            div.innerHTML = `
-
-                <div>
-                    <span class="badge ${badgeClass}">
-                        HTTP ${escapeHTML(item.status)}
-                    </span>
-
-                    <strong>
-                        ${escapeHTML(item.dataLabel)}
-                    </strong>
-
-                    <span class="small-text">
-                        — stagione ${escapeHTML(item.season)}
-                    </span>
-                </div>
-
-                <div class="request-log-url">
-                    ${escapeHTML(item.url)}
-                </div>
-
-                <div class="small-text">
-                    ${escapeHTML(item.elapsed)} ms
-                    ${
-                        item.detected.length
-                        ? " • dati rilevati: " +
-                          escapeHTML(
-                              item.detected
-                                  .map(
-                                      type =>
-                                          DATA_TYPE_LABELS[type] ||
-                                          type
-                                  )
-                                  .join(", ")
-                          )
-                        : ""
-                    }
-                </div>
-
-            `;
-
-            area.appendChild(div);
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   RISULTATI RACCOLTA
-   ========================================================= */
-
-function renderCollectionResults() {
-
-    const area =
-        $("collectionResults");
-
-    if (
-        !state.collection.results.length
-    ) {
-
-        area.innerHTML =
-            '<div class="empty">Nessun risultato della raccolta.</div>';
-
-        return;
-
-    }
-
-    area.innerHTML = "";
-
-    state.collection.results.forEach(
-        item => {
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className =
-                "collection-result";
-
-            let badgeClass =
-                "neutral";
-
-            if (
-                item.status === "available"
-            ) {
-
-                badgeClass =
-                    "good";
-
-            }
-
-            else if (
-                item.status === "partial"
-            ) {
-
-                badgeClass =
-                    "warning";
-
-            }
-
-            else if (
-                item.status === "error"
-            ) {
-
-                badgeClass =
-                    "bad";
-
-            }
-
-            div.innerHTML = `
-
-                <div class="collection-result-top">
-
-                    <div class="collection-result-title">
-
-                        ${escapeHTML(item.dataLabel)}
-
-                        <span class="small-text">
-                            — ${escapeHTML(item.season)}
-                        </span>
-
-                    </div>
-
-                    <span class="badge ${badgeClass}">
-                        ${
-                            item.status === "available"
-                            ? "DISPONIBILE"
-                            : item.status === "partial"
-                            ? "PARZIALE"
-                            : item.status === "error"
-                            ? "ERRORE"
-                            : "NON VERIFICATO"
-                        }
-                    </span>
-
-                </div>
-
-                <div class="collection-result-details">
-
-                    Endpoint:
-                    <strong>
-                        ${escapeHTML(item.endpoint || "—")}
-                    </strong>
-
-                    <br>
-
-                    HTTP:
-                    <strong>
-                        ${escapeHTML(item.httpStatus ?? "—")}
-                    </strong>
-
-                    <br>
-
-                    Richiesta:
-                    <strong>
-                        ${item.requestMade ? "1" : "0"}
-                    </strong>
-
-                    <br>
-
-                    Motivo:
-                    ${escapeHTML(item.reason || "—")}
-
-                </div>
-
-                ${
-                    item.detected &&
-                    item.detected.length
-                    ? `
-                        <div class="data-evidence">
-                            <strong>Dati rilevati nella risposta:</strong><br>
-                            ${escapeHTML(
-                                item.detected
-                                    .map(
-                                        type =>
-                                            DATA_TYPE_LABELS[type] ||
-                                            type
-                                    )
-                                    .join(", ")
-                            )}
-                        </div>
-                      `
-                    : ""
-                }
-
-                ${
-                    item.fields &&
-                    item.fields.length
-                    ? `
-                        <div class="data-evidence">
-                            <strong>Campi rilevati:</strong><br>
-                            ${escapeHTML(
-                                item.fields
-                                    .slice(0, 50)
-                                    .join(", ")
-                            )}
-                        </div>
-                      `
-                    : ""
-                }
-
-            `;
-
-            area.appendChild(div);
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   SUMMARY RACCOLTA
-   ========================================================= */
-
-function renderCollectionSummary() {
-
-    const area =
-        $("collectionSummary");
-
-    const results =
-        state.collection.results;
-
-    const available =
-        results.filter(
-            item =>
-                item.status === "available"
-        ).length;
-
-    const partial =
-        results.filter(
-            item =>
-                item.status === "partial"
-        ).length;
-
-    const errors =
-        results.filter(
-            item =>
-                item.status === "error"
-        ).length;
-
-    const notVerified =
-        results.filter(
-            item =>
-                item.status === "not_verified"
-        ).length;
-
-    area.innerHTML = `
-
-        <div class="collection-summary">
-
-            <div class="collection-summary-box">
-                Richieste
-                <strong>
-                    ${state.collection.requestLog.length}
-                </strong>
-            </div>
-
-            <div class="collection-summary-box">
-                Disponibili
-                <strong>
-                    ${available}
-                </strong>
-            </div>
-
-            <div class="collection-summary-box">
-                Parziali
-                <strong>
-                    ${partial}
-                </strong>
-            </div>
-
-            <div class="collection-summary-box">
-                Errori
-                <strong>
-                    ${errors}
-                </strong>
-            </div>
-
-            <div class="collection-summary-box">
-                Non verificati
-                <strong>
-                    ${notVerified}
-                </strong>
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   PROGRESS
-   ========================================================= */
-
-function updateCollectionProgress(
-    current,
-    total,
-    text
-) {
-
-    const percentage =
-        total > 0
-            ? Math.round(
-                (
-                    current /
-                    total
-                ) * 100
-              )
-            : 0;
-
-    $("collectionProgress").style.width =
-        percentage + "%";
-
-    $("collectionProgressText").textContent =
-        text ||
-        `${current} / ${total}`;
-
-}
-
-
-/* =========================================================
-   TASK BUILDER
-   ========================================================= */
-
-function buildCollectionTasks() {
-
-    const seasons =
-        getSelectedSeasons();
-
-    const dataTypes =
-        getSelectedDataTypes();
-
-    const tasks = [];
-
-    dataTypes.forEach(
-        dataType => {
-
-            seasons.forEach(
-                season => {
-
-                    const candidates =
-                        findCandidateEndpoints(
-                            dataType
-                        );
-
-                    tasks.push({
-
-                        dataType,
-
-                        dataLabel:
-                            DATA_TYPE_LABELS[
-                                dataType
-                            ] ||
-                            dataType,
-
-                        season,
-
-                        candidates
-
-                    });
-
-                }
-            );
-
-        }
-    );
-
-    return tasks;
-
-}
-
-
-/* =========================================================
-   ESECUZIONE DI UNA RICHIESTA AUTOMATICA
-   ========================================================= */
-
-async function executeCollectionTask(
-    task
-) {
-
-    const candidates =
-        task.candidates || [];
-
-    if (!candidates.length) {
-
-        return {
-
-            dataType:
-                task.dataType,
-
-            dataLabel:
-                task.dataLabel,
-
-            season:
-                task.season,
-
-            status:
-                "not_verified",
-
-            requestMade:
-                false,
-
-            endpoint:
-                "",
-
-            httpStatus:
-                null,
-
-            reason:
-                "Nessun endpoint compatibile trovato nella documentazione.",
-
-            detected:
-                [],
-
-            fields:
-                []
-
-        };
-
-    }
-
-    /*
-     * Proviamo i candidati uno alla volta.
-     * Ci fermiamo appena otteniamo una risposta utile.
-     *
-     * Questo evita di sprecare richieste inutilmente.
-     */
-
-    for (
-        const endpoint of candidates
-    ) {
-
-        if (
-            state.collection.stopped
-        ) {
-
-            return {
-
-                dataType:
-                    task.dataType,
-
-                dataLabel:
-                    task.dataLabel,
-
-                season:
-                    task.season,
-
-                status:
-                    "not_verified",
-
-                requestMade:
-                    false,
-
-                endpoint:
-                    endpoint.path,
-
-                httpStatus:
-                    null,
-
-                reason:
-                    "Raccolta interrotta dall'utente.",
-
-                detected:
-                    [],
-
-                fields:
-                    []
-
-            };
-
-        }
-
-        const requestInfo =
-            buildCollectionRequest(
-                endpoint,
-                task.season
-            );
-
-        if (
-            !requestInfo.usable
-        ) {
-
-            continue;
-
-        }
-
-        let targetUrl;
-
-        try {
-
-            targetUrl =
-                buildTargetUrl(
-                    requestInfo.path,
-                    requestInfo.query
-                );
-
-        }
-
-        catch {
-
-            continue;
-
-        }
-
-        const started =
-            performance.now();
-
-        let result;
-
-        try {
-
-            result =
-                await proxyRequest(
-                    targetUrl,
-                    {
-                        method:
-                            "GET"
-                    }
-                );
-
-        }
-
-        catch (error) {
-
-            const elapsed =
-                Math.round(
-                    performance.now() -
-                    started
-                );
-
-            state.requestsSession++;
-
-            state.errorRequests++;
-
-            $("requestsSession").textContent =
-                state.requestsSession;
-
-            $("errorRequests").textContent =
-                state.errorRequests;
-
-            addCollectionRequestLog({
-
-                timestamp:
-                    new Date().toISOString(),
-
-                dataType:
-                    task.dataType,
-
-                dataLabel:
-                    task.dataLabel,
-
-                season:
-                    task.season,
-
-                endpoint:
-                    endpoint.path,
-
-                url:
-                    targetUrl,
-
-                status:
-                    "NETWORK ERROR",
-
-                ok:
-                    false,
-
-                elapsed,
-
-                detected:
-                    []
-
-            });
-
-            continue;
-
-        }
-
-        const elapsed =
-            Math.round(
-                performance.now() -
-                started
-            );
-
-        state.requestsSession++;
-
-        $("requestsSession").textContent =
-            state.requestsSession;
-
-        state.lastStatus =
-            result.response.status;
-
-        $("lastStatus").textContent =
-            result.response.status;
-
-        const data =
-            tryParseJSON(
-                result.text
-            );
-
-        const deep =
-            identifyAvailableData(
-                data
-            );
-
-        const relevant =
-            deep.detected.includes(
-                task.dataType
-            );
-
-        const status =
-            result.response.ok
-                ? (
-                    relevant
-                    ? "available"
-                    : deep.detected.length
-                    ? "partial"
-                    : "partial"
-                  )
-                : "error";
-
-        if (
-            result.response.ok
-        ) {
-
-            state.successRequests++;
-
-        }
-
-        else {
-
-            state.errorRequests++;
-
-        }
-
-        $("successRequests").textContent =
-            state.successRequests;
-
-        $("errorRequests").textContent =
-            state.errorRequests;
-
-        addCollectionRequestLog({
-
-            timestamp:
-                new Date().toISOString(),
-
-            dataType:
-                task.dataType,
-
-            dataLabel:
-                task.dataLabel,
-
-            season:
-                task.season,
-
-            endpoint:
-                endpoint.path,
-
-            url:
-                result.url,
-
-            status:
-                result.response.status,
-
-            ok:
-                result.response.ok,
-
-            elapsed,
-
-            detected:
-                deep.detected
-
-        });
-
-        /*
-         * Conserviamo la risposta ottenuta.
-         * Non la eliminiamo: servirà nel report finale.
-         */
-
-        const responseRecord = {
-
-            dataType:
-                task.dataType,
-
-            dataLabel:
-                task.dataLabel,
-
-            season:
-                task.season,
-
-            status,
-
-            requestMade:
-                true,
-
-            endpoint:
-                endpoint.path,
-
-            method:
-                endpoint.method,
-
-            url:
-                result.url,
-
-            httpStatus:
-                result.response.status,
-
-            elapsed,
-
-            reason:
-                result.response.ok
-                ? (
-                    relevant
-                    ? "Risposta positiva con dati compatibili rilevati."
-                    : "Risposta positiva, ma la categoria specifica non è stata confermata dai campi restituiti."
-                  )
-                : "L'endpoint ha restituito un errore HTTP.",
-
-            detected:
-                deep.detected,
-
-            fields:
-                deep.fields,
-
-            response:
-                data !== null
-                    ? data
-                    : result.text
-
-        };
-
-        /*
-         * Se la risposta è buona, non proviamo altri candidati.
-         */
-
-        if (
-            result.response.ok
-        ) {
-
-            return responseRecord;
-
-        }
-
-        /*
-         * Se l'endpoint restituisce errore,
-         * proviamo il candidato successivo.
-         */
-
-    }
-
-    return {
-
-        dataType:
-            task.dataType,
-
-        dataLabel:
-            task.dataLabel,
-
-        season:
-            task.season,
-
-        status:
-            "error",
-
-        requestMade:
-            true,
-
-        endpoint:
-            candidates[0]
-                ? candidates[0].path
-                : "",
-
-        httpStatus:
-            null,
-
-        reason:
-            "Nessuno degli endpoint candidati ha restituito una risposta utilizzabile.",
-
-        detected:
-            [],
-
-        fields:
-            []
-
-    };
-
-}
-
-
-/* =========================================================
-   AVVIO RACCOLTA
-   ========================================================= */
-
-async function startCollection() {
-
-    if (
-        state.collection.running
-    ) {
-
-        return;
-
-    }
-
-    updateSelectedSeasons();
-
-    updateSelectedDataTypes();
-
-    if (
-        !state.collection.selectedSeasons.length
-    ) {
-
-        showStatus(
-            $("collectionStatus"),
-            "Seleziona almeno una stagione.",
-            "error"
-        );
-
-        return;
-
-    }
-
-    if (
-        !state.collection.selectedDataTypes.length
-    ) {
-
-        showStatus(
-            $("collectionStatus"),
-            "Seleziona almeno un tipo di dato.",
-            "error"
-        );
-
-        return;
-
-    }
-
-    if (
-        !state.endpoints.length
-    ) {
-
-        showStatus(
-            $("collectionStatus"),
-            "Prima devi cercare la documentazione OpenAPI/Swagger.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-    state.collection.running =
-        true;
-
-    state.collection.stopped =
-        false;
-
-    state.collection.results =
-        [];
-
-    state.collection.requestLog =
-        [];
-
-    state.collection.currentIndex =
-        0;
-
-    state.collection.successfulTasks =
-        0;
-
-    state.collection.failedTasks =
-        0;
-
-    state.collection.partialTasks =
-        0;
-
-    $("collectionResults").innerHTML =
-        '<div class="empty">Raccolta in corso...</div>';
-
-    $("collectionRequestLog").innerHTML =
-        '<div class="empty">Raccolta in corso...</div>';
-
-    const tasks =
-        buildCollectionTasks();
-
-    state.collection.totalTasks =
-        tasks.length;
-
-    updateCollectionProgress(
-        0,
-        tasks.length,
-        `0 / ${tasks.length} interrogazioni`
-    );
-
-    showStatus(
-        $("collectionStatus"),
-        `<span class="loading"></span> Raccolta avviata: <strong>${tasks.length}</strong> combinazioni dati/stagione da verificare.`,
-        "info"
-    );
-
-    try {
-
-        for (
-            let index = 0;
-            index < tasks.length;
-            index++
-        ) {
-
-            if (
-                state.collection.stopped
-            ) {
-
-                break;
-
-            }
-
-            const task =
-                tasks[index];
-
-            const result =
-                await executeCollectionTask(
-                    task
-                );
-
-            state.collection.results.push(
-                result
-            );
-
-            if (
-                result.status === "available"
-            ) {
-
-                state.collection.successfulTasks++;
-
-            }
-
-            else if (
-                result.status === "partial"
-            ) {
-
-                state.collection.partialTasks++;
-
-            }
-
-            else if (
-                result.status === "error"
-            ) {
-
-                state.collection.failedTasks++;
-
-            }
-
-            state.collection.currentIndex =
-                index + 1;
-
-            updateCollectionProgress(
-                index + 1,
-                tasks.length,
-                `${index + 1} / ${tasks.length} interrogazioni completate`
-            );
-
-            renderCollectionResults();
-
-            renderCollectionSummary();
-
-        }
-
-    }
-
-    finally {
-
-        state.collection.running =
-            false;
-
-    }
-
-    if (
-        state.collection.stopped
-    ) {
-
-        showStatus(
-            $("collectionStatus"),
-            `Raccolta fermata. Completate <strong>${state.collection.currentIndex}</strong> di <strong>${tasks.length}</strong> interrogazioni.`,
-            "warning"
-        );
-
-    }
-
-    else {
-
-        showStatus(
-            $("collectionStatus"),
-            `Raccolta completata. Verificate <strong>${tasks.length}</strong> combinazioni.`,
-            "success"
-        );
-
-    }
-
-    renderCollectionResults();
-
-    renderCollectionSummary();
-
-}
-
-
-/* =========================================================
-   FERMA RACCOLTA
-   ========================================================= */
-
-$("stopCollectionBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            if (
-                state.collection.running
-            ) {
-
-                state.collection.stopped =
-                    true;
-
-                showStatus(
-                    $("collectionStatus"),
-                    "Arresto della raccolta richiesto. Verrà fermata dopo la richiesta attualmente in corso.",
-                    "warning"
-                );
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-   CANCELLA RISULTATI RACCOLTA
-   ========================================================= */
-
-$("clearCollectionBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            if (
-                state.collection.running
-            ) {
-
-                return;
-
-            }
-
-            state.collection.results =
-                [];
-
-            state.collection.requestLog =
-                [];
-
-            state.collection.currentIndex =
-                0;
-
-            state.collection.totalTasks =
-                0;
-
-            $("collectionProgress").style.width =
-                "0%";
-
-            $("collectionProgressText").textContent =
-                "Nessuna raccolta avviata.";
-
-            $("collectionResults").innerHTML =
-                '<div class="empty">Nessun risultato della raccolta.</div>';
-
-            $("collectionRequestLog").innerHTML =
-                '<div class="empty">Nessuna richiesta automatica effettuata.</div>';
-
-            $("collectionSummary").innerHTML =
-                "";
-
-            hideStatus(
-                $("collectionStatus")
-            );
-
-        }
-    );
-
-
-$("startCollectionBtn")
-    .addEventListener(
-        "click",
-        startCollection
-    );
-
-
-/* =========================================================
-   REPORT
-   ========================================================= */
-
 function buildReport() {
 
     return {
@@ -5485,7 +2637,7 @@ function buildReport() {
                 "Football API Tester",
 
             version:
-                "3.1",
+                "3.0",
 
             generatedAt:
                 new Date().toISOString()
@@ -5512,30 +2664,6 @@ function buildReport() {
 
         },
 
-        collectionRequest: {
-
-            competition:
-                getCompetitionName(),
-
-            competitionId:
-                getCompetitionId(),
-
-            selectedSeasons:
-                getSelectedSeasons(),
-
-            selectedDataTypes:
-                getSelectedDataTypes(),
-
-            selectedDataLabels:
-                getSelectedDataTypes()
-                    .map(
-                        type =>
-                            DATA_TYPE_LABELS[type] ||
-                            type
-                    )
-
-        },
-
         statistics: {
 
             requestsSession:
@@ -5551,13 +2679,7 @@ function buildReport() {
                 state.endpointCount,
 
             matchCount:
-                state.matchCount,
-
-            collectionRequests:
-                state.collection.requestLog.length,
-
-            collectionResults:
-                state.collection.results.length
+                state.matchCount
 
         },
 
@@ -5575,28 +2697,6 @@ function buildReport() {
 
         endpoints:
             state.endpoints,
-
-        collection: {
-
-            running:
-                state.collection.running,
-
-            stopped:
-                state.collection.stopped,
-
-            selectedSeasons:
-                state.collection.selectedSeasons,
-
-            selectedDataTypes:
-                state.collection.selectedDataTypes,
-
-            results:
-                state.collection.results,
-
-            requestLog:
-                state.collection.requestLog
-
-        },
 
         history:
             state.history,
@@ -5617,7 +2717,6 @@ function buildReport() {
 
 }
 
-
 function generateReport() {
 
     const report =
@@ -5636,7 +2735,6 @@ function generateReport() {
     return json;
 
 }
-
 
 async function copyReport() {
 
@@ -5664,7 +2762,6 @@ async function copyReport() {
     }
 
 }
-
 
 function downloadReport() {
 
@@ -5707,20 +2804,13 @@ function downloadReport() {
 
 }
 
-
-/* =========================================================
-   COPIA RISPOSTA
-   ========================================================= */
-
 async function copyResponse() {
 
     const text =
         $("responseOutput").textContent;
 
-    if (
-        !text ||
-        text === "Nessuna risposta."
-    ) {
+    if (!text ||
+        text === "Nessuna risposta.") {
 
         alert(
             "Non c'è nessuna risposta da copiare."
@@ -5752,17 +2842,11 @@ async function copyResponse() {
 
 }
 
-
-/* =========================================================
-   EVENTI ORIGINALI
-   ========================================================= */
-
 $("testConnectionBtn")
     .addEventListener(
         "click",
         testConnection
     );
-
 
 $("sendRequestBtn")
     .addEventListener(
@@ -5770,13 +2854,11 @@ $("sendRequestBtn")
         sendRequest
     );
 
-
 $("sendRequestBtn2")
     .addEventListener(
         "click",
         sendRequest
     );
-
 
 $("discoverDocsBtn")
     .addEventListener(
@@ -5784,13 +2866,11 @@ $("discoverDocsBtn")
         discoverDocumentation
     );
 
-
 $("saveConfigBtn")
     .addEventListener(
         "click",
         saveConfig
     );
-
 
 $("clearConfigBtn")
     .addEventListener(
@@ -5798,13 +2878,11 @@ $("clearConfigBtn")
         clearConfig
     );
 
-
 $("copyResponseBtn")
     .addEventListener(
         "click",
         copyResponse
     );
-
 
 $("generateReportBtn")
     .addEventListener(
@@ -5812,20 +2890,17 @@ $("generateReportBtn")
         generateReport
     );
 
-
 $("copyReportBtn")
     .addEventListener(
         "click",
         copyReport
     );
 
-
 $("downloadReportBtn")
     .addEventListener(
         "click",
         downloadReport
     );
-
 
 $("clearHistoryBtn")
     .addEventListener(
@@ -5838,7 +2913,6 @@ $("clearHistoryBtn")
 
         }
     );
-
 
 $("clearEndpointsBtn")
     .addEventListener(
@@ -5862,7 +2936,6 @@ $("clearEndpointsBtn")
 
         }
     );
-
 
 $("clearRequestBtn")
     .addEventListener(
@@ -5893,7 +2966,6 @@ $("clearRequestBtn")
         }
     );
 
-
 document.addEventListener(
     "keydown",
     event => {
@@ -5912,23 +2984,11 @@ document.addEventListener(
     }
 );
 
-
-/* =========================================================
-   AVVIO
-   ========================================================= */
-
 loadConfig();
 
 renderHistory();
-
-updateSelectedSeasons();
-
-updateSelectedDataTypes();
-
-renderCollectionSummary();
 
 </script>
 
 </body>
 </html>
-```
