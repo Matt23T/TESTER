@@ -3,207 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#111111">
 <title>Football API Tester V3</title>
 
 <style>
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-html {
-    scroll-behavior: smooth;
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f5f7;
+    color: #111;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: #f4f6f8;
-    color: #17202a;
-    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 40px;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
 }
 
 .container {
-    width: min(1400px, calc(100% - 30px));
+    width: min(1200px, calc(100% - 30px));
     margin: 0 auto;
-    padding: 25px 0 60px;
 }
 
 header {
-    margin-bottom: 25px;
+    background: #111;
+    color: white;
+    padding: 25px 0;
+    margin-bottom: 20px;
 }
 
-.header-top {
+.header-inner {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 15px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
 }
 
-h1 {
+.title-area h1 {
     margin: 0;
-    font-size: 30px;
+    font-size: 28px;
 }
 
-.subtitle {
-    margin-top: 7px;
-    color: #667085;
-    font-size: 15px;
+.title-area p {
+    margin: 7px 0 0;
+    color: #bdbdbd;
+    font-size: 14px;
 }
 
 .version {
-    display: inline-block;
-    padding: 7px 12px;
-    border-radius: 999px;
-    background: #17202a;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
+    background: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    white-space: nowrap;
 }
 
 .dashboard {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .stat-card {
     background: white;
-    border: 1px solid #e4e7ec;
     border-radius: 14px;
-    padding: 16px;
-    min-height: 95px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 
 .stat-label {
-    color: #667085;
+    color: #777;
     font-size: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .stat-value {
-    font-size: 25px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .card {
     background: white;
-    border: 1px solid #e4e7ec;
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 18px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
 }
 
 .card h2 {
-    margin: 0 0 6px;
+    margin: 0 0 16px;
     font-size: 20px;
 }
 
-.card-description {
-    margin: 0 0 18px;
-    color: #667085;
-    font-size: 14px;
-    line-height: 1.5;
+.card h3 {
+    margin: 20px 0 10px;
+    font-size: 16px;
 }
 
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 14px;
 }
 
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    gap: 14px;
 }
 
 .field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
+    margin-bottom: 13px;
 }
 
 .field label {
+    display: block;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: bold;
+    margin-bottom: 6px;
 }
 
 input,
 select,
 textarea {
     width: 100%;
-    border: 1px solid #d0d5dd;
+    border: 1px solid #d6d6d6;
     border-radius: 10px;
-    padding: 11px 12px;
+    padding: 12px;
     background: white;
-    color: #17202a;
-    font: inherit;
+    color: #111;
     outline: none;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: #667085;
+    border-color: #111;
 }
 
 textarea {
-    min-height: 130px;
+    min-height: 120px;
     resize: vertical;
-    font-family: Consolas, Monaco, monospace;
+    font-family: Consolas, monospace;
     font-size: 13px;
 }
 
-button {
-    border: 0;
+.endpoint-row {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 10px;
+    align-items: end;
+}
+
+.btn {
+    border: none;
     border-radius: 10px;
-    padding: 11px 15px;
-    background: #17202a;
+    padding: 12px 17px;
+    font-weight: bold;
+    background: #111;
     color: white;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.12s ease, opacity 0.12s ease;
+    transition: transform .1s ease, opacity .1s ease;
 }
 
-button:hover {
-    opacity: 0.9;
+.btn:active {
+    transform: scale(.98);
 }
 
-button:active {
-    transform: scale(0.98);
+.btn.secondary {
+    background: #e9eaec;
+    color: #111;
 }
 
-button.secondary {
-    background: #e9edf2;
-    color: #17202a;
+.btn.success {
+    background: #147a3e;
 }
 
-button.danger {
-    background: #b42318;
+.btn.warning {
+    background: #a56800;
 }
 
-button.success {
-    background: #087443;
+.btn.danger {
+    background: #a61b1b;
+}
+
+.btn.small {
+    padding: 9px 12px;
+    font-size: 13px;
 }
 
 .button-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 9px;
+    margin-top: 10px;
 }
 
 .status {
-    padding: 11px 13px;
     border-radius: 10px;
-    margin-top: 14px;
+    padding: 12px;
+    margin-top: 12px;
     font-size: 13px;
-    display: none;
     line-height: 1.45;
+    display: none;
 }
 
 .status.show {
@@ -211,513 +230,247 @@ button.success {
 }
 
 .status.info {
-    background: #eef4ff;
-    color: #175cd3;
+    background: #eef3ff;
+    color: #17418c;
 }
 
 .status.success {
-    background: #ecfdf3;
-    color: #067647;
+    background: #eaf8ef;
+    color: #176637;
 }
 
 .status.error {
-    background: #fef3f2;
-    color: #b42318;
+    background: #fff0f0;
+    color: #9b1c1c;
 }
 
 .status.warning {
-    background: #fffaeb;
-    color: #b54708;
+    background: #fff8e7;
+    color: #805600;
 }
 
-.proxy-box {
-    margin-top: 15px;
-    padding: 13px;
+.endpoint-list {
+    display: grid;
+    gap: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.endpoint-item {
+    border: 1px solid #e0e0e0;
     border-radius: 10px;
-    background: #f8fafc;
-    border: 1px solid #e4e7ec;
-    font-size: 12px;
-}
-
-.proxy-url {
-    margin-top: 6px;
-    word-break: break-all;
-    font-family: Consolas, Monaco, monospace;
-    color: #475467;
-}
-
-/* =========================================================
-   TEST ANALYSIS
-   ========================================================= */
-
-.analysis-test-card {
-    overflow: hidden;
-}
-
-.test-selection-toolbar {
+    padding: 11px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
-}
-
-.selected-test-summary {
-    padding: 10px 13px;
-    border-radius: 10px;
-    background: #f2f4f7;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.carousel-navigation {
-    display: flex;
-    gap: 8px;
-}
-
-.carousel-navigation button {
-    min-width: 42px;
-    padding: 9px 12px;
-}
-
-.test-carousel {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 5px 3px 15px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    -webkit-overflow-scrolling: touch;
-}
-
-.test-carousel::-webkit-scrollbar {
-    height: 8px;
-}
-
-.test-carousel::-webkit-scrollbar-thumb {
-    background: #cfd4dc;
-    border-radius: 20px;
-}
-
-.test-group-card {
-    flex: 0 0 min(390px, 86vw);
-    scroll-snap-align: start;
-    border: 1px solid #dfe3e8;
-    border-radius: 15px;
-    background: #ffffff;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    min-height: 430px;
-}
-
-.test-group-header {
-    padding: 15px;
-    border-bottom: 1px solid #e4e7ec;
-    background: #f8fafc;
-}
-
-.test-group-priority {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 999px;
-    background: #17202a;
-    color: white;
-    font-size: 10px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-}
-
-.test-group-title {
-    font-size: 16px;
-    font-weight: 800;
-    margin-bottom: 7px;
-}
-
-.test-group-count {
-    color: #667085;
-    font-size: 12px;
-}
-
-.test-group-actions {
-    display: flex;
-    gap: 7px;
-    margin-top: 11px;
-}
-
-.test-group-actions button {
-    padding: 8px 10px;
-    font-size: 11px;
-}
-
-.test-question-list {
-    padding: 8px;
-    overflow-y: auto;
-    max-height: 390px;
-}
-
-.test-question {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-    padding: 9px 8px;
-    border-radius: 9px;
-    cursor: pointer;
-    font-size: 12px;
-    line-height: 1.35;
-}
-
-.test-question:hover {
-    background: #f8fafc;
-}
-
-.test-question input {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    margin: 1px 0 0;
-    padding: 0;
-    cursor: pointer;
-}
-
-.test-question-text {
-    flex: 1;
-}
-
-.test-question-id {
-    display: block;
-    color: #98a2b3;
-    font-family: Consolas, Monaco, monospace;
-    font-size: 9px;
-    margin-top: 2px;
-}
-
-.analysis-test-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #eaecf0;
-}
-
-.analysis-test-note {
-    margin-top: 12px;
-    padding: 11px 13px;
-    border-radius: 10px;
-    background: #fffaeb;
-    color: #7a2e0b;
-    font-size: 12px;
-    line-height: 1.45;
-}
-
-.test-analysis-results {
-    margin-top: 18px;
-}
-
-.test-results-summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-.test-result-summary-card {
-    padding: 12px;
-    border-radius: 10px;
-    background: #f8fafc;
-    border: 1px solid #e4e7ec;
-}
-
-.test-result-summary-card strong {
-    display: block;
-    font-size: 20px;
-    margin-bottom: 3px;
-}
-
-.test-result-summary-card span {
-    color: #667085;
-    font-size: 11px;
-}
-
-.test-result-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.test-result {
-    border: 1px solid #e4e7ec;
-    border-radius: 11px;
-    padding: 12px;
-    background: white;
-}
-
-.test-result-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.test-result-name {
-    font-weight: 700;
-    font-size: 13px;
-}
-
-.test-result-id {
-    color: #98a2b3;
-    font-family: Consolas, Monaco, monospace;
-    font-size: 10px;
-    margin-top: 3px;
-}
-
-.test-result-badge {
-    flex-shrink: 0;
-    padding: 5px 8px;
-    border-radius: 999px;
-    font-size: 10px;
-    font-weight: 800;
-}
-
-.test-result-badge.verified {
-    background: #ecfdf3;
-    color: #067647;
-}
-
-.test-result-badge.documentation {
-    background: #eef4ff;
-    color: #175cd3;
-}
-
-.test-result-badge.not-found {
-    background: #fef3f2;
-    color: #b42318;
-}
-
-.test-result-badge.pending {
-    background: #fffaeb;
-    color: #b54708;
-}
-
-.test-result-details {
-    margin-top: 8px;
-    color: #667085;
-    font-size: 11px;
-    line-height: 1.5;
-}
-
-.docs-results {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.endpoint-item {
-    border: 1px solid #e4e7ec;
-    border-radius: 11px;
-    padding: 12px;
     background: #fafafa;
 }
 
-.endpoint-top {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+.endpoint-main {
+    min-width: 0;
 }
 
-.method-badge {
-    padding: 4px 7px;
+.endpoint-method {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 6px;
     border-radius: 6px;
-    background: #17202a;
-    color: white;
-    font-size: 10px;
-    font-weight: 800;
+    background: #ddd;
+    margin-right: 7px;
 }
 
 .endpoint-path {
-    font-family: Consolas, Monaco, monospace;
-    font-size: 12px;
+    font-family: Consolas, monospace;
+    font-size: 13px;
     word-break: break-all;
 }
 
 .endpoint-description {
-    margin-top: 7px;
-    color: #667085;
+    color: #777;
     font-size: 12px;
+    margin-top: 4px;
 }
 
 .category-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    gap: 8px;
 }
 
-.category-btn {
-    border: 1px solid #d0d5dd;
-    background: white;
-    color: #344054;
-    padding: 10px;
-    border-radius: 10px;
+.category {
+    border: 1px solid #ddd;
+    background: #fafafa;
+    border-radius: 9px;
+    padding: 10px 8px;
     font-size: 12px;
+    text-align: center;
+    cursor: pointer;
 }
 
-.category-btn.active {
-    background: #17202a;
+.category.active {
+    background: #111;
     color: white;
-    border-color: #17202a;
+    border-color: #111;
 }
 
-.filtered-endpoints {
-    margin-top: 15px;
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
-.analysis-box {
-    padding: 15px;
-    border-radius: 11px;
-    background: #f8fafc;
-    border: 1px solid #e4e7ec;
-    line-height: 1.55;
-    font-size: 13px;
-}
-
-.analysis-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-.analysis-item {
-    padding: 12px;
-    background: white;
-    border: 1px solid #e4e7ec;
-    border-radius: 10px;
-}
-
-.analysis-item strong {
-    display: block;
-    font-size: 20px;
-    margin-bottom: 4px;
-}
-
-.analysis-item span {
-    color: #667085;
+.badge {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 5px 8px;
     font-size: 11px;
+    font-weight: bold;
+    background: #eee;
 }
 
-.headers-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
+.badge.good {
+    background: #dff4e6;
+    color: #146b35;
 }
 
-.headers-table th,
-.headers-table td {
-    border-bottom: 1px solid #eaecf0;
-    padding: 9px;
-    text-align: left;
-    vertical-align: top;
+.badge.bad {
+    background: #ffe1e1;
+    color: #a21c1c;
 }
 
-.headers-table th {
-    background: #f8fafc;
+.badge.neutral {
+    background: #eee;
+    color: #555;
 }
 
 pre {
     margin: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
+    background: #111;
+    color: #f1f1f1;
+    border-radius: 12px;
+    padding: 15px;
+    overflow: auto;
+    max-height: 600px;
     font-family: Consolas, Monaco, monospace;
     font-size: 12px;
     line-height: 1.5;
 }
 
-.response-wrapper {
-    position: relative;
+.header-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
 }
 
-.copy-button {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 2;
+.header-table th,
+.header-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: top;
+    word-break: break-word;
 }
 
-.response-pre {
-    background: #0b1220;
-    color: #d1e9ff;
-    border-radius: 12px;
-    padding: 18px;
-    padding-top: 55px;
-    max-height: 600px;
-    overflow: auto;
+.header-table th {
+    width: 35%;
 }
 
-.history-list {
-    display: flex;
-    flex-direction: column;
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
-.history-item {
-    border: 1px solid #e4e7ec;
+.analysis-box {
+    border: 1px solid #e2e2e2;
     border-radius: 11px;
     padding: 12px;
 }
 
-.history-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.history-method {
-    font-weight: 800;
-    font-size: 11px;
-}
-
-.history-url {
-    font-family: Consolas, Monaco, monospace;
-    font-size: 11px;
-    word-break: break-all;
-    color: #475467;
+.analysis-box strong {
+    display: block;
+    font-size: 18px;
     margin-top: 5px;
 }
 
-.history-status {
-    font-size: 11px;
-    font-weight: 800;
+.history-item {
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #fafafa;
 }
 
-.history-time {
-    color: #98a2b3;
-    font-size: 10px;
-    margin-top: 4px;
+.history-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.history-path {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    word-break: break-all;
 }
 
 .empty {
-    padding: 20px;
+    color: #777;
+    padding: 15px;
     text-align: center;
-    color: #98a2b3;
-    font-size: 13px;
+}
+
+.small-text {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.proxy-box {
+    background: #f1f5ff;
+    border: 1px solid #d8e2ff;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.proxy-url {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    word-break: break-all;
+    margin-top: 5px;
 }
 
 .loading {
-    opacity: 0.65;
-    pointer-events: none;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #ccc;
+    border-top-color: #111;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
-@media (max-width: 1100px) {
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 950px) {
     .dashboard {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .analysis-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .category-grid {
@@ -725,65 +478,61 @@ pre {
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
+    .container {
+        width: min(100% - 20px, 600px);
+    }
+
+    header {
+        padding: 18px 0;
+    }
+
+    .header-inner {
+        align-items: flex-start;
+    }
+
+    .title-area h1 {
+        font-size: 22px;
+    }
+
+    .version {
+        font-size: 11px;
+    }
+
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .grid-2,
-    .grid-3,
-    .analysis-grid {
+    .grid-3 {
         grid-template-columns: 1fr;
     }
 
-    .dashboard {
-        grid-template-columns: repeat(2, 1fr);
+    .endpoint-row {
+        grid-template-columns: 75px 1fr;
+    }
+
+    .endpoint-row button {
+        grid-column: 1 / -1;
+        width: 100%;
     }
 
     .category-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .container {
-        width: min(100% - 18px, 1400px);
-        padding-top: 15px;
     }
 
     .card {
         padding: 15px;
-    }
-}
-
-@media (max-width: 520px) {
-    h1 {
-        font-size: 24px;
+        border-radius: 13px;
     }
 
-    .dashboard {
+    .analysis-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
     }
 
-    .stat-card {
-        min-height: 85px;
-        padding: 12px;
-    }
-
-    .stat-value {
-        font-size: 21px;
-    }
-
-    .category-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .button-row button,
-    .analysis-test-actions button {
-        width: 100%;
-    }
-
-    .test-group-card {
-        flex-basis: 88vw;
-    }
-
-    .test-results-summary {
-        grid-template-columns: 1fr 1fr;
+    .button-row .btn {
+        flex: 1;
+        min-width: 130px;
     }
 }
 </style>
@@ -791,1240 +540,1176 @@ pre {
 
 <body>
 
-<div class="container">
-
 <header>
-    <div class="header-top">
-        <div>
+    <div class="container header-inner">
+        <div class="title-area">
             <h1>⚽ Football API Tester</h1>
-            <div class="subtitle">Analizzatore API calcistiche — V3</div>
+            <p>Analizzatore API calcistiche — V3</p>
         </div>
         <div class="version">V3.0</div>
     </div>
 </header>
 
-<!-- DASHBOARD -->
+<main class="container">
 
-<div class="dashboard">
+    <section class="dashboard">
 
-    <div class="stat-card">
-        <div class="stat-label">Richieste sessione</div>
-        <div class="stat-value" id="requestsSession">0</div>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-label">Risposte OK</div>
-        <div class="stat-value" id="successRequests">0</div>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-label">Errori</div>
-        <div class="stat-value" id="errorRequests">0</div>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-label">Endpoint trovati</div>
-        <div class="stat-value" id="endpointCount">0</div>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-label">Match trovati</div>
-        <div class="stat-value" id="matchCount">0</div>
-    </div>
-
-    <div class="stat-card">
-        <div class="stat-label">Ultimo status</div>
-        <div class="stat-value" id="lastStatus">—</div>
-    </div>
-
-</div>
-
-<!-- CONFIGURAZIONE -->
-
-<section class="card">
-
-    <h2>1. Configurazione API</h2>
-
-    <p class="card-description">
-        Inserisci i dati dell'API che vuoi testare. La chiave viene utilizzata solo per le richieste della sessione.
-    </p>
-
-    <div class="grid-2">
-
-        <div class="field">
-            <label for="apiName">Nome API</label>
-            <input id="apiName" type="text" placeholder="Es. API-Football">
+        <div class="stat-card">
+            <div class="stat-label">Richieste sessione</div>
+            <div class="stat-value" id="requestsSession">0</div>
         </div>
 
-        <div class="field">
-            <label for="baseUrl">Base URL</label>
-            <input id="baseUrl" type="text" placeholder="https://v3.football.api-sports.io">
+        <div class="stat-card">
+            <div class="stat-label">Risposte OK</div>
+            <div class="stat-value" id="successRequests">0</div>
         </div>
 
-    </div>
-
-    <div class="grid-2" style="margin-top:15px;">
-
-        <div class="field">
-            <label for="apiKey">API Key</label>
-            <input id="apiKey" type="password" placeholder="Inserisci la tua API Key">
+        <div class="stat-card">
+            <div class="stat-label">Errori</div>
+            <div class="stat-value" id="errorRequests">0</div>
         </div>
 
-        <div class="field">
-            <label for="authType">Tipo autenticazione</label>
+        <div class="stat-card">
+            <div class="stat-label">Endpoint trovati</div>
+            <div class="stat-value" id="endpointCount">0</div>
+        </div>
 
-            <select id="authType">
+        <div class="stat-card">
+            <div class="stat-label">Match trovati</div>
+            <div class="stat-value" id="matchCount">0</div>
+        </div>
 
-                <option value="x-apisports-key">x-apisports-key</option>
-                <option value="x-api-key">x-api-key</option>
-                <option value="authorization-bearer">Authorization: Bearer</option>
-                <option value="authorization">Authorization</option>
-                <option value="query-key">Query parameter: key</option>
-                <option value="query-api-key">Query parameter: api_key</option>
-                <option value="none">Nessuna</option>
+        <div class="stat-card">
+            <div class="stat-label">Ultimo status</div>
+            <div class="stat-value" id="lastStatus">—</div>
+        </div>
 
-            </select>
+    </section>
+
+    <section class="card">
+
+        <h2>1. Configurazione API</h2>
+
+        <div class="proxy-box">
+            <strong>Proxy Cloudflare attivo</strong>
+            <div class="proxy-url" id="proxyDisplay"></div>
+            <div class="small-text">
+                Le richieste del browser passano attraverso questo proxy per evitare i problemi CORS.
+                Il proxy non aumenta il numero di richieste consentite dall'API.
+            </div>
+        </div>
+
+        <div class="grid-2">
+
+            <div class="field">
+                <label for="apiName">Nome API</label>
+                <input id="apiName" type="text" placeholder="Es. API-Football">
+            </div>
+
+            <div class="field">
+                <label for="baseUrl">Base URL API</label>
+                <input id="baseUrl" type="text" placeholder="https://v3.football.api-sports.io">
+            </div>
 
         </div>
 
-    </div>
+        <div class="grid-2">
 
-    <div class="button-row">
+            <div class="field">
+                <label for="apiKey">API Key</label>
+                <input id="apiKey" type="password" placeholder="Inserisci la tua API key">
+            </div>
 
-        <button id="testConnectionBtn" class="success">
-            🔌 Test connessione
-        </button>
+            <div class="field">
+                <label for="authType">Tipo autenticazione</label>
 
-        <button id="saveConfigBtn" class="secondary">
-            💾 Salva configurazione
-        </button>
+                <select id="authType">
+                    <option value="x-apisports-key">
+                        Header: x-apisports-key
+                    </option>
 
-        <button id="clearConfigBtn" class="danger">
-            🗑️ Pulisci
-        </button>
+                    <option value="x-api-key">
+                        Header: x-api-key
+                    </option>
 
-    </div>
+                    <option value="authorization-bearer">
+                        Authorization: Bearer
+                    </option>
 
-    <div id="connectionStatus" class="status"></div>
+                    <option value="authorization">
+                        Authorization
+                    </option>
 
-    <div class="proxy-box">
+                    <option value="query-key">
+                        Query parameter: key
+                    </option>
 
-        <strong>Proxy utilizzato</strong>
+                    <option value="query-api-key">
+                        Query parameter: api_key
+                    </option>
 
-        <div class="proxy-url">
-            https://little-resonance-5ec5.my5vp6787f.workers.dev/
+                    <option value="none">
+                        Nessuna autenticazione
+                    </option>
+                </select>
+            </div>
+
         </div>
 
-    </div>
+        <div class="button-row">
 
-</section>
-
-<!-- =====================================================
-     TEST ANALYSIS
-     ===================================================== -->
-
-<section class="card analysis-test-card">
-
-    <h2>Test Analysis</h2>
-
-    <p class="card-description">
-        Seleziona le informazioni che vuoi verificare. Le categorie sono organizzate per priorità e possono essere scorse orizzontalmente.
-        Puoi selezionare singole domande oppure un'intera categoria.
-    </p>
-
-    <div class="test-selection-toolbar">
-
-        <div class="selected-test-summary" id="selectedTestsSummary">
-            0 domande selezionate
-        </div>
-
-        <div class="carousel-navigation">
-
-            <button id="testCarouselPrev" class="secondary" type="button">
-                ←
+            <button class="btn success" id="testConnectionBtn">
+                Test connessione
             </button>
 
-            <button id="testCarouselNext" class="secondary" type="button">
-                →
+            <button class="btn secondary" id="saveConfigBtn">
+                Salva configurazione
+            </button>
+
+            <button class="btn secondary" id="clearConfigBtn">
+                Pulisci
             </button>
 
         </div>
 
-    </div>
+        <div id="connectionStatus" class="status"></div>
 
-    <div id="testGroupsCarousel" class="test-carousel"></div>
+    </section>
 
-    <div class="analysis-test-actions">
+    <section class="card">
 
-        <button id="selectPriorityTestsBtn" class="secondary" type="button">
-            🔴 Seleziona priorità assoluta
-        </button>
+        <h2>2. Ricerca automatica documentazione</h2>
 
-        <button id="selectAllTestsBtn" class="secondary" type="button">
-            ☑️ Seleziona tutto
-        </button>
+        <p class="small-text">
+            Il tester prova automaticamente i percorsi più comuni di OpenAPI/Swagger.
+            Se trova la documentazione, cerca gli endpoint disponibili.
+        </p>
 
-        <button id="clearAllTestsBtn" class="secondary" type="button">
-            ⬜ Deseleziona tutto
-        </button>
+        <div class="button-row">
 
-        <button id="runTestAnalysisBtn" class="success" type="button">
-            🔬 Avvia Test Analysis
-        </button>
+            <button class="btn" id="discoverDocsBtn">
+                🔎 Cerca OpenAPI / Swagger
+            </button>
 
-    </div>
-
-    <div class="analysis-test-note">
-        ℹ️ Il Test Analysis non effettua automaticamente nuove richieste API.
-        Utilizza gli endpoint già scoperti e l'ultima risposta disponibile, evitando di consumare richieste inutilmente.
-    </div>
-
-    <div id="testAnalysisStatus" class="status"></div>
-
-    <div id="testAnalysisResults" class="test-analysis-results"></div>
-
-</section>
-
-<!-- DOCUMENTAZIONE -->
-
-<section class="card">
-
-    <h2>2. Ricerca automatica documentazione</h2>
-
-    <p class="card-description">
-        Prova automaticamente i principali percorsi OpenAPI/Swagger per individuare gli endpoint disponibili.
-    </p>
-
-    <div class="button-row">
-
-        <button id="discoverDocsBtn">
-            🔎 Cerca documentazione
-        </button>
-
-        <button id="clearEndpointsBtn" class="secondary">
-            🗑️ Cancella endpoint
-        </button>
-
-    </div>
-
-    <div id="docsStatus" class="status"></div>
-
-    <div id="docsResults" class="docs-results"></div>
-
-</section>
-
-<!-- TEST ENDPOINT -->
-
-<section class="card">
-
-    <h2>3. Test endpoint</h2>
-
-    <p class="card-description">
-        Inserisci manualmente un endpoint e prova una richiesta GET o POST.
-    </p>
-
-    <div class="grid-2">
-
-        <div class="field">
-
-            <label for="requestMethod">Metodo</label>
-
-            <select id="requestMethod">
-
-                <option value="GET">GET</option>
-                <option value="POST">POST</option>
-
-            </select>
+            <button class="btn secondary" id="clearEndpointsBtn">
+                Cancella endpoint
+            </button>
 
         </div>
 
-        <div class="field">
+        <div id="docsStatus" class="status"></div>
 
-            <label for="endpointInput">Endpoint</label>
+        <div id="docsResults"></div>
 
-            <input
-                id="endpointInput"
-                type="text"
-                placeholder="/fixtures"
-            >
+    </section>
+
+    <section class="card">
+
+        <h2>3. Test endpoint</h2>
+
+        <div class="endpoint-row">
+
+            <div class="field" style="margin:0;">
+                <label for="method">Metodo</label>
+
+                <select id="method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                </select>
+            </div>
+
+            <div class="field" style="margin:0;">
+                <label for="endpoint">Endpoint</label>
+                <input id="endpoint" type="text" placeholder="/fixtures?league=135&season=2025">
+            </div>
+
+            <button class="btn" id="sendRequestBtn">
+                Invia richiesta
+            </button>
 
         </div>
 
-    </div>
+        <h3>Parametri GET</h3>
 
-    <div class="field" style="margin-top:15px;">
+        <textarea id="queryParams" placeholder="league=135
+season=2025
+next=10"></textarea>
 
-        <label for="getParams">
-            Parametri GET
-        </label>
+        <h3>Header aggiuntivi</h3>
 
-        <textarea
-            id="getParams"
-            placeholder='league=135
-season=2025'
-        ></textarea>
+        <textarea id="customHeaders" placeholder="accept: application/json"></textarea>
 
-    </div>
+        <h3>Body POST</h3>
 
-    <div class="field" style="margin-top:15px;">
+        <textarea id="requestBody" placeholder='{"example":"value"}'></textarea>
 
-        <label for="customHeaders">
-            Header personalizzati
-        </label>
+        <div class="button-row">
 
-        <textarea
-            id="customHeaders"
-            placeholder='Content-Type: application/json'
-        ></textarea>
+            <button class="btn" id="sendRequestBtn2">
+                🚀 Esegui endpoint
+            </button>
 
-    </div>
+            <button class="btn secondary" id="clearRequestBtn">
+                Pulisci richiesta
+            </button>
 
-    <div class="field" style="margin-top:15px;">
-
-        <label for="postBody">
-            Body POST
-        </label>
-
-        <textarea
-            id="postBody"
-            placeholder='{"example":"value"}'
-        ></textarea>
-
-    </div>
-
-    <div class="button-row">
-
-        <button id="sendRequestBtn">
-            🚀 Invia richiesta
-        </button>
-
-    </div>
-
-    <div id="requestStatus" class="status"></div>
-
-</section>
-
-<!-- CATEGORIE ENDPOINT -->
-
-<section class="card">
-
-    <h2>4. Categorie endpoint</h2>
-
-    <p class="card-description">
-        Filtra gli endpoint scoperti per categoria.
-    </p>
-
-    <div id="categoryGrid" class="category-grid"></div>
-
-    <div id="filteredEndpoints" class="filtered-endpoints"></div>
-
-</section>
-
-<!-- ANALISI RISPOSTA -->
-
-<section class="card">
-
-    <h2>5. Analisi automatica della risposta</h2>
-
-    <div id="analysisArea">
-
-        <div class="empty">
-            Nessuna risposta disponibile.
         </div>
 
-    </div>
+        <div id="requestStatus" class="status"></div>
 
-</section>
+    </section>
 
-<!-- HEADERS -->
+    <section class="card">
 
-<section class="card">
+        <h2>4. Categorie calcistiche</h2>
 
-    <h2>6. Response headers</h2>
+        <p class="small-text">
+            Se la documentazione contiene molti endpoint, puoi filtrare quelli più interessanti
+            per il nostro progetto.
+        </p>
 
-    <div id="headersArea">
+        <div class="category-grid" id="categoryGrid"></div>
 
-        <div class="empty">
-            Nessun header disponibile.
+        <div style="margin-top:15px;" id="filteredEndpoints"></div>
+
+    </section>
+
+    <section class="card">
+
+        <h2>5. Analisi automatica della risposta</h2>
+
+        <div id="analysisArea">
+
+            <div class="empty">
+                Nessuna risposta analizzata.
+            </div>
+
         </div>
 
-    </div>
+    </section>
 
-</section>
+    <section class="card">
 
-<!-- RISPOSTA -->
+        <h2>6. Headers risposta</h2>
 
-<section class="card">
-
-    <h2>7. Risposta API</h2>
-
-    <div class="response-wrapper">
-
-        <button id="copyResponseBtn" class="copy-button secondary">
-            📋 Copia
-        </button>
-
-        <pre id="responseOutput" class="response-pre">Nessuna risposta.</pre>
-
-    </div>
-
-</section>
-
-<!-- STORICO -->
-
-<section class="card">
-
-    <h2>8. Storico sessione</h2>
-
-    <div class="button-row">
-
-        <button id="clearHistoryBtn" class="danger">
-            🗑️ Cancella storico
-        </button>
-
-    </div>
-
-    <div id="historyArea" style="margin-top:15px;">
-
-        <div class="empty">
-            Nessuna richiesta effettuata.
+        <div id="headersArea">
+            <div class="empty">
+                Nessun header disponibile.
+            </div>
         </div>
 
-    </div>
+    </section>
 
-</section>
+    <section class="card">
 
-<!-- REPORT -->
+        <div class="result-header">
 
-<section class="card">
+            <h2 style="margin:0;">7. Risposta API</h2>
 
-    <h2>9. Report</h2>
+            <div>
+                <button class="btn small secondary" id="copyResponseBtn">
+                    Copia JSON
+                </button>
+            </div>
 
-    <p class="card-description">
-        Genera un report completo della sessione di test.
-    </p>
+        </div>
 
-    <div class="button-row">
+        <pre id="responseOutput">Nessuna risposta.</pre>
 
-        <button id="generateReportBtn">
-            📊 Genera report
-        </button>
+    </section>
 
-        <button id="copyReportBtn" class="secondary">
-            📋 Copia report
-        </button>
+    <section class="card">
 
-        <button id="downloadReportBtn" class="secondary">
-            💾 Scarica JSON
-        </button>
+        <div class="result-header">
 
-    </div>
+            <h2 style="margin:0;">8. Storico sessione</h2>
 
-    <div style="margin-top:15px;">
+            <button class="btn small danger" id="clearHistoryBtn">
+                Cancella storico
+            </button>
 
-        <pre id="reportOutput" class="response-pre">Nessun report generato.</pre>
+        </div>
 
-    </div>
+        <div id="historyArea">
+            <div class="empty">
+                Nessun test effettuato.
+            </div>
+        </div>
 
-</section>
+    </section>
 
-</div>
+    <section class="card">
+
+        <h2>9. Report API</h2>
+
+        <p class="small-text">
+            Genera un report JSON con configurazione, richieste, endpoint scoperti,
+            risultati e informazioni utili per confrontare questa API con le altre.
+        </p>
+
+        <div class="button-row">
+
+            <button class="btn" id="generateReportBtn">
+                Genera report
+            </button>
+
+            <button class="btn secondary" id="copyReportBtn">
+                Copia report
+            </button>
+
+            <button class="btn success" id="downloadReportBtn">
+                Scarica JSON
+            </button>
+
+        </div>
+
+        <div style="margin-top:15px;">
+            <pre id="reportOutput">Nessun report generato.</pre>
+        </div>
+
+    </section>
+
+</main>
 
 <script>
 
-/* =========================================================
-   CONFIGURAZIONE
-   ========================================================= */
+const PROXY_URL =
+    "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
 
-const PROXY_URL = "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
-
-
-/* =========================================================
-   CATEGORIE ENDPOINT ORIGINALI
-   ========================================================= */
-
-const FOOTBALL_CATEGORIES = [
-    "Partite",
-    "Gol",
-    "Statistiche",
-    "Eventi",
-    "Squadre",
-    "Giocatori",
-    "Campionati",
-    "Stagioni",
-    "Classifiche",
-    "Infortuni",
-    "Quote",
-    "Predizioni",
-    "H2H",
-    "Formazioni",
-    "Trasferimenti"
+const DISCOVERY_PATHS = [
+    "/openapi.json",
+    "/swagger.json",
+    "/swagger/v1/swagger.json",
+    "/v3/api-docs",
+    "/api-docs",
+    "/api/openapi.json",
+    "/api/swagger.json",
+    "/docs/openapi.json",
+    "/docs/swagger.json"
 ];
 
-
 /* =========================================================
-   NUOVO SISTEMA TEST ANALYSIS
-   CATEGORIE E DOMANDE
+   CATEGORIE CALCISTICHE
    ========================================================= */
 
-const TEST_GROUPS = [
+const FOOTBALL_CATEGORIES = {
 
-    {
-        id: "priority",
-        title: "🔴 PRIORITÀ ASSOLUTA",
-        tests: [
+    /* 🔴 PRIORITÀ ASSOLUTA */
 
-            ["future_matches", "Partite nei prossimi 7 giorni"],
-            ["future_date", "Data esatta delle partite future"],
-            ["future_time", "Ora esatta delle partite future"],
-            ["future_home", "Squadra di casa"],
-            ["future_away", "Squadra ospite"],
-            ["future_league", "Competizione della partita"],
-            ["future_season", "Stagione della partita"],
-            ["future_fixture_id", "ID univoco della partita"],
-            ["future_timezone", "Fuso orario / data-ora interpretabile"],
+    "🔴 Partite future": [
+        "fixture",
+        "fixtures",
+        "match",
+        "matches",
+        "upcoming",
+        "next"
+    ],
 
-            ["current_fixtures", "Partite stagione attuale"],
-            ["current_results", "Risultati stagione attuale"],
-            ["current_goals_for", "Gol segnati stagione attuale"],
-            ["current_goals_against", "Gol subiti stagione attuale"],
-            ["current_home_away", "Dati casa / trasferta"],
-            ["current_wdl", "Vittorie / pareggi / sconfitte"],
-            ["current_standings", "Classifica stagione attuale"],
-            ["current_points", "Punti in classifica"],
-            ["current_goal_difference", "Differenza reti"],
+    "🔴 Date e orari": [
+        "date",
+        "datetime",
+        "date-time",
+        "timestamp",
+        "timezone",
+        "time",
+        "schedule"
+    ],
 
-            ["historical_season", "Stagioni precedenti"],
-            ["historical_results", "Risultati storici"],
-            ["historical_goals", "Gol storici"],
-            ["historical_home_away", "Dati storici casa / trasferta"],
-            ["historical_standings", "Classifiche storiche"],
+    "🔴 Campionato / stagione": [
+        "league",
+        "leagues",
+        "competition",
+        "competitions",
+        "season",
+        "seasons"
+    ],
 
-            ["first_half_goals", "Gol nel primo tempo"],
-            ["second_half_goals", "Gol nel secondo tempo"],
-            ["goal_minutes", "Minuto dei gol"],
-            ["over05_first_half", "Over 0.5 primo tempo"],
-            ["over05_second_half", "Over 0.5 secondo tempo"],
-            ["final_result", "Risultato finale"]
+    "🔴 ID partita": [
+        "fixture_id",
+        "fixtureid",
+        "match_id",
+        "matchid",
+        "game_id",
+        "gameid",
+        "fixture"
+    ],
 
-        ]
-    },
+    "🔴 Risultati": [
+        "result",
+        "results",
+        "score",
+        "scores",
+        "final",
+        "fulltime"
+    ],
 
-    {
-        id: "team",
-        title: "🟠 DATI SQUADRE E FORMA",
-        tests: [
+    "🔴 Gol fatti / subiti": [
+        "goals",
+        "goal",
+        "goalsfor",
+        "goals-against",
+        "goals_against",
+        "goalsfor",
+        "scored",
+        "conceded"
+    ],
 
-            ["team_info", "Informazioni squadra"],
-            ["team_logo", "Logo squadra"],
-            ["team_squad", "Rosa squadra"],
-            ["team_players", "Giocatori della squadra"],
-            ["team_form5", "Forma ultime 5 partite"],
-            ["team_form10", "Forma ultime 10 partite"],
-            ["team_goals_last5", "Gol segnati ultime 5"],
-            ["team_conceded_last5", "Gol subiti ultime 5"],
-            ["team_home_form", "Forma in casa"],
-            ["team_away_form", "Forma in trasferta"],
-            ["team_top_scorers", "Migliori marcatori"],
-            ["team_top_assists", "Migliori assistman"],
-            ["team_cards", "Dati cartellini squadra"],
-            ["team_clean_sheets", "Clean sheet"],
-            ["team_failed_to_score", "Partite senza segnare"]
+    "🔴 Casa / trasferta": [
+        "home",
+        "away",
+        "home-team",
+        "away-team",
+        "hometeam",
+        "awayteam"
+    ],
 
-        ]
-    },
+    "🔴 Classifica e punti": [
+        "standings",
+        "standing",
+        "table",
+        "tables",
+        "ranking",
+        "rankings",
+        "points",
+        "position"
+    ],
 
-    {
-        id: "match_stats",
-        title: "🟡 STATISTICHE DELLE PARTITE",
-        tests: [
+    "🔴 Gol 1° / 2° tempo": [
+        "halftime",
+        "half-time",
+        "first-half",
+        "firsthalf",
+        "second-half",
+        "secondhalf",
+        "2nd-half",
+        "ht",
+        "ft"
+    ],
 
-            ["possession", "Possesso palla"],
-            ["shots_total", "Tiri totali"],
-            ["shots_on", "Tiri in porta"],
-            ["shots_off", "Tiri fuori"],
-            ["corners", "Calci d'angolo"],
-            ["fouls", "Falli"],
-            ["yellow_cards", "Cartellini gialli"],
-            ["red_cards", "Cartellini rossi"],
-            ["offsides", "Fuorigioco"],
-            ["passes", "Passaggi"],
-            ["pass_accuracy", "Precisione passaggi"],
-            ["saves", "Parate"],
-            ["attacks", "Attacchi"],
-            ["dangerous_attacks", "Attacchi pericolosi"]
+    "🔴 Minuti dei gol": [
+        "minute",
+        "minutes",
+        "goal-minute",
+        "goal_minute",
+        "elapsed",
+        "time",
+        "elapsed-time"
+    ],
 
-        ]
-    },
+    "🔴 Over 0.5 1° tempo": [
+        "over",
+        "over0.5",
+        "over-0.5",
+        "over_0_5",
+        "0.5",
+        "halftime",
+        "first-half",
+        "firsthalf"
+    ],
 
-    {
-        id: "players",
-        title: "🔵 GIOCATORI",
-        tests: [
+    "🔴 Over 0.5 2° tempo": [
+        "over",
+        "over0.5",
+        "over-0.5",
+        "over_0_5",
+        "0.5",
+        "second-half",
+        "secondhalf",
+        "2nd-half"
+    ],
 
-            ["player_stats", "Statistiche individuali giocatori"],
-            ["player_appearances", "Presenze giocatori"],
-            ["player_minutes", "Minuti giocati"],
-            ["player_goals", "Gol giocatori"],
-            ["player_assists", "Assist giocatori"],
-            ["player_ratings", "Voto/rating giocatori"],
-            ["player_shots", "Tiri giocatori"],
-            ["player_cards", "Cartellini giocatori"],
-            ["player_age", "Età giocatori"],
-            ["player_position", "Ruolo giocatori"]
+    /* 🟠 DATI SQUADRE E FORMA */
 
-        ]
-    },
+    "🟠 Forma ultime 5 / 10": [
+        "form",
+        "forms",
+        "last5",
+        "last-5",
+        "last_5",
+        "last10",
+        "last-10",
+        "last_10",
+        "recent"
+    ],
 
-    {
-        id: "availability",
-        title: "🟣 DISPONIBILITÀ E ASSENZE",
-        tests: [
+    "🟠 Gol squadra": [
+        "goals",
+        "goal",
+        "scored",
+        "conceded",
+        "goalsfor",
+        "goalsagainst",
+        "goals-against",
+        "goals_against"
+    ],
 
-            ["injuries", "Infortuni"],
-            ["suspensions", "Squalifiche"],
-            ["sidelined", "Giocatori indisponibili"],
-            ["transfers", "Trasferimenti"],
-            ["probable_lineups", "Probabili formazioni"],
-            ["official_lineups", "Formazioni ufficiali"],
-            ["bench", "Panchina"],
-            ["absences", "Assenze"]
+    "🟠 Casa / trasferta squadra": [
+        "home",
+        "away",
+        "hometeam",
+        "awayteam",
+        "home-team",
+        "away-team",
+        "home-form",
+        "away-form"
+    ],
 
-        ]
-    },
+    "🟠 Marcatori": [
+        "topscorers",
+        "top-scorers",
+        "top_scorers",
+        "scorers",
+        "goalscorers",
+        "goal-scorers",
+        "goalscorer"
+    ],
 
-    {
-        id: "h2h",
-        title: "🟤 SCONTRI DIRETTI",
-        tests: [
+    "🟠 Assist": [
+        "assist",
+        "assists",
+        "assists-per-game"
+    ],
 
-            ["h2h", "Scontri diretti"],
-            ["h2h_last5", "Ultimi 5 scontri diretti"],
-            ["h2h_last10", "Ultimi 10 scontri diretti"],
-            ["h2h_goals", "Gol negli scontri diretti"],
-            ["h2h_home_away", "H2H casa / trasferta"]
+    "🟠 Clean sheet": [
+        "clean-sheet",
+        "clean_sheet",
+        "cleansheet",
+        "clean",
+        "clean-sheets"
+    ],
 
-        ]
-    },
+    "🟠 Failed to score": [
+        "failed-to-score",
+        "failed_to_score",
+        "failedtoscore",
+        "fts",
+        "fail-to-score"
+    ],
 
-    {
-        id: "advanced",
-        title: "⚪ DATI AVANZATI",
-        tests: [
+    /* 🟡 STATISTICHE PARTITE */
 
-            ["odds", "Quote pre-partita"],
-            ["predictions", "Predizioni API"],
-            ["prediction_probability", "Probabilità 1X2"],
-            ["prediction_score", "Risultato previsto"],
-            ["standings_rank", "Posizione in classifica"],
-            ["full_calendar", "Calendario completo"],
-            ["league_coverage", "Copertura della competizione"],
-            ["available_seasons", "Stagioni disponibili"],
-            ["events", "Eventi partita"],
-            ["lineups", "Formazioni"],
-            ["fixture_players", "Statistiche giocatori per partita"]
+    "🟡 Possesso": [
+        "possession",
+        "ball-possession",
+        "ball_possession"
+    ],
 
-        ]
-    }
+    "🟡 Tiri": [
+        "shots",
+        "shot",
+        "total-shots",
+        "total_shots"
+    ],
 
-];
+    "🟡 Tiri in porta": [
+        "shots-on-target",
+        "shots_on_target",
+        "shotsontarget",
+        "on-target",
+        "ontarget"
+    ],
 
+    "🟡 Corner": [
+        "corner",
+        "corners",
+        "corner-kicks",
+        "corner_kicks"
+    ],
 
-/* =========================================================
-   ALIAS PER ANALISI TEST
-   ========================================================= */
+    "🟡 Falli": [
+        "foul",
+        "fouls",
+        "fouls-committed",
+        "fouls_committed"
+    ],
 
-const TEST_HINT_ALIASES = {
+    "🟡 Cartellini": [
+        "card",
+        "cards",
+        "yellow",
+        "yellow-card",
+        "yellow_cards",
+        "red",
+        "red-card",
+        "red_cards"
+    ],
 
-    future_matches: ["fixture", "fixtures", "match", "matches"],
-    future_date: ["date"],
-    future_time: ["time"],
-    future_home: ["home"],
-    future_away: ["away"],
-    future_league: ["league", "competition"],
-    future_season: ["season"],
-    future_fixture_id: ["fixture", "id"],
-    future_timezone: ["timezone", "date", "time"],
+    "🟡 Fuorigioco": [
+        "offside",
+        "offsides",
+        "off-side"
+    ],
 
-    current_fixtures: ["fixture", "fixtures", "match", "matches"],
-    current_results: ["result", "results", "goals"],
-    current_goals_for: ["goals", "for"],
-    current_goals_against: ["goals", "against"],
-    current_home_away: ["home", "away"],
-    current_wdl: ["wins", "win", "draws", "draw", "losses", "loss"],
-    current_standings: ["standings", "table"],
-    current_points: ["points"],
-    current_goal_difference: ["goaldifference", "goal_difference", "difference"],
+    "🟡 Passaggi": [
+        "pass",
+        "passes",
+        "passing",
+        "passes-accurate",
+        "passes_accurate",
+        "accurate-passes"
+    ],
 
-    historical_season: ["season", "seasons"],
-    historical_results: ["results", "result"],
-    historical_goals: ["goals"],
-    historical_home_away: ["home", "away"],
-    historical_standings: ["standings", "table"],
+    "🟡 Parate": [
+        "save",
+        "saves",
+        "goalkeeper-saves",
+        "goalkeeper_saves"
+    ],
 
-    first_half_goals: ["halftime", "half", "goals"],
-    second_half_goals: ["halftime", "half", "goals"],
-    goal_minutes: ["minute", "minutes", "time"],
-    over05_first_half: ["halftime", "goals", "over"],
-    over05_second_half: ["halftime", "goals", "over"],
-    final_result: ["final", "result", "score", "goals"],
+    "🟡 Attacchi": [
+        "attack",
+        "attacks",
+        "attacking",
+        "dangerous-attacks",
+        "dangerous_attacks"
+    ],
 
-    team_info: ["team", "teams"],
-    team_logo: ["logo"],
-    team_squad: ["squad"],
-    team_players: ["player", "players"],
-    team_form5: ["form", "last"],
-    team_form10: ["form", "last"],
-    team_goals_last5: ["goals", "last"],
-    team_conceded_last5: ["conceded", "goals", "last"],
-    team_home_form: ["home", "form"],
-    team_away_form: ["away", "form"],
-    team_top_scorers: ["scorer", "scorers", "topscorer"],
-    team_top_assists: ["assist", "assists"],
-    team_cards: ["cards", "card"],
-    team_clean_sheets: ["clean", "sheet"],
-    team_failed_to_score: ["failed", "score"],
+    "🟡 Rigori": [
+        "penalty",
+        "penalties",
+        "penalty-kicks",
+        "penalty_kicks"
+    ],
 
-    possession: ["possession"],
-    shots_total: ["shots"],
-    shots_on: ["shots", "ontarget", "on"],
-    shots_off: ["shots", "offtarget", "off"],
-    corners: ["corner", "corners"],
-    fouls: ["foul", "fouls"],
-    yellow_cards: ["yellow", "card"],
-    red_cards: ["red", "card"],
-    offsides: ["offside"],
-    passes: ["pass", "passes"],
-    pass_accuracy: ["pass", "accuracy"],
-    saves: ["save", "saves"],
-    attacks: ["attack", "attacks"],
-    dangerous_attacks: ["dangerous", "attack"],
+    "🟡 Punizioni": [
+        "free-kick",
+        "free-kicks",
+        "free_kick",
+        "free_kicks"
+    ],
 
-    player_stats: ["player", "players", "statistics", "stats"],
-    player_appearances: ["appearances", "appearences", "player"],
-    player_minutes: ["minutes", "player"],
-    player_goals: ["goals", "player"],
-    player_assists: ["assists", "player"],
-    player_ratings: ["rating", "ratings", "player"],
-    player_shots: ["shots", "player"],
-    player_cards: ["cards", "player"],
-    player_age: ["age", "player"],
-    player_position: ["position", "player"],
+    "🟡 Duelli": [
+        "duel",
+        "duels",
+        "duels-won",
+        "duels_won"
+    ],
 
-    injuries: ["injury", "injuries"],
-    suspensions: ["suspension", "suspensions"],
-    sidelined: ["sidelined"],
-    transfers: ["transfer", "transfers"],
-    probable_lineups: ["lineup", "lineups", "probable"],
-    official_lineups: ["lineup", "lineups", "official"],
-    bench: ["bench"],
-    absences: ["absence", "absences"],
+    "🟡 Cross": [
+        "cross",
+        "crosses",
+        "crossing"
+    ],
 
-    h2h: ["h2h", "headtohead"],
-    h2h_last5: ["h2h", "last"],
-    h2h_last10: ["h2h", "last"],
-    h2h_goals: ["h2h", "goals"],
-    h2h_home_away: ["h2h", "home", "away"],
+    "🟡 Passaggi chiave": [
+        "key-pass",
+        "key-passes",
+        "key_pass",
+        "key_passes"
+    ],
 
-    odds: ["odds", "bookmaker"],
-    predictions: ["prediction", "predictions"],
-    prediction_probability: ["prediction", "probability"],
-    prediction_score: ["prediction", "score"],
-    standings_rank: ["standings", "rank"],
-    full_calendar: ["calendar", "fixtures"],
-    league_coverage: ["coverage", "league"],
-    available_seasons: ["season", "seasons"],
-    events: ["event", "events"],
-    lineups: ["lineup", "lineups"],
-    fixture_players: ["fixture", "player", "players"]
+    "🟡 Possesso palla": [
+        "possession",
+        "ball-possession",
+        "ball_possession"
+    ],
+
+    /* 🔵 GIOCATORI */
+
+    "🔵 Presenze": [
+        "appearances",
+        "appearance",
+        "apps",
+        "matches-played",
+        "matches_played"
+    ],
+
+    "🔵 Minuti giocati": [
+        "minutes",
+        "minute",
+        "minutes-played",
+        "minutes_played",
+        "playing-time"
+    ],
+
+    "🔵 Gol giocatori": [
+        "goals",
+        "goal",
+        "scoring",
+        "scorer"
+    ],
+
+    "🔵 Assist giocatori": [
+        "assist",
+        "assists"
+    ],
+
+    "🔵 Rating": [
+        "rating",
+        "ratings",
+        "player-rating",
+        "player_rating"
+    ],
+
+    "🔵 Tiri giocatori": [
+        "shots",
+        "shots-on-target",
+        "shots_on_target",
+        "shot"
+    ],
+
+    "🔵 Cartellini giocatori": [
+        "cards",
+        "yellow",
+        "yellow-card",
+        "yellow_cards",
+        "red",
+        "red-card",
+        "red_cards"
+    ],
+
+    "🔵 Età": [
+        "age",
+        "ages",
+        "birth",
+        "date-of-birth",
+        "date_of_birth"
+    ],
+
+    "🔵 Ruolo": [
+        "position",
+        "positions",
+        "role",
+        "roles",
+        "player-position",
+        "player_position"
+    ],
+
+    "🔵 Nazionalità": [
+        "nationality",
+        "nationalities",
+        "country"
+    ],
+
+    "🔵 Altezza / peso": [
+        "height",
+        "weight"
+    ],
+
+    /* 🟣 DISPONIBILITÀ E ASSENZE */
+
+    "🟣 Infortuni": [
+        "injury",
+        "injuries",
+        "injur",
+        "injured"
+    ],
+
+    "🟣 Squalifiche": [
+        "suspension",
+        "suspensions",
+        "suspended",
+        "ban",
+        "bans"
+    ],
+
+    "🟣 Indisponibili": [
+        "unavailable",
+        "unavailable-players",
+        "unavailable_players",
+        "absence",
+        "absences"
+    ],
+
+    "🟣 Trasferimenti": [
+        "transfer",
+        "transfers",
+        "transfer-history",
+        "transfer_history"
+    ],
+
+    "🟣 Probabili / ufficiali formazioni": [
+        "lineup",
+        "lineups",
+        "formation",
+        "formations",
+        "starting-xi",
+        "starting_xi",
+        "probable-lineup",
+        "probable_lineup"
+    ],
+
+    "🟣 Panchina": [
+        "substitute",
+        "substitutes",
+        "bench",
+        "bench-players",
+        "bench_players"
+    ],
+
+    "🟣 Assenze": [
+        "absence",
+        "absences",
+        "missing",
+        "missing-players",
+        "missing_players",
+        "unavailable"
+    ],
+
+    /* 🟤 SCONTRI DIRETTI */
+
+    "🟤 H2H": [
+        "h2h",
+        "head-to-head",
+        "head_to_head",
+        "head2head"
+    ],
+
+    "🟤 Ultimi 5 / 10 H2H": [
+        "h2h",
+        "head-to-head",
+        "head_to_head",
+        "last5",
+        "last-5",
+        "last_5",
+        "last10",
+        "last-10",
+        "last_10"
+    ],
+
+    "🟤 Gol H2H": [
+        "h2h",
+        "head-to-head",
+        "head_to_head",
+        "goals",
+        "score",
+        "scores"
+    ],
+
+    "🟤 Casa / trasferta H2H": [
+        "h2h",
+        "head-to-head",
+        "head_to_head",
+        "home",
+        "away"
+    ],
+
+    /* ⚪ DATI AVANZATI */
+
+    "⚪ Quote": [
+        "odds",
+        "odd",
+        "bookmaker",
+        "bookmakers",
+        "betting",
+        "bets",
+        "markets",
+        "market"
+    ],
+
+    "⚪ Predizioni": [
+        "predict",
+        "prediction",
+        "predictions",
+        "forecast",
+        "forecasts"
+    ],
+
+    "⚪ Probabilità": [
+        "probability",
+        "probabilities",
+        "probable",
+        "probability-percent",
+        "percentage",
+        "percent"
+    ],
+
+    "⚪ Risultato previsto": [
+        "prediction",
+        "predictions",
+        "forecast",
+        "predicted-score",
+        "predicted_score",
+        "expected-score",
+        "expected_score"
+    ],
+
+    "⚪ Classifica": [
+        "standings",
+        "standing",
+        "table",
+        "tables",
+        "ranking",
+        "rankings"
+    ],
+
+    "⚪ Calendario": [
+        "calendar",
+        "schedule",
+        "fixture",
+        "fixtures"
+    ],
+
+    "⚪ Copertura": [
+        "coverage",
+        "covered",
+        "coverage-data",
+        "coverage_data"
+    ],
+
+    "⚪ Stagioni": [
+        "season",
+        "seasons"
+    ],
+
+    "⚪ Eventi": [
+        "event",
+        "events",
+        "match-events",
+        "match_events"
+    ],
+
+    "⚪ Formazioni": [
+        "lineup",
+        "lineups",
+        "formation",
+        "formations",
+        "starting-xi",
+        "starting_xi"
+    ],
+
+    "⚪ Statistiche giocatori per partita": [
+        "player-statistics",
+        "player_statistics",
+        "player-stats",
+        "player_stats",
+        "statistics",
+        "stats",
+        "players"
+    ]
 
 };
-
-
-/* =========================================================
-   STATO
-   ========================================================= */
 
 const state = {
 
     requestsSession: 0,
+
     successRequests: 0,
+
     errorRequests: 0,
+
     endpointCount: 0,
+
     matchCount: 0,
+
     lastStatus: null,
 
     endpoints: [],
+
     history: [],
+
     documentationFound: [],
 
     lastResponse: null,
-    lastResponseHeaders: {},
-    lastRequest: null,
-    lastAnalysis: null,
 
-    selectedTests: [],
-    testAnalysisResults: []
+    lastResponseHeaders: {},
+
+    lastRequest: null,
+
+    lastAnalysis: null
 
 };
 
+const $ = id => document.getElementById(id);
 
-/* =========================================================
-   DOM
-   ========================================================= */
-
-const $ = (id) => document.getElementById(id);
-
-
-/* =========================================================
-   RENDER CATEGORIE ENDPOINT
-   ========================================================= */
+$("proxyDisplay").textContent = PROXY_URL;
 
 function renderCategories() {
 
-    const container = $("categoryGrid");
+    const grid = $("categoryGrid");
 
-    container.innerHTML = "";
+    grid.innerHTML = "";
 
-    FOOTBALL_CATEGORIES.forEach(category => {
+    Object.keys(FOOTBALL_CATEGORIES).forEach(category => {
 
-        const button = document.createElement("button");
+        const div = document.createElement("div");
 
-        button.className = "category-btn";
+        div.className = "category";
 
-        button.textContent = category;
+        div.textContent = category;
 
-        button.dataset.category = category;
+        div.dataset.category = category;
 
-        button.addEventListener("click", () => {
+        div.addEventListener("click", () => {
 
-            button.classList.toggle("active");
+            document
+                .querySelectorAll(".category")
+                .forEach(el => el.classList.remove("active"));
 
-            filterEndpoints();
+            div.classList.add("active");
+
+            filterEndpoints(category);
 
         });
 
-        container.appendChild(button);
+        grid.appendChild(div);
 
     });
 
 }
 
+renderCategories();
 
-/* =========================================================
-   RENDER TEST GROUPS
-   ========================================================= */
+function showStatus(element, message, type = "info") {
 
-function renderTestGroups() {
+    element.className = "status show " + type;
 
-    const container = $("testGroupsCarousel");
-
-    container.innerHTML = "";
-
-    TEST_GROUPS.forEach((group, groupIndex) => {
-
-        const card = document.createElement("div");
-
-        card.className = "test-group-card";
-
-        const selectedInGroup = group.tests.filter(test =>
-            state.selectedTests.includes(test[0])
-        ).length;
-
-        card.innerHTML = `
-
-            <div class="test-group-header">
-
-                <div class="test-group-priority">
-                    Priorità ${groupIndex + 1}
-                </div>
-
-                <div class="test-group-title">
-                    ${escapeHTML(group.title)}
-                </div>
-
-                <div class="test-group-count">
-                    <span data-group-count="${escapeHTML(group.id)}">
-                        ${selectedInGroup}/${group.tests.length}
-                    </span>
-                    selezionate
-                </div>
-
-                <div class="test-group-actions">
-
-                    <button
-                        type="button"
-                        class="secondary"
-                        data-select-group="${escapeHTML(group.id)}"
-                    >
-                        Seleziona
-                    </button>
-
-                    <button
-                        type="button"
-                        class="secondary"
-                        data-clear-group="${escapeHTML(group.id)}"
-                    >
-                        Deseleziona
-                    </button>
-
-                </div>
-
-            </div>
-
-            <div class="test-question-list">
-
-                ${group.tests.map(test => {
-
-                    const selected = state.selectedTests.includes(test[0]);
-
-                    return `
-
-                        <label class="test-question">
-
-                            <input
-                                type="checkbox"
-                                data-test-checkbox="${escapeHTML(test[0])}"
-                                ${selected ? "checked" : ""}
-                            >
-
-                            <span class="test-question-text">
-
-                                ${escapeHTML(test[1])}
-
-                                <span class="test-question-id">
-                                    ${escapeHTML(test[0])}
-                                </span>
-
-                            </span>
-
-                        </label>
-
-                    `;
-
-                }).join("")}
-
-            </div>
-
-        `;
-
-        container.appendChild(card);
-
-    });
-
-    updateSelectedTestsSummary();
+    element.innerHTML = message;
 
 }
 
-
-/* =========================================================
-   SELEZIONE TEST
-   ========================================================= */
-
-function updateSelectedTestsSummary() {
-
-    const count = state.selectedTests.length;
-
-    $("selectedTestsSummary").textContent =
-        `${count} ${count === 1 ? "domanda selezionata" : "domande selezionate"}`;
-
-    TEST_GROUPS.forEach(group => {
-
-        const selectedCount = group.tests.filter(test =>
-            state.selectedTests.includes(test[0])
-        ).length;
-
-        const element = document.querySelector(
-            `[data-group-count="${CSS.escape(group.id)}"]`
-        );
-
-        if (element) {
-            element.textContent =
-                `${selectedCount}/${group.tests.length}`;
-        }
-
-    });
-
-}
-
-
-function setTestsSelection(testIds) {
-
-    state.selectedTests = [...new Set(testIds)];
-
-    renderTestGroups();
-
-}
-
-
-function selectGroup(groupId) {
-
-    const group = TEST_GROUPS.find(item => item.id === groupId);
-
-    if (!group) return;
-
-    const ids = group.tests.map(test => test[0]);
-
-    state.selectedTests = [
-        ...new Set([
-            ...state.selectedTests,
-            ...ids
-        ])
-    ];
-
-    renderTestGroups();
-
-}
-
-
-function clearGroup(groupId) {
-
-    const group = TEST_GROUPS.find(item => item.id === groupId);
-
-    if (!group) return;
-
-    const ids = new Set(group.tests.map(test => test[0]));
-
-    state.selectedTests =
-        state.selectedTests.filter(id => !ids.has(id));
-
-    renderTestGroups();
-
-}
-
-
-function selectAllTests() {
-
-    const allIds = [];
-
-    TEST_GROUPS.forEach(group => {
-
-        group.tests.forEach(test => {
-
-            allIds.push(test[0]);
-
-        });
-
-    });
-
-    state.selectedTests = allIds;
-
-    renderTestGroups();
-
-}
-
-
-function clearAllTests() {
-
-    state.selectedTests = [];
-
-    renderTestGroups();
-
-}
-
-
-function selectPriorityTests() {
-
-    const priorityGroup =
-        TEST_GROUPS.find(group => group.id === "priority");
-
-    if (!priorityGroup) return;
-
-    state.selectedTests =
-        priorityGroup.tests.map(test => test[0]);
-
-    renderTestGroups();
-
-}
-
-
-/* =========================================================
-   STATUS
-   ========================================================= */
-
-function showStatus(elementId, message, type = "info") {
-
-    const element = $(elementId);
-
-    if (!element) return;
-
-    element.className = `status show ${type}`;
-
-    element.textContent = message;
-
-}
-
-
-function hideStatus(elementId) {
-
-    const element = $(elementId);
-
-    if (!element) return;
+function hideStatus(element) {
 
     element.className = "status";
 
-    element.textContent = "";
+    element.innerHTML = "";
 
 }
-
-
-/* =========================================================
-   NORMALIZZA BASE URL
-   ========================================================= */
 
 function normalizeBaseUrl(url) {
 
-    if (!url) return "";
+    url = String(url || "").trim();
 
-    return url.trim().replace(/\/+$/, "");
+    if (!url) {
+        return "";
+    }
+
+    if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url;
+    }
+
+    return url.replace(/\/+$/, "");
 
 }
 
-
-/* =========================================================
-   BUILD TARGET URL
-   ========================================================= */
-
-function buildTargetUrl(endpoint, params = "") {
+function buildTargetUrl(endpoint, queryString = "") {
 
     const base = normalizeBaseUrl($("baseUrl").value);
 
-    let cleanEndpoint = endpoint.trim();
-
-    if (!cleanEndpoint) {
-        cleanEndpoint = "/";
+    if (!base) {
+        throw new Error("Inserisci il Base URL dell'API.");
     }
 
-    if (!cleanEndpoint.startsWith("/") && !cleanEndpoint.startsWith("http")) {
-        cleanEndpoint = "/" + cleanEndpoint;
+    let path = String(endpoint || "").trim();
+
+    if (!path) {
+        throw new Error("Inserisci un endpoint.");
     }
 
-    let target;
+    if (!/^https?:\/\//i.test(path)) {
 
-    if (cleanEndpoint.startsWith("http://") || cleanEndpoint.startsWith("https://")) {
-
-        target = cleanEndpoint;
-
-    } else {
-
-        target = base + cleanEndpoint;
-
-    }
-
-    if (params) {
-
-        const cleanParams = params.trim();
-
-        if (cleanParams) {
-
-            const separator = target.includes("?") ? "&" : "?";
-
-            target += separator + cleanParams;
-
+        if (!path.startsWith("/")) {
+            path = "/" + path;
         }
 
+        path = base + path;
+
     }
 
-    return target;
+    let target = new URL(path);
+
+    if (queryString) {
+
+        const params = new URLSearchParams(queryString);
+
+        params.forEach((value, key) => {
+
+            if (value !== "") {
+                target.searchParams.set(key, value);
+            }
+
+        });
+
+    }
+
+    return target.toString();
 
 }
 
+function applyAuthentication(url, headers) {
 
-/* =========================================================
-   AUTENTICAZIONE
-   ========================================================= */
-
-function applyAuthentication(headers, url) {
-
-    const apiKey = $("apiKey").value.trim();
+    const key = $("apiKey").value.trim();
 
     const authType = $("authType").value;
 
-    let finalUrl = url;
-
-    if (!apiKey || authType === "none") {
-
+    if (!key || authType === "none") {
         return {
-            headers,
-            url: finalUrl
+            url,
+            headers
         };
-
     }
 
     if (authType === "x-apisports-key") {
 
-        headers["x-apisports-key"] = apiKey;
+        headers["x-apisports-key"] = key;
 
     }
 
     else if (authType === "x-api-key") {
 
-        headers["x-api-key"] = apiKey;
+        headers["x-api-key"] = key;
 
     }
 
     else if (authType === "authorization-bearer") {
 
-        headers["Authorization"] = `Bearer ${apiKey}`;
+        headers["Authorization"] = "Bearer " + key;
 
     }
 
     else if (authType === "authorization") {
 
-        headers["Authorization"] = apiKey;
+        headers["Authorization"] = key;
 
     }
 
     else if (authType === "query-key") {
 
-        const separator = finalUrl.includes("?") ? "&" : "?";
+        const u = new URL(url);
 
-        finalUrl += `${separator}key=${encodeURIComponent(apiKey)}`;
+        u.searchParams.set("key", key);
+
+        url = u.toString();
 
     }
 
     else if (authType === "query-api-key") {
 
-        const separator = finalUrl.includes("?") ? "&" : "?";
+        const u = new URL(url);
 
-        finalUrl += `${separator}api_key=${encodeURIComponent(apiKey)}`;
+        u.searchParams.set("api_key", key);
+
+        url = u.toString();
 
     }
 
     return {
-        headers,
-        url: finalUrl
+        url,
+        headers
     };
 
 }
-
-
-/* =========================================================
-   PARSE HEADERS
-   ========================================================= */
 
 function parseHeaders(text) {
 
     const headers = {};
 
-    if (!text) return headers;
-
-    text
+    String(text || "")
         .split(/\r?\n/)
         .forEach(line => {
 
             const index = line.indexOf(":");
 
-            if (index === -1) return;
+            if (index === -1) {
+                return;
+            }
 
             const key = line.slice(0, index).trim();
 
             const value = line.slice(index + 1).trim();
 
             if (key) {
-
                 headers[key] = value;
-
             }
 
         });
@@ -2033,410 +1718,528 @@ function parseHeaders(text) {
 
 }
 
-
-/* =========================================================
-   PROXY REQUEST
-   ========================================================= */
-
 async function proxyRequest(targetUrl, options = {}) {
+
+    let url = targetUrl;
+
+    let headers = {
+        "Accept": "application/json"
+    };
+
+    const auth = applyAuthentication(url, headers);
+
+    url = auth.url;
+
+    headers = auth.headers;
+
+    const customHeaders = parseHeaders(
+        $("customHeaders").value
+    );
+
+    Object.entries(customHeaders).forEach(([key, value]) => {
+        headers[key] = value;
+    });
 
     const proxyTarget =
         PROXY_URL +
-        "?url=" +
-        encodeURIComponent(targetUrl);
+        (PROXY_URL.includes("?") ? "&" : "?") +
+        "url=" +
+        encodeURIComponent(url);
 
-    const response = await fetch(proxyTarget, {
+    const fetchOptions = {
 
         method: options.method || "GET",
 
-        headers: options.headers || {},
+        headers,
 
-        body: options.body
+        redirect: "follow"
 
-    });
+    };
+
+    if (
+        fetchOptions.method !== "GET" &&
+        fetchOptions.method !== "HEAD"
+    ) {
+
+        const body = options.body;
+
+        if (body) {
+
+            fetchOptions.body = body;
+
+            if (!headers["Content-Type"] &&
+                !headers["content-type"]) {
+
+                headers["Content-Type"] =
+                    "application/json";
+
+            }
+
+        }
+
+    }
+
+    const response = await fetch(
+        proxyTarget,
+        fetchOptions
+    );
 
     const text = await response.text();
 
     return {
-
         response,
-        text
-
+        text,
+        url,
+        proxyTarget
     };
 
 }
-
-
-/* =========================================================
-   JSON
-   ========================================================= */
 
 function tryParseJSON(text) {
 
-    if (typeof text !== "string") {
-
-        return text;
-
+    try {
+        return JSON.parse(text);
     }
 
-    try {
-
-        return JSON.parse(text);
-
-    } catch {
-
+    catch {
         return null;
-
     }
 
 }
-
-
-/* =========================================================
-   HEADERS
-   ========================================================= */
 
 function extractHeaders(response) {
 
-    const result = {};
+    const headers = {};
 
     response.headers.forEach((value, key) => {
-
-        result[key] = value;
-
+        headers[key] = value;
     });
 
-    return result;
+    return headers;
 
 }
-
-
-/* =========================================================
-   RATE LIMIT
-   ========================================================= */
 
 function detectRateLimit(headers) {
 
-    const result = {};
+    const result = {
 
-    Object.keys(headers || {}).forEach(key => {
+        limit: null,
 
-        const lower = key.toLowerCase();
+        remaining: null,
 
-        if (
-            lower.includes("rate") ||
-            lower.includes("limit") ||
-            lower.includes("remaining") ||
-            lower.includes("quota")
-        ) {
+        reset: null
 
-            result[key] = headers[key];
+    };
+
+    const normalized = {};
+
+    Object.entries(headers).forEach(([key, value]) => {
+
+        normalized[key.toLowerCase()] = value;
+
+    });
+
+    const limitKeys = [
+        "x-api-x-ratelimit-limit",
+        "x-api-x-rate-limit-limit",
+        "x-ratelimit-limit",
+        "x-rate-limit-limit"
+    ];
+
+    const remainingKeys = [
+        "x-api-x-ratelimit-remaining",
+        "x-api-x-rate-limit-remaining",
+        "x-ratelimit-remaining",
+        "x-rate-limit-remaining"
+    ];
+
+    const resetKeys = [
+        "x-api-x-ratelimit-reset",
+        "x-api-x-rate-limit-reset",
+        "x-ratelimit-reset",
+        "x-rate-limit-reset"
+    ];
+
+    for (const key of limitKeys) {
+
+        if (normalized[key] !== undefined) {
+
+            result.limit = normalized[key];
+
+            break;
 
         }
 
-    });
+    }
+
+    for (const key of remainingKeys) {
+
+        if (normalized[key] !== undefined) {
+
+            result.remaining = normalized[key];
+
+            break;
+
+        }
+
+    }
+
+    for (const key of resetKeys) {
+
+        if (normalized[key] !== undefined) {
+
+            result.reset = normalized[key];
+
+            break;
+
+        }
+
+    }
 
     return result;
 
 }
 
-
-/* =========================================================
-   ANALISI FOOTBALL DATA
-   ========================================================= */
-
 function analyzeFootballData(data) {
 
-    const analysis = {
+    const result = {
 
-        isObject: false,
-        isArray: false,
-        arrayLength: 0,
+        isJson: data !== null,
+
         keys: [],
+
+        detectedFields: [],
+
+        footballSignals: [],
+
         matchCount: 0,
-        hasFixtures: false,
-        hasTeams: false,
-        hasPlayers: false,
-        hasGoals: false,
-        hasStatistics: false,
-        hasStandings: false,
-        hasOdds: false,
-        hasPredictions: false,
-        hasInjuries: false,
-        hasLineups: false
+
+        arrayCount: 0,
+
+        objectCount: 0,
+
+        likelyFootballData: false
 
     };
 
-    if (Array.isArray(data)) {
-
-        analysis.isArray = true;
-
-        analysis.arrayLength = data.length;
-
+    if (data === null) {
+        return result;
     }
 
-    else if (data && typeof data === "object") {
+    const fieldNames = new Set();
 
-        analysis.isObject = true;
+    const footballSignals = new Set();
 
-        analysis.keys = Object.keys(data);
+    function inspect(value, depth = 0) {
 
-    }
-
-    const text =
-        JSON.stringify(data || {}).toLowerCase();
-
-    analysis.hasFixtures =
-        text.includes("fixture") ||
-        text.includes("fixtures");
-
-    analysis.hasTeams =
-        text.includes("team") ||
-        text.includes("teams");
-
-    analysis.hasPlayers =
-        text.includes("player") ||
-        text.includes("players");
-
-    analysis.hasGoals =
-        text.includes("goals") ||
-        text.includes("goal");
-
-    analysis.hasStatistics =
-        text.includes("statistics") ||
-        text.includes("stats");
-
-    analysis.hasStandings =
-        text.includes("standings") ||
-        text.includes("standings");
-
-    analysis.hasOdds =
-        text.includes("odds") ||
-        text.includes("bookmaker");
-
-    analysis.hasPredictions =
-        text.includes("prediction") ||
-        text.includes("predictions");
-
-    analysis.hasInjuries =
-        text.includes("injur") ||
-        text.includes("sidelined");
-
-    analysis.hasLineups =
-        text.includes("lineup") ||
-        text.includes("lineups");
-
-    const fixtureArray =
-        findArraysByKey(data, [
-            "response",
-            "fixtures",
-            "matches"
-        ]);
-
-    if (fixtureArray.length) {
-
-        analysis.matchCount =
-            fixtureArray.reduce(
-                (sum, item) => sum + item.length,
-                0
-            );
-
-    }
-
-    return analysis;
-
-}
-
-
-/* =========================================================
-   TROVA ARRAY
-   ========================================================= */
-
-function findArraysByKey(data, keys) {
-
-    const results = [];
-
-    function walk(value) {
-
-        if (!value || typeof value !== "object") {
+        if (depth > 7) {
             return;
         }
 
         if (Array.isArray(value)) {
 
+            result.arrayCount++;
+
+            value.forEach(item => {
+                inspect(item, depth + 1);
+            });
+
             return;
 
         }
 
-        Object.keys(value).forEach(key => {
+        if (
+            value &&
+            typeof value === "object"
+        ) {
 
-            const lower = key.toLowerCase();
+            result.objectCount++;
 
-            if (
-                keys.some(
-                    wanted =>
-                        lower === wanted.toLowerCase()
-                ) &&
-                Array.isArray(value[key])
-            ) {
+            Object.entries(value).forEach(([key, val]) => {
 
-                results.push(value[key]);
+                const lower = key.toLowerCase();
 
-            }
+                fieldNames.add(key);
 
-            walk(value[key]);
+                const signalWords = [
 
-        });
+                    "fixture",
+                    "match",
+                    "team",
+                    "league",
+                    "season",
+                    "player",
+                    "goal",
+                    "score",
+                    "event",
+                    "statistic",
+                    "standing",
+                    "odds",
+                    "injur",
+                    "lineup",
+                    "formation",
+                    "prediction",
+                    "h2h",
+                    "home",
+                    "away",
+                    "halftime",
+                    "fulltime",
+                    "shots",
+                    "corner",
+                    "possession",
+                    "yellow",
+                    "red",
+                    "xg",
+                    "assist",
+                    "minutes",
+                    "rating",
+                    "offside",
+                    "foul",
+                    "passes",
+                    "saves",
+                    "attacks",
+                    "penalty",
+                    "transfer",
+                    "suspension",
+                    "coverage",
+                    "probability"
+
+                ];
+
+                signalWords.forEach(word => {
+
+                    if (lower.includes(word)) {
+                        footballSignals.add(key);
+                    }
+
+                });
+
+                if (
+                    lower === "fixture" ||
+                    lower === "match" ||
+                    lower === "fixtures" ||
+                    lower === "matches"
+                ) {
+
+                    if (Array.isArray(val)) {
+
+                        result.matchCount += val.length;
+
+                    }
+
+                    else if (
+                        val &&
+                        typeof val === "object"
+                    ) {
+
+                        result.matchCount++;
+
+                    }
+
+                }
+
+                inspect(val, depth + 1);
+
+            });
+
+        }
 
     }
 
-    walk(data);
+    inspect(data);
 
-    return results;
+    result.keys = Array.from(fieldNames);
+
+    result.detectedFields =
+        Array.from(fieldNames)
+            .filter(key => {
+
+                const lower = key.toLowerCase();
+
+                return [
+
+                    "goal",
+                    "score",
+                    "fixture",
+                    "match",
+                    "team",
+                    "league",
+                    "season",
+                    "player",
+                    "statistics",
+                    "shots",
+                    "shots_on_target",
+                    "possession",
+                    "corner",
+                    "yellow",
+                    "red",
+                    "xg",
+                    "halftime",
+                    "fulltime",
+                    "home",
+                    "away",
+                    "assist",
+                    "minute",
+                    "rating",
+                    "offside",
+                    "foul",
+                    "pass",
+                    "save",
+                    "attack",
+                    "penalty",
+                    "transfer",
+                    "suspension",
+                    "injury",
+                    "lineup",
+                    "formation",
+                    "odds",
+                    "prediction",
+                    "probability",
+                    "coverage"
+
+                ].some(term =>
+                    lower.includes(term)
+                );
+
+            })
+            .slice(0, 100);
+
+    result.footballSignals =
+        Array.from(footballSignals)
+            .slice(0, 100);
+
+    result.likelyFootballData =
+        result.footballSignals.length >= 2 ||
+        result.detectedFields.length >= 3;
+
+    return result;
 
 }
 
+function renderAnalysis(analysis, statusCode) {
 
-/* =========================================================
-   ANALISI RESPONSE
-   ========================================================= */
-
-function renderAnalysis(analysis) {
-
-    const container = $("analysisArea");
+    const area = $("analysisArea");
 
     if (!analysis) {
 
-        container.innerHTML = `
-            <div class="empty">
-                Nessuna analisi disponibile.
-            </div>
-        `;
+        area.innerHTML =
+            '<div class="empty">Nessuna risposta analizzata.</div>';
 
         return;
 
     }
 
-    container.innerHTML = `
+    const fields =
+        analysis.detectedFields
+            .map(field =>
+                `<span class="badge good">${escapeHTML(field)}</span>`
+            )
+            .join(" ");
 
-        <div class="analysis-box">
+    const signals =
+        analysis.footballSignals
+            .map(field =>
+                `<span class="badge neutral">${escapeHTML(field)}</span>`
+            )
+            .join(" ");
 
-            <div class="analysis-grid">
+    area.innerHTML = `
 
-                <div class="analysis-item">
-                    <strong>${analysis.arrayLength}</strong>
-                    <span>Elementi array</span>
-                </div>
+        <div class="analysis-grid">
 
-                <div class="analysis-item">
-                    <strong>${analysis.matchCount}</strong>
-                    <span>Match rilevati</span>
-                </div>
-
-                <div class="analysis-item">
-                    <strong>${analysis.keys.length}</strong>
-                    <span>Chiavi principali</span>
-                </div>
-
+            <div class="analysis-box">
+                Status
+                <strong>${statusCode}</strong>
             </div>
 
-            <div>
-
-                <strong>Contenuti rilevati</strong>
-
-                <ul>
-
-                    <li>Fixtures: ${analysis.hasFixtures ? "✅" : "❌"}</li>
-                    <li>Squadre: ${analysis.hasTeams ? "✅" : "❌"}</li>
-                    <li>Giocatori: ${analysis.hasPlayers ? "✅" : "❌"}</li>
-                    <li>Gol: ${analysis.hasGoals ? "✅" : "❌"}</li>
-                    <li>Statistiche: ${analysis.hasStatistics ? "✅" : "❌"}</li>
-                    <li>Classifiche: ${analysis.hasStandings ? "✅" : "❌"}</li>
-                    <li>Quote: ${analysis.hasOdds ? "✅" : "❌"}</li>
-                    <li>Predizioni: ${analysis.hasPredictions ? "✅" : "❌"}</li>
-                    <li>Infortuni: ${analysis.hasInjuries ? "✅" : "❌"}</li>
-                    <li>Formazioni: ${analysis.hasLineups ? "✅" : "❌"}</li>
-
-                </ul>
-
+            <div class="analysis-box">
+                Oggetti
+                <strong>${analysis.objectCount}</strong>
             </div>
 
+            <div class="analysis-box">
+                Array
+                <strong>${analysis.arrayCount}</strong>
+            </div>
+
+            <div class="analysis-box">
+                Match rilevati
+                <strong>${analysis.matchCount}</strong>
+            </div>
+
+        </div>
+
+        <h3>Dati calcistici rilevati</h3>
+
+        <div>
+            ${
+                analysis.likelyFootballData
+                ? '<span class="badge good">PROBABILI DATI CALCISTICI</span>'
+                : '<span class="badge neutral">DATI CALCISTICI NON CONFERMATI</span>'
+            }
+        </div>
+
+        <h3>Campi interessanti</h3>
+
+        <div>
+            ${fields || '<span class="small-text">Nessun campo rilevante rilevato.</span>'}
+        </div>
+
+        <h3>Segnali calcistici</h3>
+
+        <div>
+            ${signals || '<span class="small-text">Nessun segnale rilevato.</span>'}
         </div>
 
     `;
 
 }
 
-
-/* =========================================================
-   RENDER HEADERS
-   ========================================================= */
-
 function renderHeaders(headers) {
 
-    const container = $("headersArea");
+    const area = $("headersArea");
 
-    if (!headers || !Object.keys(headers).length) {
+    const entries = Object.entries(headers || {});
 
-        container.innerHTML = `
-            <div class="empty">
-                Nessun header disponibile.
-            </div>
-        `;
+    if (!entries.length) {
+
+        area.innerHTML =
+            '<div class="empty">Nessun header disponibile.</div>';
 
         return;
 
     }
 
-    let rows = "";
+    let html = `
+        <table class="header-table">
+            <thead>
+                <tr>
+                    <th>Header</th>
+                    <th>Valore</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
 
-    Object.entries(headers).forEach(([key, value]) => {
+    entries.forEach(([key, value]) => {
 
-        rows += `
-
+        html += `
             <tr>
-
-                <td>${escapeHTML(key)}</td>
-
+                <th>${escapeHTML(key)}</th>
                 <td>${escapeHTML(value)}</td>
-
             </tr>
-
         `;
 
     });
 
-    container.innerHTML = `
-
-        <table class="headers-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>Header</th>
-                    <th>Valore</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                ${rows}
-
+    html += `
             </tbody>
-
         </table>
-
     `;
 
+    area.innerHTML = html;
+
 }
-
-
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
 
 function escapeHTML(value) {
 
@@ -2449,1105 +2252,459 @@ function escapeHTML(value) {
 
 }
 
-
-/* =========================================================
-   INVIO RICHIESTA
-   ========================================================= */
-
 async function sendRequest() {
 
-    const method =
-        $("requestMethod").value;
+    const statusArea = $("requestStatus");
 
-    const endpoint =
-        $("endpointInput").value.trim();
+    try {
 
-    if (!endpoint) {
+        const method = $("method").value;
 
-        showStatus(
-            "requestStatus",
-            "Inserisci un endpoint.",
-            "error"
-        );
+        const endpoint =
+            $("endpoint").value.trim();
 
-        return;
+        const query =
+            $("queryParams").value.trim();
 
-    }
+        const body =
+            $("requestBody").value.trim();
 
-    let params =
-        $("getParams").value.trim();
+        if (!endpoint) {
 
-    let headers =
-        parseHeaders(
-            $("customHeaders").value
-        );
-
-    let body = undefined;
-
-    if (method === "POST") {
-
-        const rawBody =
-            $("postBody").value.trim();
-
-        if (rawBody) {
-
-            body = rawBody;
-
-            if (!headers["Content-Type"]) {
-
-                headers["Content-Type"] =
-                    "application/json";
-
-            }
+            throw new Error(
+                "Inserisci un endpoint."
+            );
 
         }
 
-    }
+        const targetUrl =
+            buildTargetUrl(
+                endpoint,
+                query
+            );
 
-    let targetUrl =
-        buildTargetUrl(
-            endpoint,
-            method === "GET" ? params : ""
+        showStatus(
+            statusArea,
+            '<span class="loading"></span> Richiesta in corso...',
+            "info"
         );
 
-    const authenticated =
-        applyAuthentication(
-            headers,
-            targetUrl
-        );
-
-    headers =
-        authenticated.headers;
-
-    targetUrl =
-        authenticated.url;
-
-    showStatus(
-        "requestStatus",
-        "Invio richiesta...",
-        "info"
-    );
-
-    document.body.classList.add("loading");
-
-    state.requestsSession++;
-
-    updateDashboard();
-
-    try {
+        const start =
+            performance.now();
 
         const result =
             await proxyRequest(
                 targetUrl,
                 {
                     method,
-                    headers,
                     body
                 }
             );
 
-        const response =
-            result.response;
+        const elapsed =
+            Math.round(
+                performance.now() - start
+            );
 
-        const text =
-            result.text;
-
-        const data =
-            tryParseJSON(text);
+        state.requestsSession++;
 
         state.lastStatus =
-            response.status;
+            result.response.status;
+
+        state.lastRequest = {
+            method,
+            endpoint,
+            url: result.url,
+            timestamp: new Date().toISOString()
+        };
+
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        $("lastStatus").textContent =
+            result.response.status;
+
+        const headers =
+            extractHeaders(
+                result.response
+            );
+
+        state.lastResponseHeaders =
+            headers;
+
+        renderHeaders(headers);
+
+        const data =
+            tryParseJSON(result.text);
 
         state.lastResponse =
             data !== null
                 ? data
-                : text;
-
-        state.lastResponseHeaders =
-            extractHeaders(response);
-
-        state.lastRequest = {
-
-            method,
-            url: targetUrl,
-            headers,
-            body: body || null,
-            timestamp: new Date().toISOString()
-
-        };
-
-        if (response.ok) {
-
-            state.successRequests++;
-
-            showStatus(
-                "requestStatus",
-                `Richiesta completata: HTTP ${response.status}`,
-                "success"
-            );
-
-        } else {
-
-            state.errorRequests++;
-
-            showStatus(
-                "requestStatus",
-                `Richiesta fallita: HTTP ${response.status}`,
-                "error"
-            );
-
-        }
+                : result.text;
 
         const analysis =
-            analyzeFootballData(
-                state.lastResponse
-            );
+            analyzeFootballData(data);
 
         state.lastAnalysis =
             analysis;
 
         state.matchCount =
-            analysis.matchCount || 0;
+            analysis.matchCount;
 
-        renderAnalysis(analysis);
+        $("matchCount").textContent =
+            state.matchCount;
 
-        renderHeaders(
-            state.lastResponseHeaders
+        renderAnalysis(
+            analysis,
+            result.response.status
         );
 
-        $("responseOutput").textContent =
-            data !== null
-                ? JSON.stringify(data, null, 2)
-                : text;
+        let output;
 
-        addHistory({
+        if (data !== null) {
 
-            method,
-            url: targetUrl,
-            status: response.status,
-            ok: response.ok,
-            timestamp: new Date().toISOString()
-
-        });
-
-        updateDashboard();
-
-    }
-
-    catch (error) {
-
-        state.errorRequests++;
-
-        state.lastStatus = "ERR";
-
-        showStatus(
-            "requestStatus",
-            `Errore richiesta: ${error.message}`,
-            "error"
-        );
-
-        $("responseOutput").textContent =
-            error.stack || error.message;
-
-        updateDashboard();
-
-    }
-
-    finally {
-
-        document.body.classList.remove("loading");
-
-    }
-
-}
-
-
-/* =========================================================
-   TEST CONNESSIONE
-   ========================================================= */
-
-async function testConnection() {
-
-    const base =
-        normalizeBaseUrl(
-            $("baseUrl").value
-        );
-
-    if (!base) {
-
-        showStatus(
-            "connectionStatus",
-            "Inserisci prima il Base URL.",
-            "error"
-        );
-
-        return;
-
-    }
-
-    showStatus(
-        "connectionStatus",
-        "Test della connessione in corso...",
-        "info"
-    );
-
-    document.body.classList.add("loading");
-
-    state.requestsSession++;
-
-    updateDashboard();
-
-    try {
-
-        let headers = {};
-
-        const authenticated =
-            applyAuthentication(
-                headers,
-                base
-            );
-
-        const result =
-            await proxyRequest(
-                authenticated.url,
-                {
-                    method: "GET",
-                    headers: authenticated.headers
-                }
-            );
-
-        const response =
-            result.response;
-
-        const responseHeaders =
-            extractHeaders(response);
-
-        state.lastStatus =
-            response.status;
-
-        if (response.ok) {
-
-            state.successRequests++;
-
-            const rateLimit =
-                detectRateLimit(
-                    responseHeaders
+            output =
+                JSON.stringify(
+                    data,
+                    null,
+                    2
                 );
-
-            let message =
-                `Connessione riuscita: HTTP ${response.status}.`;
-
-            if (Object.keys(rateLimit).length) {
-
-                message +=
-                    " Informazioni rate limit rilevate.";
-
-            }
-
-            showStatus(
-                "connectionStatus",
-                message,
-                "success"
-            );
-
-        } else {
-
-            state.errorRequests++;
-
-            showStatus(
-                "connectionStatus",
-                `Il server ha risposto con HTTP ${response.status}.`,
-                "warning"
-            );
-
-        }
-
-        updateDashboard();
-
-    }
-
-    catch (error) {
-
-        state.errorRequests++;
-
-        state.lastStatus = "ERR";
-
-        showStatus(
-            "connectionStatus",
-            `Connessione fallita: ${error.message}`,
-            "error"
-        );
-
-        updateDashboard();
-
-    }
-
-    finally {
-
-        document.body.classList.remove("loading");
-
-    }
-
-}
-
-
-/* =========================================================
-   DISCOVERY DOCUMENTAZIONE
-   ========================================================= */
-
-async function discoverDocumentation() {
-
-    const base =
-        normalizeBaseUrl(
-            $("baseUrl").value
-        );
-
-    if (!base) {
-
-        showStatus(
-            "docsStatus",
-            "Inserisci prima il Base URL.",
-            "error"
-        );
-
-        return;
-
-    }
-
-    const paths = [
-
-        "/openapi.json",
-        "/swagger.json",
-        "/swagger/v1/swagger.json",
-        "/v3/api-docs",
-        "/api-docs",
-        "/api/openapi.json",
-        "/api/swagger.json",
-        "/docs/openapi.json",
-        "/docs/swagger.json"
-
-    ];
-
-    state.documentationFound = [];
-
-    state.endpoints = [];
-
-    showStatus(
-        "docsStatus",
-        "Ricerca della documentazione in corso...",
-        "info"
-    );
-
-    document.body.classList.add("loading");
-
-    for (const path of paths) {
-
-        const url =
-            buildTargetUrl(path);
-
-        try {
-
-            state.requestsSession++;
-
-            updateDashboard();
-
-            let headers = {};
-
-            const authenticated =
-                applyAuthentication(
-                    headers,
-                    url
-                );
-
-            const result =
-                await proxyRequest(
-                    authenticated.url,
-                    {
-                        method: "GET",
-                        headers: authenticated.headers
-                    }
-                );
-
-            const response =
-                result.response;
-
-            const text =
-                result.text;
-
-            if (!response.ok) {
-
-                continue;
-
-            }
-
-            state.successRequests++;
-
-            const data =
-                tryParseJSON(text);
-
-            if (!data) {
-
-                continue;
-
-            }
-
-            const endpoints =
-                extractOpenAPIEndpoints(
-                    data
-                );
-
-            if (endpoints.length) {
-
-                state.documentationFound.push({
-
-                    path,
-                    url,
-                    endpoints: endpoints.length
-
-                });
-
-                state.endpoints.push(
-                    ...endpoints.map(endpoint => ({
-
-                        ...endpoint,
-                        documentation: path
-
-                    }))
-                );
-
-            }
-
-        }
-
-        catch (error) {
-
-            continue;
-
-        }
-
-    }
-
-    state.endpointCount =
-        state.endpoints.length;
-
-    renderEndpointList(
-        state.endpoints
-    );
-
-    if (state.documentationFound.length) {
-
-        showStatus(
-            "docsStatus",
-            `Trovata documentazione valida: ${state.documentationFound.length} sorgente/i e ${state.endpoints.length} endpoint.`,
-            "success"
-        );
-
-    } else {
-
-        showStatus(
-            "docsStatus",
-            "Nessuna documentazione OpenAPI/Swagger trovata nei percorsi testati.",
-            "warning"
-        );
-
-    }
-
-    updateDashboard();
-
-    document.body.classList.remove("loading");
-
-}
-
-
-/* =========================================================
-   ESTRAZIONE OPENAPI
-   ========================================================= */
-
-function extractOpenAPIEndpoints(data) {
-
-    const endpoints = [];
-
-    if (!data || typeof data !== "object") {
-
-        return endpoints;
-
-    }
-
-    const paths =
-        data.paths;
-
-    if (!paths || typeof paths !== "object") {
-
-        return endpoints;
-
-    }
-
-    Object.entries(paths).forEach(([path, methods]) => {
-
-        if (!methods || typeof methods !== "object") {
-            return;
-        }
-
-        Object.entries(methods).forEach(([method, definition]) => {
-
-            const upperMethod =
-                method.toUpperCase();
-
-            const validMethods = [
-                "GET",
-                "POST",
-                "PUT",
-                "PATCH",
-                "DELETE",
-                "OPTIONS",
-                "HEAD"
-            ];
-
-            if (!validMethods.includes(upperMethod)) {
-                return;
-            }
-
-            const tags =
-                Array.isArray(definition.tags)
-                    ? definition.tags
-                    : [];
-
-            endpoints.push({
-
-                path,
-                method: upperMethod,
-
-                summary:
-                    definition.summary || "",
-
-                description:
-                    definition.description || "",
-
-                tags
-
-            });
-
-        });
-
-    });
-
-    return endpoints;
-
-}
-
-
-/* =========================================================
-   RENDER ENDPOINT
-   ========================================================= */
-
-function renderEndpointList(endpoints) {
-
-    const container =
-        $("docsResults");
-
-    if (!endpoints.length) {
-
-        container.innerHTML = `
-            <div class="empty">
-                Nessun endpoint trovato.
-            </div>
-        `;
-
-        return;
-
-    }
-
-    container.innerHTML =
-        endpoints.map(endpoint => `
-
-            <div class="endpoint-item">
-
-                <div class="endpoint-top">
-
-                    <span class="method-badge">
-                        ${escapeHTML(endpoint.method)}
-                    </span>
-
-                    <span class="endpoint-path">
-                        ${escapeHTML(endpoint.path)}
-                    </span>
-
-                </div>
-
-                ${
-                    endpoint.summary
-                    ? `
-                        <div class="endpoint-description">
-                            ${escapeHTML(endpoint.summary)}
-                        </div>
-                    `
-                    : ""
-                }
-
-                ${
-                    endpoint.tags.length
-                    ? `
-                        <div class="endpoint-description">
-                            Tags: ${escapeHTML(endpoint.tags.join(", "))}
-                        </div>
-                    `
-                    : ""
-                }
-
-            </div>
-
-        `).join("");
-
-}
-
-
-/* =========================================================
-   MATCH CATEGORIA ENDPOINT
-   ========================================================= */
-
-function endpointMatchesCategory(endpoint, category) {
-
-    const text = [
-
-        endpoint.path,
-        endpoint.summary,
-        endpoint.description,
-        ...(endpoint.tags || [])
-
-    ]
-        .join(" ")
-        .toLowerCase();
-
-    const mappings = {
-
-        "Partite": [
-            "fixture",
-            "fixtures",
-            "match",
-            "matches"
-        ],
-
-        "Gol": [
-            "goal",
-            "goals",
-            "score",
-            "scorers"
-        ],
-
-        "Statistiche": [
-            "statistic",
-            "statistics",
-            "stats"
-        ],
-
-        "Eventi": [
-            "event",
-            "events"
-        ],
-
-        "Squadre": [
-            "team",
-            "teams"
-        ],
-
-        "Giocatori": [
-            "player",
-            "players"
-        ],
-
-        "Campionati": [
-            "league",
-            "leagues",
-            "competition"
-        ],
-
-        "Stagioni": [
-            "season",
-            "seasons"
-        ],
-
-        "Classifiche": [
-            "standings",
-            "table"
-        ],
-
-        "Infortuni": [
-            "injury",
-            "injuries",
-            "sidelined"
-        ],
-
-        "Quote": [
-            "odds",
-            "bookmaker"
-        ],
-
-        "Predizioni": [
-            "prediction",
-            "predictions"
-        ],
-
-        "H2H": [
-            "h2h",
-            "headtohead",
-            "head-to-head"
-        ],
-
-        "Formazioni": [
-            "lineup",
-            "lineups"
-        ],
-
-        "Trasferimenti": [
-            "transfer",
-            "transfers"
-        ]
-
-    };
-
-    const keywords =
-        mappings[category] || [];
-
-    return keywords.some(
-        keyword => text.includes(keyword)
-    );
-
-}
-
-
-/* =========================================================
-   FILTER ENDPOINT
-   ========================================================= */
-
-function filterEndpoints() {
-
-    const activeCategories =
-        [...document.querySelectorAll(".category-btn.active")]
-            .map(button => button.dataset.category);
-
-    if (!activeCategories.length) {
-
-        renderEndpointList(
-            state.endpoints
-        );
-
-        return;
-
-    }
-
-    const filtered =
-        state.endpoints.filter(endpoint =>
-
-            activeCategories.some(category =>
-                endpointMatchesCategory(
-                    endpoint,
-                    category
-                )
-            )
-
-        );
-
-    renderEndpointList(filtered);
-
-}
-
-
-/* =========================================================
-   COLLEZIONE CHIAVI RESPONSE
-   ========================================================= */
-
-function collectResponseKeys(data) {
-
-    const keys = new Set();
-
-    function walk(value) {
-
-        if (!value || typeof value !== "object") {
-            return;
-        }
-
-        if (Array.isArray(value)) {
-
-            value.forEach(item => walk(item));
-
-            return;
-
-        }
-
-        Object.entries(value).forEach(([key, child]) => {
-
-            keys.add(key);
-
-            walk(child);
-
-        });
-
-    }
-
-    walk(data);
-
-    return [...keys];
-
-}
-
-
-/* =========================================================
-   HINT TEST
-   ========================================================= */
-
-function getTestHints(testId) {
-
-    const aliases =
-        TEST_HINT_ALIASES[testId] || [];
-
-    const tokens =
-        testId
-            .toLowerCase()
-            .split("_")
-            .filter(Boolean);
-
-    return [
-        ...new Set([
-            ...aliases,
-            ...tokens
-        ])
-    ];
-
-}
-
-
-/* =========================================================
-   MATCH ENDPOINT PER TEST
-   ========================================================= */
-
-function findEndpointsForTest(testId) {
-
-    const hints =
-        getTestHints(testId);
-
-    return state.endpoints
-        .filter(endpoint => {
-
-            const text = [
-
-                endpoint.path,
-                endpoint.summary,
-                endpoint.description,
-                ...(endpoint.tags || [])
-
-            ]
-                .join(" ")
-                .toLowerCase();
-
-            return hints.some(
-                hint => text.includes(hint.toLowerCase())
-            );
-
-        })
-        .slice(0, 5);
-
-}
-
-
-/* =========================================================
-   MATCH RESPONSE PER TEST
-   ========================================================= */
-
-function findResponseFieldsForTest(testId) {
-
-    if (!state.lastResponse) {
-
-        return [];
-
-    }
-
-    const hints =
-        getTestHints(testId);
-
-    const fields =
-        collectResponseKeys(
-            state.lastResponse
-        );
-
-    return fields
-        .filter(field => {
-
-            const lower =
-                field.toLowerCase();
-
-            return hints.some(
-                hint => lower.includes(
-                    hint.toLowerCase()
-                )
-            );
-
-        })
-        .slice(0, 12);
-
-}
-
-
-/* =========================================================
-   TEST ANALYSIS
-   ========================================================= */
-
-function runTestAnalysis() {
-
-    if (!state.selectedTests.length) {
-
-        showStatus(
-            "testAnalysisStatus",
-            "Seleziona almeno una domanda prima di avviare il Test Analysis.",
-            "warning"
-        );
-
-        $("testAnalysisResults").innerHTML = "";
-
-        return;
-
-    }
-
-    showStatus(
-        "testAnalysisStatus",
-        `Analisi di ${state.selectedTests.length} domande in corso...`,
-        "info"
-    );
-
-    const results = [];
-
-    state.selectedTests.forEach(testId => {
-
-        let testDefinition = null;
-        let groupDefinition = null;
-
-        for (const group of TEST_GROUPS) {
-
-            const found =
-                group.tests.find(
-                    test => test[0] === testId
-                );
-
-            if (found) {
-
-                testDefinition = found;
-                groupDefinition = group;
-
-                break;
-
-            }
-
-        }
-
-        if (!testDefinition) {
-            return;
-        }
-
-        const endpointMatches =
-            findEndpointsForTest(
-                testId
-            );
-
-        const responseMatches =
-            findResponseFieldsForTest(
-                testId
-            );
-
-        let status =
-            "pending";
-
-        let statusLabel =
-            "DA TESTARE";
-
-        if (responseMatches.length) {
-
-            status = "verified";
-
-            statusLabel =
-                "RILEVATO NELLA RISPOSTA";
-
-        }
-
-        else if (endpointMatches.length) {
-
-            status = "documentation";
-
-            statusLabel =
-                "ENDPOINT RILEVATO";
-
-        }
-
-        else if (
-            !state.endpoints.length &&
-            !state.lastResponse
-        ) {
-
-            status = "pending";
-
-            statusLabel =
-                "DA TESTARE";
 
         }
 
         else {
 
-            status = "not-found";
-
-            statusLabel =
-                "NON RILEVATO";
+            output =
+                result.text;
 
         }
 
-        results.push({
+        $("responseOutput").textContent =
+            output;
 
-            id: testId,
+        if (
+            result.response.ok
+        ) {
 
-            name: testDefinition[1],
+            state.successRequests++;
 
-            group:
-                groupDefinition.title,
+            showStatus(
+                statusArea,
+                `Richiesta completata: <strong>${result.response.status}</strong> — ${elapsed} ms`,
+                "success"
+            );
 
-            endpointMatches,
+        }
 
-            responseMatches,
+        else {
 
-            status,
+            state.errorRequests++;
 
-            statusLabel
+            showStatus(
+                statusArea,
+                `API ha restituito HTTP <strong>${result.response.status}</strong> — ${elapsed} ms`,
+                "warning"
+            );
+
+        }
+
+        $("successRequests").textContent =
+            state.successRequests;
+
+        $("errorRequests").textContent =
+            state.errorRequests;
+
+        addHistory({
+
+            timestamp:
+                new Date().toISOString(),
+
+            method,
+
+            endpoint,
+
+            url:
+                result.url,
+
+            status:
+                result.response.status,
+
+            ok:
+                result.response.ok,
+
+            elapsed,
+
+            analysis
 
         });
 
-    });
+    }
 
-    state.testAnalysisResults =
-        results;
+    catch (error) {
 
-    renderTestAnalysisResults(
-        results
-    );
+        state.requestsSession++;
 
-    showStatus(
-        "testAnalysisStatus",
-        `Analisi completata: ${results.length} domande analizzate. Richieste API aggiuntive: 0.`,
-        "success"
-    );
+        state.errorRequests++;
+
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        $("errorRequests").textContent =
+            state.errorRequests;
+
+        showStatus(
+            statusArea,
+            `<strong>Errore:</strong> ${escapeHTML(error.message)}`,
+            "error"
+        );
+
+        $("responseOutput").textContent =
+            String(error);
+
+    }
 
 }
 
+async function testConnection() {
 
-/* =========================================================
-   RENDER RISULTATI TEST ANALYSIS
-   ========================================================= */
+    const statusArea =
+        $("connectionStatus");
 
-function renderTestAnalysisResults(results) {
+    try {
 
-    const container =
-        $("testAnalysisResults");
+        const base =
+            normalizeBaseUrl(
+                $("baseUrl").value
+            );
 
-    if (!results.length) {
+        if (!base) {
+            throw new Error(
+                "Inserisci il Base URL dell'API."
+            );
+        }
 
-        container.innerHTML = `
-            <div class="empty">
-                Nessun risultato.
+        showStatus(
+            statusArea,
+            '<span class="loading"></span> Test connessione in corso...',
+            "info"
+        );
+
+        const result =
+            await proxyRequest(
+                base,
+                {
+                    method: "GET"
+                }
+            );
+
+        state.requestsSession++;
+
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        const headers =
+            extractHeaders(
+                result.response
+            );
+
+        const rate =
+            detectRateLimit(headers);
+
+        let message =
+            `HTTP <strong>${result.response.status}</strong>`;
+
+        if (rate.limit !== null) {
+
+            message +=
+                `<br>Rate limit: ${escapeHTML(rate.limit)}`;
+
+        }
+
+        if (rate.remaining !== null) {
+
+            message +=
+                `<br>Richieste rimanenti rilevate: ${escapeHTML(rate.remaining)}`;
+
+        }
+
+        if (result.response.ok) {
+
+            state.successRequests++;
+
+            showStatus(
+                statusArea,
+                "Connessione raggiunta.<br>" + message,
+                "success"
+            );
+
+        }
+
+        else {
+
+            state.errorRequests++;
+
+            showStatus(
+                statusArea,
+                "Server raggiunto ma ha restituito un errore.<br>" +
+                message,
+                "warning"
+            );
+
+        }
+
+        $("successRequests").textContent =
+            state.successRequests;
+
+        $("errorRequests").textContent =
+            state.errorRequests;
+
+        $("lastStatus").textContent =
+            result.response.status;
+
+    }
+
+    catch (error) {
+
+        state.requestsSession++;
+
+        state.errorRequests++;
+
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        $("errorRequests").textContent =
+            state.errorRequests;
+
+        showStatus(
+            statusArea,
+            `<strong>Connessione fallita:</strong> ${escapeHTML(error.message)}`,
+            "error"
+        );
+
+    }
+
+}
+
+async function discoverDocumentation() {
+
+    const statusArea =
+        $("docsStatus");
+
+    const resultsArea =
+        $("docsResults");
+
+    const base =
+        normalizeBaseUrl(
+            $("baseUrl").value
+        );
+
+    if (!base) {
+
+        showStatus(
+            statusArea,
+            "Inserisci prima il Base URL dell'API.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    showStatus(
+        statusArea,
+        '<span class="loading"></span> Ricerca documentazione in corso...',
+        "info"
+    );
+
+    resultsArea.innerHTML = "";
+
+    state.documentationFound = [];
+
+    let found = null;
+
+    for (
+        const path of DISCOVERY_PATHS
+    ) {
+
+        try {
+
+            const target =
+                base + path;
+
+            const result =
+                await proxyRequest(
+                    target,
+                    {
+                        method: "GET"
+                    }
+                );
+
+            state.requestsSession++;
+
+            $("requestsSession").textContent =
+                state.requestsSession;
+
+            const data =
+                tryParseJSON(result.text);
+
+            if (
+                result.response.ok &&
+                data &&
+                typeof data === "object"
+            ) {
+
+                if (
+                    data.openapi ||
+                    data.swagger ||
+                    data.paths
+                ) {
+
+                    found = {
+
+                        path,
+
+                        url: target,
+
+                        data
+
+                    };
+
+                    state.documentationFound.push(
+                        found
+                    );
+
+                    state.successRequests++;
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+        catch {
+            // Continua con il percorso successivo
+        }
+
+    }
+
+    $("successRequests").textContent =
+        state.successRequests;
+
+    if (!found) {
+
+        showStatus(
+            statusArea,
+            "Nessun file OpenAPI/Swagger trovato nei percorsi standard.",
+            "warning"
+        );
+
+        resultsArea.innerHTML = `
+            <div class="small-text">
+                Questo non significa che l'API non abbia documentazione.
+                Potrebbe utilizzare un percorso personalizzato.
+                Puoi comunque inserire manualmente gli endpoint.
             </div>
         `;
 
@@ -3555,131 +2712,265 @@ function renderTestAnalysisResults(results) {
 
     }
 
-    const verified =
-        results.filter(
-            result => result.status === "verified"
-        ).length;
+    const endpoints =
+        extractOpenAPIEndpoints(
+            found.data
+        );
 
-    const documentation =
-        results.filter(
-            result => result.status === "documentation"
-        ).length;
+    state.endpoints =
+        endpoints;
 
-    const notFound =
-        results.filter(
-            result => result.status === "not-found"
-        ).length;
+    state.endpointCount =
+        endpoints.length;
 
-    const pending =
-        results.filter(
-            result => result.status === "pending"
-        ).length;
+    $("endpointCount").textContent =
+        endpoints.length;
 
-    container.innerHTML = `
+    showStatus(
+        statusArea,
+        `Documentazione trovata: <strong>${escapeHTML(found.path)}</strong><br>
+         Endpoint individuati: <strong>${endpoints.length}</strong>`,
+        "success"
+    );
 
-        <div class="test-results-summary">
-
-            <div class="test-result-summary-card">
-                <strong>${verified}</strong>
-                <span>Rilevate nella risposta</span>
-            </div>
-
-            <div class="test-result-summary-card">
-                <strong>${documentation}</strong>
-                <span>Endpoint compatibili</span>
-            </div>
-
-            <div class="test-result-summary-card">
-                <strong>${notFound}</strong>
-                <span>Non rilevate</span>
-            </div>
-
-            <div class="test-result-summary-card">
-                <strong>${pending}</strong>
-                <span>Da testare</span>
-            </div>
-
-        </div>
-
-        <div class="test-result-list">
-
-            ${results.map(result => `
-
-                <div class="test-result">
-
-                    <div class="test-result-top">
-
-                        <div>
-
-                            <div class="test-result-name">
-                                ${escapeHTML(result.name)}
-                            </div>
-
-                            <div class="test-result-id">
-                                ${escapeHTML(result.id)}
-                            </div>
-
-                        </div>
-
-                        <span class="test-result-badge ${result.status}">
-                            ${escapeHTML(result.statusLabel)}
-                        </span>
-
-                    </div>
-
-                    <div class="test-result-details">
-
-                        <strong>Categoria:</strong>
-                        ${escapeHTML(result.group)}
-
-                        <br>
-
-                        ${
-                            result.responseMatches.length
-                            ? `
-                                <strong>Campi trovati nella risposta:</strong>
-                                ${escapeHTML(result.responseMatches.join(", "))}
-                                <br>
-                            `
-                            : ""
-                        }
-
-                        ${
-                            result.endpointMatches.length
-                            ? `
-                                <strong>Endpoint compatibili:</strong>
-                                ${result.endpointMatches.map(endpoint =>
-                                    `${escapeHTML(endpoint.method)} ${escapeHTML(endpoint.path)}`
-                                ).join(" · ")}
-                            `
-                            : ""
-                        }
-
-                        ${
-                            !result.endpointMatches.length &&
-                            !result.responseMatches.length
-                            ? `
-                                Nessuna corrispondenza rilevata con i dati disponibili.
-                            `
-                            : ""
-                        }
-
-                    </div>
-
-                </div>
-
-            `).join("")}
-
-        </div>
-
-    `;
+    renderEndpointList(
+        endpoints,
+        resultsArea
+    );
 
 }
 
+function extractOpenAPIEndpoints(data) {
 
-/* =========================================================
-   STORICO
-   ========================================================= */
+    const endpoints = [];
+
+    if (
+        !data ||
+        !data.paths ||
+        typeof data.paths !== "object"
+    ) {
+
+        return endpoints;
+
+    }
+
+    Object.entries(data.paths).forEach(
+        ([path, methods]) => {
+
+            if (
+                !methods ||
+                typeof methods !== "object"
+            ) {
+
+                return;
+
+            }
+
+            Object.entries(methods).forEach(
+                ([method, definition]) => {
+
+                    const validMethods = [
+                        "get",
+                        "post",
+                        "put",
+                        "patch",
+                        "delete",
+                        "head",
+                        "options"
+                    ];
+
+                    if (
+                        !validMethods.includes(
+                            method.toLowerCase()
+                        )
+                    ) {
+
+                        return;
+
+                    }
+
+                    endpoints.push({
+
+                        path,
+
+                        method:
+                            method.toUpperCase(),
+
+                        description:
+                            definition &&
+                            definition.summary
+                            ? definition.summary
+                            : definition &&
+                              definition.description
+                            ? definition.description
+                            : "",
+
+                        operationId:
+                            definition &&
+                            definition.operationId
+                            ? definition.operationId
+                            : "",
+
+                        tags:
+                            definition &&
+                            Array.isArray(
+                                definition.tags
+                            )
+                            ? definition.tags
+                            : []
+
+                    });
+
+                }
+            );
+
+        }
+    );
+
+    return endpoints;
+
+}
+
+function renderEndpointList(
+    endpoints,
+    container
+) {
+
+    if (!endpoints.length) {
+
+        container.innerHTML =
+            '<div class="empty">Nessun endpoint trovato.</div>';
+
+        return;
+
+    }
+
+    container.innerHTML = "";
+
+    endpoints.forEach(
+        (endpoint, index) => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "endpoint-item";
+
+            item.innerHTML = `
+
+                <div class="endpoint-main">
+
+                    <div>
+                        <span class="endpoint-method">
+                            ${escapeHTML(endpoint.method)}
+                        </span>
+
+                        <span class="endpoint-path">
+                            ${escapeHTML(endpoint.path)}
+                        </span>
+                    </div>
+
+                    ${
+                        endpoint.description
+                        ? `<div class="endpoint-description">
+                            ${escapeHTML(endpoint.description)}
+                           </div>`
+                        : ""
+                    }
+
+                </div>
+
+                <button
+                    class="btn small secondary"
+                    data-endpoint-index="${index}">
+                    Usa
+                </button>
+
+            `;
+
+            item
+                .querySelector("button")
+                .addEventListener(
+                    "click",
+                    () => {
+
+                        $("method").value =
+                            endpoint.method;
+
+                        $("endpoint").value =
+                            endpoint.path;
+
+                        window.scrollTo({
+                            top:
+                                document
+                                .querySelector(
+                                    "#method"
+                                )
+                                .getBoundingClientRect()
+                                .top +
+                                window.scrollY -
+                                120,
+                            behavior: "smooth"
+                        });
+
+                    }
+                );
+
+            container.appendChild(item);
+
+        }
+    );
+
+}
+
+function endpointMatchesCategory(
+    endpoint,
+    category
+) {
+
+    const words =
+        FOOTBALL_CATEGORIES[
+            category
+        ] || [];
+
+    const text = (
+
+        endpoint.path +
+        " " +
+        endpoint.description +
+        " " +
+        endpoint.operationId +
+        " " +
+        endpoint.tags.join(" ")
+
+    ).toLowerCase();
+
+    return words.some(
+        word =>
+            text.includes(
+                word.toLowerCase()
+            )
+    );
+
+}
+
+function filterEndpoints(category) {
+
+    const filtered =
+        state.endpoints.filter(
+            endpoint =>
+                endpointMatchesCategory(
+                    endpoint,
+                    category
+                )
+        );
+
+    renderEndpointList(
+        filtered,
+        $("filteredEndpoints")
+    );
+
+}
 
 function addHistory(item) {
 
@@ -3696,80 +2987,79 @@ function addHistory(item) {
 
 }
 
-
 function renderHistory() {
 
-    const container =
+    const area =
         $("historyArea");
 
     if (!state.history.length) {
 
-        container.innerHTML = `
-            <div class="empty">
-                Nessuna richiesta effettuata.
-            </div>
-        `;
+        area.innerHTML =
+            '<div class="empty">Nessun test effettuato.</div>';
 
         return;
 
     }
 
-    container.innerHTML = `
+    area.innerHTML = "";
 
-        <div class="history-list">
+    state.history.forEach(
+        item => {
 
-            ${state.history.map(item => `
+            const div =
+                document.createElement("div");
 
-                <div class="history-item">
+            div.className =
+                "history-item";
 
-                    <div class="history-header">
+            const date =
+                new Date(
+                    item.timestamp
+                ).toLocaleString(
+                    "it-IT"
+                );
 
-                        <div>
+            div.innerHTML = `
 
-                            <span class="history-method">
-                                ${escapeHTML(item.method)}
-                            </span>
+                <div class="history-top">
 
-                            <span class="history-status">
-                                HTTP ${escapeHTML(item.status)}
-                            </span>
+                    <strong>
+                        ${escapeHTML(date)}
+                    </strong>
 
-                        </div>
-
-                        <div class="history-status">
-
-                            ${
-                                item.ok
-                                ? "✅ OK"
-                                : "❌ ERRORE"
-                            }
-
-                        </div>
-
-                    </div>
-
-                    <div class="history-url">
-                        ${escapeHTML(item.url)}
-                    </div>
-
-                    <div class="history-time">
-                        ${escapeHTML(item.timestamp)}
-                    </div>
+                    <span class="badge ${
+                        item.ok
+                        ? "good"
+                        : "bad"
+                    }">
+                        HTTP ${item.status}
+                    </span>
 
                 </div>
 
-            `).join("")}
+                <div class="history-path">
+                    ${escapeHTML(item.method)}
+                    ${escapeHTML(item.endpoint)}
+                </div>
 
-        </div>
+                <div class="small-text">
+                    ${item.elapsed} ms
+                    ${
+                        item.analysis &&
+                        item.analysis.likelyFootballData
+                        ? " • dati calcistici rilevati"
+                        : ""
+                    }
+                </div>
 
-    `;
+            `;
+
+            area.appendChild(div);
+
+        }
+    );
 
 }
-
-
-/* =========================================================
-   CONFIGURAZIONE SALVATAGGIO
-   ========================================================= */
 
 function saveConfig() {
 
@@ -3780,9 +3070,6 @@ function saveConfig() {
 
         baseUrl:
             $("baseUrl").value,
-
-        apiKey:
-            $("apiKey").value,
 
         authType:
             $("authType").value
@@ -3795,24 +3082,25 @@ function saveConfig() {
     );
 
     showStatus(
-        "connectionStatus",
-        "Configurazione salvata.",
+        $("connectionStatus"),
+        "Configurazione salvata sul dispositivo. La API key non viene salvata.",
         "success"
     );
 
 }
 
-
 function loadConfig() {
 
-    const raw =
-        localStorage.getItem(
-            "footballApiTesterConfig"
-        );
-
-    if (!raw) return;
-
     try {
+
+        const raw =
+            localStorage.getItem(
+                "footballApiTesterConfig"
+            );
+
+        if (!raw) {
+            return;
+        }
 
         const config =
             JSON.parse(raw);
@@ -3823,9 +3111,6 @@ function loadConfig() {
         $("baseUrl").value =
             config.baseUrl || "";
 
-        $("apiKey").value =
-            config.apiKey || "";
-
         $("authType").value =
             config.authType ||
             "x-apisports-key";
@@ -3833,13 +3118,10 @@ function loadConfig() {
     }
 
     catch {
-
-        return;
-
+        // Ignora configurazioni corrotte
     }
 
 }
-
 
 function clearConfig() {
 
@@ -3857,24 +3139,29 @@ function clearConfig() {
     );
 
     showStatus(
-        "connectionStatus",
-        "Configurazione cancellata.",
-        "success"
+        $("connectionStatus"),
+        "Configurazione pulita.",
+        "info"
     );
 
 }
-
-
-/* =========================================================
-   REPORT
-   ========================================================= */
 
 function buildReport() {
 
     return {
 
-        generatedAt:
-            new Date().toISOString(),
+        application: {
+
+            name:
+                "Football API Tester",
+
+            version:
+                "3.0",
+
+            generatedAt:
+                new Date().toISOString()
+
+        },
 
         api: {
 
@@ -3884,48 +3171,48 @@ function buildReport() {
             baseUrl:
                 $("baseUrl").value,
 
-            authType:
+            authentication:
                 $("authType").value
 
         },
 
-        session: {
+        proxy: {
 
-            requests:
+            url:
+                PROXY_URL
+
+        },
+
+        statistics: {
+
+            requestsSession:
                 state.requestsSession,
 
-            success:
+            successRequests:
                 state.successRequests,
 
-            errors:
+            errorRequests:
                 state.errorRequests,
 
             endpointCount:
                 state.endpointCount,
 
             matchCount:
-                state.matchCount,
-
-            lastStatus:
-                state.lastStatus
-
-        },
-
-        testAnalysis: {
-
-            selectedTests:
-                state.selectedTests,
-
-            selectedCount:
-                state.selectedTests.length,
-
-            results:
-                state.testAnalysisResults
+                state.matchCount
 
         },
 
         documentation:
-            state.documentationFound,
+
+            state.documentationFound.map(
+                item => ({
+                    path:
+                        item.path,
+
+                    url:
+                        item.url
+                })
+            ),
 
         endpoints:
             state.endpoints,
@@ -3933,14 +3220,14 @@ function buildReport() {
         history:
             state.history,
 
+        lastRequest:
+            state.lastRequest,
+
         lastAnalysis:
             state.lastAnalysis,
 
         lastResponseHeaders:
             state.lastResponseHeaders,
-
-        lastRequest:
-            state.lastRequest,
 
         lastResponse:
             state.lastResponse
@@ -3949,71 +3236,63 @@ function buildReport() {
 
 }
 
-
 function generateReport() {
 
     const report =
         buildReport();
 
-    $("reportOutput").textContent =
+    const json =
         JSON.stringify(
             report,
             null,
             2
         );
 
-}
+    $("reportOutput").textContent =
+        json;
 
+    return json;
+
+}
 
 async function copyReport() {
 
-    const text =
-        $("reportOutput").textContent;
-
-    if (
-        !text ||
-        text === "Nessun report generato."
-    ) {
-
-        return;
-
-    }
+    const json =
+        generateReport();
 
     try {
 
         await navigator.clipboard.writeText(
-            text
+            json
         );
 
-        alert("Report copiato.");
+        alert(
+            "Report copiato."
+        );
 
     }
 
     catch {
 
-        alert("Impossibile copiare il report.");
+        alert(
+            "Impossibile copiare automaticamente il report."
+        );
 
     }
 
 }
 
-
 function downloadReport() {
 
-    const report =
-        buildReport();
+    const json =
+        generateReport();
 
     const blob =
         new Blob(
-            [
-                JSON.stringify(
-                    report,
-                    null,
-                    2
-                )
-            ],
+            [json],
             {
-                type: "application/json"
+                type:
+                    "application/json"
             }
         );
 
@@ -4023,10 +3302,16 @@ function downloadReport() {
     const a =
         document.createElement("a");
 
+    const apiName =
+        $("apiName").value
+            .trim()
+            .replace(/[^a-z0-9_-]/gi, "_")
+            || "api";
+
     a.href = url;
 
     a.download =
-        "football-api-test-report.json";
+        `football-api-report-${apiName}.json`;
 
     document.body.appendChild(a);
 
@@ -4038,11 +3323,21 @@ function downloadReport() {
 
 }
 
-
 async function copyResponse() {
 
     const text =
         $("responseOutput").textContent;
+
+    if (!text ||
+        text === "Nessuna risposta.") {
+
+        alert(
+            "Non c'è nessuna risposta da copiare."
+        );
+
+        return;
+
+    }
 
     try {
 
@@ -4050,49 +3345,21 @@ async function copyResponse() {
             text
         );
 
-        alert("Risposta copiata.");
+        alert(
+            "JSON copiato."
+        );
 
     }
 
     catch {
 
-        alert("Impossibile copiare la risposta.");
+        alert(
+            "Impossibile copiare automaticamente."
+        );
 
     }
 
 }
-
-
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
-
-function updateDashboard() {
-
-    $("requestsSession").textContent =
-        state.requestsSession;
-
-    $("successRequests").textContent =
-        state.successRequests;
-
-    $("errorRequests").textContent =
-        state.errorRequests;
-
-    $("endpointCount").textContent =
-        state.endpointCount;
-
-    $("matchCount").textContent =
-        state.matchCount;
-
-    $("lastStatus").textContent =
-        state.lastStatus ?? "—";
-
-}
-
-
-/* =========================================================
-   EVENT LISTENERS
-   ========================================================= */
 
 $("testConnectionBtn")
     .addEventListener(
@@ -4100,20 +3367,17 @@ $("testConnectionBtn")
         testConnection
     );
 
-
-$("saveConfigBtn")
+$("sendRequestBtn")
     .addEventListener(
         "click",
-        saveConfig
+        sendRequest
     );
 
-
-$("clearConfigBtn")
+$("sendRequestBtn2")
     .addEventListener(
         "click",
-        clearConfig
+        sendRequest
     );
-
 
 $("discoverDocsBtn")
     .addEventListener(
@@ -4121,38 +3385,41 @@ $("discoverDocsBtn")
         discoverDocumentation
     );
 
-
-$("clearEndpointsBtn")
+$("saveConfigBtn")
     .addEventListener(
         "click",
-        () => {
-
-            state.endpoints = [];
-
-            state.documentationFound = [];
-
-            state.endpointCount = 0;
-
-            renderEndpointList([]);
-
-            updateDashboard();
-
-            showStatus(
-                "docsStatus",
-                "Endpoint cancellati.",
-                "success"
-            );
-
-        }
+        saveConfig
     );
 
-
-$("sendRequestBtn")
+$("clearConfigBtn")
     .addEventListener(
         "click",
-        sendRequest
+        clearConfig
     );
 
+$("copyResponseBtn")
+    .addEventListener(
+        "click",
+        copyResponse
+    );
+
+$("generateReportBtn")
+    .addEventListener(
+        "click",
+        generateReport
+    );
+
+$("copyReportBtn")
+    .addEventListener(
+        "click",
+        copyReport
+    );
+
+$("downloadReportBtn")
+    .addEventListener(
+        "click",
+        downloadReport
+    );
 
 $("clearHistoryBtn")
     .addEventListener(
@@ -4166,185 +3433,79 @@ $("clearHistoryBtn")
         }
     );
 
-
-$("copyResponseBtn")
-    .addEventListener(
-        "click",
-        copyResponse
-    );
-
-
-$("generateReportBtn")
-    .addEventListener(
-        "click",
-        generateReport
-    );
-
-
-$("copyReportBtn")
-    .addEventListener(
-        "click",
-        copyReport
-    );
-
-
-$("downloadReportBtn")
-    .addEventListener(
-        "click",
-        downloadReport
-    );
-
-
-$("selectPriorityTestsBtn")
-    .addEventListener(
-        "click",
-        selectPriorityTests
-    );
-
-
-$("selectAllTestsBtn")
-    .addEventListener(
-        "click",
-        selectAllTests
-    );
-
-
-$("clearAllTestsBtn")
-    .addEventListener(
-        "click",
-        clearAllTests
-    );
-
-
-$("runTestAnalysisBtn")
-    .addEventListener(
-        "click",
-        runTestAnalysis
-    );
-
-
-$("testGroupsCarousel")
-    .addEventListener(
-        "change",
-        event => {
-
-            const checkbox =
-                event.target.closest(
-                    "[data-test-checkbox]"
-                );
-
-            if (!checkbox) return;
-
-            const testId =
-                checkbox.dataset.testCheckbox;
-
-            if (checkbox.checked) {
-
-                if (!state.selectedTests.includes(testId)) {
-
-                    state.selectedTests.push(testId);
-
-                }
-
-            } else {
-
-                state.selectedTests =
-                    state.selectedTests.filter(
-                        id => id !== testId
-                    );
-
-            }
-
-            updateSelectedTestsSummary();
-
-        }
-    );
-
-
-$("testGroupsCarousel")
-    .addEventListener(
-        "click",
-        event => {
-
-            const selectButton =
-                event.target.closest(
-                    "[data-select-group]"
-                );
-
-            if (selectButton) {
-
-                selectGroup(
-                    selectButton.dataset.selectGroup
-                );
-
-                return;
-
-            }
-
-            const clearButton =
-                event.target.closest(
-                    "[data-clear-group]"
-                );
-
-            if (clearButton) {
-
-                clearGroup(
-                    clearButton.dataset.clearGroup
-                );
-
-            }
-
-        }
-    );
-
-
-$("testCarouselPrev")
+$("clearEndpointsBtn")
     .addEventListener(
         "click",
         () => {
 
-            $("testGroupsCarousel").scrollBy({
+            state.endpoints = [];
 
-                left: -420,
+            state.endpointCount = 0;
 
-                behavior: "smooth"
+            $("endpointCount").textContent =
+                "0";
 
-            });
+            $("docsResults").innerHTML = "";
+
+            $("filteredEndpoints").innerHTML = "";
+
+            hideStatus(
+                $("docsStatus")
+            );
 
         }
     );
 
-
-$("testCarouselNext")
+$("clearRequestBtn")
     .addEventListener(
         "click",
         () => {
 
-            $("testGroupsCarousel").scrollBy({
+            $("endpoint").value = "";
 
-                left: 420,
+            $("queryParams").value = "";
 
-                behavior: "smooth"
+            $("customHeaders").value = "";
 
-            });
+            $("requestBody").value = "";
+
+            $("responseOutput").textContent =
+                "Nessuna risposta.";
+
+            $("analysisArea").innerHTML =
+                '<div class="empty">Nessuna risposta analizzata.</div>';
+
+            $("headersArea").innerHTML =
+                '<div class="empty">Nessun header disponibile.</div>';
+
+            hideStatus(
+                $("requestStatus")
+            );
 
         }
     );
 
+document.addEventListener(
+    "keydown",
+    event => {
 
-/* =========================================================
-   INIT
-   ========================================================= */
+        if (
+            event.ctrlKey &&
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            sendRequest();
+
+        }
+
+    }
+);
 
 loadConfig();
 
-renderCategories();
-
-renderTestGroups();
-
 renderHistory();
-
-updateDashboard();
 
 </script>
 
