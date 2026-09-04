@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <meta name="theme-color" content="#111111">
-<title>Football API Tester V3</title>
+
+<title>Football API Tester V4</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -42,10 +50,12 @@ button {
     margin: 0 auto;
 }
 
+/* HEADER */
+
 header {
     background: #111;
     color: white;
-    padding: 25px 0;
+    padding: 24px 0;
     margin-bottom: 20px;
 }
 
@@ -75,6 +85,8 @@ header {
     white-space: nowrap;
 }
 
+/* DASHBOARD */
+
 .dashboard {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -100,6 +112,8 @@ header {
     font-weight: bold;
 }
 
+/* CARDS */
+
 .card {
     background: white;
     border-radius: 16px;
@@ -118,15 +132,11 @@ header {
     font-size: 16px;
 }
 
+/* FORMS */
+
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
-}
-
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
 }
 
@@ -166,12 +176,7 @@ textarea {
     font-size: 13px;
 }
 
-.endpoint-row {
-    display: grid;
-    grid-template-columns: 90px 1fr auto;
-    gap: 10px;
-    align-items: end;
-}
+/* BUTTONS */
 
 .btn {
     border: none;
@@ -216,6 +221,8 @@ textarea {
     margin-top: 10px;
 }
 
+/* STATUS */
+
 .status {
     border-radius: 10px;
     padding: 12px;
@@ -249,64 +256,27 @@ textarea {
     color: #805600;
 }
 
-.endpoint-list {
-    display: grid;
-    gap: 8px;
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.endpoint-item {
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 11px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    background: #fafafa;
-}
-
-.endpoint-main {
-    min-width: 0;
-}
-
-.endpoint-method {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    padding: 4px 6px;
-    border-radius: 6px;
-    background: #ddd;
-    margin-right: 7px;
-}
-
-.endpoint-path {
-    font-family: Consolas, monospace;
-    font-size: 13px;
-    word-break: break-all;
-}
-
-.endpoint-description {
-    color: #777;
-    font-size: 12px;
-    margin-top: 4px;
-}
+/* CATEGORY */
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
 
 .category {
     border: 1px solid #ddd;
     background: #fafafa;
-    border-radius: 9px;
-    padding: 10px 8px;
-    font-size: 12px;
-    text-align: center;
+    border-radius: 11px;
+    padding: 13px 10px;
+    font-size: 13px;
+    text-align: left;
     cursor: pointer;
+    user-select: none;
+}
+
+.category:hover {
+    border-color: #aaa;
 }
 
 .category.active {
@@ -315,13 +285,127 @@ textarea {
     border-color: #111;
 }
 
-.result-header {
+.category-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.category-description {
+    font-size: 11px;
+    opacity: .7;
+    line-height: 1.3;
+}
+
+.category.active .category-description {
+    opacity: .8;
+}
+
+/* TEST PROGRESS */
+
+.progress-box {
+    margin-top: 15px;
+    display: none;
+}
+
+.progress-box.show {
+    display: block;
+}
+
+.progress-background {
+    width: 100%;
+    height: 10px;
+    background: #e8e8e8;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #111;
+    transition: width .25s ease;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #777;
+    margin-top: 7px;
+}
+
+/* RESULTS */
+
+.result-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.summary-box {
+    border: 1px solid #e2e2e2;
+    border-radius: 11px;
+    padding: 12px;
+}
+
+.summary-box span {
+    display: block;
+    color: #777;
+    font-size: 12px;
+}
+
+.summary-box strong {
+    display: block;
+    font-size: 21px;
+    margin-top: 5px;
+}
+
+.test-result {
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    background: #fafafa;
+}
+
+.test-result.ok {
+    border-left: 5px solid #147a3e;
+}
+
+.test-result.error {
+    border-left: 5px solid #a61b1b;
+}
+
+.test-result.warning {
+    border-left: 5px solid #a56800;
+}
+
+.test-result-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 10px;
+    gap: 10px;
 }
+
+.test-result-title {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.test-result-endpoint {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+    word-break: break-all;
+}
+
+.test-result-info {
+    margin-top: 9px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* BADGES */
 
 .badge {
     display: inline-block;
@@ -342,10 +426,17 @@ textarea {
     color: #a21c1c;
 }
 
+.badge.warning {
+    background: #fff0d0;
+    color: #805600;
+}
+
 .badge.neutral {
     background: #eee;
     color: #555;
 }
+
+/* RAW RESPONSE */
 
 pre {
     margin: 0;
@@ -359,6 +450,8 @@ pre {
     font-size: 12px;
     line-height: 1.5;
 }
+
+/* TABLE */
 
 .header-table {
     width: 100%;
@@ -379,6 +472,8 @@ pre {
     width: 35%;
 }
 
+/* ANALYSIS */
+
 .analysis-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -396,6 +491,8 @@ pre {
     font-size: 18px;
     margin-top: 5px;
 }
+
+/* HISTORY */
 
 .history-item {
     border: 1px solid #e2e2e2;
@@ -419,10 +516,16 @@ pre {
     word-break: break-all;
 }
 
-.empty {
-    color: #777;
-    padding: 15px;
-    text-align: center;
+/* INFORMATION */
+
+.info-box {
+    background: #f1f5ff;
+    border: 1px solid #d8e2ff;
+    border-radius: 10px;
+    padding: 13px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .small-text {
@@ -431,19 +534,10 @@ pre {
     line-height: 1.5;
 }
 
-.proxy-box {
-    background: #f1f5ff;
-    border: 1px solid #d8e2ff;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 15px;
-}
-
-.proxy-url {
-    font-family: Consolas, monospace;
-    font-size: 12px;
-    word-break: break-all;
-    margin-top: 5px;
+.empty {
+    color: #777;
+    padding: 15px;
+    text-align: center;
 }
 
 .loading {
@@ -464,21 +558,27 @@ pre {
     }
 }
 
+/* MOBILE */
+
 @media (max-width: 950px) {
+
     .dashboard {
         grid-template-columns: repeat(3, 1fr);
-    }
-
-    .analysis-grid {
-        grid-template-columns: repeat(2, 1fr);
     }
 
     .category-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .analysis-grid,
+    .result-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }
 
 @media (max-width: 700px) {
+
     .container {
         width: min(100% - 20px, 600px);
     }
@@ -503,22 +603,12 @@ pre {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .grid-2,
-    .grid-3 {
+    .grid-2 {
         grid-template-columns: 1fr;
     }
 
-    .endpoint-row {
-        grid-template-columns: 75px 1fr;
-    }
-
-    .endpoint-row button {
-        grid-column: 1 / -1;
-        width: 100%;
-    }
-
     .category-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr;
     }
 
     .card {
@@ -526,7 +616,8 @@ pre {
         border-radius: 13px;
     }
 
-    .analysis-grid {
+    .analysis-grid,
+    .result-summary {
         grid-template-columns: 1fr 1fr;
     }
 
@@ -534,470 +625,876 @@ pre {
         flex: 1;
         min-width: 130px;
     }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
+
     <div class="container header-inner">
+
         <div class="title-area">
+
             <h1>⚽ Football API Tester</h1>
-            <p>Analizzatore API calcistiche — V3</p>
+
+            <p>
+                Laboratorio dati per la futura app calcistica
+            </p>
+
         </div>
-        <div class="version">V3.0</div>
+
+        <div class="version">
+            V4.0
+        </div>
+
     </div>
+
 </header>
+
 
 <main class="container">
 
-    <section class="dashboard">
 
-        <div class="stat-card">
-            <div class="stat-label">Richieste sessione</div>
-            <div class="stat-value" id="requestsSession">0</div>
+<!-- DASHBOARD -->
+
+<section class="dashboard">
+
+    <div class="stat-card">
+        <div class="stat-label">
+            Richieste totali
         </div>
 
-        <div class="stat-card">
-            <div class="stat-label">Risposte OK</div>
-            <div class="stat-value" id="successRequests">0</div>
+        <div class="stat-value"
+             id="requestsSession">
+            0
+        </div>
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            Risposte OK
         </div>
 
-        <div class="stat-card">
-            <div class="stat-label">Errori</div>
-            <div class="stat-value" id="errorRequests">0</div>
+        <div class="stat-value"
+             id="successRequests">
+            0
         </div>
 
-        <div class="stat-card">
-            <div class="stat-label">Endpoint trovati</div>
-            <div class="stat-value" id="endpointCount">0</div>
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            Errori
         </div>
 
-        <div class="stat-card">
-            <div class="stat-label">Match trovati</div>
-            <div class="stat-value" id="matchCount">0</div>
+        <div class="stat-value"
+             id="errorRequests">
+            0
         </div>
 
-        <div class="stat-card">
-            <div class="stat-label">Ultimo status</div>
-            <div class="stat-value" id="lastStatus">—</div>
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            Categorie testate
         </div>
 
-    </section>
+        <div class="stat-value"
+             id="categoriesTested">
+            0
+        </div>
+
+    </div>
 
 
-    <section class="card">
+    <div class="stat-card">
 
-        <h2>1. Configurazione API</h2>
+        <div class="stat-label">
+            Match trovati
+        </div>
 
-        <div class="proxy-box">
-            <strong>Proxy Cloudflare attivo</strong>
-            <div class="proxy-url" id="proxyDisplay"></div>
-            <div class="small-text">
-                Le richieste del browser passano attraverso questo proxy per evitare i problemi CORS.
-                Il proxy non aumenta il numero di richieste consentite dall'API.
+        <div class="stat-value"
+             id="matchCount">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-label">
+            Ultimo status
+        </div>
+
+        <div class="stat-value"
+             id="lastStatus">
+            —
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONFIGURAZIONE -->
+
+<section class="card">
+
+    <h2>1. Configura l'API</h2>
+
+    <div class="info-box">
+
+        <strong>Cosa devi inserire?</strong>
+
+        <br><br>
+
+        Inserisci solamente il sito/base URL dell'API e la tua API Key.
+        Il tester costruirà automaticamente le richieste necessarie
+        in base alle categorie che selezioni.
+
+    </div>
+
+
+    <div class="grid-2">
+
+        <div class="field">
+
+            <label for="apiName">
+                Nome API
+            </label>
+
+            <input
+                id="apiName"
+                type="text"
+                placeholder="Es. API-Football"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="baseUrl">
+                Sito / Base URL API
+            </label>
+
+            <input
+                id="baseUrl"
+                type="text"
+                value="https://v3.football.api-sports.io"
+                placeholder="https://v3.football.api-sports.io"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="grid-2">
+
+        <div class="field">
+
+            <label for="apiKey">
+                API Key
+            </label>
+
+            <input
+                id="apiKey"
+                type="password"
+                placeholder="Inserisci la tua API Key"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="authType">
+                Autenticazione
+            </label>
+
+            <select id="authType">
+
+                <option value="x-apisports-key">
+                    API-Sports / API-Football — x-apisports-key
+                </option>
+
+                <option value="x-api-key">
+                    Header — x-api-key
+                </option>
+
+                <option value="authorization-bearer">
+                    Authorization — Bearer
+                </option>
+
+                <option value="authorization">
+                    Authorization
+                </option>
+
+                <option value="query-key">
+                    Query — key
+                </option>
+
+                <option value="query-api-key">
+                    Query — api_key
+                </option>
+
+                <option value="none">
+                    Nessuna
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <div class="button-row">
+
+        <button
+            class="btn success"
+            id="testConnectionBtn">
+
+            ✓ Test connessione
+
+        </button>
+
+
+        <button
+            class="btn secondary"
+            id="saveConfigBtn">
+
+            Salva configurazione
+
+        </button>
+
+
+        <button
+            class="btn secondary"
+            id="clearConfigBtn">
+
+            Pulisci
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="connectionStatus"
+        class="status">
+    </div>
+
+</section>
+
+
+<!-- CATEGORIE -->
+
+<section class="card">
+
+    <h2>2. Cosa vuoi che analizzi?</h2>
+
+    <p class="small-text">
+
+        Seleziona le categorie che vuoi verificare.
+        Non devi inserire endpoint o parametri:
+        il tester farà automaticamente le richieste necessarie.
+
+    </p>
+
+
+    <div
+        class="button-row"
+        style="margin-bottom:15px;">
+
+        <button
+            class="btn secondary small"
+            id="selectAllBtn">
+
+            Seleziona tutto
+
+        </button>
+
+
+        <button
+            class="btn secondary small"
+            id="deselectAllBtn">
+
+            Deseleziona tutto
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="categoryGrid">
+
+    </div>
+
+
+    <div
+        class="button-row">
+
+        <button
+            class="btn success"
+            id="runAnalysisBtn">
+
+            🚀 Avvia analisi selezionata
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="testStatus"
+        class="status">
+    </div>
+
+
+    <div
+        id="progressBox"
+        class="progress-box">
+
+        <div class="progress-background">
+
+            <div
+                id="progressBar"
+                class="progress-bar">
             </div>
-        </div>
-
-        <div class="grid-2">
-
-            <div class="field">
-                <label for="apiName">Nome API</label>
-                <input id="apiName" type="text" placeholder="Es. API-Football">
-            </div>
-
-            <div class="field">
-                <label for="baseUrl">Base URL API</label>
-                <input id="baseUrl" type="text" placeholder="https://v3.football.api-sports.io">
-            </div>
 
         </div>
 
-        <div class="grid-2">
+        <div
+            id="progressText"
+            class="progress-text">
 
-            <div class="field">
-                <label for="apiKey">API Key</label>
-                <input id="apiKey" type="password" placeholder="Inserisci la tua API key">
-            </div>
-
-            <div class="field">
-                <label for="authType">Tipo autenticazione</label>
-
-                <select id="authType">
-
-                    <option value="x-apisports-key">
-                        Header: x-apisports-key
-                    </option>
-
-                    <option value="x-api-key">
-                        Header: x-api-key
-                    </option>
-
-                    <option value="authorization-bearer">
-                        Authorization: Bearer
-                    </option>
-
-                    <option value="authorization">
-                        Authorization
-                    </option>
-
-                    <option value="query-key">
-                        Query parameter: key
-                    </option>
-
-                    <option value="query-api-key">
-                        Query parameter: api_key
-                    </option>
-
-                    <option value="none">
-                        Nessuna autenticazione
-                    </option>
-
-                </select>
-            </div>
+            Preparazione...
 
         </div>
 
-        <div class="button-row">
+    </div>
 
-            <button class="btn success" id="testConnectionBtn">
-                Test connessione
-            </button>
+</section>
 
-            <button class="btn secondary" id="saveConfigBtn">
-                Salva configurazione
-            </button>
 
-            <button class="btn secondary" id="clearConfigBtn">
-                Pulisci
-            </button>
+<!-- RISULTATI TEST -->
 
+<section class="card">
+
+    <h2>3. Risultato dell'analisi</h2>
+
+
+    <div
+        id="analysisSummary">
+
+        <div class="empty">
+            Nessuna analisi effettuata.
         </div>
 
-        <div id="connectionStatus" class="status"></div>
-
-    </section>
+    </div>
 
 
-    <section class="card">
+    <div
+        id="testResults">
 
-        <h2>2. Ricerca automatica documentazione</h2>
-
-        <p class="small-text">
-            Il tester prova automaticamente i percorsi più comuni di OpenAPI/Swagger.
-            Se trova la documentazione, cerca gli endpoint disponibili.
-        </p>
-
-        <div class="button-row">
-
-            <button class="btn" id="discoverDocsBtn">
-                🔎 Cerca OpenAPI / Swagger
-            </button>
-
-            <button class="btn secondary" id="clearEndpointsBtn">
-                Cancella endpoint
-            </button>
-
+        <div class="empty">
+            Seleziona almeno una categoria e avvia l'analisi.
         </div>
 
-        <div id="docsStatus" class="status"></div>
+    </div>
 
-        <div id="docsResults"></div>
-
-    </section>
+</section>
 
 
-    <section class="card">
+<!-- COPERTURA -->
 
-        <h2>3. Test endpoint</h2>
+<section class="card">
 
-        <div class="endpoint-row">
+    <h2>4. Capacità dell'API</h2>
 
-            <div class="field" style="margin:0;">
-                <label for="method">Metodo</label>
+    <p class="small-text">
 
-                <select id="method">
-                    <option value="GET">GET</option>
-                    <option value="POST">POST</option>
-                </select>
-            </div>
+        Questa sezione raccoglie ciò che ci interessa realmente
+        per costruire la futura applicazione.
 
-            <div class="field" style="margin:0;">
-                <label for="endpoint">Endpoint</label>
-                <input id="endpoint" type="text" placeholder="/fixtures?league=135&season=2025">
-            </div>
+    </p>
 
-            <button class="btn" id="sendRequestBtn">
-                Invia richiesta
-            </button>
 
+    <div
+        id="capabilityArea">
+
+        <div class="empty">
+            Nessun dato disponibile.
         </div>
 
+    </div>
 
-        <h3>Parametri GET</h3>
+</section>
 
-        <textarea id="queryParams" placeholder="league=135
-season=2025
-next=10"></textarea>
 
-        <h3>Header aggiuntivi</h3>
+<!-- RISPOSTA -->
 
-        <textarea id="customHeaders" placeholder="accept: application/json"></textarea>
+<section class="card">
 
-        <h3>Body POST</h3>
+    <div class="result-header"
+         style="display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:10px;">
 
-        <textarea id="requestBody" placeholder='{"example":"value"}'></textarea>
+        <h2 style="margin:0;">
+            5. Ultima risposta API
+        </h2>
 
-        <div class="button-row">
+        <button
+            class="btn small secondary"
+            id="copyResponseBtn">
 
-            <button class="btn" id="sendRequestBtn2">
-                🚀 Esegui endpoint
-            </button>
+            Copia JSON
 
-            <button class="btn secondary" id="clearRequestBtn">
-                Pulisci richiesta
-            </button>
+        </button>
 
+    </div>
+
+
+    <pre id="responseOutput">
+Nessuna risposta.
+    </pre>
+
+</section>
+
+
+<!-- HEADERS -->
+
+<section class="card">
+
+    <h2>
+        6. Headers dell'ultima risposta
+    </h2>
+
+
+    <div id="headersArea">
+
+        <div class="empty">
+            Nessun header disponibile.
         </div>
 
-        <div id="requestStatus" class="status"></div>
+    </div>
 
-    </section>
-
-
-    <section class="card">
-
-        <h2>4. Categorie calcistiche</h2>
-
-        <p class="small-text">
-            Se la documentazione contiene molti endpoint, puoi filtrare quelli più interessanti
-            per il nostro progetto.
-        </p>
-
-        <div class="category-grid" id="categoryGrid"></div>
-
-        <div style="margin-top:15px;" id="filteredEndpoints"></div>
-
-    </section>
+</section>
 
 
-    <section class="card">
+<!-- ANALISI TECNICA -->
 
-        <h2>5. Analisi automatica della risposta</h2>
+<section class="card">
 
-        <div id="analysisArea">
+    <h2>
+        7. Analisi tecnica dei dati
+    </h2>
 
-            <div class="empty">
-                Nessuna risposta analizzata.
-            </div>
 
+    <div id="technicalAnalysis">
+
+        <div class="empty">
+            Nessuna risposta analizzata.
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <section class="card">
+<!-- STORICO -->
 
-        <h2>6. Headers risposta</h2>
+<section class="card">
 
-        <div id="headersArea">
-            <div class="empty">
-                Nessun header disponibile.
-            </div>
+    <div
+        class="result-header"
+        style="display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:10px;">
+
+        <h2 style="margin:0;">
+            8. Storico sessione
+        </h2>
+
+
+        <button
+            class="btn small danger"
+            id="clearHistoryBtn">
+
+            Cancella storico
+
+        </button>
+
+    </div>
+
+
+    <div id="historyArea">
+
+        <div class="empty">
+            Nessun test effettuato.
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <section class="card">
+<!-- REPORT -->
 
-        <div class="result-header">
+<section class="card">
 
-            <h2 style="margin:0;">7. Risposta API</h2>
-
-            <div>
-                <button class="btn small secondary" id="copyResponseBtn">
-                    Copia JSON
-                </button>
-            </div>
-
-        </div>
-
-        <pre id="responseOutput">Nessuna risposta.</pre>
-
-    </section>
+    <h2>
+        9. Report completo per lo sviluppo
+    </h2>
 
 
-    <section class="card">
+    <p class="small-text">
 
-        <div class="result-header">
+        Il report raccoglie configurazione, richieste,
+        categorie testate, dati storici, dati futuri,
+        risposte API, headers, rate limit, endpoint,
+        campi rilevati e risultati.
+        Questo è il file che potremo usare per decidere
+        come costruire la futura app.
 
-            <h2 style="margin:0;">8. Storico sessione</h2>
-
-            <button class="btn small danger" id="clearHistoryBtn">
-                Cancella storico
-            </button>
-
-        </div>
-
-        <div id="historyArea">
-            <div class="empty">
-                Nessun test effettuato.
-            </div>
-        </div>
-
-    </section>
+    </p>
 
 
-    <section class="card">
+    <div class="button-row">
 
-        <h2>9. Report API</h2>
+        <button
+            class="btn"
+            id="generateReportBtn">
 
-        <p class="small-text">
-            Genera un report JSON con configurazione, richieste, endpoint scoperti,
-            risultati e informazioni utili per confrontare questa API con le altre.
-        </p>
+            Genera report
 
-        <div class="button-row">
+        </button>
 
-            <button class="btn" id="generateReportBtn">
-                Genera report
-            </button>
 
-            <button class="btn secondary" id="copyReportBtn">
-                Copia report
-            </button>
+        <button
+            class="btn secondary"
+            id="copyReportBtn">
 
-            <button class="btn success" id="downloadReportBtn">
-                Scarica JSON
-            </button>
+            Copia report
 
-        </div>
+        </button>
 
-        <div style="margin-top:15px;">
-            <pre id="reportOutput">Nessun report generato.</pre>
-        </div>
 
-    </section>
+        <button
+            class="btn success"
+            id="downloadReportBtn">
+
+            Scarica JSON
+
+        </button>
+
+    </div>
+
+
+    <div style="margin-top:15px;">
+
+        <pre id="reportOutput">
+Nessun report generato.
+        </pre>
+
+    </div>
+
+</section>
+
 
 </main>
 
 
 <script>
 
+
+/* =========================================================
+   CONFIGURAZIONE GENERALE
+========================================================= */
+
+
 const PROXY_URL =
     "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
 
-const DISCOVERY_PATHS = [
-    "/openapi.json",
-    "/swagger.json",
-    "/swagger/v1/swagger.json",
-    "/v3/api-docs",
-    "/api-docs",
-    "/api/openapi.json",
-    "/api/swagger.json",
-    "/docs/openapi.json",
-    "/docs/swagger.json"
+
+const DEFAULT_BASE_URL =
+    "https://v3.football.api-sports.io";
+
+
+/*
+    Campionati che ci interessano per la futura applicazione.
+
+    Gli ID sono quelli utilizzati da API-Football.
+*/
+
+const TARGET_LEAGUES = [
+
+    {
+        id: 39,
+        name: "Premier League"
+    },
+
+    {
+        id: 140,
+        name: "La Liga"
+    },
+
+    {
+        id: 78,
+        name: "Bundesliga"
+    },
+
+    {
+        id: 135,
+        name: "Serie A"
+    },
+
+    {
+        id: 61,
+        name: "Ligue 1"
+    },
+
+    {
+        id: 2,
+        name: "Champions League"
+    },
+
+    {
+        id: 3,
+        name: "Europa League"
+    },
+
+    {
+        id: 848,
+        name: "Conference League"
+    }
+
 ];
 
-const FOOTBALL_CATEGORIES = {
-    "Partite": [
-        "fixture",
-        "fixtures",
-        "match",
-        "matches",
-        "game",
-        "games"
-    ],
 
-    "Gol": [
-        "goal",
-        "goals",
-        "score",
-        "scores"
-    ],
+/*
+    Stagioni utilizzate per verificare dati storici
+    e dati recenti.
 
-    "Statistiche": [
-        "statistic",
-        "statistics",
-        "stats"
-    ],
+    2025 = stagione precedente
+    2026 = stagione attuale
+*/
 
-    "Eventi": [
-        "event",
-        "events"
-    ],
+const HISTORICAL_SEASON =
+    2025;
 
-    "Squadre": [
-        "team",
-        "teams",
-        "club",
-        "clubs"
-    ],
+const CURRENT_SEASON =
+    2026;
 
-    "Giocatori": [
-        "player",
-        "players"
-    ],
 
-    "Campionati": [
-        "league",
-        "leagues",
-        "competition",
-        "competitions"
-    ],
+/* =========================================================
+   CATEGORIE
+========================================================= */
 
-    "Stagioni": [
-        "season",
-        "seasons"
-    ],
 
-    "Classifiche": [
-        "standings",
-        "table",
-        "tables",
-        "ranking",
-        "rankings"
-    ],
+const CATEGORIES = {
 
-    "Infortuni": [
-        "injur",
-        "injuries",
-        "suspension",
-        "suspensions"
-    ],
+    fixtures: {
 
-    "Quote": [
-        "odds",
-        "bookmaker",
-        "bookmakers"
-    ],
+        title: "⚽ Partite",
 
-    "Predizioni": [
-        "predict",
-        "prediction",
-        "predictions"
-    ],
+        description:
+            "Partite, date, orari, squadre, risultati e stato",
 
-    "H2H": [
-        "h2h",
-        "head-to-head",
-        "head_to_head"
-    ],
+        priority: 1
 
-    "Formazioni": [
-        "lineup",
-        "lineups",
-        "formation",
-        "formations"
-    ],
+    },
 
-    "Trasferimenti": [
-        "transfer",
-        "transfers"
-    ]
+
+    goals: {
+
+        title: "🥅 Gol",
+
+        description:
+            "Gol, risultato, primo/secondo tempo e marcatori",
+
+        priority: 2
+
+    },
+
+
+    statistics: {
+
+        title: "📊 Statistiche",
+
+        description:
+            "Tiri, possesso, corner, falli, cartellini e altro",
+
+        priority: 3
+
+    },
+
+
+    events: {
+
+        title: "🎯 Eventi",
+
+        description:
+            "Gol, cartellini, sostituzioni e cronologia partita",
+
+        priority: 4
+
+    },
+
+
+    teams: {
+
+        title: "👥 Squadre",
+
+        description:
+            "Squadre, allenatori, stadi e informazioni generali",
+
+        priority: 5
+
+    },
+
+
+    players: {
+
+        title: "🧑 Giocatori",
+
+        description:
+            "Giocatori e statistiche individuali",
+
+        priority: 6
+
+    },
+
+
+    leagues: {
+
+        title: "🏆 Campionati",
+
+        description:
+            "Campionati, coppe e copertura dei dati",
+
+        priority: 7
+
+    },
+
+
+    seasons: {
+
+        title: "📅 Stagioni",
+
+        description:
+            "Stagioni disponibili",
+
+        priority: 8
+
+    },
+
+
+    standings: {
+
+        title: "📈 Classifiche",
+
+        description:
+            "Posizioni, punti, forma e rendimento",
+
+        priority: 9
+
+    },
+
+
+    injuries: {
+
+        title: "🚑 Infortuni",
+
+        description:
+            "Infortuni e indisponibilità",
+
+        priority: 10
+
+    },
+
+
+    odds: {
+
+        title: "💰 Quote",
+
+        description:
+            "Quote pre-match e mercati disponibili",
+
+        priority: 11
+
+    },
+
+
+    predictions: {
+
+        title: "🔮 Predizioni",
+
+        description:
+            "Predizioni, probabilità e score previsto",
+
+        priority: 12
+
+    },
+
+
+    h2h: {
+
+        title: "🤝 H2H",
+
+        description:
+            "Scontri diretti storici",
+
+        priority: 13
+
+    },
+
+
+    lineups: {
+
+        title: "📋 Formazioni",
+
+        description:
+            "Formazioni e giocatori disponibili",
+
+        priority: 14
+
+    },
+
+
+    transfers: {
+
+        title: "🔄 Trasferimenti",
+
+        description:
+            "Trasferimenti dei giocatori",
+
+        priority: 15
+
+    }
+
 };
+
+
+/* =========================================================
+   STATO
+========================================================= */
+
 
 const state = {
 
@@ -1007,17 +1504,11 @@ const state = {
 
     errorRequests: 0,
 
-    endpointCount: 0,
+    categoriesTested: new Set(),
 
     matchCount: 0,
 
     lastStatus: null,
-
-    endpoints: [],
-
-    history: [],
-
-    documentationFound: [],
 
     lastResponse: null,
 
@@ -1025,709 +1516,136 @@ const state = {
 
     lastRequest: null,
 
-    lastAnalysis: null
+    lastAnalysis: null,
+
+    history: [],
+
+    testResults: [],
+
+    capability: {},
+
+    fixtureIds: {
+
+        historical: [],
+
+        current: []
+
+    },
+
+    leagueData: null,
+
+    running: false
 
 };
 
-const $ = id => document.getElementById(id);
 
-$("proxyDisplay").textContent = PROXY_URL;
+/* =========================================================
+   ELEMENTI DOM
+========================================================= */
+
+
+const $ = id =>
+    document.getElementById(id);
+
+
+/* =========================================================
+   CATEGORIE UI
+========================================================= */
+
 
 function renderCategories() {
 
-    const grid = $("categoryGrid");
+    const grid =
+        $("categoryGrid");
 
     grid.innerHTML = "";
 
-    Object.keys(FOOTBALL_CATEGORIES).forEach(category => {
 
-        const div = document.createElement("div");
+    Object.entries(CATEGORIES)
+        .forEach(([key, category]) => {
 
-        div.className = "category";
+            const div =
+                document.createElement("div");
 
-        div.textContent = category;
+            div.className =
+                "category";
 
-        div.dataset.category = category;
+            div.dataset.category =
+                key;
 
-        div.addEventListener("click", () => {
 
-            document
-                .querySelectorAll(".category")
-                .forEach(el => el.classList.remove("active"));
+            div.innerHTML = `
 
-            div.classList.add("active");
+                <div class="category-title">
+                    ${escapeHTML(category.title)}
+                </div>
 
-            filterEndpoints(category);
+                <div class="category-description">
+                    ${escapeHTML(category.description)}
+                </div>
+
+            `;
+
+
+            div.addEventListener(
+                "click",
+                () => {
+
+                    if (state.running) {
+                        return;
+                    }
+
+                    div.classList.toggle("active");
+
+                }
+            );
+
+
+            grid.appendChild(div);
 
         });
 
-        grid.appendChild(div);
-
-    });
-
 }
+
 
 renderCategories();
 
-function showStatus(element, message, type = "info") {
 
-    element.className = "status show " + type;
+/* =========================================================
+   STATUS
+========================================================= */
 
-    element.innerHTML = message;
+
+function showStatus(
+    element,
+    message,
+    type = "info"
+) {
+
+    element.className =
+        "status show " + type;
+
+    element.innerHTML =
+        message;
 
 }
+
 
 function hideStatus(element) {
 
-    element.className = "status";
+    element.className =
+        "status";
 
-    element.innerHTML = "";
-
-}
-
-function normalizeBaseUrl(url) {
-
-    url = String(url || "").trim();
-
-    if (!url) {
-        return "";
-    }
-
-    if (!/^https?:\/\//i.test(url)) {
-        url = "https://" + url;
-    }
-
-    return url.replace(/\/+$/, "");
+    element.innerHTML =
+        "";
 
 }
 
-function buildTargetUrl(endpoint, queryString = "") {
 
-    const base = normalizeBaseUrl($("baseUrl").value);
+/* =========================================================
+   UTILITY
+========================================================= */
 
-    if (!base) {
-        throw new Error("Inserisci il Base URL dell'API.");
-    }
-
-    let path = String(endpoint || "").trim();
-
-    if (!path) {
-        throw new Error("Inserisci un endpoint.");
-    }
-
-    if (!/^https?:\/\//i.test(path)) {
-
-        if (!path.startsWith("/")) {
-            path = "/" + path;
-        }
-
-        path = base + path;
-
-    }
-
-    let target = new URL(path);
-
-    if (queryString) {
-
-        const params = new URLSearchParams(queryString);
-
-        params.forEach((value, key) => {
-
-            if (value !== "") {
-                target.searchParams.set(key, value);
-            }
-
-        });
-
-    }
-
-    return target.toString();
-
-}
-
-function applyAuthentication(url, headers) {
-
-    const key = $("apiKey").value.trim();
-
-    const authType = $("authType").value;
-
-    if (!key || authType === "none") {
-        return {
-            url,
-            headers
-        };
-    }
-
-    if (authType === "x-apisports-key") {
-
-        headers["x-apisports-key"] = key;
-
-    }
-
-    else if (authType === "x-api-key") {
-
-        headers["x-api-key"] = key;
-
-    }
-
-    else if (authType === "authorization-bearer") {
-
-        headers["Authorization"] = "Bearer " + key;
-
-    }
-
-    else if (authType === "authorization") {
-
-        headers["Authorization"] = key;
-
-    }
-
-    else if (authType === "query-key") {
-
-        const u = new URL(url);
-
-        u.searchParams.set("key", key);
-
-        url = u.toString();
-
-    }
-
-    else if (authType === "query-api-key") {
-
-        const u = new URL(url);
-
-        u.searchParams.set("api_key", key);
-
-        url = u.toString();
-
-    }
-
-    return {
-        url,
-        headers
-    };
-
-}
-
-function parseHeaders(text) {
-
-    const headers = {};
-
-    String(text || "")
-        .split(/\r?\n/)
-        .forEach(line => {
-
-            const index = line.indexOf(":");
-
-            if (index === -1) {
-                return;
-            }
-
-            const key = line.slice(0, index).trim();
-
-            const value = line.slice(index + 1).trim();
-
-            if (key) {
-                headers[key] = value;
-            }
-
-        });
-
-    return headers;
-
-}
-
-async function proxyRequest(targetUrl, options = {}) {
-
-    let url = targetUrl;
-
-    let headers = {
-        "Accept": "application/json"
-    };
-
-    const auth = applyAuthentication(url, headers);
-
-    url = auth.url;
-
-    headers = auth.headers;
-
-    const customHeaders = parseHeaders(
-        $("customHeaders").value
-    );
-
-    Object.entries(customHeaders).forEach(([key, value]) => {
-        headers[key] = value;
-    });
-
-    const proxyTarget =
-        PROXY_URL +
-        (PROXY_URL.includes("?") ? "&" : "?") +
-        "url=" +
-        encodeURIComponent(url);
-
-    const fetchOptions = {
-
-        method: options.method || "GET",
-
-        headers,
-
-        redirect: "follow"
-
-    };
-
-    if (
-        fetchOptions.method !== "GET" &&
-        fetchOptions.method !== "HEAD"
-    ) {
-
-        const body = options.body;
-
-        if (body) {
-
-            fetchOptions.body = body;
-
-            if (!headers["Content-Type"] &&
-                !headers["content-type"]) {
-
-                headers["Content-Type"] =
-                    "application/json";
-
-            }
-
-        }
-
-    }
-
-    const response = await fetch(
-        proxyTarget,
-        fetchOptions
-    );
-
-    const text = await response.text();
-
-    return {
-        response,
-        text,
-        url,
-        proxyTarget
-    };
-
-}
-
-function tryParseJSON(text) {
-
-    try {
-        return JSON.parse(text);
-    }
-
-    catch {
-        return null;
-    }
-
-}
-
-function extractHeaders(response) {
-
-    const headers = {};
-
-    response.headers.forEach((value, key) => {
-        headers[key] = value;
-    });
-
-    return headers;
-
-}
-
-function detectRateLimit(headers) {
-
-    const result = {
-
-        limit: null,
-
-        remaining: null,
-
-        reset: null
-
-    };
-
-    const normalized = {};
-
-    Object.entries(headers).forEach(([key, value]) => {
-
-        normalized[key.toLowerCase()] = value;
-
-    });
-
-    const limitKeys = [
-        "x-api-x-ratelimit-limit",
-        "x-api-x-rate-limit-limit",
-        "x-ratelimit-limit",
-        "x-rate-limit-limit"
-    ];
-
-    const remainingKeys = [
-        "x-api-x-ratelimit-remaining",
-        "x-api-x-rate-limit-remaining",
-        "x-ratelimit-remaining",
-        "x-rate-limit-remaining"
-    ];
-
-    const resetKeys = [
-        "x-api-x-ratelimit-reset",
-        "x-api-x-rate-limit-reset",
-        "x-ratelimit-reset",
-        "x-rate-limit-reset"
-    ];
-
-    for (const key of limitKeys) {
-
-        if (normalized[key] !== undefined) {
-
-            result.limit = normalized[key];
-
-            break;
-
-        }
-
-    }
-
-    for (const key of remainingKeys) {
-
-        if (normalized[key] !== undefined) {
-
-            result.remaining = normalized[key];
-
-            break;
-
-        }
-
-    }
-
-    for (const key of resetKeys) {
-
-        if (normalized[key] !== undefined) {
-
-            result.reset = normalized[key];
-
-            break;
-
-        }
-
-    }
-
-    return result;
-
-}
-
-function analyzeFootballData(data) {
-
-    const result = {
-
-        isJson: data !== null,
-
-        keys: [],
-
-        detectedFields: [],
-
-        footballSignals: [],
-
-        matchCount: 0,
-
-        arrayCount: 0,
-
-        objectCount: 0,
-
-        likelyFootballData: false
-
-    };
-
-    if (data === null) {
-        return result;
-    }
-
-    const fieldNames = new Set();
-
-    const footballSignals = new Set();
-
-    function inspect(value, depth = 0) {
-
-        if (depth > 7) {
-            return;
-        }
-
-        if (Array.isArray(value)) {
-
-            result.arrayCount++;
-
-            value.forEach(item => {
-                inspect(item, depth + 1);
-            });
-
-            return;
-
-        }
-
-        if (
-            value &&
-            typeof value === "object"
-        ) {
-
-            result.objectCount++;
-
-            Object.entries(value).forEach(([key, val]) => {
-
-                const lower = key.toLowerCase();
-
-                fieldNames.add(key);
-
-                const signalWords = [
-
-                    "fixture",
-                    "match",
-                    "team",
-                    "league",
-                    "season",
-                    "player",
-                    "goal",
-                    "score",
-                    "event",
-                    "statistic",
-                    "standing",
-                    "odds",
-                    "injur",
-                    "lineup",
-                    "formation",
-                    "prediction",
-                    "h2h",
-                    "home",
-                    "away",
-                    "halftime",
-                    "fulltime",
-                    "shots",
-                    "corner",
-                    "possession",
-                    "yellow",
-                    "red",
-                    "xg"
-
-                ];
-
-                signalWords.forEach(word => {
-
-                    if (lower.includes(word)) {
-                        footballSignals.add(key);
-                    }
-
-                });
-
-                if (
-                    lower === "fixture" ||
-                    lower === "match" ||
-                    lower === "fixtures" ||
-                    lower === "matches"
-                ) {
-
-                    if (Array.isArray(val)) {
-
-                        result.matchCount += val.length;
-
-                    }
-
-                    else if (
-                        val &&
-                        typeof val === "object"
-                    ) {
-
-                        result.matchCount++;
-
-                    }
-
-                }
-
-                inspect(val, depth + 1);
-
-            });
-
-        }
-
-    }
-
-    inspect(data);
-
-    result.keys = Array.from(fieldNames);
-
-    result.detectedFields =
-        Array.from(fieldNames)
-            .filter(key => {
-
-                const lower = key.toLowerCase();
-
-                return [
-
-                    "goal",
-                    "score",
-                    "fixture",
-                    "match",
-                    "team",
-                    "league",
-                    "season",
-                    "player",
-                    "statistics",
-                    "shots",
-                    "shots_on_target",
-                    "possession",
-                    "corner",
-                    "yellow",
-                    "red",
-                    "xg",
-                    "halftime",
-                    "fulltime",
-                    "home",
-                    "away"
-
-                ].some(term =>
-                    lower.includes(term)
-                );
-
-            })
-            .slice(0, 100);
-
-    result.footballSignals =
-        Array.from(footballSignals)
-            .slice(0, 100);
-
-    result.likelyFootballData =
-        result.footballSignals.length >= 2 ||
-        result.detectedFields.length >= 3;
-
-    return result;
-
-}
-
-function renderAnalysis(analysis, statusCode) {
-
-    const area = $("analysisArea");
-
-    if (!analysis) {
-
-        area.innerHTML =
-            '<div class="empty">Nessuna risposta analizzata.</div>';
-
-        return;
-
-    }
-
-    const fields =
-        analysis.detectedFields
-            .map(field =>
-                `<span class="badge good">${escapeHTML(field)}</span>`
-            )
-            .join(" ");
-
-    const signals =
-        analysis.footballSignals
-            .map(field =>
-                `<span class="badge neutral">${escapeHTML(field)}</span>`
-            )
-            .join(" ");
-
-    area.innerHTML = `
-
-        <div class="analysis-grid">
-
-            <div class="analysis-box">
-                Status
-                <strong>${statusCode}</strong>
-            </div>
-
-            <div class="analysis-box">
-                Oggetti
-                <strong>${analysis.objectCount}</strong>
-            </div>
-
-            <div class="analysis-box">
-                Array
-                <strong>${analysis.arrayCount}</strong>
-            </div>
-
-            <div class="analysis-box">
-                Match rilevati
-                <strong>${analysis.matchCount}</strong>
-            </div>
-
-        </div>
-
-        <h3>Dati calcistici rilevati</h3>
-
-        <div>
-            ${
-                analysis.likelyFootballData
-                ? '<span class="badge good">PROBABILI DATI CALCISTICI</span>'
-                : '<span class="badge neutral">DATI CALCISTICI NON CONFERMATI</span>'
-            }
-        </div>
-
-        <h3>Campi interessanti</h3>
-
-        <div>
-            ${fields || '<span class="small-text">Nessun campo rilevante rilevato.</span>'}
-        </div>
-
-        <h3>Segnali calcistici</h3>
-
-        <div>
-            ${signals || '<span class="small-text">Nessun segnale rilevato.</span>'}
-        </div>
-
-    `;
-
-}
-
-function renderHeaders(headers) {
-
-    const area = $("headersArea");
-
-    const entries = Object.entries(headers || {});
-
-    if (!entries.length) {
-
-        area.innerHTML =
-            '<div class="empty">Nessun header disponibile.</div>';
-
-        return;
-
-    }
-
-    let html = `
-        <table class="header-table">
-            <thead>
-                <tr>
-                    <th>Header</th>
-                    <th>Valore</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
-
-    entries.forEach(([key, value]) => {
-
-        html += `
-            <tr>
-                <th>${escapeHTML(key)}</th>
-                <td>${escapeHTML(value)}</td>
-            </tr>
-        `;
-
-    });
-
-    html += `
-            </tbody>
-        </table>
-    `;
-
-    area.innerHTML = html;
-
-}
 
 function escapeHTML(value) {
 
@@ -1740,107 +1658,1058 @@ function escapeHTML(value) {
 
 }
 
-async function sendRequest() {
 
-    const statusArea = $("requestStatus");
+function sleep(ms) {
+
+    return new Promise(
+        resolve =>
+            setTimeout(resolve, ms)
+    );
+
+}
+
+
+function normalizeBaseUrl(url) {
+
+    url =
+        String(url || "")
+            .trim();
+
+    if (!url) {
+        return "";
+    }
+
+    if (!/^https?:\/\//i.test(url)) {
+
+        url =
+            "https://" + url;
+
+    }
+
+    return url.replace(/\/+$/, "");
+
+}
+
+
+function tryParseJSON(text) {
 
     try {
 
-        const method = $("method").value;
+        return JSON.parse(text);
 
-        const endpoint =
-            $("endpoint").value.trim();
+    }
 
-        const query =
-            $("queryParams").value.trim();
+    catch {
 
-        const body =
-            $("requestBody").value.trim();
+        return null;
 
-        if (!endpoint) {
+    }
 
-            throw new Error(
-                "Inserisci un endpoint."
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+
+function applyAuthentication(
+    url,
+    headers
+) {
+
+    const key =
+        $("apiKey")
+            .value
+            .trim();
+
+
+    const authType =
+        $("authType")
+            .value;
+
+
+    if (
+        !key ||
+        authType === "none"
+    ) {
+
+        return {
+            url,
+            headers
+        };
+
+    }
+
+
+    if (
+        authType ===
+        "x-apisports-key"
+    ) {
+
+        headers["x-apisports-key"] =
+            key;
+
+    }
+
+
+    else if (
+        authType ===
+        "x-api-key"
+    ) {
+
+        headers["x-api-key"] =
+            key;
+
+    }
+
+
+    else if (
+        authType ===
+        "authorization-bearer"
+    ) {
+
+        headers["Authorization"] =
+            "Bearer " + key;
+
+    }
+
+
+    else if (
+        authType ===
+        "authorization"
+    ) {
+
+        headers["Authorization"] =
+            key;
+
+    }
+
+
+    else if (
+        authType ===
+        "query-key"
+    ) {
+
+        const u =
+            new URL(url);
+
+        u.searchParams.set(
+            "key",
+            key
+        );
+
+        url =
+            u.toString();
+
+    }
+
+
+    else if (
+        authType ===
+        "query-api-key"
+    ) {
+
+        const u =
+            new URL(url);
+
+        u.searchParams.set(
+            "api_key",
+            key
+        );
+
+        url =
+            u.toString();
+
+    }
+
+
+    return {
+        url,
+        headers
+    };
+
+}
+
+
+/* =========================================================
+   PROXY REQUEST
+========================================================= */
+
+
+async function proxyRequest(
+    targetUrl,
+    options = {}
+) {
+
+    let url =
+        targetUrl;
+
+
+    let headers = {
+
+        "Accept":
+            "application/json"
+
+    };
+
+
+    const auth =
+        applyAuthentication(
+            url,
+            headers
+        );
+
+
+    url =
+        auth.url;
+
+    headers =
+        auth.headers;
+
+
+    const proxyTarget =
+        PROXY_URL +
+        (
+            PROXY_URL.includes("?")
+            ? "&"
+            : "?"
+        ) +
+        "url=" +
+        encodeURIComponent(url);
+
+
+    const fetchOptions = {
+
+        method:
+            options.method ||
+            "GET",
+
+        headers,
+
+        redirect:
+            "follow"
+
+    };
+
+
+    if (
+        fetchOptions.method !== "GET" &&
+        fetchOptions.method !== "HEAD"
+    ) {
+
+        if (options.body) {
+
+            fetchOptions.body =
+                options.body;
+
+
+            if (
+                !headers["Content-Type"] &&
+                !headers["content-type"]
+            ) {
+
+                headers["Content-Type"] =
+                    "application/json";
+
+            }
+
+        }
+
+    }
+
+
+    const response =
+        await fetch(
+            proxyTarget,
+            fetchOptions
+        );
+
+
+    const text =
+        await response.text();
+
+
+    return {
+
+        response,
+
+        text,
+
+        url,
+
+        proxyTarget
+
+    };
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+
+function extractHeaders(response) {
+
+    const headers = {};
+
+
+    response.headers.forEach(
+        (value, key) => {
+
+            headers[key] =
+                value;
+
+        }
+    );
+
+
+    return headers;
+
+}
+
+
+function detectRateLimit(headers) {
+
+    const result = {
+
+        dailyLimit: null,
+
+        dailyRemaining: null,
+
+        minuteLimit: null,
+
+        minuteRemaining: null
+
+    };
+
+
+    const normalized = {};
+
+
+    Object.entries(headers)
+        .forEach(([key, value]) => {
+
+            normalized[
+                key.toLowerCase()
+            ] =
+                value;
+
+        });
+
+
+    const find = keys => {
+
+        for (const key of keys) {
+
+            if (
+                normalized[key] !==
+                undefined
+            ) {
+
+                return normalized[key];
+
+            }
+
+        }
+
+        return null;
+
+    };
+
+
+    result.dailyLimit =
+        find([
+            "x-ratelimit-requests-limit",
+            "x-api-x-ratelimit-requests-limit"
+        ]);
+
+
+    result.dailyRemaining =
+        find([
+            "x-ratelimit-requests-remaining",
+            "x-api-x-ratelimit-requests-remaining"
+        ]);
+
+
+    result.minuteLimit =
+        find([
+            "x-ratelimit-limit",
+            "x-api-x-ratelimit-limit"
+        ]);
+
+
+    result.minuteRemaining =
+        find([
+            "x-ratelimit-remaining",
+            "x-api-x-ratelimit-remaining"
+        ]);
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   COSTRUZIONE URL
+========================================================= */
+
+
+function buildUrl(
+    path,
+    params = {}
+) {
+
+    const base =
+        normalizeBaseUrl(
+            $("baseUrl").value
+        );
+
+
+    if (!base) {
+
+        throw new Error(
+            "Inserisci il Base URL dell'API."
+        );
+
+    }
+
+
+    const url =
+        new URL(
+            base +
+            (
+                path.startsWith("/")
+                ? path
+                : "/" + path
+            )
+        );
+
+
+    Object.entries(params)
+        .forEach(([key, value]) => {
+
+            if (
+                value !== undefined &&
+                value !== null &&
+                value !== ""
+            ) {
+
+                url.searchParams.set(
+                    key,
+                    value
+                );
+
+            }
+
+        });
+
+
+    return url.toString();
+
+}
+
+
+/* =========================================================
+   ANALISI GENERICA DEL JSON
+========================================================= */
+
+
+function analyzeFootballData(data) {
+
+    const result = {
+
+        isJson:
+            data !== null,
+
+        resultCount:
+            null,
+
+        fields: [],
+
+        footballSignals: [],
+
+        matchCount: 0,
+
+        arrays: 0,
+
+        objects: 0,
+
+        numbers: 0,
+
+        strings: 0,
+
+        likelyFootballData:
+            false
+
+    };
+
+
+    if (data === null) {
+
+        return result;
+
+    }
+
+
+    if (
+        data &&
+        typeof data === "object" &&
+        !Array.isArray(data)
+    ) {
+
+        if (
+            typeof data.results ===
+            "number"
+        ) {
+
+            result.resultCount =
+                data.results;
+
+        }
+
+    }
+
+
+    const fields =
+        new Set();
+
+    const signals =
+        new Set();
+
+
+    const signalWords = [
+
+        "fixture",
+        "fixtures",
+        "match",
+        "matches",
+
+        "team",
+        "teams",
+
+        "league",
+        "leagues",
+
+        "season",
+        "seasons",
+
+        "player",
+        "players",
+
+        "goal",
+        "goals",
+
+        "score",
+
+        "event",
+        "events",
+
+        "statistic",
+        "statistics",
+
+        "standings",
+
+        "ranking",
+
+        "odds",
+
+        "prediction",
+
+        "injur",
+
+        "lineup",
+
+        "formation",
+
+        "home",
+        "away",
+
+        "halftime",
+        "fulltime",
+
+        "shots",
+        "corner",
+
+        "possession",
+
+        "yellow",
+        "red",
+
+        "xg",
+
+        "passes",
+
+        "tackles",
+
+        "fouls"
+
+    ];
+
+
+    function inspect(
+        value,
+        depth = 0
+    ) {
+
+        if (depth > 8) {
+            return;
+        }
+
+
+        if (Array.isArray(value)) {
+
+            result.arrays++;
+
+            value.forEach(item => {
+
+                inspect(
+                    item,
+                    depth + 1
+                );
+
+            });
+
+            return;
+
+        }
+
+
+        if (
+            value === null
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            typeof value === "object"
+        ) {
+
+            result.objects++;
+
+
+            Object.entries(value)
+                .forEach(([key, val]) => {
+
+                    fields.add(key);
+
+
+                    const lower =
+                        key.toLowerCase();
+
+
+                    signalWords
+                        .forEach(word => {
+
+                            if (
+                                lower.includes(word)
+                            ) {
+
+                                signals.add(key);
+
+                            }
+
+                        });
+
+
+                    if (
+                        lower === "fixture" ||
+                        lower === "fixtures" ||
+                        lower === "match" ||
+                        lower === "matches"
+                    ) {
+
+                        if (
+                            Array.isArray(val)
+                        ) {
+
+                            result.matchCount +=
+                                val.length;
+
+                        }
+
+                        else if (
+                            val &&
+                            typeof val === "object"
+                        ) {
+
+                            result.matchCount++;
+
+                        }
+
+                    }
+
+
+                    inspect(
+                        val,
+                        depth + 1
+                    );
+
+                });
+
+        }
+
+
+        else if (
+            typeof value === "number"
+        ) {
+
+            result.numbers++;
+
+        }
+
+
+        else if (
+            typeof value === "string"
+        ) {
+
+            result.strings++;
+
+        }
+
+    }
+
+
+    inspect(data);
+
+
+    result.fields =
+        Array.from(fields)
+            .slice(0, 250);
+
+
+    result.footballSignals =
+        Array.from(signals)
+            .slice(0, 150);
+
+
+    result.likelyFootballData =
+        result.footballSignals.length >= 2;
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   GET FIXTURE ID
+========================================================= */
+
+
+function extractFixtureIds(data) {
+
+    const ids = [];
+
+
+    function inspect(value) {
+
+        if (
+            Array.isArray(value)
+        ) {
+
+            value.forEach(
+                inspect
+            );
+
+            return;
+
+        }
+
+
+        if (
+            !value ||
+            typeof value !== "object"
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            value.fixture &&
+            typeof value.fixture === "object" &&
+            value.fixture.id
+        ) {
+
+            ids.push(
+                value.fixture.id
             );
 
         }
 
-        const targetUrl =
-            buildTargetUrl(
-                endpoint,
-                query
+
+        if (
+            value.id &&
+            value.teams &&
+            value.goals
+        ) {
+
+            ids.push(
+                value.id
             );
 
-        showStatus(
-            statusArea,
-            '<span class="loading"></span> Richiesta in corso...',
-            "info"
-        );
+        }
 
-        const start =
-            performance.now();
+
+        Object.values(value)
+            .forEach(
+                inspect
+            );
+
+    }
+
+
+    inspect(data);
+
+
+    return [
+        ...new Set(ids)
+    ];
+
+}
+
+
+/* =========================================================
+   GENERIC REQUEST + RECORD
+========================================================= */
+
+
+async function performTest(
+    category,
+    label,
+    path,
+    params = {},
+    options = {}
+) {
+
+    const started =
+        performance.now();
+
+
+    let resultRecord = {
+
+        category,
+
+        label,
+
+        path,
+
+        params,
+
+        status: null,
+
+        ok: false,
+
+        elapsed: 0,
+
+        results: null,
+
+        data: null,
+
+        analysis: null,
+
+        headers: {},
+
+        rateLimit: {},
+
+        error: null
+
+    };
+
+
+    try {
+
+        const url =
+            buildUrl(
+                path,
+                params
+            );
+
 
         const result =
             await proxyRequest(
-                targetUrl,
+                url,
                 {
-                    method,
-                    body
+                    method:
+                        options.method ||
+                        "GET",
+
+                    body:
+                        options.body
                 }
             );
 
+
         const elapsed =
             Math.round(
-                performance.now() - start
+                performance.now() -
+                started
             );
 
-        state.requestsSession++;
-
-        state.lastStatus =
-            result.response.status;
-
-        $("requestsSession").textContent =
-            state.requestsSession;
-
-        $("lastStatus").textContent =
-            result.response.status;
 
         const headers =
             extractHeaders(
                 result.response
             );
 
+
+        const rateLimit =
+            detectRateLimit(
+                headers
+            );
+
+
+        const data =
+            tryParseJSON(
+                result.text
+            );
+
+
+        const analysis =
+            analyzeFootballData(
+                data
+            );
+
+
+        resultRecord.status =
+            result.response.status;
+
+        resultRecord.ok =
+            result.response.ok;
+
+        resultRecord.elapsed =
+            elapsed;
+
+        resultRecord.data =
+            data !== null
+            ? data
+            : result.text;
+
+        resultRecord.analysis =
+            analysis;
+
+        resultRecord.headers =
+            headers;
+
+        resultRecord.rateLimit =
+            rateLimit;
+
+        resultRecord.results =
+            data &&
+            typeof data === "object"
+            ? data.results ?? null
+            : null;
+
+
+        state.requestsSession++;
+
+
+        if (
+            result.response.ok
+        ) {
+
+            state.successRequests++;
+
+        }
+
+        else {
+
+            state.errorRequests++;
+
+        }
+
+
+        state.lastStatus =
+            result.response.status;
+
+        state.lastResponse =
+            resultRecord.data;
+
         state.lastResponseHeaders =
             headers;
 
-        renderHeaders(headers);
+        state.lastRequest = {
 
-        const data =
-            tryParseJSON(result.text);
+            category,
 
-        state.lastResponse =
-            data !== null
-                ? data
-                : result.text;
+            label,
 
-        const analysis =
-            analyzeFootballData(data);
+            method:
+                options.method ||
+                "GET",
+
+            path,
+
+            params,
+
+            url
+
+        };
+
 
         state.lastAnalysis =
             analysis;
 
-        state.matchCount =
-            analysis.matchCount;
 
-        $("matchCount").textContent =
-            state.matchCount;
+        if (
+            analysis.matchCount
+        ) {
 
-        renderAnalysis(
+            state.matchCount +=
+                analysis.matchCount;
+
+        }
+
+
+        state.testResults.push(
+            resultRecord
+        );
+
+
+        addHistory({
+
+            timestamp:
+                new Date().toISOString(),
+
+            category,
+
+            label,
+
+            path,
+
+            params,
+
+            status:
+                result.response.status,
+
+            ok:
+                result.response.ok,
+
+            elapsed,
+
+            analysis
+
+        });
+
+
+        renderDashboard();
+
+        renderHeaders(headers);
+
+        renderTechnicalAnalysis(
             analysis,
             result.response.status
         );
 
-        let output;
+
+        let output = "";
 
         if (data !== null) {
 
@@ -1860,96 +2729,1233 @@ async function sendRequest() {
 
         }
 
-        $("responseOutput").textContent =
-            output;
 
-        if (
-            result.response.ok
-        ) {
+        $("responseOutput")
+            .textContent =
+                output;
 
-            state.successRequests++;
 
-            showStatus(
-                statusArea,
-                `Richiesta completata: <strong>${result.response.status}</strong> — ${elapsed} ms`,
-                "success"
+        return resultRecord;
+
+    }
+
+
+    catch (error) {
+
+        const elapsed =
+            Math.round(
+                performance.now() -
+                started
             );
 
-        }
 
-        else {
+        state.requestsSession++;
 
-            state.errorRequests++;
+        state.errorRequests++;
 
-            showStatus(
-                statusArea,
-                `API ha restituito HTTP <strong>${result.response.status}</strong> — ${elapsed} ms`,
-                "warning"
-            );
 
-        }
+        resultRecord.elapsed =
+            elapsed;
 
-        $("successRequests").textContent =
-            state.successRequests;
+        resultRecord.error =
+            error.message;
 
-        $("errorRequests").textContent =
-            state.errorRequests;
+
+        state.testResults.push(
+            resultRecord
+        );
+
 
         addHistory({
 
             timestamp:
                 new Date().toISOString(),
 
-            method,
+            category,
 
-            endpoint,
+            label,
 
-            url:
-                result.url,
+            path,
+
+            params,
 
             status:
-                result.response.status,
+                null,
 
             ok:
-                result.response.ok,
+                false,
 
             elapsed,
 
-            analysis
+            error:
+                error.message
 
         });
 
-    }
 
-    catch (error) {
+        renderDashboard();
 
-        state.requestsSession++;
 
-        state.errorRequests++;
-
-        $("requestsSession").textContent =
-            state.requestsSession;
-
-        $("errorRequests").textContent =
-            state.errorRequests;
-
-        showStatus(
-            statusArea,
-            `<strong>Errore:</strong> ${escapeHTML(error.message)}`,
-            "error"
-        );
-
-        $("responseOutput").textContent =
-            String(error);
+        return resultRecord;
 
     }
 
 }
 
+
+/* =========================================================
+   PREPARAZIONE FIXTURE
+========================================================= */
+
+
+async function prepareFixtures() {
+
+    /*
+        Una sola richiesta storica
+        e una sola richiesta attuale.
+
+        Gli ID ottenuti vengono poi riutilizzati
+        dalle categorie che ne hanno bisogno.
+    */
+
+
+    const historical =
+        await performTest(
+
+            "fixtures",
+
+            "Fixture storiche",
+
+            "/fixtures",
+
+            {
+
+                league:
+                    39,
+
+                season:
+                    HISTORICAL_SEASON,
+
+                last:
+                    5
+
+            }
+
+        );
+
+
+    if (
+        historical.ok &&
+        historical.data
+    ) {
+
+        state.fixtureIds.historical =
+            extractFixtureIds(
+                historical.data
+            );
+
+    }
+
+
+    await sleep(200);
+
+
+    const current =
+        await performTest(
+
+            "fixtures",
+
+            "Fixture attuali",
+
+            "/fixtures",
+
+            {
+
+                league:
+                    39,
+
+                season:
+                    CURRENT_SEASON,
+
+                next:
+                    5
+
+            }
+
+        );
+
+
+    if (
+        current.ok &&
+        current.data
+    ) {
+
+        state.fixtureIds.current =
+            extractFixtureIds(
+                current.data
+            );
+
+    }
+
+
+    return {
+
+        historical:
+            state.fixtureIds.historical,
+
+        current:
+            state.fixtureIds.current
+
+    };
+
+}
+
+
+/* =========================================================
+   TEST CATEGORIA PARTITE
+========================================================= */
+
+
+async function testFixtures() {
+
+    const results = [];
+
+
+    results.push(
+
+        await performTest(
+
+            "fixtures",
+
+            "Partite storiche — Serie A",
+
+            "/fixtures",
+
+            {
+
+                league:
+                    135,
+
+                season:
+                    HISTORICAL_SEASON,
+
+                last:
+                    10
+
+            }
+
+        )
+
+    );
+
+
+    await sleep(200);
+
+
+    results.push(
+
+        await performTest(
+
+            "fixtures",
+
+            "Partite attuali — Serie A",
+
+            "/fixtures",
+
+            {
+
+                league:
+                    135,
+
+                season:
+                    CURRENT_SEASON,
+
+                next:
+                    10
+
+            }
+
+        )
+
+    );
+
+
+    return results;
+
+}
+
+
+/* =========================================================
+   TEST GOL
+========================================================= */
+
+
+async function testGoals() {
+
+    const results = [];
+
+
+    const fixture =
+        state.fixtureIds.historical[0];
+
+
+    if (!fixture) {
+
+        return [
+
+            await performTest(
+
+                "goals",
+
+                "Ricerca gol storici",
+
+                "/fixtures",
+
+                {
+
+                    league:
+                        39,
+
+                    season:
+                        HISTORICAL_SEASON,
+
+                    last:
+                        10
+
+                }
+
+            )
+
+        ];
+
+    }
+
+
+    results.push(
+
+        await performTest(
+
+            "goals",
+
+            "Gol partita storica",
+
+            "/fixtures",
+
+            {
+
+                id:
+                    fixture
+
+            }
+
+        )
+
+    );
+
+
+    return results;
+
+}
+
+
+/* =========================================================
+   TEST STATISTICHE
+========================================================= */
+
+
+async function testStatistics() {
+
+    const fixture =
+        state.fixtureIds.historical[0];
+
+
+    if (!fixture) {
+
+        return [
+
+            await performTest(
+
+                "statistics",
+
+                "Statistiche",
+
+                "/fixtures/statistics",
+
+                {}
+
+            )
+
+        ];
+
+    }
+
+
+    return [
+
+        await performTest(
+
+            "statistics",
+
+            "Statistiche partita storica",
+
+            "/fixtures/statistics",
+
+            {
+
+                fixture
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST EVENTI
+========================================================= */
+
+
+async function testEvents() {
+
+    const fixture =
+        state.fixtureIds.historical[0];
+
+
+    if (!fixture) {
+
+        return [];
+
+    }
+
+
+    return [
+
+        await performTest(
+
+            "events",
+
+            "Eventi partita storica",
+
+            "/fixtures/events",
+
+            {
+
+                fixture
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST SQUADRE
+========================================================= */
+
+
+async function testTeams() {
+
+    return [
+
+        await performTest(
+
+            "teams",
+
+            "Squadre Serie A",
+
+            "/teams",
+
+            {
+
+                league:
+                    135,
+
+                season:
+                    HISTORICAL_SEASON
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST GIOCATORI
+========================================================= */
+
+
+async function testPlayers() {
+
+    return [
+
+        await performTest(
+
+            "players",
+
+            "Giocatori Serie A",
+
+            "/players",
+
+            {
+
+                league:
+                    135,
+
+                season:
+                    HISTORICAL_SEASON,
+
+                page:
+                    1
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST CAMPIONATI
+========================================================= */
+
+
+async function testLeagues() {
+
+    const result =
+        await performTest(
+
+            "leagues",
+
+            "Campionati e copertura",
+
+            "/leagues",
+
+            {
+
+                season:
+                    HISTORICAL_SEASON
+
+            }
+
+        );
+
+
+    if (
+        result.ok
+    ) {
+
+        state.leagueData =
+            result.data;
+
+    }
+
+
+    return [result];
+
+}
+
+
+/* =========================================================
+   TEST STAGIONI
+========================================================= */
+
+
+async function testSeasons() {
+
+    return [
+
+        await performTest(
+
+            "seasons",
+
+            "Stagioni disponibili",
+
+            "/leagues/seasons",
+
+            {}
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST CLASSIFICHE
+========================================================= */
+
+
+async function testStandings() {
+
+    return [
+
+        await performTest(
+
+            "standings",
+
+            "Classifica Serie A",
+
+            "/standings",
+
+            {
+
+                league:
+                    135,
+
+                season:
+                    HISTORICAL_SEASON
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST INFORTUNI
+========================================================= */
+
+
+async function testInjuries() {
+
+    return [
+
+        await performTest(
+
+            "injuries",
+
+            "Infortuni Serie A",
+
+            "/injuries",
+
+            {
+
+                league:
+                    135,
+
+                season:
+                    HISTORICAL_SEASON
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST QUOTE
+========================================================= */
+
+
+async function testOdds() {
+
+    const fixture =
+        state.fixtureIds.current[0] ||
+        state.fixtureIds.historical[0];
+
+
+    if (!fixture) {
+
+        return [];
+
+    }
+
+
+    return [
+
+        await performTest(
+
+            "odds",
+
+            "Quote partita",
+
+            "/odds",
+
+            {
+
+                fixture
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST PREDIZIONI
+========================================================= */
+
+
+async function testPredictions() {
+
+    const fixture =
+        state.fixtureIds.current[0] ||
+        state.fixtureIds.historical[0];
+
+
+    if (!fixture) {
+
+        return [];
+
+    }
+
+
+    return [
+
+        await performTest(
+
+            "predictions",
+
+            "Predizione partita",
+
+            "/predictions",
+
+            {
+
+                fixture
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST H2H
+========================================================= */
+
+
+async function testH2H() {
+
+    const historical =
+        state.fixtureIds.historical[0];
+
+
+    if (!historical) {
+
+        return [];
+
+    }
+
+
+    /*
+        Proviamo prima a ricavare le due squadre
+        dalla risposta della fixture.
+    */
+
+
+    const fixtureResponse =
+        await performTest(
+
+            "h2h",
+
+            "Preparazione H2H",
+
+            "/fixtures",
+
+            {
+
+                id:
+                    historical
+
+            }
+
+        );
+
+
+    let teamIds = [];
+
+
+    try {
+
+        const teams =
+            fixtureResponse
+                .data
+                .response?.[0]
+                ?.teams;
+
+
+        if (teams) {
+
+            if (
+                teams.home &&
+                teams.home.id
+            ) {
+
+                teamIds.push(
+                    teams.home.id
+                );
+
+            }
+
+
+            if (
+                teams.away &&
+                teams.away.id
+            ) {
+
+                teamIds.push(
+                    teams.away.id
+                );
+
+            }
+
+        }
+
+    }
+
+    catch {
+
+        // Nessun dato H2H preparabile
+
+    }
+
+
+    if (
+        teamIds.length < 2
+    ) {
+
+        return [
+            fixtureResponse
+        ];
+
+    }
+
+
+    return [
+
+        fixtureResponse,
+
+        await performTest(
+
+            "h2h",
+
+            "Scontri diretti",
+
+            "/fixtures/headtohead",
+
+            {
+
+                h2h:
+                    teamIds[0] +
+                    "-" +
+                    teamIds[1],
+
+                last:
+                    10
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST FORMAZIONI
+========================================================= */
+
+
+async function testLineups() {
+
+    const fixture =
+        state.fixtureIds.historical[0];
+
+
+    if (!fixture) {
+
+        return [];
+
+    }
+
+
+    return [
+
+        await performTest(
+
+            "lineups",
+
+            "Formazioni partita",
+
+            "/fixtures/lineups",
+
+            {
+
+                fixture
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   TEST TRASFERIMENTI
+========================================================= */
+
+
+async function testTransfers() {
+
+    return [
+
+        await performTest(
+
+            "transfers",
+
+            "Trasferimenti squadra",
+
+            "/transfers",
+
+            {
+
+                team:
+                    135
+
+            }
+
+        )
+
+    ];
+
+}
+
+
+/* =========================================================
+   MAPPATURA TEST
+========================================================= */
+
+
+const CATEGORY_TESTS = {
+
+    fixtures:
+        testFixtures,
+
+    goals:
+        testGoals,
+
+    statistics:
+        testStatistics,
+
+    events:
+        testEvents,
+
+    teams:
+        testTeams,
+
+    players:
+        testPlayers,
+
+    leagues:
+        testLeagues,
+
+    seasons:
+        testSeasons,
+
+    standings:
+        testStandings,
+
+    injuries:
+        testInjuries,
+
+    odds:
+        testOdds,
+
+    predictions:
+        testPredictions,
+
+    h2h:
+        testH2H,
+
+    lineups:
+        testLineups,
+
+    transfers:
+        testTransfers
+
+};
+
+
+/* =========================================================
+   ESECUZIONE ANALISI
+========================================================= */
+
+
+async function runAnalysis() {
+
+    if (state.running) {
+        return;
+    }
+
+
+    const apiKey =
+        $("apiKey")
+            .value
+            .trim();
+
+
+    const baseUrl =
+        normalizeBaseUrl(
+            $("baseUrl").value
+        );
+
+
+    if (!baseUrl) {
+
+        showStatus(
+            $("testStatus"),
+            "Inserisci il Base URL dell'API.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!apiKey) {
+
+        showStatus(
+            $("testStatus"),
+            "Inserisci la tua API Key.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const selected =
+        Array.from(
+            document.querySelectorAll(
+                ".category.active"
+            )
+        )
+        .map(
+            element =>
+                element.dataset.category
+        );
+
+
+    if (!selected.length) {
+
+        showStatus(
+            $("testStatus"),
+            "Seleziona almeno una categoria.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    state.running =
+        true;
+
+    state.testResults = [];
+
+    state.capability = {};
+
+
+    $("progressBox")
+        .classList
+        .add("show");
+
+
+    $("progressBar")
+        .style
+        .width = "0%";
+
+
+    showStatus(
+        $("testStatus"),
+        '<span class="loading"></span> Analisi in corso. Non chiudere la pagina.',
+        "info"
+    );
+
+
+    /*
+        Prepariamo una volta sola gli ID delle partite.
+        Questo permette alle categorie dipendenti da fixture
+        di riutilizzare gli stessi ID.
+    */
+
+
+    try {
+
+        await prepareFixtures();
+
+    }
+
+    catch {
+
+        // Le categorie successive proveranno comunque a funzionare.
+
+    }
+
+
+    const total =
+        selected.length;
+
+
+    let completed = 0;
+
+
+    for (const category of selected) {
+
+        const tester =
+            CATEGORY_TESTS[category];
+
+
+        if (!tester) {
+            continue;
+        }
+
+
+        try {
+
+            await tester();
+
+        }
+
+        catch (error) {
+
+            state.testResults.push({
+
+                category,
+
+                label:
+                    "Errore categoria",
+
+                path:
+                    "",
+
+                params:
+                    {},
+
+                status:
+                    null,
+
+                ok:
+                    false,
+
+                elapsed:
+                    0,
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+
+        state.categoriesTested
+            .add(category);
+
+
+        completed++;
+
+
+        const percentage =
+            Math.round(
+                completed /
+                total *
+                100
+            );
+
+
+        $("progressBar")
+            .style
+            .width =
+                percentage + "%";
+
+
+        $("progressText")
+            .textContent =
+                `Categoria ${completed} di ${total}: ${
+                    CATEGORIES[category].title
+                }`;
+
+
+        renderTestResults();
+
+
+        await sleep(250);
+
+    }
+
+
+    buildCapabilityReport();
+
+
+    renderCapability();
+
+
+    renderTestResults();
+
+
+    renderDashboard();
+
+
+    state.running =
+        false;
+
+
+    showStatus(
+        $("testStatus"),
+        `Analisi completata: <strong>${selected.length}</strong> categorie selezionate e <strong>${state.requestsSession}</strong> richieste effettuate nella sessione.`,
+        "success"
+    );
+
+
+    $("progressText")
+        .textContent =
+            "Analisi completata.";
+
+}
+
+
+/* =========================================================
+   CONNESSIONE
+========================================================= */
+
+
 async function testConnection() {
 
     const statusArea =
         $("connectionStatus");
+
 
     try {
 
@@ -1958,11 +3964,15 @@ async function testConnection() {
                 $("baseUrl").value
             );
 
+
         if (!base) {
+
             throw new Error(
                 "Inserisci il Base URL dell'API."
             );
+
         }
+
 
         showStatus(
             statusArea,
@@ -1970,51 +3980,70 @@ async function testConnection() {
             "info"
         );
 
+
         const result =
-            await proxyRequest(
-                base,
-                {
-                    method: "GET"
-                }
+            await performTest(
+
+                "connection",
+
+                "Test connessione",
+
+                "",
+
+                {}
+
             );
 
-        state.requestsSession++;
-
-        $("requestsSession").textContent =
-            state.requestsSession;
-
-        const headers =
-            extractHeaders(
-                result.response
-            );
 
         const rate =
-            detectRateLimit(headers);
+            result.rateLimit ||
+            {};
+
 
         let message =
-            `HTTP <strong>${result.response.status}</strong>`;
+            `HTTP <strong>${
+                result.status
+            }</strong> — ${
+                result.elapsed
+            } ms`;
 
-        if (rate.limit !== null) {
+
+        if (
+            rate.dailyRemaining !==
+            null
+        ) {
 
             message +=
-                `<br>Rate limit: ${escapeHTML(rate.limit)}`;
+                `<br>Richieste giornaliere rimanenti rilevate: <strong>${
+                    escapeHTML(
+                        rate.dailyRemaining
+                    )
+                }</strong>`;
 
         }
 
-        if (rate.remaining !== null) {
+
+        if (
+            rate.minuteRemaining !==
+            null
+        ) {
 
             message +=
-                `<br>Richieste rimanenti rilevate: ${escapeHTML(rate.remaining)}`;
+                `<br>Richieste/minuto rimanenti rilevate: <strong>${
+                    escapeHTML(
+                        rate.minuteRemaining
+                    )
+                }</strong>`;
 
         }
 
-        if (result.response.ok) {
 
-            state.successRequests++;
+        if (result.ok) {
 
             showStatus(
                 statusArea,
-                "Connessione raggiunta.<br>" + message,
+                "✓ API raggiunta.<br>" +
+                message,
                 "success"
             );
 
@@ -2022,43 +4051,30 @@ async function testConnection() {
 
         else {
 
-            state.errorRequests++;
-
             showStatus(
                 statusArea,
-                "Server raggiunto ma ha restituito un errore.<br>" +
+                "API raggiunta ma ha restituito un errore.<br>" +
                 message,
                 "warning"
             );
 
         }
 
-        $("successRequests").textContent =
-            state.successRequests;
 
-        $("errorRequests").textContent =
-            state.errorRequests;
-
-        $("lastStatus").textContent =
-            result.response.status;
+        renderDashboard();
 
     }
+
 
     catch (error) {
 
-        state.requestsSession++;
-
-        state.errorRequests++;
-
-        $("requestsSession").textContent =
-            state.requestsSession;
-
-        $("errorRequests").textContent =
-            state.errorRequests;
-
         showStatus(
             statusArea,
-            `<strong>Connessione fallita:</strong> ${escapeHTML(error.message)}`,
+            `<strong>Connessione fallita:</strong> ${
+                escapeHTML(
+                    error.message
+                )
+            }`,
             "error"
         );
 
@@ -2066,412 +4082,1082 @@ async function testConnection() {
 
 }
 
-async function discoverDocumentation() {
 
-    const statusArea =
-        $("docsStatus");
+/* =========================================================
+   RENDER DASHBOARD
+========================================================= */
 
-    const resultsArea =
-        $("docsResults");
 
-    const base =
-        normalizeBaseUrl(
-            $("baseUrl").value
-        );
+function renderDashboard() {
 
-    if (!base) {
+    $("requestsSession")
+        .textContent =
+            state.requestsSession;
 
-        showStatus(
-            statusArea,
-            "Inserisci prima il Base URL dell'API.",
-            "error"
-        );
+
+    $("successRequests")
+        .textContent =
+            state.successRequests;
+
+
+    $("errorRequests")
+        .textContent =
+            state.errorRequests;
+
+
+    $("categoriesTested")
+        .textContent =
+            state.categoriesTested.size;
+
+
+    $("matchCount")
+        .textContent =
+            state.matchCount;
+
+
+    $("lastStatus")
+        .textContent =
+            state.lastStatus !== null
+            ? state.lastStatus
+            : "—";
+
+}
+
+
+/* =========================================================
+   RISULTATI
+========================================================= */
+
+
+function renderTestResults() {
+
+    const area =
+        $("testResults");
+
+
+    if (!state.testResults.length) {
+
+        area.innerHTML =
+            '<div class="empty">Nessun test effettuato.</div>';
 
         return;
 
     }
 
-    showStatus(
-        statusArea,
-        '<span class="loading"></span> Ricerca documentazione in corso...',
-        "info"
-    );
 
-    resultsArea.innerHTML = "";
+    area.innerHTML = "";
 
-    state.documentationFound = [];
 
-    let found = null;
+    state.testResults.forEach(
+        result => {
 
-    for (
-        const path of DISCOVERY_PATHS
-    ) {
-
-        try {
-
-            const target =
-                base + path;
-
-            const result =
-                await proxyRequest(
-                    target,
-                    {
-                        method: "GET"
-                    }
+            const div =
+                document.createElement(
+                    "div"
                 );
 
-            state.requestsSession++;
 
-            $("requestsSession").textContent =
-                state.requestsSession;
+            let statusClass =
+                result.ok
+                ? "ok"
+                : "error";
 
-            const data =
-                tryParseJSON(result.text);
 
             if (
-                result.response.ok &&
-                data &&
-                typeof data === "object"
+                !result.ok &&
+                result.status &&
+                result.status !== 404
             ) {
 
-                if (
-                    data.openapi ||
-                    data.swagger ||
-                    data.paths
-                ) {
-
-                    found = {
-
-                        path,
-
-                        url: target,
-
-                        data
-
-                    };
-
-                    state.documentationFound.push(
-                        found
-                    );
-
-                    state.successRequests++;
-
-                    break;
-
-                }
+                statusClass =
+                    "warning";
 
             }
 
+
+            div.className =
+                "test-result " +
+                statusClass;
+
+
+            const statusBadge =
+                result.ok
+                ? '<span class="badge good">OK</span>'
+                : result.status === 404
+                ? '<span class="badge warning">NON DISPONIBILE</span>'
+                : '<span class="badge bad">ERRORE</span>';
+
+
+            const resultsNumber =
+                result.results !== null &&
+                result.results !== undefined
+                ? result.results
+                : "—";
+
+
+            const analysis =
+                result.analysis;
+
+
+            div.innerHTML = `
+
+                <div class="test-result-header">
+
+                    <div class="test-result-title">
+
+                        ${escapeHTML(
+                            result.label ||
+                            result.category
+                        )}
+
+                    </div>
+
+                    ${statusBadge}
+
+                </div>
+
+
+                <div class="test-result-endpoint">
+
+                    ${escapeHTML(
+                        result.path || "/"
+                    )}
+
+                    ${
+                        Object.keys(
+                            result.params || {}
+                        ).length
+                        ? "?" +
+                          escapeHTML(
+                              new URLSearchParams(
+                                  result.params
+                              ).toString()
+                          )
+                        : ""
+                    }
+
+                </div>
+
+
+                <div class="test-result-info">
+
+                    HTTP:
+                    <strong>
+                        ${
+                            result.status ??
+                            "—"
+                        }
+                    </strong>
+
+                    &nbsp; • &nbsp;
+
+                    Tempo:
+                    <strong>
+                        ${
+                            result.elapsed
+                        } ms
+                    </strong>
+
+                    &nbsp; • &nbsp;
+
+                    Risultati:
+                    <strong>
+                        ${
+                            resultsNumber
+                        }
+                    </strong>
+
+                    ${
+                        analysis
+                        ? `
+
+                            <br>
+
+                            Campi rilevati:
+                            <strong>
+                                ${
+                                    analysis.fields.length
+                                }
+                            </strong>
+
+                            &nbsp; • &nbsp;
+
+                            Segnali calcistici:
+                            <strong>
+                                ${
+                                    analysis.footballSignals.length
+                                }
+                            </strong>
+
+                            &nbsp; • &nbsp;
+
+                            Match:
+                            <strong>
+                                ${
+                                    analysis.matchCount
+                                }
+                            </strong>
+
+                        `
+                        : ""
+                    }
+
+
+                    ${
+                        result.error
+                        ? `
+                            <br>
+                            <strong>
+                                Errore:
+                            </strong>
+                            ${escapeHTML(
+                                result.error
+                            )}
+                        `
+                        : ""
+                    }
+
+                </div>
+
+            `;
+
+
+            area.appendChild(div);
+
         }
+    );
 
-        catch {
-            // Continua con il percorso successivo
-        }
 
-    }
+    renderSummary();
 
-    $("successRequests").textContent =
-        state.successRequests;
+}
 
-    if (!found) {
 
-        showStatus(
-            statusArea,
-            "Nessun file OpenAPI/Swagger trovato nei percorsi standard.",
-            "warning"
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+
+function renderSummary() {
+
+    const area =
+        $("analysisSummary");
+
+
+    const total =
+        state.testResults.length;
+
+
+    const ok =
+        state.testResults.filter(
+            result =>
+                result.ok
+        ).length;
+
+
+    const errors =
+        state.testResults.filter(
+            result =>
+                !result.ok
+        ).length;
+
+
+    const dataResults =
+        state.testResults.filter(
+            result =>
+                result.analysis &&
+                result.analysis.likelyFootballData
+        ).length;
+
+
+    area.innerHTML = `
+
+        <div class="result-summary">
+
+            <div class="summary-box">
+
+                <span>
+                    Test effettuati
+                </span>
+
+                <strong>
+                    ${total}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <span>
+                    Risposte OK
+                </span>
+
+                <strong>
+                    ${ok}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <span>
+                    Errori
+                </span>
+
+                <strong>
+                    ${errors}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <span>
+                    Risposte calcistiche
+                </span>
+
+                <strong>
+                    ${dataResults}
+                </strong>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CAPACITÀ API
+========================================================= */
+
+
+function buildCapabilityReport() {
+
+    const capability = {};
+
+
+    Object.keys(CATEGORIES)
+        .forEach(category => {
+
+            const results =
+                state.testResults.filter(
+                    result =>
+                        result.category ===
+                        category
+                );
+
+
+            if (!results.length) {
+
+                return;
+
+            }
+
+
+            const ok =
+                results.some(
+                    result =>
+                        result.ok
+                );
+
+
+            const totalResults =
+                results.reduce(
+                    (sum, result) => {
+
+                        return sum +
+                            (
+                                Number(
+                                    result.results
+                                ) || 0
+                            );
+
+                    },
+                    0
+                );
+
+
+            const fields =
+                new Set();
+
+
+            const signals =
+                new Set();
+
+
+            results.forEach(
+                result => {
+
+                    if (
+                        result.analysis
+                    ) {
+
+                        result.analysis.fields
+                            .forEach(
+                                field =>
+                                    fields.add(field)
+                            );
+
+
+                        result.analysis.footballSignals
+                            .forEach(
+                                signal =>
+                                    signals.add(signal)
+                            );
+
+                    }
+
+                }
+            );
+
+
+            capability[category] = {
+
+                tested:
+                    true,
+
+                success:
+                    ok,
+
+                tests:
+                    results.length,
+
+                totalResults,
+
+                fields:
+                    Array.from(fields),
+
+                footballSignals:
+                    Array.from(signals)
+
+            };
+
+        });
+
+
+    /*
+        Verifica specifica delle stagioni
+        e dei campionati target.
+    */
+
+
+    capability.targetLeagues = {
+
+        requested:
+            TARGET_LEAGUES,
+
+        testedSeason:
+            HISTORICAL_SEASON,
+
+        note:
+            "La verifica dettagliata della copertura dipende dai dati restituiti dall'endpoint leagues."
+
+    };
+
+
+    /*
+        Fixture ID trovati.
+    */
+
+
+    capability.fixtureReuse = {
+
+        historical:
+            state.fixtureIds.historical,
+
+        current:
+            state.fixtureIds.current,
+
+        historicalCount:
+            state.fixtureIds.historical.length,
+
+        currentCount:
+            state.fixtureIds.current.length
+
+    };
+
+
+    /*
+        Rate limit più recente rilevato.
+    */
+
+
+    const latestRate =
+        [...state.testResults]
+            .reverse()
+            .find(
+                result =>
+                    result.rateLimit &&
+                    (
+                        result.rateLimit.dailyRemaining !== null ||
+                        result.rateLimit.minuteRemaining !== null
+                    )
+            );
+
+
+    capability.rateLimit =
+        latestRate
+        ? latestRate.rateLimit
+        : null;
+
+
+    state.capability =
+        capability;
+
+}
+
+
+function renderCapability() {
+
+    const area =
+        $("capabilityArea");
+
+
+    const entries =
+        Object.entries(
+            state.capability
         );
 
-        resultsArea.innerHTML = `
-            <div class="small-text">
-                Questo non significa che l'API non abbia documentazione.
-                Potrebbe utilizzare un percorso personalizzato.
-                Puoi comunque inserire manualmente gli endpoint.
-            </div>
-        `;
+
+    if (!entries.length) {
+
+        area.innerHTML =
+            '<div class="empty">Nessun dato disponibile.</div>';
 
         return;
 
     }
 
-    const endpoints =
-        extractOpenAPIEndpoints(
-            found.data
-        );
 
-    state.endpoints =
-        endpoints;
+    area.innerHTML = "";
 
-    state.endpointCount =
-        endpoints.length;
 
-    $("endpointCount").textContent =
-        endpoints.length;
-
-    showStatus(
-        statusArea,
-        `Documentazione trovata: <strong>${escapeHTML(found.path)}</strong><br>
-         Endpoint individuati: <strong>${endpoints.length}</strong>`,
-        "success"
-    );
-
-    renderEndpointList(
-        endpoints,
-        resultsArea
-    );
-
-}
-
-function extractOpenAPIEndpoints(data) {
-
-    const endpoints = [];
-
-    if (
-        !data ||
-        !data.paths ||
-        typeof data.paths !== "object"
-    ) {
-
-        return endpoints;
-
-    }
-
-    Object.entries(data.paths).forEach(
-        ([path, methods]) => {
+    entries.forEach(
+        ([category, info]) => {
 
             if (
-                !methods ||
-                typeof methods !== "object"
+                category ===
+                "targetLeagues"
             ) {
 
                 return;
 
             }
 
-            Object.entries(methods).forEach(
-                ([method, definition]) => {
 
-                    const validMethods = [
-                        "get",
-                        "post",
-                        "put",
-                        "patch",
-                        "delete",
-                        "head",
-                        "options"
-                    ];
+            if (
+                category ===
+                "fixtureReuse"
+            ) {
 
-                    if (
-                        !validMethods.includes(
-                            method.toLowerCase()
-                        )
-                    ) {
+                return;
 
-                        return;
+            }
 
+
+            if (
+                category ===
+                "rateLimit"
+            ) {
+
+                return;
+
+            }
+
+
+            const title =
+                CATEGORIES[category]
+                ? CATEGORIES[category].title
+                : category;
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "test-result " +
+                (
+                    info.success
+                    ? "ok"
+                    : "error"
+                );
+
+
+            div.innerHTML = `
+
+                <div class="test-result-header">
+
+                    <div class="test-result-title">
+
+                        ${escapeHTML(title)}
+
+                    </div>
+
+
+                    ${
+                        info.success
+                        ? '<span class="badge good">DISPONIBILE</span>'
+                        : '<span class="badge bad">NON CONFERMATO</span>'
                     }
 
-                    endpoints.push({
+                </div>
 
-                        path,
 
-                        method:
-                            method.toUpperCase(),
+                <div class="test-result-info">
 
-                        description:
-                            definition &&
-                            definition.summary
-                            ? definition.summary
-                            : definition &&
-                              definition.description
-                            ? definition.description
-                            : "",
+                    Test:
+                    <strong>
+                        ${info.tests}
+                    </strong>
 
-                        operationId:
-                            definition &&
-                            definition.operationId
-                            ? definition.operationId
-                            : "",
+                    &nbsp; • &nbsp;
 
-                        tags:
-                            definition &&
-                            Array.isArray(
-                                definition.tags
-                            )
-                            ? definition.tags
-                            : []
+                    Risultati:
+                    <strong>
+                        ${info.totalResults}
+                    </strong>
 
-                    });
+                    &nbsp; • &nbsp;
 
-                }
-            );
+                    Campi:
+                    <strong>
+                        ${info.fields.length}
+                    </strong>
+
+                    &nbsp; • &nbsp;
+
+                    Segnali:
+                    <strong>
+                        ${info.footballSignals.length}
+                    </strong>
+
+                </div>
+
+            `;
+
+
+            area.appendChild(div);
 
         }
     );
 
-    return endpoints;
+
+    const fixtureInfo =
+        state.capability.fixtureReuse;
+
+
+    if (fixtureInfo) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "info-box";
+
+
+        div.innerHTML = `
+
+            <strong>
+                Fixture riutilizzabili
+            </strong>
+
+            <br><br>
+
+            Fixture storiche trovate:
+            <strong>
+                ${fixtureInfo.historicalCount}
+            </strong>
+
+            <br>
+
+            Fixture attuali/future trovate:
+            <strong>
+                ${fixtureInfo.currentCount}
+            </strong>
+
+            <br><br>
+
+            Questi ID possono essere utilizzati
+            per testare statistiche, eventi,
+            formazioni, quote, predizioni e H2H
+            senza dover cercare nuovamente le partite.
+
+        `;
+
+
+        area.appendChild(div);
+
+    }
+
+
+    const rate =
+        state.capability.rateLimit;
+
+
+    if (rate) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "info-box";
+
+
+        div.innerHTML = `
+
+            <strong>
+                Rate limit rilevato
+            </strong>
+
+            <br><br>
+
+            Limite giornaliero:
+            <strong>
+                ${
+                    escapeHTML(
+                        rate.dailyLimit ??
+                        "non rilevato"
+                    )
+                }
+            </strong>
+
+            <br>
+
+            Rimanenti giornalieri:
+            <strong>
+                ${
+                    escapeHTML(
+                        rate.dailyRemaining ??
+                        "non rilevato"
+                    )
+                }
+            </strong>
+
+            <br>
+
+            Limite al minuto:
+            <strong>
+                ${
+                    escapeHTML(
+                        rate.minuteLimit ??
+                        "non rilevato"
+                    )
+                }
+            </strong>
+
+            <br>
+
+            Rimanenti al minuto:
+            <strong>
+                ${
+                    escapeHTML(
+                        rate.minuteRemaining ??
+                        "non rilevato"
+                    )
+                }
+            </strong>
+
+        `;
+
+
+        area.appendChild(div);
+
+    }
 
 }
 
-function renderEndpointList(
-    endpoints,
-    container
-) {
 
-    if (!endpoints.length) {
+/* =========================================================
+   HEADERS
+========================================================= */
 
-        container.innerHTML =
-            '<div class="empty">Nessun endpoint trovato.</div>';
+
+function renderHeaders(headers) {
+
+    const area =
+        $("headersArea");
+
+
+    const entries =
+        Object.entries(
+            headers || {}
+        );
+
+
+    if (!entries.length) {
+
+        area.innerHTML =
+            '<div class="empty">Nessun header disponibile.</div>';
 
         return;
 
     }
 
-    container.innerHTML = "";
 
-    endpoints.forEach(
-        (endpoint, index) => {
+    let html = `
 
-            const item =
-                document.createElement("div");
+        <table class="header-table">
 
-            item.className =
-                "endpoint-item";
+            <thead>
 
-            item.innerHTML = `
+                <tr>
 
-                <div class="endpoint-main">
+                    <th>
+                        Header
+                    </th>
 
-                    <div>
-                        <span class="endpoint-method">
-                            ${escapeHTML(endpoint.method)}
-                        </span>
+                    <th>
+                        Valore
+                    </th>
 
-                        <span class="endpoint-path">
-                            ${escapeHTML(endpoint.path)}
-                        </span>
-                    </div>
+                </tr>
 
-                    ${
-                        endpoint.description
-                        ? `<div class="endpoint-description">
-                            ${escapeHTML(endpoint.description)}
-                           </div>`
-                        : ""
-                    }
+            </thead>
 
-                </div>
+            <tbody>
 
-                <button
-                    class="btn small secondary"
-                    data-endpoint-index="${index}">
-                    Usa
-                </button>
+    `;
+
+
+    entries.forEach(
+        ([key, value]) => {
+
+            html += `
+
+                <tr>
+
+                    <th>
+                        ${escapeHTML(key)}
+                    </th>
+
+                    <td>
+                        ${escapeHTML(value)}
+                    </td>
+
+                </tr>
 
             `;
-
-            item
-                .querySelector("button")
-                .addEventListener(
-                    "click",
-                    () => {
-
-                        $("method").value =
-                            endpoint.method;
-
-                        $("endpoint").value =
-                            endpoint.path;
-
-                        window.scrollTo({
-                            top:
-                                document
-                                .querySelector(
-                                    "#method"
-                                )
-                                .getBoundingClientRect()
-                                .top +
-                                window.scrollY -
-                                120,
-                            behavior: "smooth"
-                        });
-
-                    }
-                );
-
-            container.appendChild(item);
 
         }
     );
 
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+    `;
+
+
+    area.innerHTML =
+        html;
+
 }
 
-function endpointMatchesCategory(
-    endpoint,
-    category
+
+/* =========================================================
+   ANALISI TECNICA
+========================================================= */
+
+
+function renderTechnicalAnalysis(
+    analysis,
+    statusCode
 ) {
 
-    const words =
-        FOOTBALL_CATEGORIES[
-            category
-        ] || [];
+    const area =
+        $("technicalAnalysis");
 
-    const text = (
 
-        endpoint.path +
-        " " +
-        endpoint.description +
-        " " +
-        endpoint.operationId +
-        " " +
-        endpoint.tags.join(" ")
+    if (!analysis) {
 
-    ).toLowerCase();
+        area.innerHTML =
+            '<div class="empty">Nessuna risposta analizzata.</div>';
 
-    return words.some(
-        word =>
-            text.includes(
-                word.toLowerCase()
+        return;
+
+    }
+
+
+    const fields =
+        analysis.fields
+            .slice(0, 100)
+            .map(
+                field =>
+                    `<span class="badge good">${
+                        escapeHTML(field)
+                    }</span>`
             )
-    );
+            .join(" ");
+
+
+    const signals =
+        analysis.footballSignals
+            .slice(0, 100)
+            .map(
+                field =>
+                    `<span class="badge neutral">${
+                        escapeHTML(field)
+                    }</span>`
+            )
+            .join(" ");
+
+
+    area.innerHTML = `
+
+        <div class="analysis-grid">
+
+            <div class="analysis-box">
+
+                Status
+
+                <strong>
+                    ${statusCode}
+                </strong>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                Oggetti
+
+                <strong>
+                    ${analysis.objects}
+                </strong>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                Array
+
+                <strong>
+                    ${analysis.arrays}
+                </strong>
+
+            </div>
+
+
+            <div class="analysis-box">
+
+                Match rilevati
+
+                <strong>
+                    ${analysis.matchCount}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <h3>
+            Dati calcistici
+        </h3>
+
+
+        <div>
+
+            ${
+                analysis.likelyFootballData
+
+                ? '<span class="badge good">DATI CALCISTICI CONFERMATI</span>'
+
+                : '<span class="badge warning">DATI CALCISTICI NON CONFERMATI</span>'
+            }
+
+        </div>
+
+
+        <h3>
+            Campi rilevati
+        </h3>
+
+
+        <div>
+
+            ${
+                fields ||
+                '<span class="small-text">Nessun campo rilevante.</span>'
+            }
+
+        </div>
+
+
+        <h3>
+            Segnali calcistici
+        </h3>
+
+
+        <div>
+
+            ${
+                signals ||
+                '<span class="small-text">Nessun segnale rilevato.</span>'
+            }
+
+        </div>
+
+    `;
 
 }
 
-function filterEndpoints(category) {
 
-    const filtered =
-        state.endpoints.filter(
-            endpoint =>
-                endpointMatchesCategory(
-                    endpoint,
-                    category
-                )
-        );
+/* =========================================================
+   STORICO
+========================================================= */
 
-    renderEndpointList(
-        filtered,
-        $("filteredEndpoints")
-    );
-
-}
 
 function addHistory(item) {
 
-    state.history.unshift(item);
+    state.history.unshift(
+        item
+    );
 
-    if (state.history.length > 100) {
+
+    if (
+        state.history.length >
+        200
+    ) {
 
         state.history =
-            state.history.slice(0, 100);
+            state.history.slice(
+                0,
+                200
+            );
 
     }
+
 
     renderHistory();
 
 }
 
+
 function renderHistory() {
 
     const area =
         $("historyArea");
+
 
     if (!state.history.length) {
 
@@ -2482,23 +5168,31 @@ function renderHistory() {
 
     }
 
+
     area.innerHTML = "";
 
-    state.history.forEach(
-        item => {
+
+    state.history
+        .forEach(item => {
 
             const div =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             div.className =
                 "history-item";
 
+
             const date =
                 new Date(
                     item.timestamp
-                ).toLocaleString(
+                )
+                .toLocaleString(
                     "it-IT"
                 );
+
 
             div.innerHTML = `
 
@@ -2508,39 +5202,75 @@ function renderHistory() {
                         ${escapeHTML(date)}
                     </strong>
 
+
                     <span class="badge ${
                         item.ok
                         ? "good"
                         : "bad"
                     }">
-                        HTTP ${item.status}
+
+                        ${
+                            item.status
+                            ? "HTTP " +
+                              escapeHTML(
+                                  item.status
+                              )
+                            : "ERRORE"
+                        }
+
                     </span>
 
                 </div>
 
+
                 <div class="history-path">
-                    ${escapeHTML(item.method)}
-                    ${escapeHTML(item.endpoint)}
+
+                    ${
+                        escapeHTML(
+                            item.category
+                        )
+                    }
+
+                    —
+
+                    ${
+                        escapeHTML(
+                            item.label
+                        )
+                    }
+
                 </div>
 
+
                 <div class="small-text">
-                    ${item.elapsed} ms
+
+                    ${
+                        item.elapsed
+                    } ms
+
                     ${
                         item.analysis &&
                         item.analysis.likelyFootballData
                         ? " • dati calcistici rilevati"
                         : ""
                     }
+
                 </div>
 
             `;
 
+
             area.appendChild(div);
 
-        }
-    );
+        });
 
 }
+
+
+/* =========================================================
+   CONFIGURAZIONE LOCALE
+========================================================= */
+
 
 function saveConfig() {
 
@@ -2557,18 +5287,28 @@ function saveConfig() {
 
     };
 
+
     localStorage.setItem(
+
         "footballApiTesterConfig",
+
         JSON.stringify(config)
+
     );
 
+
     showStatus(
+
         $("connectionStatus"),
-        "Configurazione salvata sul dispositivo. La API key non viene salvata.",
+
+        "Configurazione salvata. La API Key non viene salvata.",
+
         "success"
+
     );
 
 }
+
 
 function loadConfig() {
 
@@ -2579,18 +5319,24 @@ function loadConfig() {
                 "footballApiTesterConfig"
             );
 
+
         if (!raw) {
             return;
         }
 
+
         const config =
             JSON.parse(raw);
+
 
         $("apiName").value =
             config.apiName || "";
 
+
         $("baseUrl").value =
-            config.baseUrl || "";
+            config.baseUrl ||
+            DEFAULT_BASE_URL;
+
 
         $("authType").value =
             config.authType ||
@@ -2599,33 +5345,54 @@ function loadConfig() {
     }
 
     catch {
-        // Ignora configurazioni corrotte
+
+        // Ignora configurazioni non valide
+
     }
 
 }
 
+
 function clearConfig() {
 
-    $("apiName").value = "";
+    $("apiName").value =
+        "";
 
-    $("baseUrl").value = "";
 
-    $("apiKey").value = "";
+    $("baseUrl").value =
+        DEFAULT_BASE_URL;
+
+
+    $("apiKey").value =
+        "";
+
 
     $("authType").value =
         "x-apisports-key";
+
 
     localStorage.removeItem(
         "footballApiTesterConfig"
     );
 
+
     showStatus(
+
         $("connectionStatus"),
+
         "Configurazione pulita.",
+
         "info"
+
     );
 
 }
+
+
+/* =========================================================
+   REPORT
+========================================================= */
+
 
 function buildReport() {
 
@@ -2637,12 +5404,30 @@ function buildReport() {
                 "Football API Tester",
 
             version:
-                "3.0",
+                "4.0",
 
             generatedAt:
                 new Date().toISOString()
 
         },
+
+
+        purpose: {
+
+            description:
+                "Test automatico della capacità di una Football API di fornire i dati necessari alla futura applicazione calcistica.",
+
+            historicalSeason:
+                HISTORICAL_SEASON,
+
+            currentSeason:
+                CURRENT_SEASON,
+
+            targetLeagues:
+                TARGET_LEAGUES
+
+        },
+
 
         api: {
 
@@ -2657,12 +5442,14 @@ function buildReport() {
 
         },
 
+
         proxy: {
 
             url:
                 PROXY_URL
 
         },
+
 
         statistics: {
 
@@ -2675,40 +5462,55 @@ function buildReport() {
             errorRequests:
                 state.errorRequests,
 
-            endpointCount:
-                state.endpointCount,
+            categoriesTested:
+                Array.from(
+                    state.categoriesTested
+                ),
 
             matchCount:
                 state.matchCount
 
         },
 
-        documentation:
 
-            state.documentationFound.map(
-                item => ({
-                    path:
-                        item.path,
+        fixtures: {
 
-                    url:
-                        item.url
-                })
-            ),
+            historical:
+                state.fixtureIds.historical,
 
-        endpoints:
-            state.endpoints,
+            current:
+                state.fixtureIds.current
+
+        },
+
+
+        targetLeagues:
+            TARGET_LEAGUES,
+
+
+        capability:
+            state.capability,
+
+
+        testResults:
+            state.testResults,
+
 
         history:
             state.history,
 
+
         lastRequest:
             state.lastRequest,
+
 
         lastAnalysis:
             state.lastAnalysis,
 
+
         lastResponseHeaders:
             state.lastResponseHeaders,
+
 
         lastResponse:
             state.lastResponse
@@ -2717,10 +5519,12 @@ function buildReport() {
 
 }
 
+
 function generateReport() {
 
     const report =
         buildReport();
+
 
     const json =
         JSON.stringify(
@@ -2729,23 +5533,34 @@ function generateReport() {
             2
         );
 
-    $("reportOutput").textContent =
-        json;
+
+    $("reportOutput")
+        .textContent =
+            json;
+
 
     return json;
 
 }
+
+
+/* =========================================================
+   COPIA REPORT
+========================================================= */
+
 
 async function copyReport() {
 
     const json =
         generateReport();
 
+
     try {
 
         await navigator.clipboard.writeText(
             json
         );
+
 
         alert(
             "Report copiato."
@@ -2763,54 +5578,98 @@ async function copyReport() {
 
 }
 
+
+/* =========================================================
+   DOWNLOAD REPORT
+========================================================= */
+
+
 function downloadReport() {
 
     const json =
         generateReport();
 
+
     const blob =
         new Blob(
+
             [json],
+
             {
                 type:
                     "application/json"
             }
+
         );
 
+
     const url =
-        URL.createObjectURL(blob);
+        URL.createObjectURL(
+            blob
+        );
+
 
     const a =
-        document.createElement("a");
+        document.createElement(
+            "a"
+        );
+
 
     const apiName =
-        $("apiName").value
+        $("apiName")
+            .value
             .trim()
-            .replace(/[^a-z0-9_-]/gi, "_")
-            || "api";
+            .replace(
+                /[^a-z0-9_-]/gi,
+                "_"
+            )
+            ||
+            "api";
 
-    a.href = url;
+
+    a.href =
+        url;
+
 
     a.download =
         `football-api-report-${apiName}.json`;
 
-    document.body.appendChild(a);
+
+    document.body.appendChild(
+        a
+    );
+
 
     a.click();
 
+
     a.remove();
 
-    URL.revokeObjectURL(url);
+
+    URL.revokeObjectURL(
+        url
+    );
 
 }
+
+
+/* =========================================================
+   COPIA RISPOSTA
+========================================================= */
+
 
 async function copyResponse() {
 
     const text =
-        $("responseOutput").textContent;
+        $("responseOutput")
+            .textContent;
 
-    if (!text ||
-        text === "Nessuna risposta.") {
+
+    if (
+        !text ||
+        text.trim() ===
+        "Nessuna risposta."
+    ) {
 
         alert(
             "Non c'è nessuna risposta da copiare."
@@ -2820,14 +5679,16 @@ async function copyResponse() {
 
     }
 
+
     try {
 
         await navigator.clipboard.writeText(
             text
         );
 
+
         alert(
-            "JSON copiato."
+            "Risposta copiata."
         );
 
     }
@@ -2842,29 +5703,85 @@ async function copyResponse() {
 
 }
 
+
+/* =========================================================
+   SELEZIONA TUTTO
+========================================================= */
+
+
+$("selectAllBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (state.running) {
+                return;
+            }
+
+
+            document
+                .querySelectorAll(
+                    ".category"
+                )
+                .forEach(
+                    element =>
+                        element.classList.add(
+                            "active"
+                        )
+                );
+
+        }
+    );
+
+
+/* =========================================================
+   DESELEZIONA TUTTO
+========================================================= */
+
+
+$("deselectAllBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (state.running) {
+                return;
+            }
+
+
+            document
+                .querySelectorAll(
+                    ".category"
+                )
+                .forEach(
+                    element =>
+                        element.classList.remove(
+                            "active"
+                        )
+                );
+
+        }
+    );
+
+
+/* =========================================================
+   EVENT LISTENER
+========================================================= */
+
+
 $("testConnectionBtn")
     .addEventListener(
         "click",
         testConnection
     );
 
-$("sendRequestBtn")
+
+$("runAnalysisBtn")
     .addEventListener(
         "click",
-        sendRequest
+        runAnalysis
     );
 
-$("sendRequestBtn2")
-    .addEventListener(
-        "click",
-        sendRequest
-    );
-
-$("discoverDocsBtn")
-    .addEventListener(
-        "click",
-        discoverDocumentation
-    );
 
 $("saveConfigBtn")
     .addEventListener(
@@ -2872,11 +5789,13 @@ $("saveConfigBtn")
         saveConfig
     );
 
+
 $("clearConfigBtn")
     .addEventListener(
         "click",
         clearConfig
     );
+
 
 $("copyResponseBtn")
     .addEventListener(
@@ -2884,11 +5803,13 @@ $("copyResponseBtn")
         copyResponse
     );
 
+
 $("generateReportBtn")
     .addEventListener(
         "click",
         generateReport
     );
+
 
 $("copyReportBtn")
     .addEventListener(
@@ -2896,99 +5817,43 @@ $("copyReportBtn")
         copyReport
     );
 
+
 $("downloadReportBtn")
     .addEventListener(
         "click",
         downloadReport
     );
 
+
 $("clearHistoryBtn")
     .addEventListener(
         "click",
         () => {
 
-            state.history = [];
+            state.history =
+                [];
 
             renderHistory();
 
         }
     );
 
-$("clearEndpointsBtn")
-    .addEventListener(
-        "click",
-        () => {
 
-            state.endpoints = [];
+/* =========================================================
+   AVVIO
+========================================================= */
 
-            state.endpointCount = 0;
-
-            $("endpointCount").textContent =
-                "0";
-
-            $("docsResults").innerHTML = "";
-
-            $("filteredEndpoints").innerHTML = "";
-
-            hideStatus(
-                $("docsStatus")
-            );
-
-        }
-    );
-
-$("clearRequestBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            $("endpoint").value = "";
-
-            $("queryParams").value = "";
-
-            $("customHeaders").value = "";
-
-            $("requestBody").value = "";
-
-            $("responseOutput").textContent =
-                "Nessuna risposta.";
-
-            $("analysisArea").innerHTML =
-                '<div class="empty">Nessuna risposta analizzata.</div>';
-
-            $("headersArea").innerHTML =
-                '<div class="empty">Nessun header disponibile.</div>';
-
-            hideStatus(
-                $("requestStatus")
-            );
-
-        }
-    );
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.ctrlKey &&
-            event.key === "Enter"
-        ) {
-
-            event.preventDefault();
-
-            sendRequest();
-
-        }
-
-    }
-);
 
 loadConfig();
 
+renderDashboard();
+
 renderHistory();
+
 
 </script>
 
+
 </body>
+
 </html>
