@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#ffffff">
-<title>Football API Tester V4</title>
+<meta name="theme-color" content="#111111">
+<title>Football API Tester V3</title>
 
 <style>
 * {
@@ -15,18 +16,21 @@
 html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    min-height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fa;
-    color: #111827;
+    background: #f4f5f7;
+    color: #111;
 }
 
 body {
-    min-height: 100vh;
+    padding-bottom: 40px;
 }
 
 button,
 input,
-select {
+select,
+textarea {
     font: inherit;
 }
 
@@ -35,483 +39,501 @@ button {
 }
 
 .container {
-    width: min(1100px, calc(100% - 28px));
+    width: min(1200px, calc(100% - 30px));
     margin: 0 auto;
-    padding: 24px 0 50px;
 }
 
 header {
-    margin-bottom: 22px;
+    background: #111;
+    color: white;
+    padding: 25px 0;
+    margin-bottom: 20px;
 }
 
-header h1 {
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.title-area h1 {
     margin: 0;
-    font-size: 30px;
-    line-height: 1.1;
+    font-size: 28px;
 }
 
-header p {
-    margin: 8px 0 0;
-    color: #6b7280;
-    font-size: 15px;
+.title-area p {
+    margin: 7px 0 0;
+    color: #bdbdbd;
+    font-size: 14px;
+}
+
+.version {
+    background: #2a2a2a;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 14px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.stat-label {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 18px;
+    background: white;
+    border-radius: 16px;
     padding: 20px;
     margin-bottom: 18px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
 }
 
-.card-title {
+.card h2 {
     margin: 0 0 16px;
-    font-size: 19px;
-    font-weight: 700;
+    font-size: 20px;
 }
 
-.card-subtitle {
-    margin: -8px 0 18px;
-    color: #6b7280;
-    font-size: 14px;
-    line-height: 1.5;
+.card h3 {
+    margin: 20px 0 10px;
+    font-size: 16px;
 }
 
-.form-grid {
+.grid-2 {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
 }
 
 .field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.field.full {
-    grid-column: 1 / -1;
+    margin-bottom: 13px;
 }
 
 .field label {
+    display: block;
     font-size: 13px;
-    font-weight: 700;
-    color: #374151;
+    font-weight: bold;
+    margin-bottom: 6px;
 }
 
 input,
-select {
+select,
+textarea {
     width: 100%;
-    min-height: 46px;
-    border: 1px solid #d1d5db;
-    border-radius: 11px;
-    padding: 10px 12px;
-    background: #ffffff;
-    color: #111827;
+    border: 1px solid #d6d6d6;
+    border-radius: 10px;
+    padding: 12px;
+    background: white;
+    color: #111;
     outline: none;
 }
 
 input:focus,
-select:focus {
-    border-color: #6b7280;
-    box-shadow: 0 0 0 3px rgba(107,114,128,0.10);
+select:focus,
+textarea:focus {
+    border-color: #111;
 }
 
-.help {
-    font-size: 12px;
-    color: #6b7280;
-    line-height: 1.4;
-}
-
-.proxy-status {
-    margin-top: 14px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: #f3f4f6;
-    color: #4b5563;
+textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: Consolas, monospace;
     font-size: 13px;
 }
 
-.proxy-status.ok {
-    background: #ecfdf5;
-    color: #047857;
-}
-
-.proxy-status.error {
-    background: #fef2f2;
-    color: #b91c1c;
-}
-
-.actions {
-    display: flex;
-    flex-wrap: wrap;
+.endpoint-row {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
     gap: 10px;
-    margin-top: 16px;
+    align-items: end;
 }
 
 .btn {
-    border: 0;
-    border-radius: 11px;
-    padding: 12px 18px;
-    font-weight: 700;
-    min-height: 45px;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 17px;
+    font-weight: bold;
+    background: #111;
+    color: white;
+    transition: transform .1s ease, opacity .1s ease;
 }
 
-.btn-primary {
-    background: #111827;
-    color: #ffffff;
+.btn:active {
+    transform: scale(.98);
 }
 
-.btn-primary:hover {
-    background: #000000;
+.btn.secondary {
+    background: #e9eaec;
+    color: #111;
 }
 
-.btn-secondary {
-    background: #f3f4f6;
-    color: #111827;
-    border: 1px solid #e5e7eb;
+.btn.success {
+    background: #147a3e;
 }
 
-.btn-danger {
-    background: #fee2e2;
-    color: #b91c1c;
+.btn.warning {
+    background: #a56800;
 }
 
-.selection-actions {
+.btn.danger {
+    background: #a61b1b;
+}
+
+.btn.small {
+    padding: 9px 12px;
+    font-size: 13px;
+}
+
+.button-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 9px;
+    margin-top: 10px;
 }
 
-.small-btn {
-    border: 1px solid #d1d5db;
-    background: #ffffff;
-    border-radius: 9px;
-    padding: 8px 12px;
+.status {
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 12px;
     font-size: 13px;
-    font-weight: 700;
+    line-height: 1.45;
+    display: none;
+}
+
+.status.show {
+    display: block;
+}
+
+.status.info {
+    background: #eef3ff;
+    color: #17418c;
+}
+
+.status.success {
+    background: #eaf8ef;
+    color: #176637;
+}
+
+.status.error {
+    background: #fff0f0;
+    color: #9b1c1c;
+}
+
+.status.warning {
+    background: #fff8e7;
+    color: #805600;
+}
+
+.endpoint-list {
+    display: grid;
+    gap: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.endpoint-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    background: #fafafa;
+}
+
+.endpoint-main {
+    min-width: 0;
+}
+
+.endpoint-method {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: #ddd;
+    margin-right: 7px;
+}
+
+.endpoint-path {
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+.endpoint-description {
+    color: #777;
+    font-size: 12px;
+    margin-top: 4px;
 }
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
 }
 
 .category {
-    position: relative;
-}
-
-.category input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.category label {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    min-height: 68px;
-    padding: 12px 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 13px;
-    background: #ffffff;
-    cursor: pointer;
-    transition: 0.15s ease;
-}
-
-.category label:hover {
-    border-color: #9ca3af;
-}
-
-.category input:checked + label {
-    border-color: #111827;
-    background: #f3f4f6;
-}
-
-.category-icon {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    background: #f3f4f6;
-    font-size: 19px;
-    flex-shrink: 0;
-}
-
-.category input:checked + label .category-icon {
-    background: #111827;
-    color: #ffffff;
-}
-
-.category-name {
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.category-description {
-    margin-top: 3px;
-    font-size: 11px;
-    color: #6b7280;
-}
-
-.run-box {
-    position: sticky;
-    bottom: 12px;
-    z-index: 10;
-    padding: 12px;
-    background: rgba(245,247,250,0.92);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-}
-
-.run-button {
-    width: 100%;
-    min-height: 54px;
-    border: 0;
-    border-radius: 13px;
-    background: #111827;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 800;
-}
-
-.run-button:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-}
-
-.progress {
-    display: none;
-    margin-top: 12px;
-}
-
-.progress.active {
-    display: block;
-}
-
-.progress-bar {
-    height: 8px;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #e5e7eb;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: #111827;
-    transition: width 0.2s ease;
-}
-
-.progress-text {
-    margin-top: 7px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    border-radius: 9px;
+    padding: 10px 8px;
     font-size: 12px;
-    color: #6b7280;
     text-align: center;
-}
-
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.summary-item {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 13px;
-}
-
-.summary-number {
-    font-size: 23px;
-    font-weight: 800;
-}
-
-.summary-label {
-    margin-top: 4px;
-    color: #6b7280;
-    font-size: 12px;
-}
-
-.result-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.result-item {
-    border: 1px solid #e5e7eb;
-    border-radius: 13px;
-    padding: 14px;
-    background: #ffffff;
-}
-
-.result-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.result-status {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 14px;
-    font-weight: 800;
-}
-
-.status-ok {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.status-partial {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.status-no {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
-.status-error {
-    background: #e5e7eb;
-    color: #374151;
-}
-
-.result-name {
-    font-weight: 800;
-    font-size: 15px;
-}
-
-.result-message {
-    margin-top: 8px;
-    color: #4b5563;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.result-details {
-    margin-top: 9px;
-    font-size: 12px;
-    color: #6b7280;
-}
-
-.history-item {
-    padding: 12px 0;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.history-item:last-child {
-    border-bottom: 0;
-}
-
-.history-title {
-    font-weight: 700;
-}
-
-.history-meta {
-    margin-top: 4px;
-    color: #6b7280;
-    font-size: 12px;
-}
-
-details {
-    margin-top: 12px;
-}
-
-details summary {
     cursor: pointer;
-    font-weight: 700;
-    color: #374151;
-    padding: 8px 0;
+}
+
+.category.active {
+    background: #111;
+    color: white;
+    border-color: #111;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.badge {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 5px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    background: #eee;
+}
+
+.badge.good {
+    background: #dff4e6;
+    color: #146b35;
+}
+
+.badge.bad {
+    background: #ffe1e1;
+    color: #a21c1c;
+}
+
+.badge.neutral {
+    background: #eee;
+    color: #555;
 }
 
 pre {
-    margin: 10px 0 0;
-    max-height: 400px;
-    overflow: auto;
-    padding: 14px;
-    background: #111827;
-    color: #e5e7eb;
+    margin: 0;
+    background: #111;
+    color: #f1f1f1;
     border-radius: 12px;
+    padding: 15px;
+    overflow: auto;
+    max-height: 600px;
+    font-family: Consolas, Monaco, monospace;
     font-size: 12px;
     line-height: 1.5;
-    white-space: pre-wrap;
+}
+
+.header-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.header-table th,
+.header-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: top;
     word-break: break-word;
 }
 
-.empty {
-    text-align: center;
-    color: #6b7280;
-    padding: 20px 10px;
-    font-size: 14px;
+.header-table th {
+    width: 35%;
 }
 
-.hidden {
-    display: none !important;
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
 
-.notice {
-    padding: 12px 14px;
+.analysis-box {
+    border: 1px solid #e2e2e2;
     border-radius: 11px;
-    background: #eff6ff;
-    color: #1d4ed8;
-    font-size: 13px;
+    padding: 12px;
+}
+
+.analysis-box strong {
+    display: block;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.history-item {
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #fafafa;
+}
+
+.history-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.history-path {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+.empty {
+    color: #777;
+    padding: 15px;
+    text-align: center;
+}
+
+.small-text {
+    color: #777;
+    font-size: 12px;
     line-height: 1.5;
 }
 
-@media (max-width: 800px) {
-    .category-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+.proxy-box {
+    background: #f1f5ff;
+    border: 1px solid #d8e2ff;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+}
 
-    .summary-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+.proxy-url {
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    word-break: break-all;
+    margin-top: 5px;
+}
+
+.loading {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #ccc;
+    border-top-color: #111;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
-@media (max-width: 600px) {
-    .container {
-        width: min(100% - 18px, 1100px);
-        padding-top: 16px;
+@media (max-width: 950px) {
+    .dashboard {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    header h1 {
-        font-size: 25px;
-    }
-
-    .card {
-        padding: 16px;
-        border-radius: 15px;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .field.full {
-        grid-column: auto;
+    .analysis-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .container {
+        width: min(100% - 20px, 600px);
+    }
+
+    header {
+        padding: 18px 0;
+    }
+
+    .header-inner {
+        align-items: flex-start;
+    }
+
+    .title-area h1 {
+        font-size: 22px;
+    }
+
+    .version {
+        font-size: 11px;
+    }
+
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-2,
+    .grid-3 {
         grid-template-columns: 1fr;
     }
 
-    .summary-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .endpoint-row {
+        grid-template-columns: 75px 1fr;
+    }
+
+    .endpoint-row button {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        padding: 15px;
+        border-radius: 13px;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .button-row .btn {
+        flex: 1;
+        min-width: 130px;
     }
 }
 </style>
@@ -519,1783 +541,2432 @@ pre {
 
 <body>
 
-<div class="container">
-
 <header>
-    <h1>⚽ Football API Tester</h1>
-    <p>Scopri quali dati possiamo ottenere da ogni API prima di costruire l'app.</p>
+    <div class="container header-inner">
+        <div class="title-area">
+            <h1>⚽ Football API Tester</h1>
+            <p>Analizzatore API calcistiche — V3</p>
+        </div>
+        <div class="version">V3.0</div>
+    </div>
 </header>
 
-<!-- CONFIGURAZIONE -->
-<section class="card">
-    <h2 class="card-title">1. Inserisci l'API</h2>
-    <p class="card-subtitle">
-        Inserisci solamente le informazioni necessarie. La chiave API viene usata dal tester ma non viene salvata nel browser.
-    </p>
+<main class="container">
 
-    <div class="form-grid">
+    <section class="dashboard">
 
-        <div class="field">
-            <label for="apiName">Nome API</label>
-            <input id="apiName" type="text" placeholder="Es. API-Football">
+        <div class="stat-card">
+            <div class="stat-label">Richieste sessione</div>
+            <div class="stat-value" id="requestsSession">0</div>
         </div>
 
-        <div class="field">
-            <label for="baseUrl">Sito / URL API</label>
-            <input id="baseUrl" type="url" placeholder="https://...">
+        <div class="stat-card">
+            <div class="stat-label">Risposte OK</div>
+            <div class="stat-value" id="successRequests">0</div>
         </div>
 
-        <div class="field full">
-            <label for="apiKey">API Key</label>
-            <input id="apiKey" type="password" placeholder="Inserisci la tua API key">
-            <div class="help">Non inviare la chiave in chat. Inseriscila direttamente qui.</div>
+        <div class="stat-card">
+            <div class="stat-label">Errori</div>
+            <div class="stat-value" id="errorRequests">0</div>
         </div>
 
-        <div class="field">
-            <label for="authType">Autenticazione</label>
-            <select id="authType">
-                <option value="auto">Automatico</option>
-                <option value="header">API Key nell'Header</option>
-                <option value="bearer">Bearer Token</option>
-                <option value="query">API Key nell'URL</option>
-                <option value="basic">Basic Auth</option>
-                <option value="custom">Personalizzata</option>
-                <option value="none">Nessuna</option>
-            </select>
-            <div class="help">
-                Se non sai quale scegliere, lascia "Automatico".
+        <div class="stat-card">
+            <div class="stat-label">Endpoint trovati</div>
+            <div class="stat-value" id="endpointCount">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Match trovati</div>
+            <div class="stat-value" id="matchCount">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Ultimo status</div>
+            <div class="stat-value" id="lastStatus">—</div>
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>1. Configurazione API</h2>
+
+        <div class="proxy-box">
+            <strong>Proxy Cloudflare attivo</strong>
+            <div class="proxy-url" id="proxyDisplay"></div>
+            <div class="small-text">
+                Le richieste del browser passano attraverso questo proxy per evitare i problemi CORS.
+                Il proxy non aumenta il numero di richieste consentite dall'API.
             </div>
         </div>
 
-        <div class="field hidden" id="customHeaderField">
-            <label for="customHeader">Nome Header</label>
-            <input id="customHeader" type="text" placeholder="Es. X-API-Key">
+        <div class="grid-2">
+
+            <div class="field">
+                <label for="apiName">Nome API</label>
+                <input id="apiName" type="text" placeholder="Es. API-Football">
+            </div>
+
+            <div class="field">
+                <label for="baseUrl">Base URL API</label>
+                <input id="baseUrl" type="text" placeholder="https://v3.football.api-sports.io">
+            </div>
+
         </div>
 
-    </div>
+        <div class="grid-2">
 
-    <div id="connectionStatus" class="proxy-status">
-        Connessione non ancora testata.
-    </div>
+            <div class="field">
+                <label for="apiKey">API Key</label>
+                <input id="apiKey" type="password" placeholder="Inserisci la tua API key">
+            </div>
 
-    <div class="actions">
-        <button class="btn btn-primary" id="connectionBtn">
-            🔌 Test connessione
-        </button>
+            <div class="field">
+                <label for="authType">Tipo autenticazione</label>
 
-        <button class="btn btn-secondary" id="saveConfigBtn">
-            💾 Salva configurazione
-        </button>
+                <select id="authType">
 
-        <button class="btn btn-danger" id="clearConfigBtn">
-            Cancella
-        </button>
-    </div>
-</section>
+                    <option value="x-apisports-key">
+                        Header: x-apisports-key
+                    </option>
 
-<!-- COSA TESTARE -->
-<section class="card">
-    <h2 class="card-title">2. Cosa vuoi sapere?</h2>
-    <p class="card-subtitle">
-        Seleziona solo le categorie che vuoi verificare. Il tester farà le richieste necessarie e ti dirà cosa l'API offre realmente.
-    </p>
+                    <option value="x-api-key">
+                        Header: x-api-key
+                    </option>
 
-    <div class="selection-actions">
-        <button class="small-btn" id="selectAllBtn">☑ Seleziona tutto</button>
-        <button class="small-btn" id="deselectAllBtn">☐ Deseleziona tutto</button>
-        <button class="small-btn" id="selectEssentialBtn">⭐ Solo essenziali</button>
-    </div>
+                    <option value="authorization-bearer">
+                        Authorization: Bearer
+                    </option>
 
-    <div class="category-grid" id="categoryGrid">
+                    <option value="authorization">
+                        Authorization
+                    </option>
 
-        <div class="category">
-            <input type="checkbox" id="cat_fixtures" value="fixtures">
-            <label for="cat_fixtures">
-                <div class="category-icon">⚽</div>
-                <div>
-                    <div class="category-name">Partite</div>
-                    <div class="category-description">Prossime, date, squadre</div>
-                </div>
-            </label>
+                    <option value="query-key">
+                        Query parameter: key
+                    </option>
+
+                    <option value="query-api-key">
+                        Query parameter: api_key
+                    </option>
+
+                    <option value="none">
+                        Nessuna autenticazione
+                    </option>
+
+                </select>
+            </div>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_history" value="history">
-            <label for="cat_history">
-                <div class="category-icon">📚</div>
-                <div>
-                    <div class="category-name">Storico</div>
-                    <div class="category-description">Stagioni e partite passate</div>
-                </div>
-            </label>
+        <div class="button-row">
+
+            <button class="btn success" id="testConnectionBtn">
+                Test connessione
+            </button>
+
+            <button class="btn secondary" id="saveConfigBtn">
+                Salva configurazione
+            </button>
+
+            <button class="btn secondary" id="clearConfigBtn">
+                Pulisci
+            </button>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_goals" value="goals">
-            <label for="cat_goals">
-                <div class="category-icon">🥅</div>
-                <div>
-                    <div class="category-name">Gol</div>
-                    <div class="category-description">1° e 2° tempo, segnati/subiti</div>
-                </div>
-            </label>
+        <div id="connectionStatus" class="status"></div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>2. Ricerca automatica documentazione</h2>
+
+        <p class="small-text">
+            Il tester prova automaticamente i percorsi più comuni di OpenAPI/Swagger.
+            Se trova la documentazione, cerca gli endpoint disponibili.
+        </p>
+
+        <div class="button-row">
+
+            <button class="btn" id="discoverDocsBtn">
+                🔎 Cerca OpenAPI / Swagger
+            </button>
+
+            <button class="btn secondary" id="clearEndpointsBtn">
+                Cancella endpoint
+            </button>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_teamstats" value="teamstats">
-            <label for="cat_teamstats">
-                <div class="category-icon">📊</div>
-                <div>
-                    <div class="category-name">Statistiche squadre</div>
-                    <div class="category-description">Tiri, possesso, corner, ecc.</div>
-                </div>
-            </label>
+        <div id="docsStatus" class="status"></div>
+
+        <div id="docsResults"></div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>3. Test endpoint</h2>
+
+        <div class="endpoint-row">
+
+            <div class="field" style="margin:0;">
+                <label for="method">Metodo</label>
+
+                <select id="method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                </select>
+            </div>
+
+            <div class="field" style="margin:0;">
+                <label for="endpoint">Endpoint</label>
+                <input id="endpoint" type="text" placeholder="/fixtures?league=135&season=2025">
+            </div>
+
+            <button class="btn" id="sendRequestBtn">
+                Invia richiesta
+            </button>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_players" value="players">
-            <label for="cat_players">
-                <div class="category-icon">👤</div>
-                <div>
-                    <div class="category-name">Giocatori</div>
-                    <div class="category-description">Presenze, gol, assist, minuti</div>
-                </div>
-            </label>
+
+        <h3>Parametri GET</h3>
+
+        <textarea id="queryParams" placeholder="league=135
+season=2025
+next=10"></textarea>
+
+        <h3>Header aggiuntivi</h3>
+
+        <textarea id="customHeaders" placeholder="accept: application/json"></textarea>
+
+        <h3>Body POST</h3>
+
+        <textarea id="requestBody" placeholder='{"example":"value"}'></textarea>
+
+        <div class="button-row">
+
+            <button class="btn" id="sendRequestBtn2">
+                🚀 Esegui endpoint
+            </button>
+
+            <button class="btn secondary" id="clearRequestBtn">
+                Pulisci richiesta
+            </button>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_form" value="form">
-            <label for="cat_form">
-                <div class="category-icon">🔥</div>
-                <div>
-                    <div class="category-name">Forma</div>
-                    <div class="category-description">Ultime partite e rendimento</div>
-                </div>
-            </label>
+        <div id="requestStatus" class="status"></div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>4. Categorie calcistiche</h2>
+
+        <p class="small-text">
+            Se la documentazione contiene molti endpoint, puoi filtrare quelli più interessanti
+            per il nostro progetto.
+        </p>
+
+        <div class="category-grid" id="categoryGrid"></div>
+
+        <div style="margin-top:15px;" id="filteredEndpoints"></div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>5. Analisi automatica della risposta</h2>
+
+        <div id="analysisArea">
+
+            <div class="empty">
+                Nessuna risposta analizzata.
+            </div>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_injuries" value="injuries">
-            <label for="cat_injuries">
-                <div class="category-icon">🏥</div>
-                <div>
-                    <div class="category-name">Infortuni</div>
-                    <div class="category-description">Assenze e disponibilità</div>
-                </div>
-            </label>
+    </section>
+
+
+    <section class="card">
+
+        <h2>6. Headers risposta</h2>
+
+        <div id="headersArea">
+            <div class="empty">
+                Nessun header disponibile.
+            </div>
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_transfers" value="transfers">
-            <label for="cat_transfers">
-                <div class="category-icon">🔄</div>
-                <div>
-                    <div class="category-name">Trasferimenti</div>
-                    <div class="category-description">Movimenti dei giocatori</div>
-                </div>
-            </label>
+    </section>
+
+
+    <section class="card">
+
+        <div class="result-header">
+
+            <h2 style="margin:0;">7. Risposta API</h2>
+
+            <div>
+                <button class="btn small secondary" id="copyResponseBtn">
+                    Copia JSON
+                </button>
+            </div>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_h2h" value="h2h">
-            <label for="cat_h2h">
-                <div class="category-icon">🤝</div>
-                <div>
-                    <div class="category-name">H2H</div>
-                    <div class="category-description">Scontri diretti</div>
-                </div>
-            </label>
+        <pre id="responseOutput">Nessuna risposta.</pre>
+
+    </section>
+
+
+    <section class="card">
+
+        <div class="result-header">
+
+            <h2 style="margin:0;">8. Storico sessione</h2>
+
+            <button class="btn small danger" id="clearHistoryBtn">
+                Cancella storico
+            </button>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_leagues" value="leagues">
-            <label for="cat_leagues">
-                <div class="category-icon">🏆</div>
-                <div>
-                    <div class="category-name">Campionati</div>
-                    <div class="category-description">Competizioni e stagioni</div>
-                </div>
-            </label>
+        <div id="historyArea">
+            <div class="empty">
+                Nessun test effettuato.
+            </div>
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_standings" value="standings">
-            <label for="cat_standings">
-                <div class="category-icon">📈</div>
-                <div>
-                    <div class="category-name">Classifiche</div>
-                    <div class="category-description">Posizioni e rendimento</div>
-                </div>
-            </label>
+    </section>
+
+
+    <section class="card">
+
+        <h2>9. Report API</h2>
+
+        <p class="small-text">
+            Genera un report JSON con configurazione, richieste, endpoint scoperti,
+            risultati e informazioni utili per confrontare questa API con le altre.
+        </p>
+
+        <div class="button-row">
+
+            <button class="btn" id="generateReportBtn">
+                Genera report
+            </button>
+
+            <button class="btn secondary" id="copyReportBtn">
+                Copia report
+            </button>
+
+            <button class="btn success" id="downloadReportBtn">
+                Scarica JSON
+            </button>
+
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_xg" value="xg">
-            <label for="cat_xg">
-                <div class="category-icon">🎯</div>
-                <div>
-                    <div class="category-name">xG / xGA</div>
-                    <div class="category-description">Expected goals</div>
-                </div>
-            </label>
+        <div style="margin-top:15px;">
+            <pre id="reportOutput">Nessun report generato.</pre>
         </div>
 
-        <div class="category">
-            <input type="checkbox" id="cat_lineups" value="lineups">
-            <label for="cat_lineups">
-                <div class="category-icon">📝</div>
-                <div>
-                    <div class="category-name">Formazioni</div>
-                    <div class="category-description">Probabili e ufficiali</div>
-                </div>
-            </label>
-        </div>
+    </section>
 
-        <div class="category">
-            <input type="checkbox" id="cat_predictions" value="predictions">
-            <label for="cat_predictions">
-                <div class="category-icon">🔮</div>
-                <div>
-                    <div class="category-name">Predizioni</div>
-                    <div class="category-description">Pronostici già forniti dall'API</div>
-                </div>
-            </label>
-        </div>
+</main>
 
-        <div class="category">
-            <input type="checkbox" id="cat_odds" value="odds">
-            <label for="cat_odds">
-                <div class="category-icon">💰</div>
-                <div>
-                    <div class="category-name">Quote</div>
-                    <div class="category-description">Quote pre-match</div>
-                </div>
-            </label>
-        </div>
-
-        <div class="category">
-            <input type="checkbox" id="cat_referees" value="referees">
-            <label for="cat_referees">
-                <div class="category-icon">🟨</div>
-                <div>
-                    <div class="category-name">Arbitri</div>
-                    <div class="category-description">Statistiche arbitrali</div>
-                </div>
-            </label>
-        </div>
-
-        <div class="category">
-            <input type="checkbox" id="cat_venues" value="venues">
-            <label for="cat_venues">
-                <div class="category-icon">🏟️</div>
-                <div>
-                    <div class="category-name">Stadi</div>
-                    <div class="category-description">Impianti e informazioni</div>
-                </div>
-            </label>
-        </div>
-
-        <div class="category">
-            <input type="checkbox" id="cat_other" value="other">
-            <label for="cat_other">
-                <div class="category-icon">🔎</div>
-                <div>
-                    <div class="category-name">Altri dati</div>
-                    <div class="category-description">Endpoint e informazioni extra</div>
-                </div>
-            </label>
-        </div>
-
-    </div>
-</section>
-
-<div class="run-box">
-    <button class="run-button" id="runTestBtn">
-        🚀 AVVIA TEST
-    </button>
-
-    <div class="progress" id="progress">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-text" id="progressText">
-            Preparazione...
-        </div>
-    </div>
-</div>
-
-<!-- RISULTATI -->
-<section class="card hidden" id="resultsSection">
-
-    <h2 class="card-title">3. Risultati</h2>
-
-    <div class="summary-grid">
-        <div class="summary-item">
-            <div class="summary-number" id="summaryAvailable">0</div>
-            <div class="summary-label">Disponibili</div>
-        </div>
-
-        <div class="summary-item">
-            <div class="summary-number" id="summaryPartial">0</div>
-            <div class="summary-label">Parziali</div>
-        </div>
-
-        <div class="summary-item">
-            <div class="summary-number" id="summaryUnavailable">0</div>
-            <div class="summary-label">Non disponibili</div>
-        </div>
-
-        <div class="summary-item">
-            <div class="summary-number" id="summaryRequests">0</div>
-            <div class="summary-label">Richieste usate</div>
-        </div>
-    </div>
-
-    <div style="height:16px"></div>
-
-    <div class="notice" id="overallMessage">
-        Nessun test eseguito.
-    </div>
-
-    <div style="height:16px"></div>
-
-    <div class="result-list" id="resultList"></div>
-
-    <details>
-        <summary>🔧 Dettagli tecnici</summary>
-        <pre id="technicalOutput">Nessun dettaglio tecnico.</pre>
-    </details>
-
-</section>
-
-<!-- STORICO TEST -->
-<section class="card" id="historySection">
-    <h2 class="card-title">Test precedenti</h2>
-    <div id="historyList" class="empty">
-        Nessun test salvato.
-    </div>
-</section>
-
-</div>
 
 <script>
-"use strict";
 
-/*
-    FOOTBALL API TESTER V4
+const PROXY_URL =
+    "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
 
-    ARCHITETTURA:
-
-    GitHub Pages
-        ↓
-    Cloudflare Worker
-        ↓
-    API
-
-    Worker già configurato:
-    https://little-resonance-5ec5.my5vp6787f.workers.dev/
-*/
-
-const PROXY_URL = "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
-
-const STORAGE_KEY = "football_api_tester_v4_config";
-const HISTORY_KEY = "football_api_tester_v4_history";
-
-const els = {
-    apiName: document.getElementById("apiName"),
-    baseUrl: document.getElementById("baseUrl"),
-    apiKey: document.getElementById("apiKey"),
-    authType: document.getElementById("authType"),
-    customHeaderField: document.getElementById("customHeaderField"),
-    customHeader: document.getElementById("customHeader"),
-
-    connectionBtn: document.getElementById("connectionBtn"),
-    saveConfigBtn: document.getElementById("saveConfigBtn"),
-    clearConfigBtn: document.getElementById("clearConfigBtn"),
-
-    connectionStatus: document.getElementById("connectionStatus"),
-
-    selectAllBtn: document.getElementById("selectAllBtn"),
-    deselectAllBtn: document.getElementById("deselectAllBtn"),
-    selectEssentialBtn: document.getElementById("selectEssentialBtn"),
-
-    runTestBtn: document.getElementById("runTestBtn"),
-
-    progress: document.getElementById("progress"),
-    progressFill: document.getElementById("progressFill"),
-    progressText: document.getElementById("progressText"),
-
-    resultsSection: document.getElementById("resultsSection"),
-    summaryAvailable: document.getElementById("summaryAvailable"),
-    summaryPartial: document.getElementById("summaryPartial"),
-    summaryUnavailable: document.getElementById("summaryUnavailable"),
-    summaryRequests: document.getElementById("summaryRequests"),
-    overallMessage: document.getElementById("overallMessage"),
-    resultList: document.getElementById("resultList"),
-    technicalOutput: document.getElementById("technicalOutput"),
-
-    historyList: document.getElementById("historyList")
-};
-
-const categoryDefinitions = {
-    fixtures: {
-        name: "Partite",
-        icon: "⚽",
-        description: "Partite e calendario",
-        endpoints: [
-            "/fixtures"
-        ]
-    },
-
-    history: {
-        name: "Storico",
-        icon: "📚",
-        description: "Dati delle stagioni passate",
-        endpoints: [
-            "/fixtures?season=2024&league=39",
-            "/leagues"
-        ]
-    },
-
-    goals: {
-        name: "Gol",
-        icon: "🥅",
-        description: "Gol e tempi di gioco",
-        endpoints: [
-            "/fixtures?league=39&season=2024",
-            "/fixtures/events?fixture=1"
-        ]
-    },
-
-    teamstats: {
-        name: "Statistiche squadre",
-        icon: "📊",
-        description: "Statistiche delle squadre",
-        endpoints: [
-            "/teams/statistics?league=39&season=2024&team=33"
-        ]
-    },
-
-    players: {
-        name: "Giocatori",
-        icon: "👤",
-        description: "Statistiche individuali",
-        endpoints: [
-            "/players?league=39&season=2024&page=1"
-        ]
-    },
-
-    form: {
-        name: "Forma",
-        icon: "🔥",
-        description: "Rendimento recente",
-        endpoints: [
-            "/fixtures?team=33&last=5"
-        ]
-    },
-
-    injuries: {
-        name: "Infortuni",
-        icon: "🏥",
-        description: "Infortuni e assenze",
-        endpoints: [
-            "/injuries?league=39&season=2024"
-        ]
-    },
-
-    transfers: {
-        name: "Trasferimenti",
-        icon: "🔄",
-        description: "Movimenti dei giocatori",
-        endpoints: [
-            "/transfers?team=33"
-        ]
-    },
-
-    h2h: {
-        name: "H2H",
-        icon: "🤝",
-        description: "Scontri diretti",
-        endpoints: [
-            "/fixtures/headtohead?h2h=33-34&last=5"
-        ]
-    },
-
-    leagues: {
-        name: "Campionati",
-        icon: "🏆",
-        description: "Competizioni e stagioni",
-        endpoints: [
-            "/leagues"
-        ]
-    },
-
-    standings: {
-        name: "Classifiche",
-        icon: "📈",
-        description: "Classifiche",
-        endpoints: [
-            "/standings?league=39&season=2024"
-        ]
-    },
-
-    xg: {
-        name: "xG / xGA",
-        icon: "🎯",
-        description: "Expected goals",
-        endpoints: [
-            "/fixtures?league=39&season=2024",
-            "/fixtures/statistics?fixture=1"
-        ]
-    },
-
-    lineups: {
-        name: "Formazioni",
-        icon: "📝",
-        description: "Formazioni",
-        endpoints: [
-            "/fixtures/lineups?fixture=1"
-        ]
-    },
-
-    predictions: {
-        name: "Predizioni",
-        icon: "🔮",
-        description: "Predizioni dell'API",
-        endpoints: [
-            "/predictions?fixture=1"
-        ]
-    },
-
-    odds: {
-        name: "Quote",
-        icon: "💰",
-        description: "Quote pre-match",
-        endpoints: [
-            "/odds?fixture=1"
-        ]
-    },
-
-    referees: {
-        name: "Arbitri",
-        icon: "🟨",
-        description: "Arbitri e statistiche",
-        endpoints: [
-            "/fixtures?league=39&season=2024"
-        ]
-    },
-
-    venues: {
-        name: "Stadi",
-        icon: "🏟️",
-        description: "Stadi",
-        endpoints: [
-            "/venues"
-        ]
-    },
-
-    other: {
-        name: "Altri dati",
-        icon: "🔎",
-        description: "Endpoint e dati extra",
-        endpoints: [
-            "/status"
-        ]
-    }
-};
-
-/*
-    Questi endpoint sono quelli che normalmente incontriamo
-    nelle API calcistiche.
-
-    Il tester NON presume che l'API li supporti.
-    Prova a interrogarli e valuta la risposta.
-
-    Per API molto diverse da API-Football,
-    la V4 userà anche una fase di discovery.
-*/
-
-const discoveryPaths = [
-    "/",
-    "/docs",
+const DISCOVERY_PATHS = [
     "/openapi.json",
     "/swagger.json",
+    "/swagger/v1/swagger.json",
+    "/v3/api-docs",
     "/api-docs",
-    "/v1",
-    "/v2",
-    "/v3",
-    "/swagger"
+    "/api/openapi.json",
+    "/api/swagger.json",
+    "/docs/openapi.json",
+    "/docs/swagger.json"
 ];
 
-let sessionRequests = 0;
-let lastTechnicalData = [];
+const FOOTBALL_CATEGORIES = {
+    "Partite": [
+        "fixture",
+        "fixtures",
+        "match",
+        "matches",
+        "game",
+        "games"
+    ],
 
-/* =========================
-   UTILITÀ
-========================= */
+    "Gol": [
+        "goal",
+        "goals",
+        "score",
+        "scores"
+    ],
+
+    "Statistiche": [
+        "statistic",
+        "statistics",
+        "stats"
+    ],
+
+    "Eventi": [
+        "event",
+        "events"
+    ],
+
+    "Squadre": [
+        "team",
+        "teams",
+        "club",
+        "clubs"
+    ],
+
+    "Giocatori": [
+        "player",
+        "players"
+    ],
+
+    "Campionati": [
+        "league",
+        "leagues",
+        "competition",
+        "competitions"
+    ],
+
+    "Stagioni": [
+        "season",
+        "seasons"
+    ],
+
+    "Classifiche": [
+        "standings",
+        "table",
+        "tables",
+        "ranking",
+        "rankings"
+    ],
+
+    "Infortuni": [
+        "injur",
+        "injuries",
+        "suspension",
+        "suspensions"
+    ],
+
+    "Quote": [
+        "odds",
+        "bookmaker",
+        "bookmakers"
+    ],
+
+    "Predizioni": [
+        "predict",
+        "prediction",
+        "predictions"
+    ],
+
+    "H2H": [
+        "h2h",
+        "head-to-head",
+        "head_to_head"
+    ],
+
+    "Formazioni": [
+        "lineup",
+        "lineups",
+        "formation",
+        "formations"
+    ],
+
+    "Trasferimenti": [
+        "transfer",
+        "transfers"
+    ]
+};
+
+const state = {
+
+    requestsSession: 0,
+
+    successRequests: 0,
+
+    errorRequests: 0,
+
+    endpointCount: 0,
+
+    matchCount: 0,
+
+    lastStatus: null,
+
+    endpoints: [],
+
+    history: [],
+
+    documentationFound: [],
+
+    lastResponse: null,
+
+    lastResponseHeaders: {},
+
+    lastRequest: null,
+
+    lastAnalysis: null
+
+};
+
+const $ = id => document.getElementById(id);
+
+$("proxyDisplay").textContent = PROXY_URL;
+
+function renderCategories() {
+
+    const grid = $("categoryGrid");
+
+    grid.innerHTML = "";
+
+    Object.keys(FOOTBALL_CATEGORIES).forEach(category => {
+
+        const div = document.createElement("div");
+
+        div.className = "category";
+
+        div.textContent = category;
+
+        div.dataset.category = category;
+
+        div.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(".category")
+                .forEach(el => el.classList.remove("active"));
+
+            div.classList.add("active");
+
+            filterEndpoints(category);
+
+        });
+
+        grid.appendChild(div);
+
+    });
+
+}
+
+renderCategories();
+
+function showStatus(element, message, type = "info") {
+
+    element.className = "status show " + type;
+
+    element.innerHTML = message;
+
+}
+
+function hideStatus(element) {
+
+    element.className = "status";
+
+    element.innerHTML = "";
+
+}
 
 function normalizeBaseUrl(url) {
-    if (!url) return "";
 
-    let value = url.trim();
+    url = String(url || "").trim();
 
-    if (!value) return "";
-
-    if (!/^https?:\/\//i.test(value)) {
-        value = "https://" + value;
+    if (!url) {
+        return "";
     }
 
-    return value.replace(/\/+$/, "");
+    if (!/^https?:\/\//i.test(url)) {
+        url = "https://" + url;
+    }
+
+    return url.replace(/\/+$/, "");
+
 }
 
-function getSelectedCategories() {
-    return Array.from(
-        document.querySelectorAll('#categoryGrid input[type="checkbox"]:checked')
-    ).map(input => input.value);
+function buildTargetUrl(endpoint, queryString = "") {
+
+    const base = normalizeBaseUrl($("baseUrl").value);
+
+    if (!base) {
+        throw new Error("Inserisci il Base URL dell'API.");
+    }
+
+    let path = String(endpoint || "").trim();
+
+    if (!path) {
+        throw new Error("Inserisci un endpoint.");
+    }
+
+    if (!/^https?:\/\//i.test(path)) {
+
+        if (!path.startsWith("/")) {
+            path = "/" + path;
+        }
+
+        path = base + path;
+
+    }
+
+    let target = new URL(path);
+
+    if (queryString) {
+
+        const params = new URLSearchParams(queryString);
+
+        params.forEach((value, key) => {
+
+            if (value !== "") {
+                target.searchParams.set(key, value);
+            }
+
+        });
+
+    }
+
+    return target.toString();
+
 }
 
-function setProgress(percent, text) {
-    els.progressFill.style.width = Math.max(0, Math.min(100, percent)) + "%";
-    els.progressText.textContent = text;
+function applyAuthentication(url, headers) {
+
+    const key = $("apiKey").value.trim();
+
+    const authType = $("authType").value;
+
+    if (!key || authType === "none") {
+        return {
+            url,
+            headers
+        };
+    }
+
+    if (authType === "x-apisports-key") {
+
+        headers["x-apisports-key"] = key;
+
+    }
+
+    else if (authType === "x-api-key") {
+
+        headers["x-api-key"] = key;
+
+    }
+
+    else if (authType === "authorization-bearer") {
+
+        headers["Authorization"] = "Bearer " + key;
+
+    }
+
+    else if (authType === "authorization") {
+
+        headers["Authorization"] = key;
+
+    }
+
+    else if (authType === "query-key") {
+
+        const u = new URL(url);
+
+        u.searchParams.set("key", key);
+
+        url = u.toString();
+
+    }
+
+    else if (authType === "query-api-key") {
+
+        const u = new URL(url);
+
+        u.searchParams.set("api_key", key);
+
+        url = u.toString();
+
+    }
+
+    return {
+        url,
+        headers
+    };
+
 }
 
-function showProgress(active) {
-    els.progress.classList.toggle("active", active);
+function parseHeaders(text) {
+
+    const headers = {};
+
+    String(text || "")
+        .split(/\r?\n/)
+        .forEach(line => {
+
+            const index = line.indexOf(":");
+
+            if (index === -1) {
+                return;
+            }
+
+            const key = line.slice(0, index).trim();
+
+            const value = line.slice(index + 1).trim();
+
+            if (key) {
+                headers[key] = value;
+            }
+
+        });
+
+    return headers;
+
 }
 
-function escapeHtml(value) {
+async function proxyRequest(targetUrl, options = {}) {
+
+    let url = targetUrl;
+
+    let headers = {
+        "Accept": "application/json"
+    };
+
+    const auth = applyAuthentication(url, headers);
+
+    url = auth.url;
+
+    headers = auth.headers;
+
+    const customHeaders = parseHeaders(
+        $("customHeaders").value
+    );
+
+    Object.entries(customHeaders).forEach(([key, value]) => {
+        headers[key] = value;
+    });
+
+    const proxyTarget =
+        PROXY_URL +
+        (PROXY_URL.includes("?") ? "&" : "?") +
+        "url=" +
+        encodeURIComponent(url);
+
+    const fetchOptions = {
+
+        method: options.method || "GET",
+
+        headers,
+
+        redirect: "follow"
+
+    };
+
+    if (
+        fetchOptions.method !== "GET" &&
+        fetchOptions.method !== "HEAD"
+    ) {
+
+        const body = options.body;
+
+        if (body) {
+
+            fetchOptions.body = body;
+
+            if (!headers["Content-Type"] &&
+                !headers["content-type"]) {
+
+                headers["Content-Type"] =
+                    "application/json";
+
+            }
+
+        }
+
+    }
+
+    const response = await fetch(
+        proxyTarget,
+        fetchOptions
+    );
+
+    const text = await response.text();
+
+    return {
+        response,
+        text,
+        url,
+        proxyTarget
+    };
+
+}
+
+function tryParseJSON(text) {
+
+    try {
+        return JSON.parse(text);
+    }
+
+    catch {
+        return null;
+    }
+
+}
+
+function extractHeaders(response) {
+
+    const headers = {};
+
+    response.headers.forEach((value, key) => {
+        headers[key] = value;
+    });
+
+    return headers;
+
+}
+
+function detectRateLimit(headers) {
+
+    const result = {
+
+        limit: null,
+
+        remaining: null,
+
+        reset: null
+
+    };
+
+    const normalized = {};
+
+    Object.entries(headers).forEach(([key, value]) => {
+
+        normalized[key.toLowerCase()] = value;
+
+    });
+
+    const limitKeys = [
+        "x-api-x-ratelimit-limit",
+        "x-api-x-rate-limit-limit",
+        "x-ratelimit-limit",
+        "x-rate-limit-limit"
+    ];
+
+    const remainingKeys = [
+        "x-api-x-ratelimit-remaining",
+        "x-api-x-rate-limit-remaining",
+        "x-ratelimit-remaining",
+        "x-rate-limit-remaining"
+    ];
+
+    const resetKeys = [
+        "x-api-x-ratelimit-reset",
+        "x-api-x-rate-limit-reset",
+        "x-ratelimit-reset",
+        "x-rate-limit-reset"
+    ];
+
+    for (const key of limitKeys) {
+
+        if (normalized[key] !== undefined) {
+
+            result.limit = normalized[key];
+
+            break;
+
+        }
+
+    }
+
+    for (const key of remainingKeys) {
+
+        if (normalized[key] !== undefined) {
+
+            result.remaining = normalized[key];
+
+            break;
+
+        }
+
+    }
+
+    for (const key of resetKeys) {
+
+        if (normalized[key] !== undefined) {
+
+            result.reset = normalized[key];
+
+            break;
+
+        }
+
+    }
+
+    return result;
+
+}
+
+function analyzeFootballData(data) {
+
+    const result = {
+
+        isJson: data !== null,
+
+        keys: [],
+
+        detectedFields: [],
+
+        footballSignals: [],
+
+        matchCount: 0,
+
+        arrayCount: 0,
+
+        objectCount: 0,
+
+        likelyFootballData: false
+
+    };
+
+    if (data === null) {
+        return result;
+    }
+
+    const fieldNames = new Set();
+
+    const footballSignals = new Set();
+
+    function inspect(value, depth = 0) {
+
+        if (depth > 7) {
+            return;
+        }
+
+        if (Array.isArray(value)) {
+
+            result.arrayCount++;
+
+            value.forEach(item => {
+                inspect(item, depth + 1);
+            });
+
+            return;
+
+        }
+
+        if (
+            value &&
+            typeof value === "object"
+        ) {
+
+            result.objectCount++;
+
+            Object.entries(value).forEach(([key, val]) => {
+
+                const lower = key.toLowerCase();
+
+                fieldNames.add(key);
+
+                const signalWords = [
+
+                    "fixture",
+                    "match",
+                    "team",
+                    "league",
+                    "season",
+                    "player",
+                    "goal",
+                    "score",
+                    "event",
+                    "statistic",
+                    "standing",
+                    "odds",
+                    "injur",
+                    "lineup",
+                    "formation",
+                    "prediction",
+                    "h2h",
+                    "home",
+                    "away",
+                    "halftime",
+                    "fulltime",
+                    "shots",
+                    "corner",
+                    "possession",
+                    "yellow",
+                    "red",
+                    "xg"
+
+                ];
+
+                signalWords.forEach(word => {
+
+                    if (lower.includes(word)) {
+                        footballSignals.add(key);
+                    }
+
+                });
+
+                if (
+                    lower === "fixture" ||
+                    lower === "match" ||
+                    lower === "fixtures" ||
+                    lower === "matches"
+                ) {
+
+                    if (Array.isArray(val)) {
+
+                        result.matchCount += val.length;
+
+                    }
+
+                    else if (
+                        val &&
+                        typeof val === "object"
+                    ) {
+
+                        result.matchCount++;
+
+                    }
+
+                }
+
+                inspect(val, depth + 1);
+
+            });
+
+        }
+
+    }
+
+    inspect(data);
+
+    result.keys = Array.from(fieldNames);
+
+    result.detectedFields =
+        Array.from(fieldNames)
+            .filter(key => {
+
+                const lower = key.toLowerCase();
+
+                return [
+
+                    "goal",
+                    "score",
+                    "fixture",
+                    "match",
+                    "team",
+                    "league",
+                    "season",
+                    "player",
+                    "statistics",
+                    "shots",
+                    "shots_on_target",
+                    "possession",
+                    "corner",
+                    "yellow",
+                    "red",
+                    "xg",
+                    "halftime",
+                    "fulltime",
+                    "home",
+                    "away"
+
+                ].some(term =>
+                    lower.includes(term)
+                );
+
+            })
+            .slice(0, 100);
+
+    result.footballSignals =
+        Array.from(footballSignals)
+            .slice(0, 100);
+
+    result.likelyFootballData =
+        result.footballSignals.length >= 2 ||
+        result.detectedFields.length >= 3;
+
+    return result;
+
+}
+
+function renderAnalysis(analysis, statusCode) {
+
+    const area = $("analysisArea");
+
+    if (!analysis) {
+
+        area.innerHTML =
+            '<div class="empty">Nessuna risposta analizzata.</div>';
+
+        return;
+
+    }
+
+    const fields =
+        analysis.detectedFields
+            .map(field =>
+                `<span class="badge good">${escapeHTML(field)}</span>`
+            )
+            .join(" ");
+
+    const signals =
+        analysis.footballSignals
+            .map(field =>
+                `<span class="badge neutral">${escapeHTML(field)}</span>`
+            )
+            .join(" ");
+
+    area.innerHTML = `
+
+        <div class="analysis-grid">
+
+            <div class="analysis-box">
+                Status
+                <strong>${statusCode}</strong>
+            </div>
+
+            <div class="analysis-box">
+                Oggetti
+                <strong>${analysis.objectCount}</strong>
+            </div>
+
+            <div class="analysis-box">
+                Array
+                <strong>${analysis.arrayCount}</strong>
+            </div>
+
+            <div class="analysis-box">
+                Match rilevati
+                <strong>${analysis.matchCount}</strong>
+            </div>
+
+        </div>
+
+        <h3>Dati calcistici rilevati</h3>
+
+        <div>
+            ${
+                analysis.likelyFootballData
+                ? '<span class="badge good">PROBABILI DATI CALCISTICI</span>'
+                : '<span class="badge neutral">DATI CALCISTICI NON CONFERMATI</span>'
+            }
+        </div>
+
+        <h3>Campi interessanti</h3>
+
+        <div>
+            ${fields || '<span class="small-text">Nessun campo rilevante rilevato.</span>'}
+        </div>
+
+        <h3>Segnali calcistici</h3>
+
+        <div>
+            ${signals || '<span class="small-text">Nessun segnale rilevato.</span>'}
+        </div>
+
+    `;
+
+}
+
+function renderHeaders(headers) {
+
+    const area = $("headersArea");
+
+    const entries = Object.entries(headers || {});
+
+    if (!entries.length) {
+
+        area.innerHTML =
+            '<div class="empty">Nessun header disponibile.</div>';
+
+        return;
+
+    }
+
+    let html = `
+        <table class="header-table">
+            <thead>
+                <tr>
+                    <th>Header</th>
+                    <th>Valore</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    entries.forEach(([key, value]) => {
+
+        html += `
+            <tr>
+                <th>${escapeHTML(key)}</th>
+                <td>${escapeHTML(value)}</td>
+            </tr>
+        `;
+
+    });
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+    area.innerHTML = html;
+
+}
+
+function escapeHTML(value) {
+
     return String(value ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+
 }
 
-function isJsonText(text) {
+async function sendRequest() {
+
+    const statusArea = $("requestStatus");
+
     try {
-        JSON.parse(text);
-        return true;
-    } catch {
-        return false;
-    }
-}
 
-function parseResponse(text) {
-    if (isJsonText(text)) {
-        try {
-            return JSON.parse(text);
-        } catch {
-            return text;
-        }
-    }
+        const method = $("method").value;
 
-    return text;
-}
+        const endpoint =
+            $("endpoint").value.trim();
 
-function flattenKeys(obj, prefix = "", output = new Set()) {
-    if (obj === null || obj === undefined) {
-        return output;
-    }
+        const query =
+            $("queryParams").value.trim();
 
-    if (Array.isArray(obj)) {
-        for (const item of obj.slice(0, 10)) {
-            flattenKeys(item, prefix, output);
+        const body =
+            $("requestBody").value.trim();
+
+        if (!endpoint) {
+
+            throw new Error(
+                "Inserisci un endpoint."
+            );
+
         }
 
-        return output;
-    }
+        const targetUrl =
+            buildTargetUrl(
+                endpoint,
+                query
+            );
 
-    if (typeof obj === "object") {
-        for (const [key, value] of Object.entries(obj)) {
-            const fullKey = prefix ? prefix + "." + key : key;
-            output.add(fullKey);
-
-            if (value && typeof value === "object") {
-                flattenKeys(value, fullKey, output);
-            }
-        }
-    }
-
-    return output;
-}
-
-function countObjectsAndArrays(value) {
-    let objects = 0;
-    let arrays = 0;
-    let matches = 0;
-
-    function walk(item) {
-        if (Array.isArray(item)) {
-            arrays++;
-
-            if (item.length > 0) {
-                for (const child of item.slice(0, 100)) {
-                    walk(child);
-                }
-            }
-
-            return;
-        }
-
-        if (item && typeof item === "object") {
-            objects++;
-
-            const keys = Object.keys(item).map(x => x.toLowerCase());
-
-            if (
-                keys.includes("fixture") ||
-                keys.includes("fixture_id") ||
-                keys.includes("match") ||
-                keys.includes("match_id")
-            ) {
-                matches++;
-            }
-
-            for (const value of Object.values(item).slice(0, 100)) {
-                if (value && typeof value === "object") {
-                    walk(value);
-                }
-            }
-        }
-    }
-
-    walk(value);
-
-    return {
-        objects,
-        arrays,
-        matches
-    };
-}
-
-function collectInterestingSignals(value) {
-    const keys = Array.from(flattenKeys(value)).map(x => x.toLowerCase());
-
-    const patterns = {
-        goals: [
-            "goals",
-            "score",
-            "home.goals",
-            "away.goals"
-        ],
-
-        halftime: [
-            "halftime",
-            "half-time",
-            "first_half",
-            "second_half",
-            "ht"
-        ],
-
-        shots: [
-            "shots",
-            "shots.total",
-            "shots.on"
-        ],
-
-        possession: [
-            "possession"
-        ],
-
-        corners: [
-            "corner",
-            "corners"
-        ],
-
-        xg: [
-            "xg",
-            "expected_goals",
-            "expected.goals"
-        ],
-
-        players: [
-            "player",
-            "players",
-            "lineups"
-        ],
-
-        injuries: [
-            "injur",
-            "suspension",
-            "suspended"
-        ],
-
-        transfers: [
-            "transfer",
-            "transfers"
-        ],
-
-        odds: [
-            "odds",
-            "bookmaker",
-            "bet"
-        ],
-
-        predictions: [
-            "prediction",
-            "predictions"
-        ],
-
-        standings: [
-            "standings",
-            "rank",
-            "points"
-        ],
-
-        events: [
-            "events",
-            "event_type"
-        ]
-    };
-
-    const found = [];
-
-    for (const [name, searchTerms] of Object.entries(patterns)) {
-        const hit = keys.some(key =>
-            searchTerms.some(term => key.includes(term))
+        showStatus(
+            statusArea,
+            '<span class="loading"></span> Richiesta in corso...',
+            "info"
         );
 
-        if (hit) {
-            found.push(name);
+        const start =
+            performance.now();
+
+        const result =
+            await proxyRequest(
+                targetUrl,
+                {
+                    method,
+                    body
+                }
+            );
+
+        const elapsed =
+            Math.round(
+                performance.now() - start
+            );
+
+        state.requestsSession++;
+
+        state.lastStatus =
+            result.response.status;
+
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        $("lastStatus").textContent =
+            result.response.status;
+
+        const headers =
+            extractHeaders(
+                result.response
+            );
+
+        state.lastResponseHeaders =
+            headers;
+
+        renderHeaders(headers);
+
+        const data =
+            tryParseJSON(result.text);
+
+        state.lastResponse =
+            data !== null
+                ? data
+                : result.text;
+
+        const analysis =
+            analyzeFootballData(data);
+
+        state.lastAnalysis =
+            analysis;
+
+        state.matchCount =
+            analysis.matchCount;
+
+        $("matchCount").textContent =
+            state.matchCount;
+
+        renderAnalysis(
+            analysis,
+            result.response.status
+        );
+
+        let output;
+
+        if (data !== null) {
+
+            output =
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                );
+
         }
-    }
 
-    return found;
-}
+        else {
 
-function buildAuthHeaders(apiKey, authType) {
-    const headers = {
-        "Accept": "application/json"
-    };
+            output =
+                result.text;
 
-    if (!apiKey || authType === "none") {
-        return headers;
-    }
-
-    if (authType === "header") {
-        headers["x-apisports-key"] = apiKey;
-        return headers;
-    }
-
-    if (authType === "bearer") {
-        headers["Authorization"] = "Bearer " + apiKey;
-        return headers;
-    }
-
-    if (authType === "custom") {
-        const customName = els.customHeader.value.trim();
-
-        if (customName) {
-            headers[customName] = apiKey;
         }
 
-        return headers;
-    }
+        $("responseOutput").textContent =
+            output;
 
-    if (authType === "auto") {
-        /*
-            API-Football / API-Sports usa questo header.
-            Per il nostro test automatico lo proviamo per primo.
-        */
-        headers["x-apisports-key"] = apiKey;
-        return headers;
-    }
+        if (
+            result.response.ok
+        ) {
 
-    return headers;
-}
+            state.successRequests++;
 
-function buildTargetUrl(baseUrl, path, apiKey, authType) {
-    let target = normalizeBaseUrl(baseUrl) + path;
+            showStatus(
+                statusArea,
+                `Richiesta completata: <strong>${result.response.status}</strong> — ${elapsed} ms`,
+                "success"
+            );
 
-    if (authType === "query" && apiKey) {
-        const separator = target.includes("?") ? "&" : "?";
-        target += separator + "api_key=" + encodeURIComponent(apiKey);
-    }
+        }
 
-    return target;
-}
+        else {
 
-function proxyUrl(targetUrl) {
-    return PROXY_URL + "proxy?url=" + encodeURIComponent(targetUrl);
-}
+            state.errorRequests++;
 
-/* =========================
-   RICHIESTA API
-========================= */
+            showStatus(
+                statusArea,
+                `API ha restituito HTTP <strong>${result.response.status}</strong> — ${elapsed} ms`,
+                "warning"
+            );
 
-async function apiRequest(targetUrl, apiKey, authType) {
+        }
 
-    const headers = buildAuthHeaders(apiKey, authType);
+        $("successRequests").textContent =
+            state.successRequests;
 
-    const started = Date.now();
+        $("errorRequests").textContent =
+            state.errorRequests;
 
-    let response;
+        addHistory({
 
-    try {
+            timestamp:
+                new Date().toISOString(),
 
-        response = await fetch(proxyUrl(targetUrl), {
-            method: "GET",
-            headers
+            method,
+
+            endpoint,
+
+            url:
+                result.url,
+
+            status:
+                result.response.status,
+
+            ok:
+                result.response.ok,
+
+            elapsed,
+
+            analysis
+
         });
 
-    } catch (error) {
-
-        return {
-            ok: false,
-            status: 0,
-            elapsed: Date.now() - started,
-            text: "",
-            data: null,
-            headers: {},
-            error: "Errore di rete o impossibilità di raggiungere il proxy."
-        };
     }
 
-    const elapsed = Date.now() - started;
+    catch (error) {
 
-    const text = await response.text();
+        state.requestsSession++;
 
-    let data = null;
+        state.errorRequests++;
 
-    try {
-        data = JSON.parse(text);
-    } catch {
-        data = text;
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        $("errorRequests").textContent =
+            state.errorRequests;
+
+        showStatus(
+            statusArea,
+            `<strong>Errore:</strong> ${escapeHTML(error.message)}`,
+            "error"
+        );
+
+        $("responseOutput").textContent =
+            String(error);
+
     }
 
-    const responseHeaders = {};
-
-    response.headers.forEach((value, key) => {
-        responseHeaders[key] = value;
-    });
-
-    sessionRequests++;
-
-    return {
-        ok: response.ok,
-        status: response.status,
-        elapsed,
-        text,
-        data,
-        headers: responseHeaders,
-        error: null
-    };
 }
-
-/* =========================
-   TEST CONNESSIONE
-========================= */
 
 async function testConnection() {
 
-    const baseUrl = normalizeBaseUrl(els.baseUrl.value);
-    const apiKey = els.apiKey.value.trim();
-    const authType = els.authType.value;
-
-    if (!baseUrl) {
-        setConnectionStatus(
-            "Inserisci prima l'URL dell'API.",
-            "error"
-        );
-        return;
-    }
-
-    els.connectionBtn.disabled = true;
-    els.connectionBtn.textContent = "⏳ Test in corso...";
+    const statusArea =
+        $("connectionStatus");
 
     try {
 
-        const target = baseUrl;
-
-        const result = await apiRequest(
-            target,
-            apiKey,
-            authType
-        );
-
-        if (result.status >= 200 && result.status < 300) {
-
-            setConnectionStatus(
-                "✅ Connessione raggiunta — HTTP " + result.status,
-                "ok"
+        const base =
+            normalizeBaseUrl(
+                $("baseUrl").value
             );
 
-        } else {
-
-            setConnectionStatus(
-                "⚠️ API raggiunta ma ha restituito HTTP " + result.status,
-                "error"
+        if (!base) {
+            throw new Error(
+                "Inserisci il Base URL dell'API."
             );
         }
 
-    } catch (error) {
+        showStatus(
+            statusArea,
+            '<span class="loading"></span> Test connessione in corso...',
+            "info"
+        );
 
-        setConnectionStatus(
-            "❌ Errore: " + error.message,
+        const result =
+            await proxyRequest(
+                base,
+                {
+                    method: "GET"
+                }
+            );
+
+        state.requestsSession++;
+
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        const headers =
+            extractHeaders(
+                result.response
+            );
+
+        const rate =
+            detectRateLimit(headers);
+
+        let message =
+            `HTTP <strong>${result.response.status}</strong>`;
+
+        if (rate.limit !== null) {
+
+            message +=
+                `<br>Rate limit: ${escapeHTML(rate.limit)}`;
+
+        }
+
+        if (rate.remaining !== null) {
+
+            message +=
+                `<br>Richieste rimanenti rilevate: ${escapeHTML(rate.remaining)}`;
+
+        }
+
+        if (result.response.ok) {
+
+            state.successRequests++;
+
+            showStatus(
+                statusArea,
+                "Connessione raggiunta.<br>" + message,
+                "success"
+            );
+
+        }
+
+        else {
+
+            state.errorRequests++;
+
+            showStatus(
+                statusArea,
+                "Server raggiunto ma ha restituito un errore.<br>" +
+                message,
+                "warning"
+            );
+
+        }
+
+        $("successRequests").textContent =
+            state.successRequests;
+
+        $("errorRequests").textContent =
+            state.errorRequests;
+
+        $("lastStatus").textContent =
+            result.response.status;
+
+    }
+
+    catch (error) {
+
+        state.requestsSession++;
+
+        state.errorRequests++;
+
+        $("requestsSession").textContent =
+            state.requestsSession;
+
+        $("errorRequests").textContent =
+            state.errorRequests;
+
+        showStatus(
+            statusArea,
+            `<strong>Connessione fallita:</strong> ${escapeHTML(error.message)}`,
             "error"
         );
 
-    } finally {
-
-        els.connectionBtn.disabled = false;
-        els.connectionBtn.textContent = "🔌 Test connessione";
     }
+
 }
 
-function setConnectionStatus(message, type) {
+async function discoverDocumentation() {
 
-    els.connectionStatus.textContent = message;
+    const statusArea =
+        $("docsStatus");
 
-    els.connectionStatus.className = "proxy-status";
+    const resultsArea =
+        $("docsResults");
 
-    if (type === "ok") {
-        els.connectionStatus.classList.add("ok");
-    }
-
-    if (type === "error") {
-        els.connectionStatus.classList.add("error");
-    }
-}
-
-/* =========================
-   DISCOVERY
-========================= */
-
-async function runDiscovery(baseUrl, apiKey, authType) {
-
-    const results = [];
-
-    for (const path of discoveryPaths) {
-
-        const target = buildTargetUrl(
-            baseUrl,
-            path,
-            apiKey,
-            authType
+    const base =
+        normalizeBaseUrl(
+            $("baseUrl").value
         );
 
-        const result = await apiRequest(
-            target,
-            apiKey,
-            authType
+    if (!base) {
+
+        showStatus(
+            statusArea,
+            "Inserisci prima il Base URL dell'API.",
+            "error"
         );
 
-        results.push({
-            path,
-            result
-        });
+        return;
 
-        /*
-            Se troviamo una risposta chiaramente valida,
-            possiamo comunque continuare perché vogliamo
-            capire la struttura dell'API.
-        */
     }
 
-    return results;
-}
-
-/* =========================
-   VALUTAZIONE RISPOSTA
-========================= */
-
-function evaluateResponse(category, result) {
-
-    if (!result) {
-        return {
-            status: "error",
-            message: "Nessuna risposta."
-        };
-    }
-
-    if (result.status === 401 || result.status === 403) {
-
-        return {
-            status: "no",
-            message: "L'API richiede un'autenticazione diversa o la chiave non è accettata."
-        };
-    }
-
-    if (result.status === 404) {
-
-        return {
-            status: "no",
-            message: "Endpoint non trovato."
-        };
-    }
-
-    if (result.status === 429) {
-
-        return {
-            status: "partial",
-            message: "Limite di richieste raggiunto."
-        };
-    }
-
-    if (result.status >= 500) {
-
-        return {
-            status: "partial",
-            message: "Errore lato server dell'API."
-        };
-    }
-
-    if (!result.ok) {
-
-        return {
-            status: "no",
-            message: "La richiesta non è stata accettata."
-        };
-    }
-
-    const data = result.data;
-
-    if (typeof data === "string" && data.length === 0) {
-
-        return {
-            status: "partial",
-            message: "L'API ha risposto ma senza contenuto."
-        };
-    }
-
-    const signals = collectInterestingSignals(data);
-
-    const stats = countObjectsAndArrays(data);
-
-    let message = "Risposta ricevuta correttamente.";
-
-    if (stats.matches > 0) {
-        message += " Sono stati individuati dati che sembrano riferirsi a partite.";
-    }
-
-    if (signals.length > 0) {
-        message += " Segnali trovati: " + signals.join(", ") + ".";
-    }
-
-    return {
-        status: "ok",
-        message,
-        signals,
-        stats
-    };
-}
-
-/* =========================
-   TEST CATEGORIA
-========================= */
-
-async function testCategory(categoryKey, baseUrl, apiKey, authType) {
-
-    const definition = categoryDefinitions[categoryKey];
-
-    if (!definition) {
-        return {
-            key: categoryKey,
-            name: categoryKey,
-            status: "error",
-            message: "Categoria non riconosciuta.",
-            attempts: []
-        };
-    }
-
-    const attempts = [];
-
-    /*
-        Per evitare sprechi:
-        proviamo gli endpoint uno alla volta.
-        Se troviamo una risposta utile, possiamo fermarci.
-    */
-
-    for (const path of definition.endpoints) {
-
-        const target = buildTargetUrl(
-            baseUrl,
-            path,
-            apiKey,
-            authType
-        );
-
-        const result = await apiRequest(
-            target,
-            apiKey,
-            authType
-        );
-
-        const evaluation = evaluateResponse(
-            categoryKey,
-            result
-        );
-
-        attempts.push({
-            path,
-            status: result.status,
-            elapsed: result.elapsed,
-            evaluation,
-            headers: result.headers,
-            dataPreview: result.data
-        });
-
-        if (evaluation.status === "ok") {
-            break;
-        }
-    }
-
-    const successful = attempts.find(
-        item => item.evaluation.status === "ok"
+    showStatus(
+        statusArea,
+        '<span class="loading"></span> Ricerca documentazione in corso...',
+        "info"
     );
 
-    if (successful) {
+    resultsArea.innerHTML = "";
 
-        return {
-            key: categoryKey,
-            name: definition.name,
-            icon: definition.icon,
-            status: "ok",
-            message: successful.evaluation.message,
-            signals: successful.evaluation.signals || [],
-            stats: successful.evaluation.stats || null,
-            attempts
-        };
+    state.documentationFound = [];
+
+    let found = null;
+
+    for (
+        const path of DISCOVERY_PATHS
+    ) {
+
+        try {
+
+            const target =
+                base + path;
+
+            const result =
+                await proxyRequest(
+                    target,
+                    {
+                        method: "GET"
+                    }
+                );
+
+            state.requestsSession++;
+
+            $("requestsSession").textContent =
+                state.requestsSession;
+
+            const data =
+                tryParseJSON(result.text);
+
+            if (
+                result.response.ok &&
+                data &&
+                typeof data === "object"
+            ) {
+
+                if (
+                    data.openapi ||
+                    data.swagger ||
+                    data.paths
+                ) {
+
+                    found = {
+
+                        path,
+
+                        url: target,
+
+                        data
+
+                    };
+
+                    state.documentationFound.push(
+                        found
+                    );
+
+                    state.successRequests++;
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+        catch {
+            // Continua con il percorso successivo
+        }
+
     }
 
-    const partial = attempts.find(
-        item => item.evaluation.status === "partial"
+    $("successRequests").textContent =
+        state.successRequests;
+
+    if (!found) {
+
+        showStatus(
+            statusArea,
+            "Nessun file OpenAPI/Swagger trovato nei percorsi standard.",
+            "warning"
+        );
+
+        resultsArea.innerHTML = `
+            <div class="small-text">
+                Questo non significa che l'API non abbia documentazione.
+                Potrebbe utilizzare un percorso personalizzato.
+                Puoi comunque inserire manualmente gli endpoint.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    const endpoints =
+        extractOpenAPIEndpoints(
+            found.data
+        );
+
+    state.endpoints =
+        endpoints;
+
+    state.endpointCount =
+        endpoints.length;
+
+    $("endpointCount").textContent =
+        endpoints.length;
+
+    showStatus(
+        statusArea,
+        `Documentazione trovata: <strong>${escapeHTML(found.path)}</strong><br>
+         Endpoint individuati: <strong>${endpoints.length}</strong>`,
+        "success"
     );
 
-    if (partial) {
+    renderEndpointList(
+        endpoints,
+        resultsArea
+    );
 
-        return {
-            key: categoryKey,
-            name: definition.name,
-            icon: definition.icon,
-            status: "partial",
-            message: partial.evaluation.message,
-            signals: partial.evaluation.signals || [],
-            stats: partial.evaluation.stats || null,
-            attempts
-        };
-    }
-
-    return {
-        key: categoryKey,
-        name: definition.name,
-        icon: definition.icon,
-        status: "no",
-        message: attempts.length
-            ? attempts[attempts.length - 1].evaluation.message
-            : "Nessun endpoint testato.",
-        signals: [],
-        stats: null,
-        attempts
-    };
 }
 
-/* =========================
-   TEST PRINCIPALE
-========================= */
+function extractOpenAPIEndpoints(data) {
 
-async function runFullTest() {
+    const endpoints = [];
 
-    const baseUrl = normalizeBaseUrl(els.baseUrl.value);
-    const apiKey = els.apiKey.value.trim();
-    const authType = els.authType.value;
-    const selected = getSelectedCategories();
+    if (
+        !data ||
+        !data.paths ||
+        typeof data.paths !== "object"
+    ) {
 
-    if (!baseUrl) {
-        alert("Inserisci l'URL dell'API.");
-        return;
+        return endpoints;
+
     }
 
-    if (selected.length === 0) {
-        alert("Seleziona almeno una categoria da testare.");
-        return;
-    }
-
-    sessionRequests = 0;
-    lastTechnicalData = [];
-
-    els.runTestBtn.disabled = true;
-    els.runTestBtn.textContent = "⏳ TEST IN CORSO...";
-
-    els.resultsSection.classList.remove("hidden");
-
-    els.resultList.innerHTML = "";
-
-    showProgress(true);
-    setProgress(0, "Preparazione del test...");
-
-    const results = [];
-
-    for (let i = 0; i < selected.length; i++) {
-
-        const categoryKey = selected[i];
-        const definition = categoryDefinitions[categoryKey];
-
-        setProgress(
-            Math.round((i / selected.length) * 100),
-            "Test: " + definition.name + "..."
-        );
-
-        const result = await testCategory(
-            categoryKey,
-            baseUrl,
-            apiKey,
-            authType
-        );
-
-        results.push(result);
-
-        renderResultItem(result);
-
-        lastTechnicalData.push(result);
-
-        setProgress(
-            Math.round(((i + 1) / selected.length) * 100),
-            (i + 1) + " / " + selected.length + " categorie completate"
-        );
-    }
-
-    setProgress(100, "Test completato.");
-
-    updateSummary(results);
-
-    els.technicalOutput.textContent =
-        JSON.stringify({
-            api: els.apiName.value.trim() || baseUrl,
-            baseUrl,
-            selectedCategories: selected,
-            requestsUsed: sessionRequests,
-            results
-        }, null, 2);
-
-    saveHistory(results);
-
-    els.runTestBtn.disabled = false;
-    els.runTestBtn.textContent = "🚀 AVVIA TEST";
-
-    setTimeout(() => {
-        showProgress(false);
-    }, 800);
-}
-
-/* =========================
-   RENDER RISULTATI
-========================= */
-
-function renderResultItem(result) {
-
-    const statusMap = {
-        ok: {
-            icon: "✓",
-            className: "status-ok",
-            label: "Disponibile"
-        },
-
-        partial: {
-            icon: "!",
-            className: "status-partial",
-            label: "Parziale"
-        },
-
-        no: {
-            icon: "×",
-            className: "status-no",
-            label: "Non disponibile"
-        },
-
-        error: {
-            icon: "?",
-            className: "status-error",
-            label: "Errore"
-        }
-    };
-
-    const status = statusMap[result.status] || statusMap.error;
-
-    const item = document.createElement("div");
-
-    item.className = "result-item";
-
-    let details = "";
-
-    if (result.stats) {
-
-        details +=
-            "Oggetti: " +
-            result.stats.objects +
-            " · Array: " +
-            result.stats.arrays +
-            " · Possibili partite: " +
-            result.stats.matches;
-    }
-
-    if (result.signals && result.signals.length) {
-
-        if (details) {
-            details += " · ";
-        }
-
-        details +=
-            "Segnali: " +
-            result.signals.join(", ");
-    }
-
-    item.innerHTML = `
-        <div class="result-top">
-            <div class="result-status ${status.className}">
-                ${status.icon}
-            </div>
-
-            <div>
-                <div class="result-name">
-                    ${escapeHtml(result.icon || "")}
-                    ${escapeHtml(result.name)}
-                </div>
-
-                <div style="font-size:12px;color:#6b7280;margin-top:2px;">
-                    ${status.label}
-                </div>
-            </div>
-        </div>
-
-        <div class="result-message">
-            ${escapeHtml(result.message)}
-        </div>
-
-        ${
-            details
-                ? `<div class="result-details">${escapeHtml(details)}</div>`
-                : ""
-        }
-
-        <details>
-            <summary>Vedi dettaglio del test</summary>
-            <pre>${escapeHtml(
-                JSON.stringify(result.attempts, null, 2)
-            )}</pre>
-        </details>
-    `;
-
-    els.resultList.appendChild(item);
-}
-
-function updateSummary(results) {
-
-    const available = results.filter(
-        item => item.status === "ok"
-    ).length;
-
-    const partial = results.filter(
-        item => item.status === "partial"
-    ).length;
-
-    const unavailable = results.filter(
-        item => item.status === "no" || item.status === "error"
-    ).length;
-
-    els.summaryAvailable.textContent = available;
-    els.summaryPartial.textContent = partial;
-    els.summaryUnavailable.textContent = unavailable;
-    els.summaryRequests.textContent = sessionRequests;
-
-    const total = results.length;
-
-    let message = "";
-
-    if (available === total) {
-
-        message =
-            "🟢 Tutte le categorie selezionate hanno restituito dati utilizzabili.";
-
-    } else if (available > 0) {
-
-        message =
-            "🟡 L'API offre alcuni dei dati richiesti. Controlliamo quali sono realmente utili per il progetto.";
-
-    } else {
-
-        message =
-            "🔴 Con le richieste utilizzate non abbiamo trovato dati utilizzabili nelle categorie selezionate.";
-    }
-
-    els.overallMessage.textContent = message;
-}
-
-/* =========================
-   SELEZIONE
-========================= */
-
-function setAllCategories(value) {
-
-    document
-        .querySelectorAll('#categoryGrid input[type="checkbox"]')
-        .forEach(input => {
-            input.checked = value;
-        });
-}
-
-function setEssentialCategories() {
-
-    setAllCategories(false);
-
-    const essential = [
-        "fixtures",
-        "history",
-        "goals",
-        "teamstats",
-        "players",
-        "form",
-        "injuries",
-        "h2h",
-        "leagues",
-        "standings"
-    ];
-
-    for (const key of essential) {
-
-        const input =
-            document.querySelector(
-                '#categoryGrid input[value="' + key + '"]'
+    Object.entries(data.paths).forEach(
+        ([path, methods]) => {
+
+            if (
+                !methods ||
+                typeof methods !== "object"
+            ) {
+
+                return;
+
+            }
+
+            Object.entries(methods).forEach(
+                ([method, definition]) => {
+
+                    const validMethods = [
+                        "get",
+                        "post",
+                        "put",
+                        "patch",
+                        "delete",
+                        "head",
+                        "options"
+                    ];
+
+                    if (
+                        !validMethods.includes(
+                            method.toLowerCase()
+                        )
+                    ) {
+
+                        return;
+
+                    }
+
+                    endpoints.push({
+
+                        path,
+
+                        method:
+                            method.toUpperCase(),
+
+                        description:
+                            definition &&
+                            definition.summary
+                            ? definition.summary
+                            : definition &&
+                              definition.description
+                            ? definition.description
+                            : "",
+
+                        operationId:
+                            definition &&
+                            definition.operationId
+                            ? definition.operationId
+                            : "",
+
+                        tags:
+                            definition &&
+                            Array.isArray(
+                                definition.tags
+                            )
+                            ? definition.tags
+                            : []
+
+                    });
+
+                }
             );
 
-        if (input) {
-            input.checked = true;
         }
-    }
+    );
+
+    return endpoints;
+
 }
 
-/* =========================
-   CONFIGURAZIONE
-========================= */
+function renderEndpointList(
+    endpoints,
+    container
+) {
+
+    if (!endpoints.length) {
+
+        container.innerHTML =
+            '<div class="empty">Nessun endpoint trovato.</div>';
+
+        return;
+
+    }
+
+    container.innerHTML = "";
+
+    endpoints.forEach(
+        (endpoint, index) => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "endpoint-item";
+
+            item.innerHTML = `
+
+                <div class="endpoint-main">
+
+                    <div>
+                        <span class="endpoint-method">
+                            ${escapeHTML(endpoint.method)}
+                        </span>
+
+                        <span class="endpoint-path">
+                            ${escapeHTML(endpoint.path)}
+                        </span>
+                    </div>
+
+                    ${
+                        endpoint.description
+                        ? `<div class="endpoint-description">
+                            ${escapeHTML(endpoint.description)}
+                           </div>`
+                        : ""
+                    }
+
+                </div>
+
+                <button
+                    class="btn small secondary"
+                    data-endpoint-index="${index}">
+                    Usa
+                </button>
+
+            `;
+
+            item
+                .querySelector("button")
+                .addEventListener(
+                    "click",
+                    () => {
+
+                        $("method").value =
+                            endpoint.method;
+
+                        $("endpoint").value =
+                            endpoint.path;
+
+                        window.scrollTo({
+                            top:
+                                document
+                                .querySelector(
+                                    "#method"
+                                )
+                                .getBoundingClientRect()
+                                .top +
+                                window.scrollY -
+                                120,
+                            behavior: "smooth"
+                        });
+
+                    }
+                );
+
+            container.appendChild(item);
+
+        }
+    );
+
+}
+
+function endpointMatchesCategory(
+    endpoint,
+    category
+) {
+
+    const words =
+        FOOTBALL_CATEGORIES[
+            category
+        ] || [];
+
+    const text = (
+
+        endpoint.path +
+        " " +
+        endpoint.description +
+        " " +
+        endpoint.operationId +
+        " " +
+        endpoint.tags.join(" ")
+
+    ).toLowerCase();
+
+    return words.some(
+        word =>
+            text.includes(
+                word.toLowerCase()
+            )
+    );
+
+}
+
+function filterEndpoints(category) {
+
+    const filtered =
+        state.endpoints.filter(
+            endpoint =>
+                endpointMatchesCategory(
+                    endpoint,
+                    category
+                )
+        );
+
+    renderEndpointList(
+        filtered,
+        $("filteredEndpoints")
+    );
+
+}
+
+function addHistory(item) {
+
+    state.history.unshift(item);
+
+    if (state.history.length > 100) {
+
+        state.history =
+            state.history.slice(0, 100);
+
+    }
+
+    renderHistory();
+
+}
+
+function renderHistory() {
+
+    const area =
+        $("historyArea");
+
+    if (!state.history.length) {
+
+        area.innerHTML =
+            '<div class="empty">Nessun test effettuato.</div>';
+
+        return;
+
+    }
+
+    area.innerHTML = "";
+
+    state.history.forEach(
+        item => {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "history-item";
+
+            const date =
+                new Date(
+                    item.timestamp
+                ).toLocaleString(
+                    "it-IT"
+                );
+
+            div.innerHTML = `
+
+                <div class="history-top">
+
+                    <strong>
+                        ${escapeHTML(date)}
+                    </strong>
+
+                    <span class="badge ${
+                        item.ok
+                        ? "good"
+                        : "bad"
+                    }">
+                        HTTP ${item.status}
+                    </span>
+
+                </div>
+
+                <div class="history-path">
+                    ${escapeHTML(item.method)}
+                    ${escapeHTML(item.endpoint)}
+                </div>
+
+                <div class="small-text">
+                    ${item.elapsed} ms
+                    ${
+                        item.analysis &&
+                        item.analysis.likelyFootballData
+                        ? " • dati calcistici rilevati"
+                        : ""
+                    }
+                </div>
+
+            `;
+
+            area.appendChild(div);
+
+        }
+    );
+
+}
 
 function saveConfig() {
 
-    const data = {
-        apiName: els.apiName.value.trim(),
-        baseUrl: els.baseUrl.value.trim(),
-        authType: els.authType.value,
-        customHeader: els.customHeader.value.trim()
+    const config = {
+
+        apiName:
+            $("apiName").value,
+
+        baseUrl:
+            $("baseUrl").value,
+
+        authType:
+            $("authType").value
+
     };
 
     localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
+        "footballApiTesterConfig",
+        JSON.stringify(config)
     );
 
-    setConnectionStatus(
-        "✅ Configurazione salvata. La API key non viene salvata.",
-        "ok"
+    showStatus(
+        $("connectionStatus"),
+        "Configurazione salvata sul dispositivo. La API key non viene salvata.",
+        "success"
     );
+
 }
 
 function loadConfig() {
 
     try {
 
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw =
+            localStorage.getItem(
+                "footballApiTesterConfig"
+            );
 
         if (!raw) {
             return;
         }
 
-        const data = JSON.parse(raw);
+        const config =
+            JSON.parse(raw);
 
-        els.apiName.value = data.apiName || "";
-        els.baseUrl.value = data.baseUrl || "";
-        els.authType.value = data.authType || "auto";
-        els.customHeader.value = data.customHeader || "";
+        $("apiName").value =
+            config.apiName || "";
 
-        updateAuthVisibility();
+        $("baseUrl").value =
+            config.baseUrl || "";
 
-    } catch {
-        console.warn("Impossibile caricare configurazione.");
+        $("authType").value =
+            config.authType ||
+            "x-apisports-key";
+
     }
+
+    catch {
+        // Ignora configurazioni corrotte
+    }
+
 }
 
 function clearConfig() {
 
-    localStorage.removeItem(STORAGE_KEY);
+    $("apiName").value = "";
 
-    els.apiName.value = "";
-    els.baseUrl.value = "";
-    els.apiKey.value = "";
-    els.authType.value = "auto";
-    els.customHeader.value = "";
+    $("baseUrl").value = "";
 
-    updateAuthVisibility();
+    $("apiKey").value = "";
 
-    setConnectionStatus(
-        "Configurazione cancellata.",
-        ""
+    $("authType").value =
+        "x-apisports-key";
+
+    localStorage.removeItem(
+        "footballApiTesterConfig"
     );
+
+    showStatus(
+        $("connectionStatus"),
+        "Configurazione pulita.",
+        "info"
+    );
+
 }
 
-function updateAuthVisibility() {
+function buildReport() {
 
-    if (els.authType.value === "custom") {
-        els.customHeaderField.classList.remove("hidden");
-    } else {
-        els.customHeaderField.classList.add("hidden");
-    }
+    return {
+
+        application: {
+
+            name:
+                "Football API Tester",
+
+            version:
+                "3.0",
+
+            generatedAt:
+                new Date().toISOString()
+
+        },
+
+        api: {
+
+            name:
+                $("apiName").value,
+
+            baseUrl:
+                $("baseUrl").value,
+
+            authentication:
+                $("authType").value
+
+        },
+
+        proxy: {
+
+            url:
+                PROXY_URL
+
+        },
+
+        statistics: {
+
+            requestsSession:
+                state.requestsSession,
+
+            successRequests:
+                state.successRequests,
+
+            errorRequests:
+                state.errorRequests,
+
+            endpointCount:
+                state.endpointCount,
+
+            matchCount:
+                state.matchCount
+
+        },
+
+        documentation:
+
+            state.documentationFound.map(
+                item => ({
+                    path:
+                        item.path,
+
+                    url:
+                        item.url
+                })
+            ),
+
+        endpoints:
+            state.endpoints,
+
+        history:
+            state.history,
+
+        lastRequest:
+            state.lastRequest,
+
+        lastAnalysis:
+            state.lastAnalysis,
+
+        lastResponseHeaders:
+            state.lastResponseHeaders,
+
+        lastResponse:
+            state.lastResponse
+
+    };
+
 }
 
-/* =========================
-   STORICO
-========================= */
+function generateReport() {
 
-function saveHistory(results) {
+    const report =
+        buildReport();
 
-    try {
-
-        const existingRaw =
-            localStorage.getItem(HISTORY_KEY);
-
-        let existing = [];
-
-        if (existingRaw) {
-            existing = JSON.parse(existingRaw);
-        }
-
-        const entry = {
-            id: Date.now(),
-            date: new Date().toLocaleString("it-IT"),
-            apiName:
-                els.apiName.value.trim() ||
-                els.baseUrl.value.trim(),
-            available: results.filter(
-                x => x.status === "ok"
-            ).length,
-            partial: results.filter(
-                x => x.status === "partial"
-            ).length,
-            unavailable: results.filter(
-                x => x.status === "no" || x.status === "error"
-            ).length,
-            requests: sessionRequests
-        };
-
-        existing.unshift(entry);
-
-        existing = existing.slice(0, 20);
-
-        localStorage.setItem(
-            HISTORY_KEY,
-            JSON.stringify(existing)
+    const json =
+        JSON.stringify(
+            report,
+            null,
+            2
         );
 
-        renderHistory();
+    $("reportOutput").textContent =
+        json;
 
-    } catch {
-        console.warn("Impossibile salvare lo storico.");
-    }
+    return json;
+
 }
 
-function renderHistory() {
+async function copyReport() {
+
+    const json =
+        generateReport();
 
     try {
 
-        const raw =
-            localStorage.getItem(HISTORY_KEY);
+        await navigator.clipboard.writeText(
+            json
+        );
 
-        if (!raw) {
+        alert(
+            "Report copiato."
+        );
 
-            els.historyList.innerHTML =
-                "Nessun test salvato.";
-
-            els.historyList.className = "empty";
-
-            return;
-        }
-
-        const history = JSON.parse(raw);
-
-        if (!Array.isArray(history) || history.length === 0) {
-
-            els.historyList.innerHTML =
-                "Nessun test salvato.";
-
-            els.historyList.className = "empty";
-
-            return;
-        }
-
-        els.historyList.className = "";
-
-        els.historyList.innerHTML =
-            history.map(item => `
-                <div class="history-item">
-                    <div class="history-title">
-                        ${escapeHtml(item.apiName)}
-                    </div>
-
-                    <div class="history-meta">
-                        ${escapeHtml(item.date)}
-                        · 🟢 ${item.available}
-                        · 🟡 ${item.partial}
-                        · 🔴 ${item.unavailable}
-                        · ${item.requests} richieste
-                    </div>
-                </div>
-            `).join("");
-
-    } catch {
-
-        els.historyList.innerHTML =
-            "Impossibile leggere lo storico.";
-
-        els.historyList.className = "empty";
     }
+
+    catch {
+
+        alert(
+            "Impossibile copiare automaticamente il report."
+        );
+
+    }
+
 }
 
-/* =========================
-   EVENTI
-========================= */
+function downloadReport() {
 
-els.connectionBtn.addEventListener(
-    "click",
-    testConnection
-);
+    const json =
+        generateReport();
 
-els.saveConfigBtn.addEventListener(
-    "click",
-    saveConfig
-);
+    const blob =
+        new Blob(
+            [json],
+            {
+                type:
+                    "application/json"
+            }
+        );
 
-els.clearConfigBtn.addEventListener(
-    "click",
-    clearConfig
-);
+    const url =
+        URL.createObjectURL(blob);
 
-els.selectAllBtn.addEventListener(
-    "click",
-    () => setAllCategories(true)
-);
+    const a =
+        document.createElement("a");
 
-els.deselectAllBtn.addEventListener(
-    "click",
-    () => setAllCategories(false)
-);
+    const apiName =
+        $("apiName").value
+            .trim()
+            .replace(/[^a-z0-9_-]/gi, "_")
+            || "api";
 
-els.selectEssentialBtn.addEventListener(
-    "click",
-    setEssentialCategories
-);
+    a.href = url;
 
-els.runTestBtn.addEventListener(
-    "click",
-    runFullTest
-);
+    a.download =
+        `football-api-report-${apiName}.json`;
 
-els.authType.addEventListener(
-    "change",
-    updateAuthVisibility
-);
+    document.body.appendChild(a);
 
-/*
-    Supporto tastiera:
-    Ctrl + Enter avvia il test.
-*/
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+}
+
+async function copyResponse() {
+
+    const text =
+        $("responseOutput").textContent;
+
+    if (!text ||
+        text === "Nessuna risposta.") {
+
+        alert(
+            "Non c'è nessuna risposta da copiare."
+        );
+
+        return;
+
+    }
+
+    try {
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+        alert(
+            "JSON copiato."
+        );
+
+    }
+
+    catch {
+
+        alert(
+            "Impossibile copiare automaticamente."
+        );
+
+    }
+
+}
+
+$("testConnectionBtn")
+    .addEventListener(
+        "click",
+        testConnection
+    );
+
+$("sendRequestBtn")
+    .addEventListener(
+        "click",
+        sendRequest
+    );
+
+$("sendRequestBtn2")
+    .addEventListener(
+        "click",
+        sendRequest
+    );
+
+$("discoverDocsBtn")
+    .addEventListener(
+        "click",
+        discoverDocumentation
+    );
+
+$("saveConfigBtn")
+    .addEventListener(
+        "click",
+        saveConfig
+    );
+
+$("clearConfigBtn")
+    .addEventListener(
+        "click",
+        clearConfig
+    );
+
+$("copyResponseBtn")
+    .addEventListener(
+        "click",
+        copyResponse
+    );
+
+$("generateReportBtn")
+    .addEventListener(
+        "click",
+        generateReport
+    );
+
+$("copyReportBtn")
+    .addEventListener(
+        "click",
+        copyReport
+    );
+
+$("downloadReportBtn")
+    .addEventListener(
+        "click",
+        downloadReport
+    );
+
+$("clearHistoryBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            state.history = [];
+
+            renderHistory();
+
+        }
+    );
+
+$("clearEndpointsBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            state.endpoints = [];
+
+            state.endpointCount = 0;
+
+            $("endpointCount").textContent =
+                "0";
+
+            $("docsResults").innerHTML = "";
+
+            $("filteredEndpoints").innerHTML = "";
+
+            hideStatus(
+                $("docsStatus")
+            );
+
+        }
+    );
+
+$("clearRequestBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            $("endpoint").value = "";
+
+            $("queryParams").value = "";
+
+            $("customHeaders").value = "";
+
+            $("requestBody").value = "";
+
+            $("responseOutput").textContent =
+                "Nessuna risposta.";
+
+            $("analysisArea").innerHTML =
+                '<div class="empty">Nessuna risposta analizzata.</div>';
+
+            $("headersArea").innerHTML =
+                '<div class="empty">Nessun header disponibile.</div>';
+
+            hideStatus(
+                $("requestStatus")
+            );
+
+        }
+    );
+
 document.addEventListener(
     "keydown",
     event => {
@@ -2304,26 +2975,22 @@ document.addEventListener(
             event.ctrlKey &&
             event.key === "Enter"
         ) {
+
             event.preventDefault();
-            runFullTest();
+
+            sendRequest();
+
         }
+
     }
 );
 
-/* =========================
-   AVVIO
-========================= */
-
 loadConfig();
-renderHistory();
-updateAuthVisibility();
 
-setConnectionStatus(
-    "Proxy configurato e pronto. Inserisci l'API e fai il test di connessione.",
-    ""
-);
+renderHistory();
 
 </script>
 
 </body>
 </html>
+```
