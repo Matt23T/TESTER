@@ -22,7 +22,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1250px;
     margin: auto;
     padding: 18px;
 }
@@ -36,7 +36,7 @@ h1 {
 .subtitle {
     color: #6b7280;
     margin-bottom: 20px;
-    line-height: 1.4;
+    line-height: 1.45;
 }
 
 .card {
@@ -47,14 +47,14 @@ h1 {
     box-shadow: 0 4px 18px rgba(0,0,0,.06);
 }
 
+.field {
+    margin-bottom: 15px;
+}
+
 label {
     display: block;
     font-weight: 700;
     margin-bottom: 7px;
-}
-
-.field {
-    margin-bottom: 15px;
 }
 
 input,
@@ -85,10 +85,12 @@ button {
     padding: 13px 18px;
     font-size: 15px;
     font-weight: 800;
+    cursor: pointer;
 }
 
 button:disabled {
     opacity: .5;
+    cursor: default;
 }
 
 .primary {
@@ -186,6 +188,21 @@ button:disabled {
     color: #4b5563;
     font-size: 13px;
     line-height: 1.5;
+}
+
+.warning {
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.error-box {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.success-box {
+    background: #ecfdf5;
+    color: #047857;
 }
 
 .legend {
@@ -345,7 +362,7 @@ button:disabled {
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 1000px;
+    min-width: 1100px;
 }
 
 th,
@@ -366,35 +383,40 @@ th:first-child {
     text-align: left;
 }
 
-.season-ok {
-    font-weight: 900;
-    color: #166534;
-}
-
-.season-no {
-    font-weight: 900;
-    color: #991b1b;
-}
-
-.season-partial {
-    font-weight: 900;
-    color: #92400e;
-}
-
-.season-unknown {
-    color: #6b7280;
-    font-weight: 800;
-}
-
 .log {
-    max-height: 300px;
+    max-height: 350px;
     overflow-y: auto;
 }
 
 .log-line {
-    padding: 7px 0;
+    padding: 8px 0;
     border-bottom: 1px solid #f3f4f6;
     font-size: 12px;
+    line-height: 1.4;
+}
+
+.log-line.error {
+    color: #b91c1c;
+}
+
+.log-line.success {
+    color: #047857;
+}
+
+.log-line.warning {
+    color: #92400e;
+}
+
+.endpoint-box {
+    background: #111827;
+    color: #e5e7eb;
+    padding: 12px;
+    border-radius: 11px;
+    font-size: 11px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 10px;
 }
 
 pre {
@@ -405,7 +427,37 @@ pre {
     overflow-x: auto;
     font-size: 11px;
     line-height: 1.45;
-    max-height: 450px;
+    max-height: 500px;
+}
+
+.details {
+    margin-top: 10px;
+}
+
+details summary {
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.diagnostic {
+    margin-top: 12px;
+}
+
+.diagnostic-row {
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.diagnostic-label {
+    color: #6b7280;
+    font-size: 11px;
+}
+
+.diagnostic-value {
+    font-weight: 800;
+    margin-top: 3px;
+    word-break: break-word;
 }
 
 .hidden {
@@ -413,6 +465,7 @@ pre {
 }
 
 @media (max-width: 700px) {
+
     .container {
         padding: 12px;
     }
@@ -449,551 +502,568 @@ pre {
 
 <div class="container">
 
-    <h1>API-Football Availability Tester</h1>
+<h1>API-Football Availability Tester</h1>
 
-    <div class="subtitle">
-        Verifica quali dati sono realmente disponibili, competizione per competizione e stagione per stagione.
+<div class="subtitle">
+    Analizza cosa è realmente disponibile nella tua API-Football,
+    distinguendo tra copertura dichiarata dall'API, dati realmente ricevuti
+    ed errori di autenticazione o proxy.
+</div>
+
+
+<!-- =====================================================
+     CONFIGURAZIONE
+     ===================================================== -->
+
+<div class="card">
+
+    <div class="field">
+
+        <label for="apiUrl">
+            Link API
+        </label>
+
+        <input
+            id="apiUrl"
+            value="https://v3.football.api-sports.io"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+        >
+
     </div>
 
 
-    <!-- =====================================================
-         CONFIGURAZIONE
-         ===================================================== -->
+    <div class="field">
 
-    <div class="card">
+        <label for="apiKey">
+            API Key
+        </label>
 
-        <div class="field">
+        <input
+            id="apiKey"
+            type="password"
+            placeholder="Inserisci la tua API Key"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+        >
 
-            <label for="apiUrl">
-                Link API
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Campionati
+        </label>
+
+        <div class="leagues">
+
+            <label class="league">
+                <input type="checkbox" value="135" data-name="Serie A" checked>
+                Serie A
             </label>
 
-            <input
-                id="apiUrl"
-                value="https://v3.football.api-sports.io"
-                autocomplete="off"
-                autocapitalize="none"
-                spellcheck="false"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label for="apiKey">
-                API Key
+            <label class="league">
+                <input type="checkbox" value="39" data-name="Premier League" checked>
+                Premier League
             </label>
 
-            <input
-                id="apiKey"
-                type="password"
-                placeholder="Inserisci la tua API Key"
-                autocomplete="off"
-                autocapitalize="none"
-                spellcheck="false"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Campionati
+            <label class="league">
+                <input type="checkbox" value="140" data-name="La Liga" checked>
+                La Liga
             </label>
 
-            <div class="leagues">
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="135"
-                        data-name="Serie A"
-                        checked
-                    >
-                    Serie A
-                </label>
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="39"
-                        data-name="Premier League"
-                        checked
-                    >
-                    Premier League
-                </label>
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="140"
-                        data-name="La Liga"
-                        checked
-                    >
-                    La Liga
-                </label>
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="78"
-                        data-name="Bundesliga"
-                        checked
-                    >
-                    Bundesliga
-                </label>
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="61"
-                        data-name="Ligue 1"
-                        checked
-                    >
-                    Ligue 1
-                </label>
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="2"
-                        data-name="Champions League"
-                    >
-                    Champions League
-                </label>
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="3"
-                        data-name="Europa League"
-                    >
-                    Europa League
-                </label>
-
-                <label class="league">
-                    <input
-                        type="checkbox"
-                        value="848"
-                        data-name="Conference League"
-                    >
-                    Conference League
-                </label>
-
-            </div>
-
-        </div>
-
-
-        <div class="field">
-
-            <label for="seasonCount">
-                Stagioni storiche da controllare
+            <label class="league">
+                <input type="checkbox" value="78" data-name="Bundesliga" checked>
+                Bundesliga
             </label>
 
-            <select id="seasonCount">
+            <label class="league">
+                <input type="checkbox" value="61" data-name="Ligue 1" checked>
+                Ligue 1
+            </label>
 
-                <option value="10" selected>
-                    10 stagioni
-                </option>
+            <label class="league">
+                <input type="checkbox" value="2" data-name="Champions League">
+                Champions League
+            </label>
 
-                <option value="8">
-                    8 stagioni
-                </option>
+            <label class="league">
+                <input type="checkbox" value="3" data-name="Europa League">
+                Europa League
+            </label>
 
-                <option value="6">
-                    6 stagioni
-                </option>
-
-                <option value="5">
-                    5 stagioni
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="buttons">
-
-            <button
-                id="startBtn"
-                class="primary"
-            >
-                AVVIA ANALISI
-            </button>
-
-            <button
-                id="stopBtn"
-                class="danger"
-                disabled
-            >
-                FERMA
-            </button>
-
-            <button
-                id="clearBtn"
-                class="secondary"
-            >
-                CANCELLA
-            </button>
+            <label class="league">
+                <input type="checkbox" value="848" data-name="Conference League">
+                Conference League
+            </label>
 
         </div>
 
     </div>
 
 
-    <!-- =====================================================
-         STATO
-         ===================================================== -->
+    <div class="field">
 
-    <div class="card">
+        <label for="seasonCount">
+            Stagioni storiche da controllare
+        </label>
+
+        <select id="seasonCount">
+
+            <option value="10" selected>
+                10 stagioni
+            </option>
+
+            <option value="8">
+                8 stagioni
+            </option>
+
+            <option value="6">
+                6 stagioni
+            </option>
+
+            <option value="5">
+                5 stagioni
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button id="startBtn" class="primary">
+            AVVIA ANALISI
+        </button>
+
+        <button id="stopBtn" class="danger" disabled>
+            FERMA
+        </button>
+
+        <button id="clearBtn" class="secondary">
+            CANCELLA
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     STATO
+     ===================================================== -->
+
+<div class="card">
+
+    <div id="status" class="status">
+        Pronto.
+    </div>
+
+    <div class="progress">
 
         <div
-            id="status"
-            class="status"
-        >
-            Pronto.
-        </div>
+            id="progressBar"
+            class="progress-bar"
+        ></div>
 
-        <div class="progress">
+    </div>
+
+    <div
+        id="progressText"
+        class="progress-text"
+    >
+        0%
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONTATORI
+     ===================================================== -->
+
+<div class="card">
+
+    <div class="counters">
+
+        <div class="counter">
+            <div class="counter-title">
+                Richieste
+            </div>
 
             <div
-                id="progressBar"
-                class="progress-bar"
-            ></div>
-
+                id="requestCount"
+                class="counter-value"
+            >
+                0
+            </div>
         </div>
 
-        <div
-            id="progressText"
-            class="progress-text"
-        >
-            0%
+
+        <div class="counter">
+            <div class="counter-title">
+                Risposte OK
+            </div>
+
+            <div
+                id="successCount"
+                class="counter-value"
+            >
+                0
+            </div>
         </div>
 
-    </div>
 
-
-    <!-- =====================================================
-         CONTATORI
-         ===================================================== -->
-
-    <div class="card">
-
-        <div class="counters">
-
-            <div class="counter">
-                <div class="counter-title">
-                    Richieste
-                </div>
-
-                <div
-                    id="requestCount"
-                    class="counter-value"
-                >
-                    0
-                </div>
+        <div class="counter">
+            <div class="counter-title">
+                Errori
             </div>
 
+            <div
+                id="errorCount"
+                class="counter-value"
+            >
+                0
+            </div>
+        </div>
 
-            <div class="counter">
-                <div class="counter-title">
-                    Risposte OK
-                </div>
 
-                <div
-                    id="successCount"
-                    class="counter-value"
-                >
-                    0
-                </div>
+        <div class="counter">
+            <div class="counter-title">
+                Dati verificati
             </div>
 
+            <div
+                id="verifiedCount"
+                class="counter-value"
+            >
+                0
+            </div>
+        </div>
 
-            <div class="counter">
-                <div class="counter-title">
-                    Errori
-                </div>
 
-                <div
-                    id="errorCount"
-                    class="counter-value"
-                >
-                    0
-                </div>
+        <div class="counter">
+            <div class="counter-title">
+                Richieste residue
             </div>
 
-
-            <div class="counter">
-                <div class="counter-title">
-                    Dati verificati
-                </div>
-
-                <div
-                    id="verifiedCount"
-                    class="counter-value"
-                >
-                    0
-                </div>
+            <div
+                id="remainingCount"
+                class="counter-value"
+            >
+                N/D
             </div>
-
-
-            <div class="counter">
-                <div class="counter-title">
-                    Richieste residue
-                </div>
-
-                <div
-                    id="remainingCount"
-                    class="counter-value"
-                >
-                    N/D
-                </div>
-            </div>
-
         </div>
 
     </div>
 
+</div>
 
-    <!-- =====================================================
-         LEGENDA
-         ===================================================== -->
 
-    <div class="card">
+<!-- =====================================================
+     DIAGNOSTICA
+     ===================================================== -->
 
-        <div class="section-title">
-            Come leggere il risultato
+<div
+    id="diagnosticCard"
+    class="card hidden"
+>
+
+    <div class="section-title">
+        Diagnostica ultima richiesta
+    </div>
+
+    <div id="diagnosticContent"></div>
+
+</div>
+
+
+<!-- =====================================================
+     LEGENDA
+     ===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+        Come leggere il risultato
+    </div>
+
+    <div class="legend">
+
+        <div class="legend-item green">
+            🟢 DISPONIBILE
         </div>
 
-        <div class="legend">
+        <div class="legend-item yellow">
+            🟡 PARZIALE
+        </div>
 
-            <div class="legend-item green">
-                🟢 DISPONIBILE
+        <div class="legend-item red">
+            🔴 NON DISPONIBILE
+        </div>
+
+        <div class="legend-item gray">
+            ⚪ NON VERIFICATO
+        </div>
+
+    </div>
+
+    <div class="info">
+
+        <strong>🟢 Disponibile</strong> =
+        l'API ha restituito dati reali.
+
+        <br><br>
+
+        <strong>🟡 Parziale</strong> =
+        l'API dichiara che il dato è coperto,
+        ma il test non ha ancora verificato dati reali
+        oppure la risposta è incompleta.
+
+        <br><br>
+
+        <strong>🔴 Non disponibile</strong> =
+        l'API dichiara esplicitamente che quel dato
+        non è coperto per quella competizione/stagione.
+
+        <br><br>
+
+        <strong>⚪ Non verificato</strong> =
+        non abbiamo abbastanza informazioni per dichiararlo disponibile.
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RISULTATO GENERALE
+     ===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+        Risultato generale
+    </div>
+
+    <div class="summary-grid">
+
+        <div class="summary-box">
+
+            <div class="summary-title">
+                Stato API
             </div>
 
-            <div class="legend-item yellow">
-                🟡 PARZIALE
+            <div
+                id="generalStatus"
+                class="big-status"
+            >
+                Non ancora verificato
             </div>
 
-            <div class="legend-item red">
-                🔴 NON DISPONIBILE
-            </div>
-
-            <div class="legend-item gray">
-                ⚪ NON VERIFICATO
+            <div
+                id="generalDescription"
+                class="info"
+                style="margin-top:10px;"
+            >
+                Avvia l'analisi.
             </div>
 
         </div>
+
+
+        <div class="summary-box">
+
+            <div class="summary-title">
+                Storico
+            </div>
+
+            <div
+                id="historicalStatus"
+                class="big-status"
+            >
+                Non ancora verificato
+            </div>
+
+            <div
+                id="historicalDescription"
+                class="info"
+                style="margin-top:10px;"
+            >
+                Avvia l'analisi.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     COSA È REALMENTE DISPONIBILE
+     ===================================================== -->
+
+<div class="card">
+
+    <div class="section-title">
+        Cosa puoi realmente usare
+    </div>
+
+    <div
+        id="dataAvailability"
+    >
 
         <div class="info">
-
-            <strong>Importante:</strong>
-            un endpoint che esiste non viene automaticamente considerato disponibile.
-            Il tester distingue tra endpoint esistente, dati realmente restituiti e dati
-            disponibili per una specifica competizione/stagione.
-
+            Avvia l'analisi per visualizzare i risultati.
         </div>
 
     </div>
 
-
-    <!-- =====================================================
-         RISULTATO GENERALE
-         ===================================================== -->
-
-    <div class="card">
-
-        <div class="section-title">
-            Cosa puoi realmente usare
-        </div>
-
-        <div
-            id="globalSummary"
-            class="summary-grid"
-        >
-
-            <div class="summary-box">
-
-                <div class="summary-title">
-                    Stato generale
-                </div>
-
-                <div
-                    id="generalStatus"
-                    class="big-status"
-                >
-                    Non ancora verificato
-                </div>
-
-            </div>
+</div>
 
 
-            <div class="summary-box">
+<!-- =====================================================
+     STORICO
+     ===================================================== -->
 
-                <div class="summary-title">
-                    Storico
-                </div>
+<div class="card">
 
-                <div
-                    id="historicalStatus"
-                    class="big-status"
-                >
-                    Non ancora verificato
-                </div>
+    <div class="section-title">
+        Storico stagione per stagione
+    </div>
 
-            </div>
+    <div
+        class="info"
+        style="margin-bottom:12px;"
+    >
 
-        </div>
+        Questa tabella non confonde l'esistenza dell'endpoint
+        con la disponibilità effettiva dei dati.
+
+        <br><br>
+
+        🟢 = dati ricevuti realmente
+
+        &nbsp;&nbsp;
+
+        🟡 = coverage presente ma non completamente verificata
+
+        &nbsp;&nbsp;
+
+        🔴 = coverage assente
+
+        &nbsp;&nbsp;
+
+        ⚪ = impossibile determinare
 
     </div>
 
+    <div class="history-wrap">
 
-    <!-- =====================================================
-         DISPONIBILITÀ DATI
-         ===================================================== -->
+        <table>
 
-    <div class="card">
+            <thead>
 
-        <div class="section-title">
-            Disponibilità reale dei dati
-        </div>
+                <tr>
 
-        <div
-            id="dataAvailability"
-        >
+                    <th>
+                        Campionato
+                    </th>
 
-            <div class="info">
-                Avvia l'analisi per visualizzare i risultati.
-            </div>
+                    <th>
+                        Stagione
+                    </th>
 
-        </div>
+                    <th>
+                        Partite
+                    </th>
 
-    </div>
+                    <th>
+                        Eventi
+                    </th>
 
+                    <th>
+                        Statistiche
+                    </th>
 
-    <!-- =====================================================
-         STORICO
-         ===================================================== -->
+                    <th>
+                        Formazioni
+                    </th>
 
-    <div class="card">
+                    <th>
+                        Giocatori
+                    </th>
 
-        <div class="section-title">
-            Storico stagione per stagione
-        </div>
+                    <th>
+                        Classifica
+                    </th>
 
-        <div class="info" style="margin-bottom:12px;">
+                    <th>
+                        Infortuni
+                    </th>
 
-            Qui vengono mostrati separatamente i dati disponibili per ogni stagione.
-            Una stagione senza dati non significa che l'intero endpoint sia assente.
+                    <th>
+                        Quote
+                    </th>
 
-        </div>
+                    <th>
+                        Predictions
+                    </th>
 
-        <div class="history-wrap">
+                    <th>
+                        N. partite
+                    </th>
 
-            <table>
+                </tr>
 
-                <thead>
+            </thead>
 
-                    <tr>
+            <tbody id="historyBody"></tbody>
 
-                        <th>
-                            Campionato
-                        </th>
-
-                        <th>
-                            Stagione
-                        </th>
-
-                        <th>
-                            Partite
-                        </th>
-
-                        <th>
-                            Eventi
-                        </th>
-
-                        <th>
-                            Statistiche
-                        </th>
-
-                        <th>
-                            Formazioni
-                        </th>
-
-                        <th>
-                            Giocatori
-                        </th>
-
-                        <th>
-                            Classifica
-                        </th>
-
-                        <th>
-                            Infortuni
-                        </th>
-
-                        <th>
-                            Quote
-                        </th>
-
-                        <th>
-                            Predictions
-                        </th>
-
-                        <th>
-                            Partite reali
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="historyBody">
-                </tbody>
-
-            </table>
-
-        </div>
+        </table>
 
     </div>
 
+</div>
 
-    <!-- =====================================================
-         LOG
-         ===================================================== -->
 
-    <div class="card">
+<!-- =====================================================
+     LOG
+     ===================================================== -->
 
-        <div class="section-title">
-            Log
-        </div>
+<div class="card">
 
-        <div
-            id="log"
-            class="log"
-        >
-        </div>
-
+    <div class="section-title">
+        Log dettagliato
     </div>
 
+    <div
+        id="log"
+        class="log"
+    ></div>
 
-    <!-- =====================================================
-         ULTIMA RISPOSTA
-         ===================================================== -->
+</div>
 
-    <div class="card">
 
-        <div class="section-title">
-            Ultima risposta API
-        </div>
+<!-- =====================================================
+     ULTIMA RISPOSTA
+     ===================================================== -->
 
-        <pre id="lastResponse">Nessuna richiesta.</pre>
+<div class="card">
 
+    <div class="section-title">
+        Ultima risposta API
     </div>
+
+    <pre id="lastResponse">Nessuna richiesta.</pre>
+
+</div>
+
 
 </div>
 
@@ -1010,8 +1080,16 @@ const PROXY =
 const DAILY_LIMIT =
     100;
 
+const SAFETY_LIMIT =
+    95;
+
 const REQUEST_DELAY =
     650;
+
+
+/* =========================================================
+   STATO
+   ========================================================= */
 
 let stopped =
     false;
@@ -1037,9 +1115,15 @@ let completedSteps =
 let totalSteps =
     0;
 
+let lastRequestDiagnostic =
+    null;
+
+const seasonResults =
+    [];
+
 
 /* =========================================================
-   DATI
+   DEFINIZIONI DATI
    ========================================================= */
 
 const DATA_DEFINITIONS = [
@@ -1048,118 +1132,87 @@ const DATA_DEFINITIONS = [
         id: "fixtures",
         name: "Partite",
         description:
-            "Partite della competizione/stagione.",
-        endpointType: "fixtures"
+            "Elenco delle partite della competizione e stagione."
     },
 
     {
         id: "events",
         name: "Eventi e gol",
         description:
-            "Gol, autogol, rigori, cartellini e altri eventi della partita.",
-        endpointType: "events"
+            "Gol, cartellini, sostituzioni e altri eventi."
     },
 
     {
         id: "statistics",
         name: "Statistiche partita",
         description:
-            "Statistiche delle squadre durante la partita.",
-        endpointType: "statistics"
+            "Tiri, possesso, corner, falli, passaggi e altre statistiche."
     },
 
     {
         id: "lineups",
         name: "Formazioni",
         description:
-            "Formazioni iniziali, panchina e informazioni sui giocatori.",
-        endpointType: "lineups"
+            "Formazioni, panchina e giocatori utilizzati."
     },
 
     {
         id: "players",
         name: "Giocatori",
         description:
-            "Dati dei giocatori collegati alla competizione/stagione.",
-        endpointType: "players"
+            "Statistiche dei giocatori nella competizione/stagione."
     },
 
     {
         id: "standings",
         name: "Classifica",
         description:
-            "Classifica della competizione.",
-        endpointType: "standings"
+            "Classifica della competizione."
     },
 
     {
         id: "injuries",
         name: "Infortuni",
         description:
-            "Giocatori indisponibili e motivazioni.",
-        endpointType: "injuries"
+            "Informazioni sugli infortuni e indisponibilità."
     },
 
     {
         id: "odds",
         name: "Quote",
         description:
-            "Quote pre-match disponibili.",
-        endpointType: "odds"
+            "Quote pre-match disponibili."
     },
 
     {
         id: "predictions",
         name: "Predictions",
         description:
-            "Previsioni generate da API-Football per una partita.",
-        endpointType: "predictions"
+            "Previsioni API-Football per una partita."
     },
 
     {
         id: "topscorers",
         name: "Marcatori",
         description:
-            "Classifica marcatori della competizione/stagione.",
-        endpointType: "topscorers"
+            "Classifica marcatori."
     },
 
     {
         id: "topassists",
         name: "Assist",
         description:
-            "Classifica assist della competizione/stagione.",
-        endpointType: "topassists"
+            "Classifica assist."
     },
 
     {
         id: "topcards",
-        name: "Cartellini giocatori",
+        name: "Cartellini",
         description:
-            "Classifica dei cartellini ricevuti.",
-        endpointType: "topcards"
-    },
-
-    {
-        id: "h2h",
-        name: "H2H",
-        description:
-            "Storico degli scontri diretti tra due squadre.",
-        endpointType: "h2h"
+            "Classifica dei cartellini."
     }
 
 ];
-
-
-/* =========================================================
-   RISULTATI
-   ========================================================= */
-
-const results = {};
-
-const leagueResults = {};
-
-const seasonResults = [];
 
 
 /* =========================================================
@@ -1208,6 +1261,12 @@ const verifiedCountEl =
 const remainingCountEl =
     document.getElementById("remainingCount");
 
+const diagnosticCard =
+    document.getElementById("diagnosticCard");
+
+const diagnosticContent =
+    document.getElementById("diagnosticContent");
+
 const dataAvailability =
     document.getElementById("dataAvailability");
 
@@ -1217,8 +1276,14 @@ const historyBody =
 const generalStatus =
     document.getElementById("generalStatus");
 
+const generalDescription =
+    document.getElementById("generalDescription");
+
 const historicalStatus =
     document.getElementById("historicalStatus");
+
+const historicalDescription =
+    document.getElementById("historicalDescription");
 
 const logEl =
     document.getElementById("log");
@@ -1228,7 +1293,7 @@ const lastResponse =
 
 
 /* =========================================================
-   FUNZIONI BASE
+   UTILITY
    ========================================================= */
 
 function sleep(ms) {
@@ -1242,12 +1307,14 @@ function sleep(ms) {
 
 function escapeHtml(value) {
 
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    return String(
+        value ?? ""
+    )
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 
@@ -1261,56 +1328,51 @@ function baseUrl() {
 }
 
 
-function currentSeason() {
+function selectedLeagues() {
 
-    /*
-       API-Football utilizza l'anno di
-       inizio della stagione.
-
-       A settembre 2026:
-       stagione corrente = 2026.
-    */
-
-    return new Date()
-        .getFullYear();
+    return Array.from(
+        document.querySelectorAll(
+            ".league input:checked"
+        )
+    )
+    .map(
+        input => ({
+            id:
+                input.value,
+            name:
+                input.dataset.name
+        })
+    );
 }
 
 
-function historicalSeasons(count) {
+function historicalSeasons(
+    count
+) {
 
-    const current =
-        currentSeason();
+    const currentYear =
+        new Date().getFullYear();
 
-    const seasons = [];
+    const output = [];
 
     for (
         let i = 0;
         i < count;
         i++
     ) {
-        seasons.push(
-            current - i
+
+        output.push(
+            currentYear - i
         );
     }
 
-    return seasons;
+    return output;
 }
 
 
-function selectedLeagues() {
-
-    const boxes =
-        document.querySelectorAll(
-            ".league input:checked"
-        );
-
-    return Array.from(boxes)
-        .map(box => ({
-            id: box.value,
-            name: box.dataset.name
-        }));
-}
-
+/* =========================================================
+   COUNTERS
+   ========================================================= */
 
 function updateCounters() {
 
@@ -1333,9 +1395,15 @@ function updateCounters() {
 }
 
 
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
 function updateProgress() {
 
-    if (!totalSteps) {
+    if (
+        totalSteps <= 0
+    ) {
 
         progressBar.style.width =
             "0%";
@@ -1346,7 +1414,7 @@ function updateProgress() {
         return;
     }
 
-    const percent =
+    const percentage =
         Math.min(
             100,
             Math.round(
@@ -1357,20 +1425,24 @@ function updateProgress() {
         );
 
     progressBar.style.width =
-        percent + "%";
+        percentage + "%";
 
     progressText.textContent =
-        percent + "%";
+        percentage + "%";
 }
 
 
-function doneStep() {
+function completeStep() {
 
     completedSteps++;
 
     updateProgress();
 }
 
+
+/* =========================================================
+   STATUS
+   ========================================================= */
 
 function setStatus(
     text,
@@ -1390,16 +1462,23 @@ function setStatus(
 }
 
 
+/* =========================================================
+   LOG
+   ========================================================= */
+
 function addLog(
     message,
     type = ""
 ) {
 
     const line =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     line.className =
-        "log-line";
+        "log-line " +
+        type;
 
     const time =
         new Date()
@@ -1412,19 +1491,15 @@ function addLog(
         " — " +
         message;
 
-    if (type === "error") {
-        line.style.color =
-            "#b91c1c";
-    }
-
-    if (type === "success") {
-        line.style.color =
-            "#047857";
-    }
-
-    logEl.prepend(line);
+    logEl.prepend(
+        line
+    );
 }
 
+
+/* =========================================================
+   RISPOSTA
+   ========================================================= */
 
 function showLastResponse(
     data
@@ -1448,10 +1523,10 @@ function showLastResponse(
 
 
 /* =========================================================
-   NORMALIZZAZIONE RISPOSTA API
+   ESTRAZIONE API
    ========================================================= */
 
-function getResponseArray(
+function responseArray(
     data
 ) {
 
@@ -1461,6 +1536,7 @@ function getResponseArray(
             data.response
         )
     ) {
+
         return data.response;
     }
 
@@ -1468,7 +1544,7 @@ function getResponseArray(
 }
 
 
-function getApiResults(
+function resultCount(
     data
 ) {
 
@@ -1483,35 +1559,241 @@ function getApiResults(
         ) || 0;
     }
 
-    return getResponseArray(
+    return responseArray(
         data
     ).length;
 }
 
 
-function isRealDataResponse(
-    result
+function apiErrors(
+    data
 ) {
 
-    if (!result) {
-        return false;
+    if (
+        !data ||
+        !data.errors
+    ) {
+
+        return [];
     }
 
-    if (!result.ok) {
-        return false;
+    if (
+        Array.isArray(
+            data.errors
+        )
+    ) {
+
+        return data.errors;
     }
 
-    const count =
-        getApiResults(
-            result.data
+    if (
+        typeof data.errors ===
+        "object"
+    ) {
+
+        return Object.entries(
+            data.errors
+        )
+        .map(
+            ([key, value]) =>
+                key +
+                ": " +
+                value
+        );
+    }
+
+    return [
+        String(
+            data.errors
+        )
+    ];
+}
+
+
+function apiMessage(
+    data
+) {
+
+    const errors =
+        apiErrors(
+            data
         );
 
-    return count > 0;
+    if (
+        errors.length
+    ) {
+
+        return errors.join(
+            " | "
+        );
+    }
+
+    if (
+        data &&
+        data.message
+    ) {
+
+        return String(
+            data.message
+        );
+    }
+
+    return "";
 }
 
 
 /* =========================================================
-   REQUEST
+   DIAGNOSTICA
+   ========================================================= */
+
+function showDiagnostic(
+    diagnostic
+) {
+
+    lastRequestDiagnostic =
+        diagnostic;
+
+    diagnosticCard.classList.remove(
+        "hidden"
+    );
+
+    let responsePreview =
+        diagnostic.data;
+
+    try {
+
+        responsePreview =
+            JSON.stringify(
+                diagnostic.data,
+                null,
+                2
+            );
+
+    } catch {
+
+        responsePreview =
+            String(
+                diagnostic.data
+            );
+    }
+
+
+    const apiErrorText =
+        apiMessage(
+            diagnostic.data
+        );
+
+
+    diagnosticContent.innerHTML = `
+
+        <div class="diagnostic">
+
+            <div class="diagnostic-row">
+
+                <div class="diagnostic-label">
+                    Endpoint richiesto
+                </div>
+
+                <div class="endpoint-box">
+                    ${escapeHtml(
+                        diagnostic.target
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="diagnostic-row">
+
+                <div class="diagnostic-label">
+                    HTTP
+                </div>
+
+                <div class="diagnostic-value">
+                    ${escapeHtml(
+                        diagnostic.status
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="diagnostic-row">
+
+                <div class="diagnostic-label">
+                    Risposta OK
+                </div>
+
+                <div class="diagnostic-value">
+                    ${
+                        diagnostic.ok
+                            ? "🟢 Sì"
+                            : "🔴 No"
+                    }
+                </div>
+
+            </div>
+
+
+            <div class="diagnostic-row">
+
+                <div class="diagnostic-label">
+                    Risultati
+                </div>
+
+                <div class="diagnostic-value">
+                    ${escapeHtml(
+                        resultCount(
+                            diagnostic.data
+                        )
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="diagnostic-row">
+
+                <div class="diagnostic-label">
+                    Errore API
+                </div>
+
+                <div class="diagnostic-value">
+                    ${
+                        apiErrorText
+                            ? escapeHtml(
+                                apiErrorText
+                            )
+                            : "Nessun errore dichiarato"
+                    }
+                </div>
+
+            </div>
+
+
+            <div class="details">
+
+                <details>
+
+                    <summary>
+                        Mostra risposta completa
+                    </summary>
+
+                    <pre>
+${escapeHtml(responsePreview)}
+                    </pre>
+
+                </details>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   REQUEST API
    ========================================================= */
 
 async function requestApi(
@@ -1526,15 +1808,19 @@ async function requestApi(
         };
     }
 
+
     if (
         requestCount >=
-        DAILY_LIMIT
+        SAFETY_LIMIT
     ) {
 
-        stopped = true;
+        stopped =
+            true;
 
         addLog(
-            "Raggiunto il limite di sicurezza di 100 richieste.",
+            "Raggiunto il limite di sicurezza di " +
+            SAFETY_LIMIT +
+            " richieste.",
             "error"
         );
 
@@ -1544,8 +1830,10 @@ async function requestApi(
         };
     }
 
+
     const key =
         apiKey.value.trim();
+
 
     if (!key) {
 
@@ -1556,6 +1844,7 @@ async function requestApi(
         };
     }
 
+
     const target =
         endpoint.startsWith("http")
             ? endpoint
@@ -1565,6 +1854,7 @@ async function requestApi(
                       ? endpoint
                       : "/" + endpoint
               );
+
 
     const proxyUrl =
         PROXY +
@@ -1577,13 +1867,19 @@ async function requestApi(
             key
         );
 
+
     requestCount++;
 
     updateCounters();
 
+
     addLog(
-        "GET " + target
+        "Richiesta #" +
+        requestCount +
+        ": " +
+        target
     );
+
 
     try {
 
@@ -1595,7 +1891,8 @@ async function requestApi(
                 }
             );
 
-        const remaining =
+
+        const remainingHeader =
             response.headers.get(
                 "x-ratelimit-requests-remaining"
             ) ||
@@ -1606,30 +1903,36 @@ async function requestApi(
                 "X-RateLimit-Remaining"
             );
 
+
         if (
-            remaining !== null
+            remainingHeader !== null
         ) {
 
-            const parsed =
-                Number(remaining);
+            const numericRemaining =
+                Number(
+                    remainingHeader
+                );
 
             if (
                 Number.isFinite(
-                    parsed
+                    numericRemaining
                 )
             ) {
 
                 apiRemaining =
-                    parsed;
+                    numericRemaining;
 
                 updateCounters();
             }
         }
 
+
         const text =
             await response.text();
 
+
         let data;
+
 
         try {
 
@@ -1641,13 +1944,34 @@ async function requestApi(
         } catch {
 
             data = {
-                raw: text
+                raw:
+                    text
             };
         }
+
+
+        const diagnostic = {
+
+            ok:
+                response.ok,
+
+            status:
+                response.status,
+
+            data,
+
+            target
+        };
+
+
+        showDiagnostic(
+            diagnostic
+        );
 
         showLastResponse(
             data
         );
+
 
         if (
             response.ok
@@ -1658,7 +1982,7 @@ async function requestApi(
             addLog(
                 "HTTP " +
                 response.status +
-                " — risposta ricevuta.",
+                " ricevuto.",
                 "success"
             );
 
@@ -1666,45 +1990,74 @@ async function requestApi(
 
             errorCount++;
 
+            const errorText =
+                apiMessage(
+                    data
+                );
+
+
             addLog(
                 "HTTP " +
                 response.status +
-                " — risposta non valida.",
+                (
+                    errorText
+                        ? " — " +
+                          errorText
+                        : ""
+                ),
                 "error"
             );
         }
 
+
         updateCounters();
 
-        return {
-            ok:
-                response.ok,
-            status:
-                response.status,
-            data,
-            target
-        };
 
-    } catch (error) {
+        return diagnostic;
+
+
+    } catch (
+        error
+    ) {
 
         errorCount++;
 
         updateCounters();
 
+
+        const diagnostic = {
+
+            ok:
+                false,
+
+            status:
+                "NETWORK ERROR",
+
+            data: {
+                error:
+                    error.message
+            },
+
+            target,
+
+            networkError:
+                error.message
+        };
+
+
+        showDiagnostic(
+            diagnostic
+        );
+
+
         addLog(
-            "Errore di rete: " +
+            "Errore di rete/proxy: " +
             error.message,
             "error"
         );
 
-        return {
-            ok: false,
-            status: 0,
-            data: null,
-            target,
-            error:
-                error.message
-        };
+
+        return diagnostic;
     }
 }
 
@@ -1713,17 +2066,14 @@ async function requestApi(
    STATUS API
    ========================================================= */
 
-async function testStatus() {
+async function testApiStatus() {
 
     const result =
         await requestApi(
             "/status"
         );
 
-    results.status =
-        result;
-
-    doneStep();
+    completeStep();
 
     await sleep(
         REQUEST_DELAY
@@ -1734,10 +2084,10 @@ async function testStatus() {
 
 
 /* =========================================================
-   LEAGUES + SEASONS
+   LEAGUE METADATA
    ========================================================= */
 
-async function getLeagueInfo(
+async function getLeagueMetadata(
     league
 ) {
 
@@ -1749,30 +2099,69 @@ async function getLeagueInfo(
             )
         );
 
-    doneStep();
+
+    completeStep();
+
 
     await sleep(
         REQUEST_DELAY
     );
 
+
     if (
+        !result ||
         !result.ok
     ) {
-        return null;
+
+        return {
+
+            success:
+                false,
+
+            result,
+
+            league
+        };
     }
 
+
     const list =
-        getResponseArray(
+        responseArray(
             result.data
         );
+
 
     if (
         !list.length
     ) {
-        return null;
+
+        return {
+
+            success:
+                false,
+
+            result,
+
+            league,
+
+            empty:
+                true
+        };
     }
 
-    return list[0];
+
+    return {
+
+        success:
+            true,
+
+        result,
+
+        league,
+
+        data:
+            list[0]
+    };
 }
 
 
@@ -1780,39 +2169,21 @@ async function getLeagueInfo(
    COVERAGE
    ========================================================= */
 
-function findSeasonInfo(
-    leagueInfo,
-    season
+function coverageValue(
+    coverage,
+    keys
 ) {
 
     if (
-        !leagueInfo ||
-        !Array.isArray(
-            leagueInfo.seasons
-        )
+        !coverage
     ) {
+
         return null;
     }
 
-    return leagueInfo.seasons.find(
-        item =>
-            Number(item.year) ===
-            Number(season)
-    ) || null;
-}
-
-
-function coverageFlag(
-    coverage,
-    possibleKeys
-) {
-
-    if (!coverage) {
-        return null;
-    }
 
     for (
-        const key of possibleKeys
+        const key of keys
     ) {
 
         if (
@@ -1826,203 +2197,114 @@ function coverageFlag(
         }
     }
 
+
     return null;
 }
 
 
 /* =========================================================
-   CLASSIFICAZIONE DATI
+   DATA OBJECT
    ========================================================= */
 
-function emptyDataResult() {
+function createDataObject() {
 
     const output = {};
 
-    DATA_DEFINITIONS.forEach(
-        item => {
 
-            output[item.id] = {
+    DATA_DEFINITIONS
+        .forEach(
+            definition => {
 
-                id: item.id,
+                output[
+                    definition.id
+                ] = {
 
-                name: item.name,
+                    id:
+                        definition.id,
 
-                description:
-                    item.description,
+                    name:
+                        definition.name,
 
-                coverage: null,
+                    description:
+                        definition.description,
 
-                endpointTested: false,
+                    coverage:
+                        null,
 
-                realData: false,
+                    endpointTested:
+                        false,
 
-                resultCount: 0,
+                    realData:
+                        false,
 
-                status: "unknown",
+                    resultCount:
+                        0,
 
-                requests: 0
-            };
-        }
-    );
+                    status:
+                        "unknown",
+
+                    error:
+                        null
+                };
+            }
+        );
+
 
     return output;
 }
 
 
-function setDataResult(
-    dataSet,
-    id,
-    values
+/* =========================================================
+   STATUS DATI
+   ========================================================= */
+
+function determineDataStatus(
+    coverage,
+    realData,
+    count,
+    error
 ) {
 
     if (
-        !dataSet[id]
+        error &&
+        coverage === false
     ) {
-        return;
+
+        return "unavailable";
     }
 
-    Object.assign(
-        dataSet[id],
-        values
-    );
-}
-
-
-function determineStatus(
-    coverage,
-    realData,
-    resultCount
-) {
-
-    /*
-       VERDE:
-       dati realmente restituiti.
-
-       GIALLO:
-       coverage disponibile ma
-       verifica incompleta oppure
-       dati parziali.
-
-       ROSSO:
-       API dichiara esplicitamente
-       che il dato non è disponibile.
-
-       GRIGIO:
-       non abbiamo elementi sufficienti.
-    */
 
     if (
         realData &&
-        resultCount > 0
+        count > 0
     ) {
+
         return "available";
     }
+
 
     if (
         coverage === false
     ) {
+
         return "unavailable";
     }
+
 
     if (
         coverage === true
     ) {
+
         return "partial";
     }
+
 
     return "unknown";
 }
 
 
 /* =========================================================
-   TEST FIXTURES STAGIONE
-   ========================================================= */
-
-async function testSeasonFixtures(
-    league,
-    season,
-    seasonRecord
-) {
-
-    if (
-        stopped ||
-        requestCount >= DAILY_LIMIT
-    ) {
-        return;
-    }
-
-    const endpoint =
-        "/fixtures?league=" +
-        encodeURIComponent(
-            league.id
-        ) +
-        "&season=" +
-        encodeURIComponent(
-            season
-        );
-
-    const result =
-        await requestApi(
-            endpoint
-        );
-
-    seasonRecord.fixtureRequest =
-        true;
-
-    seasonRecord.fixtureStatus =
-        result;
-
-    const count =
-        getApiResults(
-            result.data
-        );
-
-    seasonRecord.fixtureCount =
-        count;
-
-    if (
-        result.ok &&
-        count > 0
-    ) {
-
-        seasonRecord.realFixtures =
-            true;
-
-        verifiedCount++;
-
-        const fixtures =
-            getResponseArray(
-                result.data
-            );
-
-        /*
-           Memorizziamo una partita reale
-           per eventuali test di dettaglio.
-        */
-
-        if (
-            fixtures.length
-        ) {
-
-            seasonRecord.sampleFixture =
-                fixtures[0];
-        }
-    }
-
-    updateCounters();
-
-    doneStep();
-
-    await sleep(
-        REQUEST_DELAY
-    );
-
-    return result;
-}
-
-
-/* =========================================================
-   TEST COVERAGE + STAGIONE
+   STAGIONE
    ========================================================= */
 
 async function analyzeSeason(
@@ -2032,14 +2314,25 @@ async function analyzeSeason(
 ) {
 
     const seasonInfo =
-        findSeasonInfo(
-            leagueInfo,
-            season
-        );
+        Array.isArray(
+            leagueInfo.seasons
+        )
+            ? leagueInfo.seasons.find(
+                item =>
+                    Number(
+                        item.year
+                    ) ===
+                    Number(
+                        season
+                    )
+            )
+            : null;
+
 
     const coverage =
         seasonInfo?.coverage ||
         null;
+
 
     const record = {
 
@@ -2056,69 +2349,52 @@ async function analyzeSeason(
         fixtureCount:
             0,
 
-        realFixtures:
-            false,
-
         sampleFixture:
             null,
 
-        data:
-            emptyDataResult()
+        realFixtures:
+            false,
 
+        data:
+            createDataObject(),
+
+        fixtureResult:
+            null
     };
 
 
     /*
-       FIXTURES
+       COVERAGE PARTITE
     */
 
-    const fixturesCoverage =
-        coverageFlag(
+    record.data.fixtures.coverage =
+        coverageValue(
             coverage,
             [
-                "fixtures",
-                "fixtures_events"
+                "fixtures"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "fixtures",
-        {
-            coverage:
-                fixturesCoverage
-        }
-    );
-
 
     /*
-       EVENTI
+       COVERAGE EVENTI
     */
 
-    const eventsCoverage =
-        coverageFlag(
+    record.data.events.coverage =
+        coverageValue(
             coverage,
             [
                 "events"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "events",
-        {
-            coverage:
-                eventsCoverage
-        }
-    );
-
 
     /*
-       STATISTICHE
+       COVERAGE STATISTICHE
     */
 
-    const statsCoverage =
-        coverageFlag(
+    record.data.statistics.coverage =
+        coverageValue(
             coverage,
             [
                 "statistics_fixtures",
@@ -2126,250 +2402,318 @@ async function analyzeSeason(
             ]
         );
 
-    setDataResult(
-        record.data,
-        "statistics",
-        {
-            coverage:
-                statsCoverage
-        }
-    );
-
 
     /*
-       LINEUPS
+       COVERAGE FORMAZIONI
     */
 
-    const lineupsCoverage =
-        coverageFlag(
+    record.data.lineups.coverage =
+        coverageValue(
             coverage,
             [
                 "lineups"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "lineups",
-        {
-            coverage:
-                lineupsCoverage
-        }
-    );
-
 
     /*
-       PLAYERS
+       COVERAGE GIOCATORI
     */
 
-    const playersCoverage =
-        coverageFlag(
+    record.data.players.coverage =
+        coverageValue(
             coverage,
             [
                 "players"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "players",
-        {
-            coverage:
-                playersCoverage
-        }
-    );
-
 
     /*
-       STANDINGS
+       COVERAGE CLASSIFICA
     */
 
-    const standingsCoverage =
-        coverageFlag(
+    record.data.standings.coverage =
+        coverageValue(
             coverage,
             [
                 "standings"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "standings",
-        {
-            coverage:
-                standingsCoverage
-        }
-    );
-
 
     /*
-       INJURIES
+       COVERAGE INFORTUNI
     */
 
-    const injuriesCoverage =
-        coverageFlag(
+    record.data.injuries.coverage =
+        coverageValue(
             coverage,
             [
                 "injuries"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "injuries",
-        {
-            coverage:
-                injuriesCoverage
-        }
-    );
-
 
     /*
-       ODDS
+       COVERAGE QUOTE
     */
 
-    const oddsCoverage =
-        coverageFlag(
+    record.data.odds.coverage =
+        coverageValue(
             coverage,
             [
                 "odds"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "odds",
-        {
-            coverage:
-                oddsCoverage
-        }
-    );
-
 
     /*
-       PREDICTIONS
+       COVERAGE PREDICTIONS
     */
 
-    const predictionsCoverage =
-        coverageFlag(
+    record.data.predictions.coverage =
+        coverageValue(
             coverage,
             [
                 "predictions"
             ]
         );
 
-    setDataResult(
-        record.data,
-        "predictions",
-        {
-            coverage:
-                predictionsCoverage
-        }
-    );
-
 
     /*
-       TOP SCORERS
+       I TOP SONO LEGATI AI DATI PLAYERS.
     */
 
-    setDataResult(
-        record.data,
-        "topscorers",
-        {
-            coverage:
-                playersCoverage
-        }
-    );
+    record.data.topscorers.coverage =
+        coverageValue(
+            coverage,
+            [
+                "players"
+            ]
+        );
 
+    record.data.topassists.coverage =
+        coverageValue(
+            coverage,
+            [
+                "players"
+            ]
+        );
 
-    /*
-       TOP ASSISTS
-    */
-
-    setDataResult(
-        record.data,
-        "topassists",
-        {
-            coverage:
-                playersCoverage
-        }
-    );
-
-
-    /*
-       TOP CARDS
-    */
-
-    setDataResult(
-        record.data,
-        "topcards",
-        {
-            coverage:
-                playersCoverage
-        }
-    );
-
-
-    /*
-       H2H
-       Non è propriamente legato alla singola
-       stagione, quindi non viene marcato
-       automaticamente come disponibile.
-    */
-
-    setDataResult(
-        record.data,
-        "h2h",
-        {
-            coverage:
-                null
-        }
-    );
-
-
-    /*
-       Richiesta reale delle partite.
-
-       È il test fondamentale per capire
-       se quella stagione restituisce
-       effettivamente le partite.
-    */
-
-    await testSeasonFixtures(
-        league,
-        season,
-        record
-    );
-
-
-    /*
-       Aggiorniamo lo stato delle fixtures.
-    */
-
-    const fixtureData =
-        record.data.fixtures;
-
-    fixtureData.endpointTested =
-        true;
-
-    fixtureData.resultCount =
-        record.fixtureCount;
-
-    fixtureData.realData =
-        record.realFixtures;
-
-    fixtureData.status =
-        determineStatus(
-            fixtureData.coverage,
-            fixtureData.realData,
-            fixtureData.resultCount
+    record.data.topcards.coverage =
+        coverageValue(
+            coverage,
+            [
+                "players"
+            ]
         );
 
 
     /*
-       Le altre coverage non vengono
-       spacciate per dati verificati:
-       vengono mantenute come "coverage".
+       H2H non viene associato
+       direttamente alla stagione.
+    */
+
+    record.data.h2h = {
+
+        id:
+            "h2h",
+
+        name:
+            "H2H",
+
+        description:
+            "Scontri diretti tra due squadre.",
+
+        coverage:
+            null,
+
+        endpointTested:
+            false,
+
+        realData:
+            false,
+
+        resultCount:
+            0,
+
+        status:
+            "unknown",
+
+        error:
+            null
+    };
+
+
+    /*
+       Se la coverage dice esplicitamente
+       che le partite non sono disponibili,
+       NON spendiamo una richiesta.
+    */
+
+    if (
+        record.data.fixtures.coverage ===
+        false
+    ) {
+
+        record.data.fixtures.status =
+            "unavailable";
+
+        record.data.fixtures.endpointTested =
+            false;
+
+        record.fixtureResult = {
+
+            skipped:
+                true,
+
+            reason:
+                "Coverage fixtures = false"
+        };
+
+        completeStep();
+
+        seasonResults.push(
+            record
+        );
+
+        renderHistory();
+
+        return record;
+    }
+
+
+    /*
+       Se la stagione non compare affatto
+       nei metadata, proviamo comunque
+       una richiesta fixtures.
+
+       Questo è importante perché evita
+       falsi negativi causati da metadata
+       incompleti.
+    */
+
+    const fixturesEndpoint =
+        "/fixtures?league=" +
+        encodeURIComponent(
+            league.id
+        ) +
+        "&season=" +
+        encodeURIComponent(
+            season
+        );
+
+
+    const fixtureResult =
+        await requestApi(
+            fixturesEndpoint
+        );
+
+
+    record.fixtureResult =
+        fixtureResult;
+
+    record.data.fixtures.endpointTested =
+        true;
+
+
+    const fixtures =
+        responseArray(
+            fixtureResult.data
+        );
+
+
+    const count =
+        resultCount(
+            fixtureResult.data
+        );
+
+
+    record.fixtureCount =
+        count;
+
+
+    record.data.fixtures.resultCount =
+        count;
+
+
+    if (
+        fixtureResult.ok &&
+        count > 0
+    ) {
+
+        record.realFixtures =
+            true;
+
+        record.data.fixtures.realData =
+            true;
+
+        record.data.fixtures.status =
+            "available";
+
+        verifiedCount++;
+
+        record.sampleFixture =
+            fixtures[0];
+
+    } else if (
+        fixtureResult.ok &&
+        count === 0
+    ) {
+
+        /*
+           Zero risultati non significa
+           necessariamente endpoint assente.
+        */
+
+        if (
+            record.data.fixtures.coverage ===
+            false
+        ) {
+
+            record.data.fixtures.status =
+                "unavailable";
+
+        } else {
+
+            record.data.fixtures.status =
+                "partial";
+        }
+
+    } else {
+
+        const errorText =
+            apiMessage(
+                fixtureResult.data
+            );
+
+
+        record.data.fixtures.error =
+            errorText ||
+            fixtureResult.networkError ||
+            null;
+
+
+        if (
+            record.data.fixtures.coverage ===
+            false
+        ) {
+
+            record.data.fixtures.status =
+                "unavailable";
+
+        } else {
+
+            record.data.fixtures.status =
+                "unknown";
+        }
+    }
+
+
+    /*
+       Per tutti gli altri dati:
+       la coverage viene rispettata.
     */
 
     DATA_DEFINITIONS
@@ -2381,101 +2725,159 @@ async function analyzeSeason(
                         definition.id
                     ];
 
-                if (
-                    item.status ===
-                    "unknown"
-                ) {
 
-                    item.status =
-                        determineStatus(
-                            item.coverage,
-                            false,
-                            0
-                        );
+                if (
+                    !item
+                ) {
+                    return;
                 }
+
+
+                if (
+                    item.id ===
+                    "fixtures"
+                ) {
+                    return;
+                }
+
+
+                item.status =
+                    determineDataStatus(
+                        item.coverage,
+                        false,
+                        0,
+                        null
+                    );
             }
         );
+
+
+    completeStep();
 
 
     seasonResults.push(
         record
     );
 
+
     renderHistory();
+
+
+    await sleep(
+        REQUEST_DELAY
+    );
+
 
     return record;
 }
 
 
 /* =========================================================
-   TEST DETTAGLI SU UNA PARTITA REALE
+   TEST DETTAGLI PARTITA
    ========================================================= */
 
-async function testRealFixtureDetails(
+async function testFixtureDetails(
     record
 ) {
 
     if (
         stopped ||
-        requestCount >= DAILY_LIMIT
+        requestCount >=
+        SAFETY_LIMIT
     ) {
+
         return;
     }
 
-    const fixture =
-        record.sampleFixture;
 
-    if (!fixture) {
+    if (
+        !record.sampleFixture
+    ) {
+
         return;
     }
+
 
     const fixtureId =
-        fixture.fixture?.id;
+        record.sampleFixture
+            ?.fixture
+            ?.id;
 
-    if (!fixtureId) {
+
+    if (
+        !fixtureId
+    ) {
+
+        addLog(
+            "Partita trovata ma fixture ID non leggibile.",
+            "warning"
+        );
+
         return;
     }
 
 
-    const detailTests = [
+    addLog(
+        "Verifica dettagli sulla partita reale #" +
+        fixtureId +
+        " — " +
+        record.leagueName +
+        " " +
+        record.season
+    );
+
+
+    const tests = [
 
         {
-            id: "events",
+            id:
+                "events",
+
             endpoint:
                 "/fixtures/events?fixture=" +
                 fixtureId
         },
 
         {
-            id: "statistics",
+            id:
+                "statistics",
+
             endpoint:
                 "/fixtures/statistics?fixture=" +
                 fixtureId
         },
 
         {
-            id: "lineups",
+            id:
+                "lineups",
+
             endpoint:
                 "/fixtures/lineups?fixture=" +
                 fixtureId
         },
 
         {
-            id: "injuries",
+            id:
+                "injuries",
+
             endpoint:
                 "/injuries?fixture=" +
                 fixtureId
         },
 
         {
-            id: "predictions",
+            id:
+                "predictions",
+
             endpoint:
                 "/predictions?fixture=" +
                 fixtureId
         },
 
         {
-            id: "odds",
+            id:
+                "odds",
+
             endpoint:
                 "/odds?fixture=" +
                 fixtureId
@@ -2485,49 +2887,56 @@ async function testRealFixtureDetails(
 
 
     for (
-        const test of detailTests
+        const test of tests
     ) {
 
         if (
             stopped ||
-            requestCount >= DAILY_LIMIT
+            requestCount >=
+            SAFETY_LIMIT
         ) {
             break;
         }
+
 
         const result =
             await requestApi(
                 test.endpoint
             );
 
+
         const item =
             record.data[
                 test.id
             ];
 
-        if (item) {
+
+        if (
+            item
+        ) {
+
+            const count =
+                resultCount(
+                    result.data
+                );
+
+            const real =
+                result.ok &&
+                count > 0;
+
 
             item.endpointTested =
                 true;
 
             item.resultCount =
-                getApiResults(
-                    result.data
-                );
+                count;
 
             item.realData =
-                isRealDataResponse(
-                    result
-                );
+                real;
 
-            /*
-               Se abbiamo ricevuto dati reali,
-               questo è il livello più forte
-               di verifica.
-            */
 
             if (
-                item.realData
+                real
             ) {
 
                 item.status =
@@ -2536,14 +2945,16 @@ async function testRealFixtureDetails(
                 verifiedCount++;
 
             } else if (
-                item.coverage === false
+                item.coverage ===
+                false
             ) {
 
                 item.status =
                     "unavailable";
 
             } else if (
-                item.coverage === true
+                item.coverage ===
+                true
             ) {
 
                 item.status =
@@ -2555,12 +2966,26 @@ async function testRealFixtureDetails(
                     "unknown";
             }
 
-            item.requests++;
+
+            const errorText =
+                apiMessage(
+                    result.data
+                );
+
+
+            if (
+                errorText
+            ) {
+
+                item.error =
+                    errorText;
+            }
         }
+
 
         updateCounters();
 
-        doneStep();
+        completeStep();
 
         await sleep(
             REQUEST_DELAY
@@ -2570,7 +2995,7 @@ async function testRealFixtureDetails(
 
 
 /* =========================================================
-   TEST PLAYERS / STANDINGS
+   TEST PLAYERS / CLASSIFICA
    ========================================================= */
 
 async function testCompetitionData(
@@ -2579,74 +3004,73 @@ async function testCompetitionData(
 
     if (
         stopped ||
-        requestCount >= DAILY_LIMIT
+        requestCount >=
+        SAFETY_LIMIT
     ) {
+
         return;
     }
-
-    const leagueId =
-        record.leagueId;
-
-    const season =
-        record.season;
 
 
     const tests = [
 
         {
-            id: "players",
+            id:
+                "players",
+
             endpoint:
                 "/players?league=" +
-                leagueId +
+                record.leagueId +
                 "&season=" +
-                season
+                record.season
         },
 
         {
-            id: "standings",
+            id:
+                "standings",
+
             endpoint:
                 "/standings?league=" +
-                leagueId +
+                record.leagueId +
                 "&season=" +
-                season
+                record.season
         },
 
         {
-            id: "topscorers",
+            id:
+                "topscorers",
+
             endpoint:
                 "/players/topscorers?league=" +
-                leagueId +
+                record.leagueId +
                 "&season=" +
-                season
+                record.season
         },
 
         {
-            id: "topassists",
+            id:
+                "topassists",
+
             endpoint:
                 "/players/topassists?league=" +
-                leagueId +
+                record.leagueId +
                 "&season=" +
-                season
+                record.season
         },
 
         {
-            id: "topcards",
+            id:
+                "topcards",
+
             endpoint:
                 "/players/topcards?league=" +
-                leagueId +
+                record.leagueId +
                 "&season=" +
-                season
+                record.season
         }
 
     ];
 
-
-    /*
-       Per non consumare inutilmente
-       100 richieste, qui testiamo soltanto
-       una stagione rappresentativa per
-       campionato.
-    */
 
     for (
         const test of tests
@@ -2654,55 +3078,107 @@ async function testCompetitionData(
 
         if (
             stopped ||
-            requestCount >= DAILY_LIMIT
+            requestCount >=
+            SAFETY_LIMIT
         ) {
             break;
         }
 
-        const result =
-            await requestApi(
-                test.endpoint
-            );
 
         const item =
             record.data[
                 test.id
             ];
 
-        if (item) {
+
+        /*
+           Se la coverage è false,
+           non facciamo la richiesta.
+        */
+
+        if (
+            item &&
+            item.coverage ===
+            false
+        ) {
+
+            item.status =
+                "unavailable";
+
+            completeStep();
+
+            continue;
+        }
+
+
+        const result =
+            await requestApi(
+                test.endpoint
+            );
+
+
+        if (
+            item
+        ) {
+
+            const count =
+                resultCount(
+                    result.data
+                );
+
+            const real =
+                result.ok &&
+                count > 0;
+
 
             item.endpointTested =
                 true;
 
             item.resultCount =
-                getApiResults(
+                count;
+
+            item.realData =
+                real;
+
+
+            item.status =
+                determineDataStatus(
+                    item.coverage,
+                    real,
+                    count,
+                    apiMessage(
+                        result.data
+                    )
+                );
+
+
+            const errorText =
+                apiMessage(
                     result.data
                 );
 
-            item.realData =
-                isRealDataResponse(
-                    result
-                );
-
-            item.status =
-                determineStatus(
-                    item.coverage,
-                    item.realData,
-                    item.resultCount
-                );
-
-            item.requests++;
 
             if (
-                item.realData
+                errorText
             ) {
+
+                item.error =
+                    errorText;
+            }
+
+
+            if (
+                real
+            ) {
+
                 verifiedCount++;
             }
         }
 
+
         updateCounters();
 
-        doneStep();
+        completeStep();
 
         await sleep(
             REQUEST_DELAY
@@ -2712,7 +3188,7 @@ async function testCompetitionData(
 
 
 /* =========================================================
-   RENDER DATA AVAILABILITY
+   STATUS VISIVO
    ========================================================= */
 
 function statusInfo(
@@ -2727,10 +3203,12 @@ function statusInfo(
         return {
             label:
                 "🟢 DISPONIBILE",
-            class:
+
+            className:
                 "green"
         };
     }
+
 
     if (
         status ===
@@ -2740,10 +3218,12 @@ function statusInfo(
         return {
             label:
                 "🟡 PARZIALE",
-            class:
+
+            className:
                 "yellow"
         };
     }
+
 
     if (
         status ===
@@ -2753,30 +3233,37 @@ function statusInfo(
         return {
             label:
                 "🔴 NON DISPONIBILE",
-            class:
+
+            className:
                 "red"
         };
     }
 
+
     return {
         label:
             "⚪ NON VERIFICATO",
-        class:
+
+        className:
             "gray"
     };
 }
 
 
+/* =========================================================
+   RENDER DISPONIBILITÀ
+   ========================================================= */
+
 function renderDataAvailability() {
 
-    const merged = {};
+    const totals = {};
 
 
     DATA_DEFINITIONS
         .forEach(
             definition => {
 
-                merged[
+                totals[
                     definition.id
                 ] = {
 
@@ -2804,10 +3291,7 @@ function renderDataAvailability() {
                     verified:
                         0,
 
-                    total:
-                        0,
-
-                    resultCount:
+                    results:
                         0
                 };
             }
@@ -2824,53 +3308,68 @@ function renderDataAvailability() {
                 .forEach(
                     item => {
 
-                        const target =
-                            merged[
+                        if (
+                            !totals[
                                 item.id
-                            ];
-
-                        if (!target) {
+                            ]
+                        ) {
                             return;
                         }
 
-                        target.total++;
+
+                        const total =
+                            totals[
+                                item.id
+                            ];
+
 
                         if (
                             item.status ===
                             "available"
                         ) {
-                            target.available++;
+
+                            total.available++;
                         }
+
 
                         if (
                             item.status ===
                             "partial"
                         ) {
-                            target.partial++;
+
+                            total.partial++;
                         }
+
 
                         if (
                             item.status ===
                             "unavailable"
                         ) {
-                            target.unavailable++;
+
+                            total.unavailable++;
                         }
+
 
                         if (
                             item.status ===
                             "unknown"
                         ) {
-                            target.unknown++;
+
+                            total.unknown++;
                         }
+
 
                         if (
                             item.realData
                         ) {
-                            target.verified++;
+
+                            total.verified++;
                         }
 
-                        target.resultCount +=
-                            item.resultCount || 0;
+
+                        total.results +=
+                            item.resultCount ||
+                            0;
                     }
                 );
             }
@@ -2883,41 +3382,46 @@ function renderDataAvailability() {
                 definition => {
 
                     const item =
-                        merged[
+                        totals[
                             definition.id
                         ];
 
-                    let status =
+
+                    let overall =
                         "unknown";
 
+
                     if (
-                        item.available > 0
+                        item.available >
+                        0
                     ) {
 
-                        status =
+                        overall =
                             "available";
 
                     } else if (
-                        item.partial > 0
+                        item.partial >
+                        0
                     ) {
 
-                        status =
+                        overall =
                             "partial";
 
                     } else if (
                         item.unavailable >
                         0 &&
-                        item.unknown === 0
+                        item.unknown ===
+                        0
                     ) {
 
-                        status =
+                        overall =
                             "unavailable";
                     }
 
 
                     const info =
                         statusInfo(
-                            status
+                            overall
                         );
 
 
@@ -2934,12 +3438,13 @@ function renderDataAvailability() {
                                 </div>
 
                                 <span
-                                    class="badge ${info.class}"
+                                    class="badge ${info.className}"
                                 >
                                     ${info.label}
                                 </span>
 
                             </div>
+
 
                             <div class="data-body">
 
@@ -2949,19 +3454,24 @@ function renderDataAvailability() {
                                     )}
                                 </div>
 
+
                                 <div class="data-stats">
 
                                     <div class="data-stat">
+
                                         <div class="data-stat-label">
-                                            Stagioni disponibili
+                                            Disponibili
                                         </div>
 
                                         <div class="data-stat-value">
                                             ${item.available}
                                         </div>
+
                                     </div>
 
+
                                     <div class="data-stat">
+
                                         <div class="data-stat-label">
                                             Parziali
                                         </div>
@@ -2969,9 +3479,12 @@ function renderDataAvailability() {
                                         <div class="data-stat-value">
                                             ${item.partial}
                                         </div>
+
                                     </div>
 
+
                                     <div class="data-stat">
+
                                         <div class="data-stat-label">
                                             Non disponibili
                                         </div>
@@ -2979,9 +3492,12 @@ function renderDataAvailability() {
                                         <div class="data-stat-value">
                                             ${item.unavailable}
                                         </div>
+
                                     </div>
 
+
                                     <div class="data-stat">
+
                                         <div class="data-stat-label">
                                             Non verificati
                                         </div>
@@ -2989,9 +3505,12 @@ function renderDataAvailability() {
                                         <div class="data-stat-value">
                                             ${item.unknown}
                                         </div>
+
                                     </div>
 
+
                                     <div class="data-stat">
+
                                         <div class="data-stat-label">
                                             Verificati realmente
                                         </div>
@@ -2999,16 +3518,20 @@ function renderDataAvailability() {
                                         <div class="data-stat-value">
                                             ${item.verified}
                                         </div>
+
                                     </div>
 
+
                                     <div class="data-stat">
+
                                         <div class="data-stat-label">
                                             Risultati ricevuti
                                         </div>
 
                                         <div class="data-stat-value">
-                                            ${item.resultCount}
+                                            ${item.results}
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -3023,7 +3546,8 @@ function renderDataAvailability() {
 
 
     dataAvailability.innerHTML =
-        html;
+        html ||
+        '<div class="info">Nessun risultato.</div>';
 }
 
 
@@ -3035,9 +3559,12 @@ function cellStatus(
     item
 ) {
 
-    if (!item) {
+    if (
+        !item
+    ) {
         return "⚪";
     }
+
 
     if (
         item.status ===
@@ -3046,6 +3573,7 @@ function cellStatus(
         return "🟢";
     }
 
+
     if (
         item.status ===
         "partial"
@@ -3053,12 +3581,14 @@ function cellStatus(
         return "🟡";
     }
 
+
     if (
         item.status ===
         "unavailable"
     ) {
         return "🔴";
     }
+
 
     return "⚪";
 }
@@ -3142,9 +3672,7 @@ function renderHistory() {
                             </td>
 
                             <td>
-                                ${
-                                    record.fixtureCount
-                                }
+                                ${record.fixtureCount}
                             </td>
 
                         </tr>
@@ -3156,7 +3684,7 @@ function renderHistory() {
 
 
 /* =========================================================
-   SUMMARY GENERALE
+   SUMMARY
    ========================================================= */
 
 function renderSummary() {
@@ -3175,97 +3703,68 @@ function renderSummary() {
     }
 
 
-    let available =
-        0;
-
-    let partial =
-        0;
-
-    let unavailable =
-        0;
-
-    let unknown =
-        0;
+    const realFixtureSeasons =
+        seasonResults.filter(
+            record =>
+                record.realFixtures
+        ).length;
 
 
-    seasonResults
-        .forEach(
-            record => {
+    const totalSeasons =
+        seasonResults.length;
 
-                const fixtures =
-                    record.data.fixtures;
 
-                if (
-                    fixtures.status ===
-                    "available"
-                ) {
-                    available++;
-                }
-
-                else if (
-                    fixtures.status ===
-                    "partial"
-                ) {
-                    partial++;
-                }
-
-                else if (
-                    fixtures.status ===
-                    "unavailable"
-                ) {
-                    unavailable++;
-                }
-
-                else {
-                    unknown++;
-                }
-            }
-        );
+    const metadataFailures =
+        seasonResults.filter(
+            record =>
+                !record.coverage &&
+                !record.fixtureResult
+        ).length;
 
 
     if (
-        available > 0
+        realFixtureSeasons > 0
     ) {
 
         generalStatus.textContent =
-            "🟢 API funzionante";
+            "🟢 API operativa";
 
-    } else if (
-        partial > 0
-    ) {
-
-        generalStatus.textContent =
-            "🟡 Dati parziali";
+        generalDescription.textContent =
+            "L'API ha restituito partite reali.";
 
     } else {
 
         generalStatus.textContent =
-            "🔴 Nessun dato verificato";
+            "🔴 Nessuna partita verificata";
+
+        generalDescription.textContent =
+            metadataFailures > 0
+                ? "Controlla la diagnostica: potrebbero esserci problemi con API Key o proxy."
+                : "L'API non ha restituito partite nelle stagioni testate.";
     }
 
 
-    const total =
-        seasonResults.length;
-
     historicalStatus.textContent =
-        available +
+        realFixtureSeasons +
         "/" +
-        total +
+        totalSeasons +
         " stagioni con partite reali";
 
 
-    renderDataAvailability();
+    historicalDescription.textContent =
+        "Il numero indica quante stagioni hanno restituito almeno una partita reale.";
 }
 
 
 /* =========================================================
-   ANALISI PRINCIPALE
+   ANALISI
    ========================================================= */
 
 async function runAnalysis() {
 
     const key =
         apiKey.value.trim();
+
 
     if (!key) {
 
@@ -3291,6 +3790,7 @@ async function runAnalysis() {
 
     const leagues =
         selectedLeagues();
+
 
     if (!leagues.length) {
 
@@ -3337,41 +3837,39 @@ async function runAnalysis() {
     seasonResults.length =
         0;
 
+
     logEl.innerHTML =
         "";
 
     historyBody.innerHTML =
         "";
 
-    dataAvailability.innerHTML =
-        '<div class="info">Analisi in corso...</div>';
+    diagnosticCard.classList.add(
+        "hidden"
+    );
 
-    generalStatus.textContent =
-        "Analisi in corso...";
-
-    historicalStatus.textContent =
-        "Analisi in corso...";
+    lastResponse.textContent =
+        "Nessuna richiesta.";
 
 
     /*
-       Il tester è volutamente conservativo.
+       Stima conservativa.
 
-       Per ogni campionato:
-       1 richiesta /leagues
-       + N richieste fixtures storiche
-       + alcuni test dettagliati.
-
-       Evitiamo di tentare ogni singolo
-       endpoint per ogni singola stagione.
+       Non significa che verranno
+       necessariamente effettuate tutte:
+       le richieste vengono saltate quando
+       la coverage dice che un dato non esiste.
     */
 
     totalSteps =
         1 +
-        leagues.length *
         (
-            1 +
-            count +
-            6
+            leagues.length *
+            (
+                1 +
+                count +
+                11
+            )
         );
 
 
@@ -3382,25 +3880,30 @@ async function runAnalysis() {
     startBtn.disabled =
         true;
 
-    clearBtn.disabled =
-        true;
-
     stopBtn.disabled =
         false;
 
+    clearBtn.disabled =
+        true;
+
 
     setStatus(
-        "Controllo autenticazione API...",
+        "Controllo connessione API...",
         "running"
     );
 
 
+    addLog(
+        "Inizio analisi API-Football."
+    );
+
+
     /*
-       STATUS
+       TEST STATUS
     */
 
     const statusResult =
-        await testStatus();
+        await testApiStatus();
 
 
     if (
@@ -3408,20 +3911,37 @@ async function runAnalysis() {
         !statusResult.ok
     ) {
 
+        const errorText =
+            apiMessage(
+                statusResult?.data
+            );
+
+
         setStatus(
-            "Impossibile verificare l'API. Controlla API Key, URL e proxy.",
+            "ERRORE DI CONNESSIONE API" +
+            (
+                errorText
+                    ? " — " +
+                      errorText
+                    : ""
+            ),
             "error"
         );
+
+
+        generalStatus.textContent =
+            "🔴 API non verificata";
+
+
+        generalDescription.textContent =
+            "Guarda la sezione Diagnostica per vedere l'endpoint, HTTP e risposta completa.";
+
 
         finishAnalysis();
 
         return;
     }
 
-
-    /*
-       CAMPIONI STORICI
-    */
 
     const seasons =
         historicalSeasons(
@@ -3430,12 +3950,14 @@ async function runAnalysis() {
 
 
     /*
-       CAMPIONI PER I TEST DETTAGLIATI
+       CAMPIONI DETTAGLIATI
 
-       Per evitare di bruciare 100 richieste,
-       i test dettagliati vengono effettuati
-       sulla stagione più recente che
-       restituisce almeno una partita reale.
+       Una sola stagione reale per
+       campionato viene usata per
+       verificare i dettagli.
+
+       Questo evita di consumare
+       decine di richieste inutilmente.
     */
 
     for (
@@ -3445,14 +3967,14 @@ async function runAnalysis() {
         if (
             stopped ||
             requestCount >=
-            DAILY_LIMIT
+            SAFETY_LIMIT
         ) {
             break;
         }
 
 
         setStatus(
-            "Analisi " +
+            "Recupero informazioni " +
             league.name +
             "...",
             "running"
@@ -3460,33 +3982,62 @@ async function runAnalysis() {
 
 
         addLog(
-            "Recupero metadata e coverage: " +
+            "Recupero metadata: " +
             league.name
         );
 
 
-        const leagueInfo =
-            await getLeagueInfo(
+        const metadata =
+            await getLeagueMetadata(
                 league
             );
 
 
-        if (!leagueInfo) {
+        if (
+            !metadata.success
+        ) {
+
+            const result =
+                metadata.result;
+
+
+            const errorText =
+                apiMessage(
+                    result?.data
+                );
+
 
             addLog(
-                "Impossibile leggere metadata di " +
-                league.name,
+                "Metadata " +
+                league.name +
+                " NON letti." +
+                (
+                    errorText
+                        ? " Motivo: " +
+                          errorText
+                        : " Controlla la diagnostica."
+                ),
                 "error"
             );
 
+
             /*
-               Creiamo comunque righe
-               storiche con stato non verificato.
+               NON interrompiamo l'analisi.
+
+               Creiamo le stagioni come
+               non verificate.
             */
 
             for (
                 const season of seasons
             ) {
+
+                if (
+                    stopped
+                ) {
+                    break;
+                }
+
 
                 const record = {
 
@@ -3504,42 +4055,84 @@ async function runAnalysis() {
                     fixtureCount:
                         0,
 
-                    realFixtures:
-                        false,
-
                     sampleFixture:
                         null,
 
+                    realFixtures:
+                        false,
+
+                    fixtureResult:
+                        null,
+
                     data:
-                        emptyDataResult()
+                        createDataObject()
                 };
+
+
+                Object.values(
+                    record.data
+                )
+                .forEach(
+                    item => {
+
+                        item.status =
+                            "unknown";
+                    }
+                );
 
 
                 seasonResults.push(
                     record
                 );
 
-                /*
-                   Consumiamo lo step logico,
-                   non una richiesta API.
-                */
 
-                doneStep();
+                completeStep();
+
+                renderHistory();
             }
 
-            renderHistory();
 
             continue;
         }
 
 
+        const leagueInfo =
+            metadata.data;
+
+
+        addLog(
+            "Metadata " +
+            league.name +
+            " ricevuti correttamente.",
+            "success"
+        );
+
+
         /*
-           STAGIONI
+           Informazioni visive sulla
+           copertura disponibile.
         */
+
+        if (
+            leagueInfo.seasons
+        ) {
+
+            addLog(
+                league.name +
+                ": " +
+                leagueInfo.seasons.length +
+                " stagioni presenti nei metadata."
+            );
+        }
+
 
         let bestRecord =
             null;
 
+
+        /*
+           STAGIONI
+        */
 
         for (
             const season of seasons
@@ -3548,7 +4141,7 @@ async function runAnalysis() {
             if (
                 stopped ||
                 requestCount >=
-                DAILY_LIMIT
+                SAFETY_LIMIT
             ) {
                 break;
             }
@@ -3583,54 +4176,54 @@ async function runAnalysis() {
 
 
         /*
-           TEST DETTAGLIATI SOLTANTO
-           SU UNA STAGIONE REALE.
+           DETTAGLI SU UNA PARTITA REALE
         */
 
         if (
             bestRecord &&
             !stopped &&
             requestCount <
-            DAILY_LIMIT
+            SAFETY_LIMIT
         ) {
 
             setStatus(
                 league.name +
-                " — verifica dati dettagliati",
+                " — verifica dati reali",
                 "running"
             );
 
 
-            addLog(
-                "Verifica dettagli su partita reale di " +
-                league.name
-            );
-
-
-            await testRealFixtureDetails(
+            await testFixtureDetails(
                 bestRecord
             );
 
 
+            /*
+               Players / standings / top lists
+               sulla stessa stagione.
+            */
+
             if (
                 !stopped &&
                 requestCount <
-                DAILY_LIMIT
+                SAFETY_LIMIT
             ) {
 
                 await testCompetitionData(
                     bestRecord
                 );
             }
+
+
+            renderHistory();
+            renderDataAvailability();
         }
     }
 
 
-    /*
-       RENDER FINALE
-    */
-
     renderHistory();
+
+    renderDataAvailability();
 
     renderSummary();
 
@@ -3639,22 +4232,24 @@ async function runAnalysis() {
 
 
 /* =========================================================
-   FINE
+   FINE ANALISI
    ========================================================= */
 
 function finishAnalysis() {
 
-    stopBtn.disabled =
-        true;
-
     startBtn.disabled =
         false;
+
+    stopBtn.disabled =
+        true;
 
     clearBtn.disabled =
         false;
 
 
-    if (stopped) {
+    if (
+        stopped
+    ) {
 
         setStatus(
             "Analisi interrotta. " +
@@ -3665,11 +4260,24 @@ function finishAnalysis() {
 
     } else if (
         requestCount >=
-        DAILY_LIMIT
+        SAFETY_LIMIT
     ) {
 
         setStatus(
-            "Analisi fermata automaticamente al limite di sicurezza di 100 richieste.",
+            "Analisi fermata automaticamente a " +
+            SAFETY_LIMIT +
+            " richieste per sicurezza.",
+            "error"
+        );
+
+    } else if (
+        errorCount > 0
+    ) {
+
+        setStatus(
+            "Analisi completata con " +
+            errorCount +
+            " errore/i. Controlla la diagnostica.",
             "error"
         );
 
@@ -3686,6 +4294,8 @@ function finishAnalysis() {
 
     renderHistory();
 
+    renderDataAvailability();
+
     renderSummary();
 
     updateCounters();
@@ -3695,7 +4305,30 @@ function finishAnalysis() {
 
 
 /* =========================================================
-   CANCELLA
+   STOP
+   ========================================================= */
+
+function stopAnalysis() {
+
+    stopped =
+        true;
+
+
+    setStatus(
+        "Interruzione in corso...",
+        "error"
+    );
+
+
+    addLog(
+        "Interruzione richiesta dall'utente.",
+        "error"
+    );
+}
+
+
+/* =========================================================
+   CLEAR
    ========================================================= */
 
 function clearAll() {
@@ -3729,6 +4362,7 @@ function clearAll() {
 
 
     updateCounters();
+
     updateProgress();
 
 
@@ -3736,23 +4370,40 @@ function clearAll() {
         "";
 
     dataAvailability.innerHTML =
-        '<div class="info">' +
-        'Avvia l\'analisi per visualizzare i risultati.' +
-        '</div>';
+        `
+        <div class="info">
+            Avvia l'analisi per visualizzare i risultati.
+        </div>
+        `;
 
 
     generalStatus.textContent =
         "Non ancora verificato";
 
+
+    generalDescription.textContent =
+        "Avvia l'analisi.";
+
+
     historicalStatus.textContent =
         "Non ancora verificato";
+
+
+    historicalDescription.textContent =
+        "Avvia l'analisi.";
 
 
     logEl.innerHTML =
         "";
 
+
     lastResponse.textContent =
         "Nessuna richiesta.";
+
+
+    diagnosticCard.classList.add(
+        "hidden"
+    );
 
 
     startBtn.disabled =
@@ -3772,27 +4423,6 @@ function clearAll() {
 
 
 /* =========================================================
-   STOP
-   ========================================================= */
-
-function stopAnalysis() {
-
-    stopped =
-        true;
-
-    setStatus(
-        "Interruzione in corso...",
-        "error"
-    );
-
-    addLog(
-        "Interruzione richiesta dall'utente.",
-        "error"
-    );
-}
-
-
-/* =========================================================
    EVENTI
    ========================================================= */
 
@@ -3801,10 +4431,12 @@ startBtn.addEventListener(
     runAnalysis
 );
 
+
 stopBtn.addEventListener(
     "click",
     stopAnalysis
 );
+
 
 clearBtn.addEventListener(
     "click",
@@ -3843,6 +4475,7 @@ document.addEventListener(
    ========================================================= */
 
 updateCounters();
+
 updateProgress();
 
 </script>
