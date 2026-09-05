@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>API Tester</title>
+<title>API Tester Universale</title>
 
 <style>
 * {
@@ -13,38 +13,41 @@
 
 body {
     margin: 0;
-    padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    background: #f5f5f7;
+    padding: 18px;
+    background: #f2f2f7;
     color: #111;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 .container {
+    width: 100%;
     max-width: 900px;
-    margin: 0 auto;
+    margin: auto;
 }
 
 h1 {
-    margin: 0 0 6px;
+    margin: 0;
     font-size: 30px;
 }
 
 .subtitle {
     color: #666;
-    margin-bottom: 22px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    line-height: 1.4;
 }
 
 .card {
-    background: white;
+    background: #fff;
     border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
 }
 
 label {
     display: block;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 7px;
 }
 
@@ -55,6 +58,7 @@ input {
     border-radius: 12px;
     font-size: 16px;
     margin-bottom: 15px;
+    background: #fff;
     outline: none;
 }
 
@@ -62,45 +66,47 @@ input:focus {
     border-color: #007aff;
 }
 
-.buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
 button {
+    width: 100%;
     border: 0;
-    border-radius: 12px;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: 600;
+    border-radius: 13px;
+    padding: 15px;
+    font-size: 17px;
+    font-weight: 700;
     cursor: pointer;
 }
 
-#testButton {
+#analyzeButton {
     background: #007aff;
     color: white;
 }
 
+#analyzeButton:disabled {
+    opacity: .5;
+}
+
 #clearButton {
+    margin-top: 9px;
     background: #e5e5ea;
     color: #111;
 }
 
-button:disabled {
-    opacity: .5;
-    cursor: default;
-}
-
 .status {
-    margin-top: 15px;
+    display: none;
+    margin-top: 14px;
     padding: 13px;
     border-radius: 12px;
-    display: none;
+    line-height: 1.4;
     font-weight: 600;
 }
 
-.status.ok {
+.status.loading {
+    display: block;
+    background: #e5f0ff;
+    color: #175ca8;
+}
+
+.status.success {
     display: block;
     background: #dff7e5;
     color: #176b2c;
@@ -109,36 +115,29 @@ button:disabled {
 .status.error {
     display: block;
     background: #ffe1e1;
-    color: #9b1717;
-}
-
-.status.loading {
-    display: block;
-    background: #e5f0ff;
-    color: #1459a6;
+    color: #a11616;
 }
 
 .summary {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
 }
 
-.stat {
-    background: #f5f5f7;
-    border-radius: 14px;
-    padding: 14px;
+.summaryBox {
+    background: #f2f2f7;
+    border-radius: 13px;
+    padding: 12px 6px;
     text-align: center;
 }
 
-.stat-number {
-    font-size: 25px;
-    font-weight: 700;
+.summaryNumber {
+    font-size: 23px;
+    font-weight: 800;
 }
 
-.stat-label {
-    font-size: 13px;
+.summaryLabel {
+    font-size: 11px;
     color: #666;
     margin-top: 3px;
 }
@@ -148,83 +147,109 @@ button:disabled {
 }
 
 .section {
-    margin-top: 18px;
+    margin-bottom: 22px;
 }
 
-.section:first-child {
-    margin-top: 0;
-}
-
-.section-title {
-    font-size: 19px;
-    font-weight: 700;
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 800;
     margin-bottom: 10px;
 }
 
-.item {
+.result {
     border: 1px solid #e5e5ea;
     border-radius: 13px;
     padding: 14px;
     margin-bottom: 8px;
 }
 
-.item-head {
+.resultTop {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
 
-.item-name {
-    font-weight: 650;
+.resultName {
+    font-weight: 700;
 }
 
 .badge {
-    padding: 5px 9px;
+    flex-shrink: 0;
     border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: 800;
 }
 
-.available {
+.green {
     background: #dff7e5;
     color: #176b2c;
 }
 
-.unavailable {
-    background: #ffe1e1;
-    color: #9b1717;
-}
-
-.unknown {
+.yellow {
     background: #fff0c7;
-    color: #805d00;
+    color: #806000;
 }
 
-.item-detail {
-    margin-top: 8px;
+.red {
+    background: #ffe1e1;
+    color: #a11616;
+}
+
+.gray {
+    background: #e5e5ea;
+    color: #555;
+}
+
+.detail {
     color: #666;
-    font-size: 14px;
-    line-height: 1.45;
+    font-size: 13px;
+    margin-top: 7px;
+    line-height: 1.5;
+}
+
+.endpoint {
+    font-family: monospace;
+    word-break: break-all;
+    color: #333;
 }
 
 pre {
     background: #111;
     color: #eee;
-    padding: 15px;
-    border-radius: 12px;
+    border-radius: 13px;
+    padding: 14px;
     overflow-x: auto;
-    font-size: 12px;
-    line-height: 1.45;
     white-space: pre-wrap;
     word-break: break-word;
+    font-size: 12px;
+    line-height: 1.45;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
-.small {
-    color: #777;
+.note {
+    color: #666;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1.5;
+}
+
+.matchCard {
+    background: #f7f7f9;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.matchTeams {
+    font-weight: 700;
+}
+
+.matchData {
+    color: #666;
+    font-size: 13px;
+    margin-top: 5px;
 }
 
 @media (max-width: 600px) {
@@ -232,25 +257,12 @@ pre {
         padding: 12px;
     }
 
-    .card {
-        padding: 16px;
-        border-radius: 15px;
-    }
-
     .summary {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .stat {
-        padding: 10px 5px;
-    }
-
-    .stat-number {
-        font-size: 21px;
-    }
-
-    .stat-label {
-        font-size: 11px;
+    .card {
+        padding: 15px;
     }
 }
 </style>
@@ -261,21 +273,25 @@ pre {
 <div class="container">
 
     <h1>API Tester</h1>
+
     <div class="subtitle">
-        Inserisci Link API e API Key. Il tester analizzerà automaticamente cosa offre l'API.
+        Inserisci Link API e API Key. Il tester proverà automaticamente
+        a scoprire quali dati offre l'API.
     </div>
 
     <div class="card">
 
         <label for="apiUrl">Link API</label>
+
         <input
             id="apiUrl"
             type="url"
-            placeholder="https://esempio.com/api"
+            placeholder="https://example.com/api"
             autocomplete="off"
         >
 
         <label for="apiKey">API Key</label>
+
         <input
             id="apiKey"
             type="password"
@@ -283,15 +299,13 @@ pre {
             autocomplete="off"
         >
 
-        <div class="buttons">
-            <button id="testButton" onclick="startTest()">
-                Analizza API
-            </button>
+        <button id="analyzeButton" onclick="startAnalysis()">
+            Analizza API
+        </button>
 
-            <button id="clearButton" onclick="clearAll()">
-                Cancella
-            </button>
-        </div>
+        <button id="clearButton" onclick="clearAll()">
+            Cancella
+        </button>
 
         <div id="status" class="status"></div>
 
@@ -300,23 +314,30 @@ pre {
     <div id="report" class="card report">
 
         <div class="summary">
-            <div class="stat">
-                <div id="requestCount" class="stat-number">0</div>
-                <div class="stat-label">Richieste</div>
+
+            <div class="summaryBox">
+                <div id="requestsNumber" class="summaryNumber">0</div>
+                <div class="summaryLabel">Richieste</div>
             </div>
 
-            <div class="stat">
-                <div id="availableCount" class="stat-number">0</div>
-                <div class="stat-label">Disponibili</div>
+            <div class="summaryBox">
+                <div id="endpointNumber" class="summaryNumber">0</div>
+                <div class="summaryLabel">Endpoint</div>
             </div>
 
-            <div class="stat">
-                <div id="unknownCount" class="stat-number">0</div>
-                <div class="stat-label">Non verificati</div>
+            <div class="summaryBox">
+                <div id="foundNumber" class="summaryNumber">0</div>
+                <div class="summaryLabel">Dati trovati</div>
             </div>
+
+            <div class="summaryBox">
+                <div id="errorNumber" class="summaryNumber">0</div>
+                <div class="summaryLabel">Errori</div>
+            </div>
+
         </div>
 
-        <div id="reportContent"></div>
+        <div id="reportContent" style="margin-top:20px;"></div>
 
     </div>
 
@@ -330,83 +351,145 @@ pre {
 
 const PROXY = "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
 
-let requestCount = 0;
-let availableCount = 0;
-let unknownCount = 0;
+let requests = 0;
+let errors = 0;
+let testedEndpoints = [];
+let responses = [];
 
 
 /* =========================================================
-   UTILITÀ
+   STATO
    ========================================================= */
 
 function setStatus(text, type) {
-    const el = document.getElementById("status");
 
-    el.textContent = text;
-    el.className = "status " + type;
+    const element = document.getElementById("status");
+
+    element.textContent = text;
+    element.className = "status " + type;
 }
 
 
-function normalizeUrl(url) {
-    url = url.trim();
+/* =========================================================
+   URL
+   ========================================================= */
+
+function normalizeBaseUrl(value) {
+
+    let url = value.trim();
 
     if (!url) return "";
 
-    return url.replace(/\/+$/, "");
+    url = url.replace(/\/+$/, "");
+
+    return url;
 }
 
 
+function validUrl(value) {
+
+    try {
+        new URL(value);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+
+/* =========================================================
+   CHIAMATA
+   ========================================================= */
+
+async function requestApi(url, apiKey) {
+
+    requests++;
+
+    document.getElementById("requestsNumber").textContent = requests;
+
+    const proxyUrl =
+        PROXY +
+        "?url=" +
+        encodeURIComponent(url) +
+        "&key=" +
+        encodeURIComponent(apiKey);
+
+    try {
+
+        const response = await fetch(proxyUrl, {
+            method: "GET"
+        });
+
+        const text = await response.text();
+
+        let data = null;
+
+        try {
+            data = JSON.parse(text);
+        } catch {
+            data = text;
+        }
+
+        const result = {
+            url: url,
+            status: response.status,
+            ok: response.ok,
+            data: data,
+            raw: text
+        };
+
+        responses.push(result);
+
+        if (!response.ok) {
+            errors++;
+        }
+
+        document.getElementById("errorNumber").textContent = errors;
+
+        return result;
+
+    } catch (error) {
+
+        errors++;
+
+        document.getElementById("errorNumber").textContent = errors;
+
+        const result = {
+            url: url,
+            status: 0,
+            ok: false,
+            data: null,
+            raw: "",
+            error: error.message
+        };
+
+        responses.push(result);
+
+        return result;
+    }
+}
+
+
+/* =========================================================
+   ANALISI STRUTTURA JSON
+   ========================================================= */
+
 function isObject(value) {
+
     return value !== null &&
            typeof value === "object" &&
            !Array.isArray(value);
 }
 
 
-function isUsefulValue(value) {
-    if (value === null || value === undefined) return false;
+function walk(value, callback, path = []) {
 
-    if (typeof value === "string") {
-        return value.trim() !== "";
-    }
-
-    if (typeof value === "number" || typeof value === "boolean") {
-        return true;
-    }
-
-    if (Array.isArray(value)) {
-        return value.length > 0;
-    }
-
-    if (isObject(value)) {
-        return Object.keys(value).length > 0;
-    }
-
-    return false;
-}
-
-
-function normalizeKey(key) {
-    return String(key)
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
-}
-
-
-/* =========================================================
-   RICERCA RICORSIVA DEI DATI
-   ========================================================= */
-
-function walkObject(value, callback, path = []) {
+    callback(value, path);
 
     if (Array.isArray(value)) {
 
         value.forEach((item, index) => {
-            callback(item, path.concat(index));
-
-            if (typeof item === "object" && item !== null) {
-                walkObject(item, callback, path.concat(index));
-            }
+            walk(item, callback, path.concat(index));
         });
 
         return;
@@ -416,153 +499,157 @@ function walkObject(value, callback, path = []) {
 
     Object.keys(value).forEach(key => {
 
-        const currentPath = path.concat(key);
-        const currentValue = value[key];
+        walk(
+            value[key],
+            callback,
+            path.concat(key)
+        );
 
-        callback(currentValue, currentPath);
-
-        if (typeof currentValue === "object" &&
-            currentValue !== null) {
-
-            walkObject(currentValue, callback, currentPath);
-        }
     });
 }
 
 
-function findKeys(data, aliases) {
+function allKeys(data) {
 
-    const wanted = aliases.map(normalizeKey);
-    const results = [];
+    const result = [];
 
-    walkObject(data, (value, path) => {
+    walk(data, (value, path) => {
 
         if (!path.length) return;
 
-        const key = path[path.length - 1];
+        const last = path[path.length - 1];
 
-        if (typeof key !== "string") return;
-
-        const normalized = normalizeKey(key);
-
-        if (!wanted.includes(normalized)) return;
-
-        if (!isUsefulValue(value)) return;
-
-        results.push({
-            key: key,
-            path: path.join("."),
-            value: value
-        });
+        if (typeof last === "string") {
+            result.push({
+                key: last,
+                path: path.join("."),
+                value: value
+            });
+        }
     });
 
-    return results;
+    return result;
 }
 
 
-function findFirst(data, aliases) {
-    const results = findKeys(data, aliases);
+function normalizeKey(value) {
 
-    return results.length ? results[0] : null;
+    return String(value)
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+}
+
+
+function findAliases(data, aliases) {
+
+    const wanted = aliases.map(normalizeKey);
+
+    const found = [];
+
+    allKeys(data).forEach(item => {
+
+        if (
+            wanted.includes(
+                normalizeKey(item.key)
+            )
+        ) {
+
+            if (
+                item.value !== null &&
+                item.value !== undefined &&
+                item.value !== ""
+            ) {
+
+                found.push(item);
+            }
+        }
+    });
+
+    return found;
+}
+
+
+function firstAlias(data, aliases) {
+
+    const result = findAliases(data, aliases);
+
+    return result.length ? result[0] : null;
 }
 
 
 /* =========================================================
-   INDIVIDUAZIONE DEI RECORD DI PARTITA
+   RICONOSCIMENTO RECORD
    ========================================================= */
 
-function looksLikeMatch(obj) {
+function objectLooksLikeMatch(obj) {
 
     if (!isObject(obj)) return false;
 
-    const keys = Object.keys(obj).map(normalizeKey);
+    const keys =
+        Object.keys(obj).map(normalizeKey);
 
-    const hasId =
+    const id =
         keys.includes("id") ||
-        keys.includes("fixtureid") ||
         keys.includes("matchid") ||
+        keys.includes("fixtureid") ||
         keys.includes("gameid");
 
-    const hasDate =
+    const date =
         keys.includes("date") ||
         keys.includes("datetime") ||
         keys.includes("kickoff") ||
         keys.includes("starttime") ||
         keys.includes("fixturedate");
 
-    const hasTeams =
+    const teams =
         keys.includes("teams") ||
         keys.includes("hometeam") ||
         keys.includes("awayteam") ||
-        keys.includes("hometeamid") ||
-        keys.includes("awayteamid") ||
         keys.includes("home") ||
         keys.includes("away");
 
-    return (hasId && hasDate) ||
-           (hasDate && hasTeams);
+    const league =
+        keys.includes("league") ||
+        keys.includes("competition") ||
+        keys.includes("tournament");
+
+    return (
+        (id && date) ||
+        (date && teams) ||
+        (teams && league)
+    );
 }
 
 
-function collectMatchRecords(data) {
+function findMatchRecords(data) {
 
-    const records = [];
+    const matches = [];
 
-    function scan(value) {
+    walk(data, value => {
 
-        if (Array.isArray(value)) {
+        if (
+            isObject(value) &&
+            objectLooksLikeMatch(value)
+        ) {
 
-            for (const item of value) {
-
-                if (looksLikeMatch(item)) {
-                    records.push(item);
-                }
-
-                scan(item);
+            if (!matches.includes(value)) {
+                matches.push(value);
             }
-
-            return;
         }
 
-        if (!isObject(value)) return;
+    });
 
-        if (looksLikeMatch(value)) {
-            records.push(value);
-        }
-
-        Object.values(value).forEach(scan);
-    }
-
-    scan(data);
-
-    return records;
+    return matches;
 }
 
 
 /* =========================================================
-   DATA
+   DATA MATCH
    ========================================================= */
 
-function parseDate(value) {
+function findDate(obj) {
 
-    if (!value) return null;
-
-    if (typeof value !== "string" &&
-        typeof value !== "number") {
-        return null;
-    }
-
-    const date = new Date(value);
-
-    if (isNaN(date.getTime())) return null;
-
-    return date;
-}
-
-
-function getMatchDate(match) {
-
-    const result = findFirst(match, [
+    const result = firstAlias(obj, [
         "date",
         "datetime",
         "kickoff",
@@ -576,59 +663,49 @@ function getMatchDate(match) {
 }
 
 
-function getMatchId(match) {
+function findId(obj) {
 
-    const result = findFirst(match, [
-        "fixture_id",
-        "fixtureId",
+    const result = firstAlias(obj, [
+        "id",
         "match_id",
         "matchId",
+        "fixture_id",
+        "fixtureId",
         "game_id",
-        "gameId",
-        "id"
+        "gameId"
     ]);
 
     return result ? result.value : null;
 }
 
 
-function getTeamValue(match, type) {
+function findHome(obj) {
 
-    if (type === "home") {
+    const result = firstAlias(obj, [
+        "homeTeam",
+        "home_team",
+        "hometeam",
+        "home"
+    ]);
 
-        const direct = findFirst(match, [
-            "homeTeam",
-            "home_team",
-            "hometeam"
-        ]);
-
-        if (direct) return direct.value;
-
-        const home = findFirst(match, ["home"]);
-
-        if (home) return home.value;
-    }
-
-    if (type === "away") {
-
-        const direct = findFirst(match, [
-            "awayTeam",
-            "away_team",
-            "awayteam"
-        ]);
-
-        if (direct) return direct.value;
-
-        const away = findFirst(match, ["away"]);
-
-        if (away) return away.value;
-    }
-
-    return null;
+    return result ? result.value : null;
 }
 
 
-function valueToText(value) {
+function findAway(obj) {
+
+    const result = firstAlias(obj, [
+        "awayTeam",
+        "away_team",
+        "awayteam",
+        "away"
+    ]);
+
+    return result ? result.value : null;
+}
+
+
+function valueText(value) {
 
     if (value === null || value === undefined) {
         return "";
@@ -636,9 +713,10 @@ function valueToText(value) {
 
     if (typeof value === "object") {
 
-        if (value.name) return value.name;
-        if (value.shortName) return value.shortName;
-        if (value.title) return value.title;
+        if (value.name) return String(value.name);
+        if (value.shortName) return String(value.shortName);
+        if (value.title) return String(value.title);
+
         if (value.id !== undefined) {
             return "ID " + value.id;
         }
@@ -651,271 +729,384 @@ function valueToText(value) {
 
 
 /* =========================================================
-   CHIAMATA API
+   FILTRO PARTITE FUTURE
    ========================================================= */
 
-async function apiRequest(url, apiKey) {
+function futureMatches(matches) {
 
-    requestCount++;
+    const now = new Date();
 
-    document.getElementById("requestCount").textContent =
-        requestCount;
+    const end = new Date(now);
 
-    const target =
-        PROXY +
-        "?url=" +
-        encodeURIComponent(url) +
-        "&key=" +
-        encodeURIComponent(apiKey);
-
-    try {
-
-        const response = await fetch(target, {
-            method: "GET"
-        });
-
-        const text = await response.text();
-
-        let data;
-
-        try {
-            data = JSON.parse(text);
-        } catch {
-            data = {
-                raw: text
-            };
-        }
-
-        return {
-            ok: response.ok,
-            status: response.status,
-            data: data,
-            raw: text
-        };
-
-    } catch (error) {
-
-        return {
-            ok: false,
-            status: 0,
-            data: null,
-            raw: "",
-            error: error.message
-        };
-    }
-}
-
-
-/* =========================================================
-   URL CANDIDATE
-   ========================================================= */
-
-function buildCandidates(baseUrl) {
-
-    const today = new Date();
-
-    const end = new Date(today);
     end.setDate(end.getDate() + 7);
 
-    function dateString(date) {
-        return date.toISOString().slice(0, 10);
-    }
+    return matches.filter(match => {
 
-    const from = dateString(today);
-    const to = dateString(end);
+        const rawDate = findDate(match);
 
-    return [
-        baseUrl + "/fixtures?next=20",
+        if (!rawDate) return false;
 
-        baseUrl + "/fixtures?from=" +
-        encodeURIComponent(from) +
-        "&to=" +
-        encodeURIComponent(to),
+        const date = new Date(rawDate);
 
-        baseUrl + "/fixtures?date=" +
-        encodeURIComponent(from),
+        if (isNaN(date.getTime())) return false;
 
-        baseUrl + "/matches?from=" +
-        encodeURIComponent(from) +
-        "&to=" +
-        encodeURIComponent(to),
+        return date >= now && date <= end;
 
-        baseUrl + "/matches?date=" +
-        encodeURIComponent(from)
-    ];
+    });
 }
 
 
 /* =========================================================
-   ANALISI DI UNA RISPOSTA
+   ENDPOINT DISCOVERY
    ========================================================= */
 
-function analyzeResponse(data) {
+function buildDiscoveryUrls(baseUrl) {
 
-    const matches = collectMatchRecords(data);
+    const urls = [];
 
-    const result = {
-        matches: matches,
-        fields: {
-            id: findFirst(data, [
-                "id",
-                "fixture_id",
-                "fixtureId",
-                "match_id",
-                "matchId"
-            ]),
+    function add(path) {
 
-            date: findFirst(data, [
-                "date",
-                "datetime",
-                "kickoff",
-                "start_time",
-                "startTime",
-                "fixture_date",
-                "fixtureDate"
-            ]),
+        const finalUrl =
+            baseUrl + path;
 
-            home: findFirst(data, [
-                "homeTeam",
-                "home_team",
-                "hometeam",
-                "home"
-            ]),
-
-            away: findFirst(data, [
-                "awayTeam",
-                "away_team",
-                "awayteam",
-                "away"
-            ]),
-
-            status: findFirst(data, [
-                "status",
-                "match_status",
-                "fixture_status"
-            ]),
-
-            league: findFirst(data, [
-                "league",
-                "competition",
-                "tournament"
-            ]),
-
-            season: findFirst(data, [
-                "season",
-                "year"
-            ]),
-
-            venue: findFirst(data, [
-                "venue",
-                "stadium"
-            ]),
-
-            referee: findFirst(data, [
-                "referee",
-                "official"
-            ]),
-
-            round: findFirst(data, [
-                "round",
-                "matchday",
-                "week"
-            ]),
-
-            score: findFirst(data, [
-                "score",
-                "result"
-            ]),
-
-            goals: findFirst(data, [
-                "goals",
-                "goal"
-            ]),
-
-            statistics: findFirst(data, [
-                "statistics",
-                "stats",
-                "match_statistics"
-            ]),
-
-            lineup: findFirst(data, [
-                "lineups",
-                "lineup",
-                "formations"
-            ]),
-
-            injuries: findFirst(data, [
-                "injuries",
-                "injury",
-                "unavailable"
-            ]),
-
-            odds: findFirst(data, [
-                "odds",
-                "betting"
-            ]),
-
-            players: findFirst(data, [
-                "players",
-                "player"
-            ]),
-
-            h2h: findFirst(data, [
-                "h2h",
-                "headtohead",
-                "head_to_head"
-            ])
+        if (!urls.includes(finalUrl)) {
+            urls.push(finalUrl);
         }
-    };
+    }
 
-    return result;
+    /*
+       Primo livello:
+       prova la base stessa.
+    */
+
+    add("");
+
+    /*
+       Endpoint generici comuni.
+       NON vengono considerati obbligatori:
+       servono solamente come tentativi.
+    */
+
+    add("/api");
+    add("/v1");
+    add("/v1/api");
+
+    add("/matches");
+    add("/games");
+    add("/fixtures");
+    add("/events");
+
+    add("/football");
+    add("/soccer");
+
+    add("/leagues");
+    add("/competitions");
+    add("/teams");
+    add("/players");
+
+    return urls;
 }
 
 
 /* =========================================================
-   REPORT
+   ANALISI DEI DATI DISPONIBILI
    ========================================================= */
 
-function fieldRow(name, result) {
+const DATA_CATEGORIES = [
 
-    if (result) {
+    {
+        name: "Partite",
+        aliases: [
+            "matches",
+            "match",
+            "fixtures",
+            "fixture",
+            "games",
+            "game",
+            "events",
+            "event"
+        ]
+    },
 
-        availableCount++;
+    {
+        name: "ID partita",
+        aliases: [
+            "match_id",
+            "matchId",
+            "fixture_id",
+            "fixtureId",
+            "game_id",
+            "gameId"
+        ]
+    },
 
-        return `
-            <div class="item">
-                <div class="item-head">
-                    <div class="item-name">${escapeHtml(name)}</div>
-                    <div class="badge available">DISPONIBILE</div>
-                </div>
+    {
+        name: "Data",
+        aliases: [
+            "date",
+            "match_date",
+            "matchDate",
+            "fixture_date",
+            "fixtureDate"
+        ]
+    },
 
-                <div class="item-detail">
-                    Campo trovato: <b>${escapeHtml(result.path)}</b><br>
-                    Esempio: ${escapeHtml(valueToText(result.value).slice(0, 250))}
-                </div>
-            </div>
-        `;
+    {
+        name: "Ora / orario",
+        aliases: [
+            "time",
+            "start_time",
+            "startTime",
+            "kickoff",
+            "kickoff_time",
+            "kickoffTime",
+            "datetime",
+            "dateTime"
+        ]
+    },
+
+    {
+        name: "Squadra casa",
+        aliases: [
+            "home",
+            "home_team",
+            "homeTeam",
+            "hometeam"
+        ]
+    },
+
+    {
+        name: "Squadra ospite",
+        aliases: [
+            "away",
+            "away_team",
+            "awayTeam",
+            "awayteam"
+        ]
+    },
+
+    {
+        name: "Campionato",
+        aliases: [
+            "league",
+            "competition",
+            "tournament",
+            "championship"
+        ]
+    },
+
+    {
+        name: "Stagione",
+        aliases: [
+            "season",
+            "season_id",
+            "seasonId",
+            "year"
+        ]
+    },
+
+    {
+        name: "Stato partita",
+        aliases: [
+            "status",
+            "match_status",
+            "matchStatus",
+            "fixture_status",
+            "fixtureStatus"
+        ]
+    },
+
+    {
+        name: "Risultato",
+        aliases: [
+            "score",
+            "scores",
+            "result",
+            "results"
+        ]
+    },
+
+    {
+        name: "Gol",
+        aliases: [
+            "goals",
+            "goal",
+            "home_goals",
+            "away_goals",
+            "homeGoals",
+            "awayGoals"
+        ]
+    },
+
+    {
+        name: "Minuto gol",
+        aliases: [
+            "minute",
+            "minutes",
+            "goal_minute",
+            "goalMinute",
+            "elapsed"
+        ]
+    },
+
+    {
+        name: "Statistiche",
+        aliases: [
+            "statistics",
+            "statistic",
+            "stats",
+            "match_statistics",
+            "matchStatistics"
+        ]
+    },
+
+    {
+        name: "Possesso palla",
+        aliases: [
+            "possession",
+            "ball_possession",
+            "ballPossession"
+        ]
+    },
+
+    {
+        name: "Tiri",
+        aliases: [
+            "shots",
+            "shots_on_goal",
+            "shotsOnGoal",
+            "total_shots",
+            "totalShots"
+        ]
+    },
+
+    {
+        name: "Corner",
+        aliases: [
+            "corners",
+            "corner",
+            "corner_kicks",
+            "cornerKicks"
+        ]
+    },
+
+    {
+        name: "Cartellini",
+        aliases: [
+            "cards",
+            "yellow_cards",
+            "yellowCards",
+            "red_cards",
+            "redCards"
+        ]
+    },
+
+    {
+        name: "xG",
+        aliases: [
+            "xg",
+            "expected_goals",
+            "expectedGoals",
+            "expected_goal"
+        ]
+    },
+
+    {
+        name: "Formazioni",
+        aliases: [
+            "lineups",
+            "lineup",
+            "formations",
+            "formation"
+        ]
+    },
+
+    {
+        name: "Giocatori",
+        aliases: [
+            "players",
+            "player",
+            "player_statistics",
+            "playerStatistics"
+        ]
+    },
+
+    {
+        name: "Infortuni",
+        aliases: [
+            "injuries",
+            "injury",
+            "injured"
+        ]
+    },
+
+    {
+        name: "Indisponibili",
+        aliases: [
+            "unavailable",
+            "absences",
+            "absence",
+            "sidelined",
+            "suspensions"
+        ]
+    },
+
+    {
+        name: "Quote",
+        aliases: [
+            "odds",
+            "betting",
+            "bookmakers",
+            "bookmaker"
+        ]
+    },
+
+    {
+        name: "Classifica",
+        aliases: [
+            "standings",
+            "table",
+            "ranking",
+            "rankings"
+        ]
+    },
+
+    {
+        name: "H2H",
+        aliases: [
+            "h2h",
+            "headtohead",
+            "head_to_head",
+            "head2head"
+        ]
+    },
+
+    {
+        name: "Stadio",
+        aliases: [
+            "venue",
+            "stadium",
+            "ground"
+        ]
+    },
+
+    {
+        name: "Arbitro",
+        aliases: [
+            "referee",
+            "official",
+            "match_referee",
+            "matchReferee"
+        ]
     }
-
-    unknownCount++;
-
-    return `
-        <div class="item">
-            <div class="item-head">
-                <div class="item-name">${escapeHtml(name)}</div>
-                <div class="badge unknown">NON VERIFICATO</div>
-            </div>
-
-            <div class="item-detail">
-                Il tester non ha trovato questo dato nella risposta analizzata.
-                Questo non significa necessariamente che l'API non lo offra.
-            </div>
-        </div>
-    `;
-}
+];
 
 
-function escapeHtml(value) {
+/* =========================================================
+   COSTRUZIONE REPORT
+   ========================================================= */
+
+function htmlEscape(value) {
 
     return String(value)
         .replace(/&/g, "&amp;")
@@ -926,259 +1117,618 @@ function escapeHtml(value) {
 }
 
 
-function renderReport(analysis, firstResponse, futureMatches) {
+function categoryResult(data, category) {
 
-    const report = document.getElementById("report");
-    const content = document.getElementById("reportContent");
+    const found =
+        findAliases(data, category.aliases);
 
-    availableCount = 0;
-    unknownCount = 0;
+    if (found.length) {
+
+        return {
+            state: "green",
+            label: "TROVATO",
+            detail:
+                "Campo rilevato: " +
+                found[0].path
+        };
+    }
+
+    return {
+        state: "gray",
+        label: "NON RILEVATO",
+        detail:
+            "Non trovato nelle risposte ricevute."
+    };
+}
+
+
+function renderDataCategories(data) {
 
     let html = "";
 
-    html += `
-        <div class="section">
-            <div class="section-title">Partite future</div>
+    DATA_CATEGORIES.forEach(category => {
 
-            <div class="item">
-                <div class="item-head">
-                    <div class="item-name">Partite individuate nei prossimi 7 giorni</div>
-                    <div class="badge ${
-                        futureMatches.length > 0
-                            ? "available"
-                            : "unknown"
-                    }">
-                        ${
-                            futureMatches.length > 0
-                                ? "TROVATE"
-                                : "NON VERIFICATO"
-                        }
-                    </div>
-                </div>
+        const result =
+            categoryResult(data, category);
 
-                <div class="item-detail">
-                    ${futureMatches.length}
-                    record di partita individuati nelle risposte analizzate.
-                </div>
-            </div>
-        </div>
-    `;
-
-    html += `
-        <div class="section">
-            <div class="section-title">Dati delle partite</div>
-    `;
-
-    html += fieldRow("ID partita", analysis.fields.id);
-    html += fieldRow("Data e ora", analysis.fields.date);
-    html += fieldRow("Squadra casa", analysis.fields.home);
-    html += fieldRow("Squadra ospite", analysis.fields.away);
-    html += fieldRow("Stato partita", analysis.fields.status);
-    html += fieldRow("Campionato", analysis.fields.league);
-    html += fieldRow("Stagione", analysis.fields.season);
-    html += fieldRow("Stadio / sede", analysis.fields.venue);
-    html += fieldRow("Arbitro", analysis.fields.referee);
-    html += fieldRow("Giornata / turno", analysis.fields.round);
-
-    html += `</div>`;
-
-    html += `
-        <div class="section">
-            <div class="section-title">Dati aggiuntivi</div>
-    `;
-
-    html += fieldRow("Risultato", analysis.fields.score);
-    html += fieldRow("Gol", analysis.fields.goals);
-    html += fieldRow("Statistiche partita", analysis.fields.statistics);
-    html += fieldRow("Formazioni / line-up", analysis.fields.lineup);
-    html += fieldRow("Infortuni / indisponibili", analysis.fields.injuries);
-    html += fieldRow("Quote", analysis.fields.odds);
-    html += fieldRow("Giocatori", analysis.fields.players);
-    html += fieldRow("Testa a testa (H2H)", analysis.fields.h2h);
-
-    html += `</div>`;
-
-    if (futureMatches.length > 0) {
+        if (result.state === "green") {
+            document.__foundData++;
+        }
 
         html += `
-            <div class="section">
-                <div class="section-title">Prime partite trovate</div>
-        `;
+            <div class="result">
 
-        futureMatches.slice(0, 10).forEach(match => {
+                <div class="resultTop">
 
-            const id = getMatchId(match);
-            const date = getMatchDate(match);
-            const home = getTeamValue(match, "home");
-            const away = getTeamValue(match, "away");
-
-            html += `
-                <div class="item">
-                    <div class="item-name">
-                        ${escapeHtml(valueToText(home) || "Casa")}
-                        —
-                        ${escapeHtml(valueToText(away) || "Ospite")}
+                    <div class="resultName">
+                        ${htmlEscape(category.name)}
                     </div>
 
-                    <div class="item-detail">
-                        ID: ${escapeHtml(valueToText(id) || "non trovato")}<br>
-                        Data: ${escapeHtml(valueToText(date) || "non trovata")}
+                    <div class="badge ${result.state}">
+                        ${result.label}
                     </div>
+
                 </div>
-            `;
-        });
 
-        html += `</div>`;
-    }
+                <div class="detail">
+                    ${htmlEscape(result.detail)}
+                </div>
 
-    html += `
-        <div class="section">
-            <div class="section-title">Risposta API analizzata</div>
-
-            <div class="small">
-                Questa è la risposta reale ricevuta dall'API.
-                Serve per capire esattamente quali dati restituisce.
             </div>
+        `;
+    });
 
-            <pre>${escapeHtml(
-                JSON.stringify(
-                    firstResponse,
-                    null,
-                    2
-                ).slice(0, 30000)
-            )}</pre>
-        </div>
-    `;
-
-    content.innerHTML = html;
-
-    document.getElementById("availableCount").textContent =
-        availableCount;
-
-    document.getElementById("unknownCount").textContent =
-        unknownCount;
-
-    document.getElementById("requestCount").textContent =
-        requestCount;
-
-    report.style.display = "block";
+    return html;
 }
 
 
 /* =========================================================
-   TEST PRINCIPALE
+   PARTITE
    ========================================================= */
 
-async function startTest() {
+function renderMatches(matches) {
 
-    const inputUrl =
+    if (!matches.length) {
+
+        return `
+            <div class="result">
+
+                <div class="resultTop">
+
+                    <div class="resultName">
+                        Partite nei prossimi 7 giorni
+                    </div>
+
+                    <div class="badge gray">
+                        NON TROVATE
+                    </div>
+
+                </div>
+
+                <div class="detail">
+                    Nessun record con una data interpretabile
+                    compresa nei prossimi 7 giorni è stato trovato
+                    nelle risposte analizzate.
+                </div>
+
+            </div>
+        `;
+    }
+
+    let html = `
+        <div class="result">
+
+            <div class="resultTop">
+
+                <div class="resultName">
+                    Partite nei prossimi 7 giorni
+                </div>
+
+                <div class="badge green">
+                    ${matches.length} TROVATE
+                </div>
+
+            </div>
+
+            <div class="detail">
+                Sono state individuate automaticamente
+                partite future nelle risposte dell'API.
+            </div>
+
+        </div>
+    `;
+
+    matches.slice(0, 10).forEach(match => {
+
+        const id = findId(match);
+        const date = findDate(match);
+        const home = findHome(match);
+        const away = findAway(match);
+
+        html += `
+            <div class="matchCard">
+
+                <div class="matchTeams">
+                    ${htmlEscape(
+                        valueText(home) || "Casa non rilevata"
+                    )}
+                    —
+                    ${htmlEscape(
+                        valueText(away) || "Ospite non rilevato"
+                    )}
+                </div>
+
+                <div class="matchData">
+                    ID: ${htmlEscape(
+                        valueText(id) || "non rilevato"
+                    )}
+                    <br>
+                    Data/Ora: ${htmlEscape(
+                        valueText(date) || "non rilevata"
+                    )}
+                </div>
+
+            </div>
+        `;
+    });
+
+    return html;
+}
+
+
+/* =========================================================
+   REPORT ENDPOINT
+   ========================================================= */
+
+function renderEndpoints() {
+
+    let html = "";
+
+    testedEndpoints.forEach(item => {
+
+        let badgeClass = "gray";
+        let label = "NESSUN DATO";
+
+        if (item.ok && item.matches > 0) {
+            badgeClass = "green";
+            label = "DATI TROVATI";
+        }
+        else if (item.ok) {
+            badgeClass = "yellow";
+            label = "RISPOSTA OK";
+        }
+        else {
+            badgeClass = "red";
+            label = "ERRORE";
+        }
+
+        html += `
+            <div class="result">
+
+                <div class="resultTop">
+
+                    <div class="resultName">
+                        ${htmlEscape(item.name)}
+                    </div>
+
+                    <div class="badge ${badgeClass}">
+                        ${label}
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <span class="endpoint">
+                        ${htmlEscape(item.url)}
+                    </span>
+
+                    <br>
+
+                    HTTP:
+                    ${htmlEscape(String(item.status))}
+
+                    <br>
+
+                    Record partita rilevati:
+                    ${item.matches}
+
+                </div>
+
+            </div>
+        `;
+    });
+
+    return html;
+}
+
+
+/* =========================================================
+   RISPOSTA RAW
+   ========================================================= */
+
+function renderRaw(data) {
+
+    let text = "";
+
+    try {
+
+        text = JSON.stringify(
+            data,
+            null,
+            2
+        );
+
+    } catch {
+
+        text = String(data);
+    }
+
+    if (text.length > 30000) {
+        text = text.slice(0, 30000) +
+               "\n\n...[risposta tagliata nel report]";
+    }
+
+    return `
+        <pre>${htmlEscape(text)}</pre>
+    `;
+}
+
+
+/* =========================================================
+   ANALISI
+   ========================================================= */
+
+async function startAnalysis() {
+
+    const urlInput =
         document.getElementById("apiUrl").value;
 
     const apiKey =
         document.getElementById("apiKey").value.trim();
 
-    if (!inputUrl) {
-        setStatus("Inserisci il Link API.", "error");
+    if (!urlInput.trim()) {
+
+        setStatus(
+            "Inserisci il Link API.",
+            "error"
+        );
+
         return;
     }
 
     if (!apiKey) {
-        setStatus("Inserisci la API Key.", "error");
+
+        setStatus(
+            "Inserisci la API Key.",
+            "error"
+        );
+
         return;
     }
 
-    let baseUrl = normalizeUrl(inputUrl);
+    const baseUrl =
+        normalizeBaseUrl(urlInput);
 
-    try {
-        new URL(baseUrl);
-    } catch {
-        setStatus("Il Link API non è valido.", "error");
+    if (!validUrl(baseUrl)) {
+
+        setStatus(
+            "Il Link API non è valido.",
+            "error"
+        );
+
         return;
     }
 
-    requestCount = 0;
-    availableCount = 0;
-    unknownCount = 0;
+    requests = 0;
+    errors = 0;
+    testedEndpoints = [];
+    responses = [];
+
+    document.__foundData = 0;
+
+    document.getElementById("requestsNumber").textContent = "0";
+    document.getElementById("endpointNumber").textContent = "0";
+    document.getElementById("foundNumber").textContent = "0";
+    document.getElementById("errorNumber").textContent = "0";
 
     document.getElementById("report").style.display = "none";
-    document.getElementById("testButton").disabled = true;
+
+    const button =
+        document.getElementById("analyzeButton");
+
+    button.disabled = true;
 
     setStatus(
-        "Sto interrogando l'API e analizzando le risposte...",
+        "Connessione all'API in corso...",
         "loading"
     );
 
-    const candidates = buildCandidates(baseUrl);
+    const candidates =
+        buildDiscoveryUrls(baseUrl);
 
     let bestResponse = null;
-    let bestAnalysis = null;
     let bestMatches = [];
+    let successfulResponses = 0;
+
+    /*
+       Il tester non presume che un endpoint esista.
+
+       Prova gli indirizzi candidati uno alla volta.
+       Se trova una risposta utile continua comunque
+       a raccogliere informazioni, ma evita richieste
+       infinite.
+    */
 
     for (const url of candidates) {
 
-        const response =
-            await apiRequest(url, apiKey);
-
-        if (!response.ok) {
-            continue;
+        if (requests >= 12) {
+            break;
         }
 
-        if (!response.data) {
-            continue;
-        }
-
-        const analysis =
-            analyzeResponse(response.data);
+        const result =
+            await requestApi(url, apiKey);
 
         const matches =
-            analysis.matches;
+            result.ok
+                ? findMatchRecords(result.data)
+                : [];
+
+        testedEndpoints.push({
+            name: url === baseUrl
+                ? "Endpoint principale"
+                : "Endpoint automatico",
+
+            url: url,
+
+            status: result.status,
+
+            ok: result.ok,
+
+            matches: matches.length
+        });
+
+        if (result.ok) {
+            successfulResponses++;
+        }
 
         if (
             !bestResponse ||
             matches.length > bestMatches.length
         ) {
-            bestResponse = response.data;
-            bestAnalysis = analysis;
+
+            bestResponse = result.data;
             bestMatches = matches;
         }
+
+        /*
+           Se abbiamo già trovato una risposta
+           con partite reali, non continuiamo a
+           consumare richieste inutilmente.
+        */
 
         if (matches.length > 0) {
             break;
         }
     }
 
-    document.getElementById("testButton").disabled = false;
+    button.disabled = false;
+
+    document.getElementById("endpointNumber").textContent =
+        testedEndpoints.length;
+
+    document.getElementById("foundNumber").textContent =
+        document.__foundData;
+
+    /*
+       Nessuna risposta valida.
+    */
 
     if (!bestResponse) {
 
+        document.getElementById("report").style.display = "block";
+
+        document.getElementById("reportContent").innerHTML = `
+
+            <div class="section">
+
+                <div class="sectionTitle">
+                    Risultato
+                </div>
+
+                <div class="result">
+
+                    <div class="resultTop">
+
+                        <div class="resultName">
+                            API non interrogabile
+                        </div>
+
+                        <div class="badge red">
+                            ERRORE
+                        </div>
+
+                    </div>
+
+                    <div class="detail">
+                        Nessuno degli endpoint provati ha restituito
+                        una risposta HTTP utilizzabile.
+                        Controlla Link API, API Key oppure autenticazione.
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="section">
+
+                <div class="sectionTitle">
+                    Endpoint provati
+                </div>
+
+                ${renderEndpoints()}
+
+            </div>
+        `;
+
         setStatus(
-            "L'API non ha restituito una risposta utilizzabile. Controlla Link API, API Key e configurazione del proxy.",
+            "L'API non ha restituito una risposta utilizzabile.",
             "error"
         );
 
         return;
     }
 
-    renderReport(
-        bestAnalysis,
-        bestResponse,
-        bestMatches
-    );
+    /*
+       Ora abbiamo una risposta.
+       Analizziamo tutti i dati che contiene.
+    */
 
-    if (bestMatches.length > 0) {
+    let combinedData = bestResponse;
 
-        setStatus(
-            "Analisi completata: sono state trovate partite e dati utilizzabili.",
-            "ok"
-        );
+    /*
+       Se sono state ricevute più risposte,
+       uniamo le informazioni disponibili.
+    */
 
-    } else {
+    if (responses.length > 1) {
 
-        setStatus(
-            "API raggiunta, ma nei test effettuati non sono state trovate partite. Guarda il report e la risposta reale ricevuta.",
-            "error"
-        );
+        combinedData = {
+            responses: responses
+                .filter(r => r.ok)
+                .map(r => r.data)
+        };
     }
+
+    const allMatches = [];
+
+    responses.forEach(response => {
+
+        if (!response.ok) return;
+
+        const matches =
+            findMatchRecords(response.data);
+
+        matches.forEach(match => {
+
+            if (!allMatches.includes(match)) {
+                allMatches.push(match);
+            }
+
+        });
+    });
+
+    const future =
+        futureMatches(allMatches);
+
+    document.getElementById("foundNumber").textContent =
+        document.__foundData;
+
+    document.getElementById("report").style.display =
+        "block";
+
+    document.getElementById("reportContent").innerHTML = `
+
+        <div class="section">
+
+            <div class="sectionTitle">
+                Risultato generale
+            </div>
+
+            <div class="result">
+
+                <div class="resultTop">
+
+                    <div class="resultName">
+                        API raggiunta
+                    </div>
+
+                    <div class="badge green">
+                        OK
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    Risposte HTTP valide:
+                    ${successfulResponses}
+
+                    <br>
+
+                    Record di partite riconosciuti:
+                    ${allMatches.length}
+
+                    <br>
+
+                    Partite nei prossimi 7 giorni:
+                    ${future.length}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="sectionTitle">
+                Partite future
+            </div>
+
+            ${renderMatches(future)}
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="sectionTitle">
+                Cosa offre l'API
+            </div>
+
+            ${renderDataCategories(combinedData)}
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="sectionTitle">
+                Endpoint interrogati
+            </div>
+
+            ${renderEndpoints()}
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="sectionTitle">
+                Risposta ricevuta
+            </div>
+
+            <div class="note">
+                Questa è una parte della risposta reale
+                ricevuta dall'API. Serve anche per controllare
+                manualmente quali dati vengono restituiti.
+            </div>
+
+            ${renderRaw(bestResponse)}
+
+        </div>
+
+    `;
+
+    document.getElementById("foundNumber").textContent =
+        document.__foundData;
+
+    setStatus(
+        "Analisi completata.",
+        "success"
+    );
 }
 
 
@@ -1191,20 +1741,31 @@ function clearAll() {
     document.getElementById("apiUrl").value = "";
     document.getElementById("apiKey").value = "";
 
-    document.getElementById("report").style.display = "none";
+    document.getElementById("report").style.display =
+        "none";
 
     document.getElementById("status").className =
         "status";
 
-    document.getElementById("status").textContent = "";
+    document.getElementById("status").textContent =
+        "";
 
-    requestCount = 0;
-    availableCount = 0;
-    unknownCount = 0;
+    requests = 0;
+    errors = 0;
+    testedEndpoints = [];
+    responses = [];
 
-    document.getElementById("requestCount").textContent = "0";
-    document.getElementById("availableCount").textContent = "0";
-    document.getElementById("unknownCount").textContent = "0";
+    document.getElementById("requestsNumber").textContent =
+        "0";
+
+    document.getElementById("endpointNumber").textContent =
+        "0";
+
+    document.getElementById("foundNumber").textContent =
+        "0";
+
+    document.getElementById("errorNumber").textContent =
+        "0";
 }
 
 </script>
