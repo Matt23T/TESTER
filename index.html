@@ -4,1837 +4,1620 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Football API Tester</title>
-
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+    margin:0;
+    padding:20px;
+    background:#f5f5f5;
+    color:#111;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
-
-body {
-    margin: 0;
-    padding: 20px;
-    background: #f4f5f7;
-    font-family: Arial, sans-serif;
-    color: #222;
+.container{max-width:1100px;margin:auto}
+h1{margin:0 0 20px;font-size:28px}
+.card{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:16px;
 }
-
-.container {
-    max-width: 1100px;
-    margin: auto;
+h2{font-size:19px;margin:0 0 14px}
+h3{font-size:16px;margin:18px 0 10px}
+label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:6px;
 }
-
-h1 {
-    margin: 0 0 8px;
+input,select{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    font-size:15px;
+    background:#fff;
 }
-
-h2 {
-    margin-top: 0;
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
 }
-
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 18px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+button{
+    border:0;
+    border-radius:9px;
+    padding:11px 15px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    background:#111;
+    color:#fff;
 }
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 7px;
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
 }
-
-input,
-select,
-button {
-    width: 100%;
-    min-height: 44px;
-    border-radius: 9px;
-    border: 1px solid #ccc;
-    padding: 10px 12px;
-    font-size: 15px;
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:14px;
 }
-
-input,
-select {
-    background: white;
+.status{
+    margin-top:12px;
+    padding:10px;
+    border-radius:9px;
+    display:none;
+    font-size:14px;
+    font-weight:600;
 }
-
-.field {
-    margin-bottom: 15px;
+.status.ok{
+    display:block;
+    background:#e8f7ed;
+    color:#147333;
 }
-
-button {
-    cursor: pointer;
-    border: none;
-    background: #111;
-    color: white;
-    font-weight: bold;
+.status.error{
+    display:block;
+    background:#fdeaea;
+    color:#b42318;
 }
-
-button.secondary {
-    background: #e9eaec;
-    color: #222;
+.status.wait{
+    display:block;
+    background:#fff5d9;
+    color:#8a5a00;
 }
-
-button.danger {
-    background: #d93636;
+.checkbox-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
 }
-
-button:disabled {
-    opacity: .5;
-    cursor: not-allowed;
+.check{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    background:#fafafa;
 }
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+.check input{
+    width:auto;
 }
-
-.competitions,
-.tests {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+.mode-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
-
-.check {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 11px;
-    background: #f5f6f7;
-    border-radius: 9px;
-    font-weight: normal;
+.mode{
+    border:2px solid #ddd;
+    border-radius:11px;
+    padding:15px;
+    cursor:pointer;
+    background:#fff;
 }
-
-.check input {
-    width: auto;
-    min-height: auto;
-    margin-top: 3px;
+.mode.selected{
+    border-color:#111;
+    background:#f1f1f1;
 }
-
-.category {
-    margin-top: 20px;
+.mode input{
+    width:auto;
+    margin-right:8px;
 }
-
-.category h3 {
-    margin: 0 0 8px;
+.hidden{display:none}
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
 }
-
-.actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+.stat{
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:12px;
+    text-align:center;
 }
-
-.summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 15px;
+.stat strong{
+    display:block;
+    font-size:22px;
+    margin-top:4px;
 }
-
-.stat {
-    background: #f5f6f7;
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
+.result{
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:13px;
+    margin-bottom:10px;
 }
-
-.stat strong {
-    display: block;
-    font-size: 22px;
-    margin-top: 5px;
+.result-title{
+    font-weight:700;
+    margin-bottom:8px;
 }
-
-.status {
-    padding: 12px;
-    border-radius: 9px;
-    margin-bottom: 15px;
-    display: none;
+.field{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:5px 0;
+    border-bottom:1px solid #eee;
+    font-size:13px;
 }
-
-.status.show {
-    display: block;
+.field:last-child{border-bottom:0}
+.available{color:#147333;font-weight:700}
+.unavailable{color:#b42318;font-weight:700}
+.small{
+    color:#666;
+    font-size:12px;
+    margin-top:5px;
 }
-
-.result {
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    overflow: hidden;
+.competition{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 0;
 }
-
-.result-header {
-    padding: 14px;
-    background: #f5f6f7;
-    font-weight: bold;
-}
-
-.result-body {
-    padding: 14px;
-}
-
-.endpoint {
-    font-family: monospace;
-    font-size: 12px;
-    background: #f1f1f1;
-    padding: 8px;
-    border-radius: 6px;
-    word-break: break-all;
-    margin-bottom: 12px;
-}
-
-.data-list {
-    display: grid;
-    gap: 5px;
-}
-
-.data-item {
-    padding: 8px 10px;
-    border-radius: 7px;
-    background: #f7f7f7;
-}
-
-.available {
-    border-left: 4px solid #159447;
-}
-
-.missing {
-    border-left: 4px solid #d93636;
-}
-
-.partial {
-    border-left: 4px solid #e09a00;
-}
-
-.badge {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin-left: 6px;
-}
-
-.badge.ok {
-    background: #dff5e7;
-    color: #13763a;
-}
-
-.badge.no {
-    background: #ffe1e1;
-    color: #a51f1f;
-}
-
-.badge.partial {
-    background: #fff0cc;
-    color: #8a5a00;
-}
-
-pre {
-    white-space: pre-wrap;
-    word-break: break-word;
-    background: #111;
-    color: #eee;
-    padding: 12px;
-    border-radius: 8px;
-    max-height: 400px;
-    overflow: auto;
-    font-size: 12px;
-}
-
-.small {
-    color: #666;
-    font-size: 13px;
-}
-
-@media (max-width: 700px) {
-    body {
-        padding: 10px;
-    }
-
-    .grid,
-    .competitions,
-    .tests,
-    .summary,
-    .actions {
-        grid-template-columns: 1fr;
-    }
+.competition input{width:auto}
+@media(max-width:700px){
+    body{padding:12px}
+    .row,.mode-grid,.checkbox-grid,.stats{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-    <div class="card">
-        <h1>⚽ Football API Tester</h1>
-        <p class="small">
-            Inserisci API Key e URL dell'API. Seleziona le indagini che vuoi eseguire.
-            Ogni indagine analizza un intero blocco di dati e mostra esattamente cosa è disponibile.
-        </p>
+<h1>Football API Tester</h1>
+
+<div class="card">
+    <h2>Configurazione API</h2>
+
+    <div class="row">
+        <div>
+            <label for="apiName">Nome API</label>
+            <input id="apiName" value="API-Football">
+        </div>
+
+        <div>
+            <label for="baseUrl">Link API</label>
+            <input id="baseUrl" value="https://v3.football.api-sports.io">
+        </div>
     </div>
 
-    <div class="card">
-        <h2>1. Configurazione API</h2>
+    <div style="margin-top:12px">
+        <label for="apiKey">API Key</label>
+        <input id="apiKey" type="password" placeholder="Inserisci API Key">
+    </div>
 
-        <div class="field">
-            <label for="apiName">Nome API</label>
-            <input id="apiName" placeholder="Es. API-Football">
-        </div>
-
-        <div class="field">
-            <label for="baseUrl">Link API</label>
-            <input id="baseUrl" placeholder="https://v3.football.api-sports.io">
-        </div>
-
-        <div class="field">
-            <label for="apiKey">API Key</label>
-            <input id="apiKey" type="password" placeholder="Inserisci API Key">
-        </div>
-
-        <div class="field">
-            <label for="authType">Tipo autenticazione</label>
+    <div class="row" style="margin-top:12px">
+        <div>
+            <label for="authType">Autenticazione</label>
             <select id="authType">
                 <option value="x-apisports-key">x-apisports-key</option>
                 <option value="x-api-key">x-api-key</option>
-                <option value="bearer">Authorization Bearer</option>
+                <option value="bearer">Bearer</option>
                 <option value="authorization">Authorization</option>
-                <option value="query_key">Parametro query: key</option>
-                <option value="query_api_key">Parametro query: api_key</option>
+                <option value="query_key">Query key</option>
+                <option value="query_api_key">Query api_key</option>
             </select>
         </div>
+    </div>
 
-        <div class="actions">
-            <button id="saveConfig">Salva configurazione</button>
-            <button id="clearConfig" class="secondary">Cancella configurazione</button>
+    <div class="buttons">
+        <button id="saveConfig">SALVA CONFIGURAZIONE</button>
+        <button id="testConnection">TEST CONNESSIONE</button>
+        <button id="startTest" disabled>AVVIA ANALISI</button>
+    </div>
+
+    <div id="connectionStatus" class="status"></div>
+</div>
+
+
+<div class="card">
+    <h2>1. Tipo di partite</h2>
+
+    <div class="mode-grid">
+        <div class="mode selected" id="futureMode">
+            <label style="margin:0;cursor:pointer">
+                <input type="radio" name="matchMode" value="future" checked>
+                Partite future
+            </label>
+            <div class="small">Partite ancora da giocare</div>
+        </div>
+
+        <div class="mode" id="pastMode">
+            <label style="margin:0;cursor:pointer">
+                <input type="radio" name="matchMode" value="past">
+                Partite passate
+            </label>
+            <div class="small">Partite già giocate e dati storici</div>
         </div>
     </div>
 
-    <div class="card">
-        <h2>2. Campionati</h2>
-
-        <div id="competitions" class="competitions"></div>
+    <div id="futureOptions" style="margin-top:14px">
+        <label for="futureDays">Giorni futuri da analizzare</label>
+        <select id="futureDays">
+            <option value="1">1 giorno</option>
+            <option value="3">3 giorni</option>
+            <option value="7" selected>7 giorni</option>
+        </select>
     </div>
 
-    <div class="card">
-        <h2>3. Stagioni storiche</h2>
+    <div id="pastOptions" class="hidden" style="margin-top:14px">
+        <label for="historicalSeason">Anno / stagione storica</label>
+        <select id="historicalSeason"></select>
+    </div>
+</div>
 
-        <div class="grid">
-            <div class="field">
-                <label for="historicalSeason">Stagione da testare</label>
-                <input id="historicalSeason" type="number" value="2024" min="1900" max="2100">
-            </div>
 
-            <div class="field">
-                <label for="futureDays">Partite future</label>
-                <select id="futureDays">
-                    <option value="7">Prossimi 7 giorni</option>
-                </select>
-            </div>
+<div class="card">
+    <h2>2. Campionati</h2>
+
+    <div class="checkbox-grid" id="competitions"></div>
+</div>
+
+
+<div class="card">
+    <h2>3. Cosa voglio chiedere all'API</h2>
+
+    <div id="futureQuestions">
+        <h3>Partite future</h3>
+
+        <div class="checkbox-grid">
+
+            <label class="check">
+                <input type="checkbox" value="future_date" class="test future-test" checked>
+                Data della partita
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_time" class="test future-test" checked>
+                Ora della partita
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_teams" class="test future-test" checked>
+                Squadra di casa e ospite
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_status" class="test future-test" checked>
+                Stato della partita
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_round" class="test future-test">
+                Giornata / turno
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_venue" class="test future-test">
+                Stadio
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_referee" class="test future-test">
+                Arbitro
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_timezone" class="test future-test">
+                Fuso orario
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_lineups" class="test future-test">
+                Formazioni disponibili prima della partita
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_injuries" class="test future-test">
+                Indisponibili / infortunati
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_odds" class="test future-test">
+                Quote pre-partita
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="future_h2h" class="test future-test">
+                H2H prima della partita
+            </label>
+
+        </div>
+    </div>
+
+
+    <div id="pastQuestions" class="hidden">
+        <h3>Partite passate</h3>
+
+        <div class="checkbox-grid">
+
+            <label class="check">
+                <input type="checkbox" value="past_result" class="test past-test" checked>
+                Risultato finale
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_goals" class="test past-test" checked>
+                Gol segnati
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_goal_minutes" class="test past-test" checked>
+                Minuto dei gol
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_events" class="test past-test" checked>
+                Eventi della partita
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_statistics" class="test past-test" checked>
+                Statistiche partita
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_xg" class="test past-test">
+                Expected Goals (xG)
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_possession" class="test past-test">
+                Possesso palla
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_shots" class="test past-test">
+                Tiri
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_corners" class="test past-test">
+                Calci d'angolo
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_cards" class="test past-test">
+                Cartellini
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_lineups" class="test past-test">
+                Formazioni
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_players" class="test past-test">
+                Statistiche giocatori
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_injuries" class="test past-test">
+                Indisponibili / infortunati
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_referee" class="test past-test">
+                Arbitro
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_venue" class="test past-test">
+                Stadio
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_h2h" class="test past-test">
+                Scontri diretti H2H
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_standings" class="test past-test">
+                Classifica
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_odds" class="test past-test">
+                Quote storiche
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_team_history" class="test past-test">
+                Storico / forma squadra
+            </label>
+
+            <label class="check">
+                <input type="checkbox" value="past_home_away" class="test past-test">
+                Statistiche casa / trasferta
+            </label>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <h2>4. Stato analisi</h2>
+
+    <div class="stats">
+        <div class="stat">
+            API Request
+            <strong id="requestCount">0</strong>
         </div>
 
-        <p class="small">
-            La stagione storica viene utilizzata dalle indagini relative alle partite e alle statistiche storiche.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>4. Seleziona le indagini</h2>
-
-        <div id="tests" class="tests"></div>
-
-        <p class="small">
-            Le indagini sono volutamente aggregate: una singola indagine può verificare molti campi contemporaneamente.
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>5. Avvio</h2>
-
-        <div class="summary">
-            <div class="stat">
-                Indagini
-                <strong id="selectedCount">0</strong>
-            </div>
-
-            <div class="stat">
-                Campionati
-                <strong id="competitionCount">0</strong>
-            </div>
-
-            <div class="stat">
-                Richieste
-                <strong id="requestCount">0</strong>
-            </div>
-
-            <div class="stat">
-                Errori
-                <strong id="errorCount">0</strong>
-            </div>
+        <div class="stat">
+            Errori
+            <strong id="errorCount">0</strong>
         </div>
 
-        <div id="status" class="status"></div>
-
-        <button id="startTest">AVVIA TEST</button>
-    </div>
-
-    <div class="card">
-        <h2>6. Risultati</h2>
-        <div id="results">
-            <p class="small">Nessun test eseguito.</p>
+        <div class="stat">
+            Test completati
+            <strong id="testCount">0</strong>
         </div>
     </div>
+</div>
+
+
+<div class="card">
+    <h2>Risultati</h2>
+    <div id="results">
+        <div class="small">Nessuna analisi eseguita.</div>
+    </div>
+</div>
 
 </div>
 
+
 <script>
-
 /* =========================================================
-   PROXY
-   ========================================================= */
+   CONFIGURAZIONE
+========================================================= */
 
-const PROXY_URL =
-    "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
-
-
-/* =========================================================
-   CAMPIONATI
-   ========================================================= */
+const PROXY_URL = "https://little-resonance-5ec5.my5vp6787f.workers.dev/";
 
 const COMPETITIONS = [
-    { id: 135, name: "Serie A", country: "Italia" },
-    { id: 39, name: "Premier League", country: "Inghilterra" },
-    { id: 140, name: "La Liga", country: "Spagna" },
-    { id: 78, name: "Bundesliga", country: "Germania" },
-    { id: 61, name: "Ligue 1", country: "Francia" },
-    { id: 2, name: "Champions League", country: "Europa" },
-    { id: 3, name: "Europa League", country: "Europa" },
-    { id: 848, name: "Conference League", country: "Europa" }
+    { id:135, name:"Serie A", country:"Italia" },
+    { id:39, name:"Premier League", country:"Inghilterra" },
+    { id:140, name:"La Liga", country:"Spagna" },
+    { id:78, name:"Bundesliga", country:"Germania" },
+    { id:61, name:"Ligue 1", country:"Francia" },
+    { id:2, name:"Champions League", country:"Europa" },
+    { id:3, name:"Europa League", country:"Europa" },
+    { id:848, name:"Conference League", country:"Europa" }
 ];
 
 
 /* =========================================================
-   INDAGINI
-   ========================================================= */
+   TEST AGGREGATI
+========================================================= */
 
-const TESTS = [
+const TESTS = {
 
-    {
-        id: "future_matches",
-        category: "PARTITE",
-        title: "Partite nei prossimi 7 giorni",
-        description: "Verifica tutto ciò che l'API restituisce per le partite future.",
-        type: "future",
-        endpoints: [
-            "/fixtures?league={league}&season={season}&next=20",
-            "/fixtures?next=20"
-        ],
-        fields: [
-            ["ID partita", ["fixture", "id"]],
-            ["Data", ["date"]],
-            ["Timestamp", ["timestamp"]],
-            ["Orario", ["date", "timestamp"]],
-            ["Campionato", ["league", "competition"]],
-            ["Stagione", ["season"]],
-            ["Squadra casa", ["home"]],
-            ["Squadra ospite", ["away"]],
-            ["Stato", ["status"]]
-        ]
+    future_date: {
+        name:"Data della partita",
+        endpoint:"/fixtures",
+        fields:["fixture.date","date"]
     },
 
-    {
-        id: "current_fixtures",
-        category: "PARTITE",
-        title: "Partite di questa stagione",
-        description: "Verifica se possiamo recuperare le partite della stagione corrente.",
-        type: "current",
-        endpoints: [
-            "/fixtures?league={league}&season={season}"
-        ],
-        fields: [
-            ["ID partita", ["fixture", "id"]],
-            ["Data e ora", ["date", "timestamp"]],
-            ["Campionato", ["league", "competition"]],
-            ["Stagione", ["season"]],
-            ["Casa / trasferta", ["home", "away"]],
-            ["Stato", ["status"]],
-            ["Risultato", ["goals", "score"]]
-        ]
+    future_time: {
+        name:"Ora della partita",
+        endpoint:"/fixtures",
+        fields:["fixture.date","date"]
     },
 
-    {
-        id: "single_fixture",
-        category: "PARTITE",
-        title: "Dati completi di una singola partita",
-        description: "Recupera una partita specifica e verifica quali informazioni dettagliate contiene.",
-        type: "single",
-        endpoints: [
-            "/fixtures?id={fixture}"
-        ],
-        fields: [
-            ["ID partita", ["fixture", "id"]],
-            ["Data e ora", ["date", "timestamp"]],
-            ["Campionato", ["league", "competition"]],
-            ["Stagione", ["season"]],
-            ["Squadre", ["home", "away"]],
-            ["Stato", ["status"]],
-            ["Risultato finale", ["goals", "score"]],
-            ["Risultato primo tempo", ["halftime", "half_time"]],
-            ["Risultato secondo tempo", ["second", "fulltime"]],
-            ["Arbitro", ["referee"]],
-            ["Stadio", ["venue"]]
-        ]
+    future_teams: {
+        name:"Squadre",
+        endpoint:"/fixtures",
+        fields:["teams.home","teams.away"]
     },
 
-    {
-        id: "historical_fixtures",
-        category: "STORICO",
-        title: "Partite di una stagione storica",
-        description: "Verifica se l'API permette di scaricare le partite di una stagione precedente.",
-        type: "historical",
-        endpoints: [
-            "/fixtures?league={league}&season={historicalSeason}"
-        ],
-        fields: [
-            ["Partite storiche", ["fixture", "fixtures", "match"]],
-            ["ID partita", ["fixture", "id"]],
-            ["Data", ["date"]],
-            ["Squadre", ["home", "away"]],
-            ["Campionato", ["league", "competition"]],
-            ["Stagione", ["season"]],
-            ["Risultato", ["goals", "score"]],
-            ["Stato", ["status"]]
-        ]
+    future_status: {
+        name:"Stato partita",
+        endpoint:"/fixtures",
+        fields:["fixture.status"]
     },
 
-    {
-        id: "historical_statistics",
-        category: "STORICO",
-        title: "Statistiche delle partite storiche",
-        description: "Verifica se le partite delle stagioni precedenti hanno anche statistiche dettagliate.",
-        type: "historical_stats",
-        endpoints: [
-            "/fixtures/statistics?fixture={fixture}"
-        ],
-        fields: [
-            ["Possesso palla", ["possession"]],
-            ["Tiri totali", ["shots"]],
-            ["Tiri in porta", ["shots on goal", "shots_on_goal", "on target"]],
-            ["Tiri fuori", ["shots off goal", "shots_off_goal", "off target"]],
-            ["Corner", ["corner"]],
-            ["Falli", ["fouls"]],
-            ["Fuorigioco", ["offsides"]],
-            ["Passaggi", ["passes"]],
-            ["Cartellini gialli", ["yellow"]],
-            ["Cartellini rossi", ["red"]],
-            ["Parate", ["saves"]],
-            ["Attacchi", ["attacks"]],
-            ["xG", ["xg", "expected goals"]]
-        ]
+    future_round: {
+        name:"Giornata / turno",
+        endpoint:"/fixtures",
+        fields:["league.round"]
     },
 
-    {
-        id: "result",
-        category: "DATI PARTITA",
-        title: "Risultati e punteggi",
-        description: "Verifica tutti i tipi di risultato disponibili.",
-        type: "result",
-        endpoints: [
-            "/fixtures?last=10"
-        ],
-        fields: [
-            ["Risultato finale", ["goals", "score"]],
-            ["Gol squadra casa", ["home", "goals"]],
-            ["Gol squadra ospite", ["away", "goals"]],
-            ["Risultato primo tempo", ["halftime", "half_time"]],
-            ["Risultato secondo tempo", ["second", "fulltime"]],
-            ["Supplementari", ["extratime", "extra"]],
-            ["Rigori", ["penalty", "penalties"]]
-        ]
+    future_venue: {
+        name:"Stadio",
+        endpoint:"/fixtures",
+        fields:["fixture.venue"]
     },
 
-    {
-        id: "goal_events",
-        category: "DATI PARTITA",
-        title: "Eventi e minuti dei gol",
-        description: "Verifica se possiamo ricostruire esattamente quando avvengono i gol.",
-        type: "events",
-        endpoints: [
-            "/fixtures/events?fixture={fixture}"
-        ],
-        fields: [
-            ["Eventi partita", ["event"]],
-            ["Gol", ["goal"]],
-            ["Minuto del gol", ["elapsed", "minute"]],
-            ["Recupero", ["extra", "elapsed"]],
-            ["Squadra che segna", ["team"]],
-            ["Giocatore", ["player"]],
-            ["Assist", ["assist"]],
-            ["Tipo evento", ["type"]],
-            ["Dettaglio evento", ["detail"]]
-        ]
+    future_referee: {
+        name:"Arbitro",
+        endpoint:"/fixtures",
+        fields:["fixture.referee"]
     },
 
-    {
-        id: "match_statistics",
-        category: "STATISTICHE",
-        title: "Statistiche complete della partita",
-        description: "Controlla in un'unica indagine tutte le statistiche principali.",
-        type: "match_stats",
-        endpoints: [
-            "/fixtures/statistics?fixture={fixture}"
-        ],
-        fields: [
-            ["Possesso palla", ["possession"]],
-            ["Tiri totali", ["shots"]],
-            ["Tiri in porta", ["shots on goal", "shots_on_goal", "on target"]],
-            ["Tiri fuori", ["shots off goal", "shots_off_goal", "off target"]],
-            ["Tiri bloccati", ["blocked shots", "blocked_shots"]],
-            ["Corner", ["corner"]],
-            ["Falli", ["fouls"]],
-            ["Fuorigioco", ["offsides"]],
-            ["Passaggi", ["passes"]],
-            ["Precisione passaggi", ["pass accuracy", "pass_accuracy"]],
-            ["Parate", ["saves"]],
-            ["Attacchi", ["attacks"]],
-            ["Attacchi pericolosi", ["dangerous attacks"]],
-            ["Cartellini gialli", ["yellow"]],
-            ["Cartellini rossi", ["red"]]
-        ]
+    future_timezone: {
+        name:"Fuso orario",
+        endpoint:"/fixtures",
+        fields:["fixture.timezone"]
     },
 
-    {
-        id: "xg",
-        category: "STATISTICHE",
-        title: "Expected Goals (xG)",
-        description: "Verifica se l'API fornisce gli Expected Goals.",
-        type: "xg",
-        endpoints: [
-            "/fixtures/statistics?fixture={fixture}",
-            "/fixtures/events?fixture={fixture}"
-        ],
-        fields: [
-            ["xG squadra casa", ["xg", "expected goals"]],
-            ["xG squadra ospite", ["xg", "expected goals"]]
-        ]
+    future_lineups: {
+        name:"Formazioni pre-partita",
+        endpoint:"/fixtures/lineups",
+        fields:["response"]
     },
 
-    {
-        id: "team_history",
-        category: "SQUADRE",
-        title: "Storico e forma della squadra",
-        description: "Verifica quanti dati storici possiamo ottenere per una squadra.",
-        type: "team",
-        endpoints: [
-            "/fixtures?team={team}&last=10",
-            "/teams/statistics?team={team}&league={league}&season={season}"
-        ],
-        fields: [
-            ["Ultime partite", ["fixtures", "fixture", "matches"]],
-            ["Risultati", ["wins", "draws", "losses", "score"]],
-            ["Gol fatti", ["goals"]],
-            ["Gol subiti", ["goals"]],
-            ["Forma", ["form"]],
-            ["Clean sheet", ["clean"]],
-            ["Partite senza segnare", ["failed", "score"]],
-            ["Statistiche stagionali", ["statistics"]]
-        ]
+    future_injuries: {
+        name:"Indisponibili / infortunati",
+        endpoint:"/injuries",
+        fields:["response"]
     },
 
-    {
-        id: "home_away",
-        category: "SQUADRE",
-        title: "Statistiche casa / trasferta",
-        description: "Verifica se le statistiche possono essere separate tra casa e trasferta.",
-        type: "home_away",
-        endpoints: [
-            "/teams/statistics?team={team}&league={league}&season={season}",
-            "/standings?league={league}&season={season}"
-        ],
-        fields: [
-            ["Partite in casa", ["home"]],
-            ["Partite in trasferta", ["away"]],
-            ["Gol fatti in casa", ["home", "goals"]],
-            ["Gol subiti in casa", ["home", "goals"]],
-            ["Gol fatti in trasferta", ["away", "goals"]],
-            ["Gol subiti in trasferta", ["away", "goals"]],
-            ["Vittorie casa", ["home", "wins"]],
-            ["Vittorie trasferta", ["away", "wins"]]
-        ]
+    future_odds: {
+        name:"Quote pre-partita",
+        endpoint:"/odds",
+        fields:["response"]
     },
 
-    {
-        id: "standings",
-        category: "SQUADRE",
-        title: "Classifica",
-        description: "Verifica i dati disponibili nella classifica del campionato.",
-        type: "standings",
-        endpoints: [
-            "/standings?league={league}&season={season}"
-        ],
-        fields: [
-            ["Posizione", ["rank"]],
-            ["Squadra", ["team"]],
-            ["Punti", ["points"]],
-            ["Partite giocate", ["played", "all"]],
-            ["Vittorie", ["wins"]],
-            ["Pareggi", ["draws"]],
-            ["Sconfitte", ["loses", "losses"]],
-            ["Gol fatti", ["goals for", "goals_for"]],
-            ["Gol subiti", ["goals against", "goals_against"]],
-            ["Differenza reti", ["goals", "goaldiff", "goal difference"]]
-        ]
+    future_h2h: {
+        name:"H2H pre-partita",
+        endpoint:"/fixtures/headtohead",
+        fields:["response"]
     },
 
-    {
-        id: "player_match",
-        category: "GIOCATORI",
-        title: "Statistiche giocatori nella partita",
-        description: "Verifica quali dati individuali sono disponibili per ogni partita.",
-        type: "player_match",
-        endpoints: [
-            "/fixtures/players?fixture={fixture}"
-        ],
-        fields: [
-            ["Giocatore", ["player"]],
-            ["Presenza", ["games", "appearances"]],
-            ["Minuti", ["minutes"]],
-            ["Gol", ["goals"]],
-            ["Assist", ["assists"]],
-            ["Tiri", ["shots"]],
-            ["Tiri in porta", ["shots on", "on target"]],
-            ["Passaggi", ["passes"]],
-            ["Rating", ["rating"]],
-            ["Cartellini", ["cards"]]
-        ]
+    past_result: {
+        name:"Risultato finale",
+        endpoint:"/fixtures",
+        fields:["goals.home","goals.away","score.fulltime"]
     },
 
-    {
-        id: "player_season",
-        category: "GIOCATORI",
-        title: "Statistiche giocatori di stagione",
-        description: "Verifica i dati individuali aggregati disponibili per una stagione.",
-        type: "player_season",
-        endpoints: [
-            "/players?league={league}&season={season}",
-            "/players/topscorers?league={league}&season={season}",
-            "/players/topassists?league={league}&season={season}"
-        ],
-        fields: [
-            ["Presenze", ["appearances", "games"]],
-            ["Minuti giocati", ["minutes"]],
-            ["Gol", ["goals"]],
-            ["Assist", ["assists"]],
-            ["Tiri", ["shots"]],
-            ["Passaggi", ["passes"]],
-            ["Rating", ["rating"]],
-            ["Cartellini", ["cards"]],
-            ["Età", ["age"]],
-            ["Ruolo", ["position"]],
-            ["Squadra", ["team"]]
-        ]
+    past_goals: {
+        name:"Gol segnati",
+        endpoint:"/fixtures",
+        fields:["goals.home","goals.away"]
     },
 
-    {
-        id: "availability",
-        category: "SQUADRE / GIOCATORI",
-        title: "Infortuni e indisponibilità",
-        description: "Verifica tutti i dati relativi ai giocatori indisponibili.",
-        type: "availability",
-        endpoints: [
-            "/injuries?league={league}&season={season}",
-            "/sidelined?team={team}"
-        ],
-        fields: [
-            ["Infortunio", ["injury"]],
-            ["Tipo infortunio", ["type", "reason"]],
-            ["Giocatore", ["player"]],
-            ["Squadra", ["team"]],
-            ["Squalifica", ["suspension"]],
-            ["Indisponibilità", ["sidelined", "unavailable"]],
-            ["Data", ["date"]]
-        ]
+    past_goal_minutes: {
+        name:"Minuti dei gol",
+        endpoint:"/fixtures/events",
+        fields:["time.elapsed","time.extra","type","detail"]
     },
 
-    {
-        id: "lineups",
-        category: "SQUADRE / GIOCATORI",
-        title: "Formazioni e panchina",
-        description: "Verifica se sono disponibili formazione titolare, panchina e ruoli.",
-        type: "lineups",
-        endpoints: [
-            "/fixtures/lineups?fixture={fixture}"
-        ],
-        fields: [
-            ["Formazione titolare", ["startXI", "starting"]],
-            ["Panchina", ["substitutes", "bench"]],
-            ["Giocatore", ["player"]],
-            ["Numero maglia", ["number"]],
-            ["Ruolo", ["pos"]],
-            ["Modulo", ["formation"]],
-            ["Capitano", ["captain"]]
-        ]
+    past_events: {
+        name:"Eventi della partita",
+        endpoint:"/fixtures/events",
+        fields:["time","team","player","assist","type","detail"]
     },
 
-    {
-        id: "h2h",
-        category: "SCONTRI DIRETTI",
-        title: "Scontri diretti H2H",
-        description: "Verifica lo storico degli scontri diretti tra due squadre.",
-        type: "h2h",
-        endpoints: [
-            "/fixtures/headtohead?h2h={team1}-{team2}",
-            "/h2h?h2h={team1}-{team2}"
-        ],
-        fields: [
-            ["Partite H2H", ["fixture", "fixtures", "matches"]],
-            ["Data partita", ["date"]],
-            ["Casa / trasferta", ["home", "away"]],
-            ["Risultato", ["goals", "score"]],
-            ["Risultato primo tempo", ["halftime", "half_time"]],
-            ["Stagione", ["season"]],
-            ["Campionato", ["league", "competition"]]
-        ]
+    past_statistics: {
+        name:"Statistiche partita",
+        endpoint:"/fixtures/statistics",
+        fields:["response","statistics"]
     },
 
-    {
-        id: "coverage",
-        category: "COPERTURA STORICA",
-        title: "Stagioni e copertura storica",
-        description: "Verifica quali stagioni e quali tipi di dati sono disponibili per i campionati.",
-        type: "coverage",
-        endpoints: [
-            "/leagues?id={league}",
-            "/leagues"
-        ],
-        fields: [
-            ["Campionato", ["league", "competition"]],
-            ["Stagioni disponibili", ["seasons"]],
-            ["Anno stagione", ["year"]],
-            ["Data inizio", ["start"]],
-            ["Data fine", ["end"]],
-            ["Copertura fixture", ["fixtures"]],
-            ["Copertura statistiche", ["statistics"]],
-            ["Copertura eventi", ["events"]],
-            ["Copertura lineups", ["lineups"]],
-            ["Copertura giocatori", ["players"]],
-            ["Copertura infortuni", ["injuries"]],
-            ["Copertura H2H", ["head2head", "h2h"]]
-        ]
+    past_xg: {
+        name:"Expected Goals (xG)",
+        endpoint:"/fixtures/statistics",
+        fields:["expected_goals","xg"]
     },
 
-    {
-        id: "odds",
-        category: "DATI AGGIUNTIVI",
-        title: "Quote",
-        description: "Verifica se sono disponibili le quote pre-partita.",
-        type: "odds",
-        endpoints: [
-            "/odds?fixture={fixture}"
-        ],
-        fields: [
-            ["Bookmaker", ["bookmaker"]],
-            ["Mercato", ["bet"]],
-            ["Quota", ["value", "odd"]],
-            ["Casa", ["home"]],
-            ["Pareggio", ["draw"]],
-            ["Trasferta", ["away"]],
-            ["Over / Under", ["over", "under"]]
-        ]
+    past_possession: {
+        name:"Possesso palla",
+        endpoint:"/fixtures/statistics",
+        fields:["Ball Possession","possession"]
     },
 
-    {
-        id: "extra",
-        category: "DATI AGGIUNTIVI",
-        title: "Arbitri, stadi e allenatori",
-        description: "Verifica le informazioni contestuali della partita.",
-        type: "extra",
-        endpoints: [
-            "/fixtures?id={fixture}",
-            "/venues?id={venue}",
-            "/coaches?team={team}"
-        ],
-        fields: [
-            ["Arbitro", ["referee"]],
-            ["Stadio", ["venue"]],
-            ["Capienza stadio", ["capacity"]],
-            ["Allenatore", ["coach"]],
-            ["Nazionalità allenatore", ["nationality"]],
-            ["Data nascita allenatore", ["birth"]]
-        ]
+    past_shots: {
+        name:"Tiri",
+        endpoint:"/fixtures/statistics",
+        fields:["Total Shots","Shots on Goal","shots"]
+    },
+
+    past_corners: {
+        name:"Calci d'angolo",
+        endpoint:"/fixtures/statistics",
+        fields:["Corner Kicks","corners"]
+    },
+
+    past_cards: {
+        name:"Cartellini",
+        endpoint:"/fixtures/events",
+        fields:["Yellow Card","Red Card","Cards"]
+    },
+
+    past_lineups: {
+        name:"Formazioni",
+        endpoint:"/fixtures/lineups",
+        fields:["startXI","substitutes","coach"]
+    },
+
+    past_players: {
+        name:"Statistiche giocatori",
+        endpoint:"/fixtures/players",
+        fields:["players","statistics"]
+    },
+
+    past_injuries: {
+        name:"Indisponibili / infortunati",
+        endpoint:"/injuries",
+        fields:["player","team","type","reason"]
+    },
+
+    past_referee: {
+        name:"Arbitro",
+        endpoint:"/fixtures",
+        fields:["fixture.referee"]
+    },
+
+    past_venue: {
+        name:"Stadio",
+        endpoint:"/fixtures",
+        fields:["fixture.venue"]
+    },
+
+    past_h2h: {
+        name:"Scontri diretti H2H",
+        endpoint:"/fixtures/headtohead",
+        fields:["response"]
+    },
+
+    past_standings: {
+        name:"Classifica",
+        endpoint:"/standings",
+        fields:["standings","rank","points"]
+    },
+
+    past_odds: {
+        name:"Quote storiche",
+        endpoint:"/odds",
+        fields:["response","bookmakers","bets"]
+    },
+
+    past_team_history: {
+        name:"Storico / forma squadra",
+        endpoint:"/fixtures",
+        fields:["response","goals","score"]
+    },
+
+    past_home_away: {
+        name:"Statistiche casa / trasferta",
+        endpoint:"/teams/statistics",
+        fields:["fixtures","goals","form"]
+    }
+};
+
+
+/* =========================================================
+   STATO
+========================================================= */
+
+let requests = 0;
+let errors = 0;
+let completedTests = 0;
+let connectionOK = false;
+
+
+/* =========================================================
+   ELEMENTI
+========================================================= */
+
+const baseUrl = document.getElementById("baseUrl");
+const apiKey = document.getElementById("apiKey");
+const authType = document.getElementById("authType");
+
+const testConnectionButton = document.getElementById("testConnection");
+const startTestButton = document.getElementById("startTest");
+const connectionStatus = document.getElementById("connectionStatus");
+
+const futureMode = document.getElementById("futureMode");
+const pastMode = document.getElementById("pastMode");
+
+const futureOptions = document.getElementById("futureOptions");
+const pastOptions = document.getElementById("pastOptions");
+
+const futureQuestions = document.getElementById("futureQuestions");
+const pastQuestions = document.getElementById("pastQuestions");
+
+const requestCount = document.getElementById("requestCount");
+const errorCount = document.getElementById("errorCount");
+const testCount = document.getElementById("testCount");
+
+const results = document.getElementById("results");
+
+
+/* =========================================================
+   COMPETIZIONI
+========================================================= */
+
+const competitionsContainer = document.getElementById("competitions");
+
+COMPETITIONS.forEach(c => {
+
+    const label = document.createElement("label");
+    label.className = "competition";
+
+    label.innerHTML = `
+        <input type="checkbox" value="${c.id}" class="competition-check">
+        <span>${c.name} — ${c.country}</span>
+    `;
+
+    competitionsContainer.appendChild(label);
+});
+
+
+/* =========================================================
+   STAGIONI STORICHE
+========================================================= */
+
+const historicalSeason = document.getElementById("historicalSeason");
+
+const currentYear = new Date().getFullYear();
+
+for(let i = 0; i < 10; i++){
+
+    const year = currentYear - i;
+
+    const option = document.createElement("option");
+
+    option.value = year;
+    option.textContent = year;
+
+    if(i === 2){
+        option.selected = true;
     }
 
-];
-
-
-/* =========================================================
-   RENDER CAMPIONATI
-   ========================================================= */
-
-function renderCompetitions() {
-
-    const container = document.getElementById("competitions");
-
-    container.innerHTML = COMPETITIONS.map(c => `
-        <label class="check">
-            <input type="checkbox"
-                   class="competition"
-                   value="${c.id}">
-            <span>
-                <strong>${c.name}</strong><br>
-                <small>${c.country}</small>
-            </span>
-        </label>
-    `).join("");
-
-    document.querySelectorAll(".competition").forEach(el => {
-        el.addEventListener("change", updateCounters);
-    });
+    historicalSeason.appendChild(option);
 }
 
 
 /* =========================================================
-   RENDER TEST
-   ========================================================= */
+   CAMBIO MODALITÀ
+========================================================= */
 
-function renderTests() {
+document.querySelectorAll('input[name="matchMode"]').forEach(radio => {
 
-    const container = document.getElementById("tests");
+    radio.addEventListener("change", () => {
 
-    const categories = {};
+        const mode = document.querySelector('input[name="matchMode"]:checked').value;
 
-    TESTS.forEach(test => {
+        if(mode === "future"){
 
-        if (!categories[test.category]) {
-            categories[test.category] = [];
+            futureMode.classList.add("selected");
+            pastMode.classList.remove("selected");
+
+            futureOptions.classList.remove("hidden");
+            pastOptions.classList.add("hidden");
+
+            futureQuestions.classList.remove("hidden");
+            pastQuestions.classList.add("hidden");
+
+        }else{
+
+            futureMode.classList.remove("selected");
+            pastMode.classList.add("selected");
+
+            futureOptions.classList.add("hidden");
+            pastOptions.classList.remove("hidden");
+
+            futureQuestions.classList.add("hidden");
+            pastQuestions.classList.remove("hidden");
         }
 
-        categories[test.category].push(test);
     });
 
-    container.innerHTML = Object.entries(categories).map(([category, tests]) => {
+});
 
-        return `
-            <div class="category">
-                <h3>${category}</h3>
 
-                ${tests.map(test => `
-                    <label class="check">
-                        <input type="checkbox"
-                               class="test"
-                               value="${test.id}">
-                        <span>
-                            <strong>${test.title}</strong><br>
-                            <small>${test.description}</small>
-                        </span>
-                    </label>
-                `).join("")}
-            </div>
-        `;
+/* =========================================================
+   INVALIDA CONNESSIONE SE CAMBIANO I DATI
+========================================================= */
 
-    }).join("");
+[baseUrl,apiKey,authType].forEach(element => {
 
-    document.querySelectorAll(".test").forEach(el => {
-        el.addEventListener("change", updateCounters);
-    });
+    element.addEventListener("input", invalidateConnection);
+    element.addEventListener("change", invalidateConnection);
+
+});
+
+
+function invalidateConnection(){
+
+    connectionOK = false;
+
+    startTestButton.disabled = true;
+
+    connectionStatus.className = "status";
+    connectionStatus.style.display = "none";
 }
 
 
 /* =========================================================
-   HELPERS
-   ========================================================= */
+   CONFIGURAZIONE
+========================================================= */
 
-function getSelectedCompetitions() {
+document.getElementById("saveConfig").addEventListener("click", () => {
 
-    return [...document.querySelectorAll(".competition:checked")]
-        .map(el => COMPETITIONS.find(c => String(c.id) === el.value))
-        .filter(Boolean);
+    localStorage.setItem("footballApiName",
+        document.getElementById("apiName").value
+    );
+
+    localStorage.setItem("footballApiBaseUrl",
+        baseUrl.value
+    );
+
+    localStorage.setItem("footballApiKey",
+        apiKey.value
+    );
+
+    localStorage.setItem("footballApiAuthType",
+        authType.value
+    );
+
+    connectionStatus.className = "status ok";
+    connectionStatus.textContent = "Configurazione salvata.";
+});
+
+
+function loadConfig(){
+
+    const name = localStorage.getItem("footballApiName");
+    const url = localStorage.getItem("footballApiBaseUrl");
+    const key = localStorage.getItem("footballApiKey");
+    const auth = localStorage.getItem("footballApiAuthType");
+
+    if(name !== null)
+        document.getElementById("apiName").value = name;
+
+    if(url !== null)
+        baseUrl.value = url;
+
+    if(key !== null)
+        apiKey.value = key;
+
+    if(auth !== null)
+        authType.value = auth;
+}
+
+loadConfig();
+
+
+/* =========================================================
+   URL
+========================================================= */
+
+function cleanBaseUrl(){
+
+    return baseUrl.value
+        .trim()
+        .replace(/\/+$/,"");
 }
 
 
-function getSelectedTests() {
+/* =========================================================
+   HEADERS
+========================================================= */
 
-    return [...document.querySelectorAll(".test:checked")]
-        .map(el => TESTS.find(t => t.id === el.value))
-        .filter(Boolean);
-}
+function buildHeaders(){
 
+    const headers = {};
 
-function normalizeBaseUrl(url) {
+    switch(authType.value){
 
-    return url.trim().replace(/\/+$/, "");
-}
+        case "x-apisports-key":
+            headers["x-apisports-key"] = apiKey.value.trim();
+            break;
 
+        case "x-api-key":
+            headers["x-api-key"] = apiKey.value.trim();
+            break;
 
-function showStatus(message, type = "info") {
+        case "bearer":
+            headers["Authorization"] = "Bearer " + apiKey.value.trim();
+            break;
 
-    const box = document.getElementById("status");
-
-    box.textContent = message;
-    box.className = "status show";
-
-    if (type === "error") {
-        box.style.background = "#ffe1e1";
-        box.style.color = "#a51f1f";
-    } else if (type === "success") {
-        box.style.background = "#dff5e7";
-        box.style.color = "#13763a";
-    } else {
-        box.style.background = "#e8f0ff";
-        box.style.color = "#174ea6";
+        case "authorization":
+            headers["Authorization"] = apiKey.value.trim();
+            break;
     }
+
+    return headers;
 }
 
 
-function escapeHtml(value) {
+/* =========================================================
+   API REQUEST
+========================================================= */
 
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+async function apiRequest(url){
 
+    requests++;
+    updateCounters();
 
-function jsonString(data) {
+    let targetUrl = url;
 
-    try {
-        return JSON.stringify(data).toLowerCase();
-    } catch {
-        return "";
+    if(authType.value === "query_key"){
+
+        targetUrl +=
+            (targetUrl.includes("?") ? "&" : "?") +
+            "key=" +
+            encodeURIComponent(apiKey.value.trim());
+    }
+
+    if(authType.value === "query_api_key"){
+
+        targetUrl +=
+            (targetUrl.includes("?") ? "&" : "?") +
+            "api_key=" +
+            encodeURIComponent(apiKey.value.trim());
+    }
+
+    const proxyUrl =
+        PROXY_URL +
+        "?url=" +
+        encodeURIComponent(targetUrl);
+
+    try{
+
+        const response = await fetch(proxyUrl,{
+            method:"GET",
+            headers:buildHeaders()
+        });
+
+        let data = null;
+
+        try{
+            data = await response.json();
+        }catch(e){
+            data = null;
+        }
+
+        if(!response.ok){
+
+            errors++;
+            updateCounters();
+
+            return {
+                ok:false,
+                http:response.status,
+                data:data,
+                error:"HTTP " + response.status
+            };
+        }
+
+        return {
+            ok:true,
+            http:response.status,
+            data:data
+        };
+
+    }catch(error){
+
+        errors++;
+        updateCounters();
+
+        return {
+            ok:false,
+            http:null,
+            data:null,
+            error:error.message
+        };
     }
 }
 
 
 /* =========================================================
-   RICERCA CAMPI
-   ========================================================= */
+   TEST CONNESSIONE
+========================================================= */
 
-function findField(data, terms) {
+testConnectionButton.addEventListener("click", testConnection);
 
-    const text = jsonString(data);
 
-    return terms.some(term =>
-        text.includes(term.toLowerCase())
+async function testConnection(){
+
+    const url = cleanBaseUrl();
+    const key = apiKey.value.trim();
+
+    if(!url){
+
+        showConnectionError("Inserisci il link dell'API.");
+        return;
+    }
+
+    if(!key){
+
+        showConnectionError("Inserisci la API Key.");
+        return;
+    }
+
+    connectionOK = false;
+    startTestButton.disabled = true;
+
+    testConnectionButton.disabled = true;
+
+    connectionStatus.className = "status wait";
+    connectionStatus.textContent = "Test della connessione in corso...";
+    connectionStatus.style.display = "block";
+
+    const result = await apiRequest(url + "/status");
+
+    testConnectionButton.disabled = false;
+
+    if(result.ok){
+
+        connectionOK = true;
+        startTestButton.disabled = false;
+
+        connectionStatus.className = "status ok";
+
+        connectionStatus.textContent =
+            "✅ TEST CONNESSIONE OK — API raggiungibile. HTTP " +
+            result.http +
+            ". Ora puoi avviare l'analisi.";
+
+    }else{
+
+        connectionOK = false;
+        startTestButton.disabled = true;
+
+        connectionStatus.className = "status error";
+
+        if(result.http){
+
+            connectionStatus.textContent =
+                "❌ TEST CONNESSIONE FALLITO — HTTP " +
+                result.http +
+                ".";
+
+        }else{
+
+            connectionStatus.textContent =
+                "❌ TEST CONNESSIONE FALLITO — " +
+                result.error;
+        }
+    }
+}
+
+
+function showConnectionError(message){
+
+    connectionOK = false;
+    startTestButton.disabled = true;
+
+    connectionStatus.className = "status error";
+    connectionStatus.textContent = "❌ " + message;
+    connectionStatus.style.display = "block";
+}
+
+
+/* =========================================================
+   CONTATORI
+========================================================= */
+
+function updateCounters(){
+
+    requestCount.textContent = requests;
+    errorCount.textContent = errors;
+    testCount.textContent = completedTests;
+}
+
+
+/* =========================================================
+   LETTURA VALORE NIDIFICATO
+========================================================= */
+
+function getNestedValue(object,path){
+
+    if(!object || !path)
+        return undefined;
+
+    const parts = path.split(".");
+
+    let value = object;
+
+    for(const part of parts){
+
+        if(value === null || value === undefined)
+            return undefined;
+
+        if(Array.isArray(value)){
+
+            let found = undefined;
+
+            for(const item of value){
+
+                if(item && item[part] !== undefined){
+
+                    found = item[part];
+                    break;
+                }
+            }
+
+            value = found;
+
+        }else{
+
+            value = value[part];
+        }
+    }
+
+    return value;
+}
+
+
+/* =========================================================
+   VALORE DISPONIBILE
+========================================================= */
+
+function fieldAvailable(data,path){
+
+    const value = getNestedValue(data,path);
+
+    if(value === undefined || value === null)
+        return false;
+
+    if(typeof value === "string" && value.trim() === "")
+        return false;
+
+    if(Array.isArray(value) && value.length === 0)
+        return false;
+
+    return true;
+}
+
+
+/* =========================================================
+   TROVA FIXTURE
+========================================================= */
+
+async function findFixtureId(competitionId,season){
+
+    const url =
+        cleanBaseUrl() +
+        "/fixtures?league=" +
+        competitionId +
+        "&season=" +
+        season;
+
+    const result = await apiRequest(url);
+
+    if(!result.ok)
+        return null;
+
+    const response =
+        result.data &&
+        result.data.response;
+
+    if(!Array.isArray(response) || response.length === 0)
+        return null;
+
+    return response[0].fixture
+        ? response[0].fixture.id
+        : null;
+}
+
+
+/* =========================================================
+   ESECUZIONE TEST FUTURI
+========================================================= */
+
+async function runFutureTest(testId,competitionId){
+
+    const test = TESTS[testId];
+
+    const days =
+        Number(document.getElementById("futureDays").value);
+
+    const from =
+        new Date();
+
+    const to =
+        new Date();
+
+    to.setDate(to.getDate() + days);
+
+    const fromDate =
+        from.toISOString().slice(0,10);
+
+    const toDate =
+        to.toISOString().slice(0,10);
+
+    let url =
+        cleanBaseUrl() +
+        "/fixtures?league=" +
+        competitionId +
+        "&season=" +
+        currentYear;
+
+    const result =
+        await apiRequest(url);
+
+    return analyzeResult(
+        test,
+        result,
+        test.fields
     );
 }
 
 
-/*
-    Per rendere il risultato più utile, cerchiamo anche
-    le chiavi reali presenti nell'oggetto.
-*/
+/* =========================================================
+   ESECUZIONE TEST PASSATI
+========================================================= */
 
-function collectKeys(value, output = new Set()) {
+async function runPastTest(testId,competitionId){
 
-    if (!value || typeof value !== "object") {
+    const test = TESTS[testId];
+
+    const season =
+        historicalSeason.value;
+
+    let url =
+        cleanBaseUrl();
+
+    if(
+        test.endpoint === "/fixtures" ||
+        test.endpoint === "/fixtures/events" ||
+        test.endpoint === "/fixtures/statistics" ||
+        test.endpoint === "/fixtures/lineups" ||
+        test.endpoint === "/fixtures/players"
+    ){
+
+        const fixtureId =
+            await findFixtureId(
+                competitionId,
+                season
+            );
+
+        if(!fixtureId){
+
+            return {
+                test:test.name,
+                fields:test.fields.map(field => ({
+                    field,
+                    available:false
+                })),
+                http:null,
+                error:"Nessuna partita storica trovata"
+            };
+        }
+
+        url +=
+            test.endpoint +
+            "?fixture=" +
+            fixtureId;
+
+    }else{
+
+        url +=
+            test.endpoint +
+            "?league=" +
+            competitionId +
+            "&season=" +
+            season;
+    }
+
+    const result =
+        await apiRequest(url);
+
+    return analyzeResult(
+        test,
+        result,
+        test.fields
+    );
+}
+
+
+/* =========================================================
+   ANALISI RISULTATO
+========================================================= */
+
+function analyzeResult(test,result,fields){
+
+    const output = {
+        test:test.name,
+        http:result.http,
+        error:result.error || null,
+        fields:[]
+    };
+
+    if(!result.ok){
+
+        fields.forEach(field => {
+
+            output.fields.push({
+                field,
+                available:false
+            });
+
+        });
+
         return output;
     }
 
-    if (Array.isArray(value)) {
+    let data = result.data;
 
-        value.forEach(item =>
-            collectKeys(item, output)
-        );
+    if(
+        data &&
+        data.response &&
+        Array.isArray(data.response) &&
+        data.response.length > 0
+    ){
 
-        return output;
+        data = {
+            root:result.data,
+            response:result.data.response,
+            ...result.data.response[0]
+        };
+    }else{
+
+        data = {
+            root:result.data,
+            ...result.data
+        };
     }
 
-    Object.entries(value).forEach(([key, val]) => {
+    fields.forEach(field => {
 
-        output.add(key.toLowerCase());
+        let available =
+            fieldAvailable(data,field);
 
-        collectKeys(val, output);
+        if(!available)
+            available = fieldAvailable(data,"root."+field);
+
+        output.fields.push({
+            field,
+            available
+        });
+
     });
 
     return output;
 }
 
 
-function fieldAvailable(data, terms) {
-
-    const keys = collectKeys(data);
-
-    return terms.some(term => {
-
-        const normalized = term
-            .toLowerCase()
-            .replace(/[_-]/g, " ");
-
-        for (const key of keys) {
-
-            const normalizedKey =
-                key.replace(/[_-]/g, " ");
-
-            if (
-                normalizedKey === normalized ||
-                normalizedKey.includes(normalized) ||
-                normalized.includes(normalizedKey)
-            ) {
-                return true;
-            }
-        }
-
-        return false;
-    });
-}
-
-
 /* =========================================================
-   AUTENTICAZIONE
-   ========================================================= */
+   RENDER RISULTATO
+========================================================= */
 
-function buildRequest(url, apiKey, authType) {
+function renderResult(output){
 
-    const headers = {};
+    const div =
+        document.createElement("div");
 
-    let finalUrl = url;
+    div.className = "result";
 
-    if (authType === "x-apisports-key") {
-        headers["x-apisports-key"] = apiKey;
-    }
+    let html =
+        `<div class="result-title">${output.test}</div>`;
 
-    if (authType === "x-api-key") {
-        headers["x-api-key"] = apiKey;
-    }
+    if(output.error){
 
-    if (authType === "bearer") {
-        headers["Authorization"] = "Bearer " + apiKey;
-    }
+        html += `
+            <div class="field">
+                <span>Errore</span>
+                <span class="unavailable">${output.error}</span>
+            </div>
+        `;
 
-    if (authType === "authorization") {
-        headers["Authorization"] = apiKey;
-    }
+    }else{
 
-    if (authType === "query_key") {
-        finalUrl +=
-            (finalUrl.includes("?") ? "&" : "?") +
-            "key=" + encodeURIComponent(apiKey);
-    }
+        if(output.http){
 
-    if (authType === "query_api_key") {
-        finalUrl +=
-            (finalUrl.includes("?") ? "&" : "?") +
-            "api_key=" + encodeURIComponent(apiKey);
-    }
-
-    return {
-        url: finalUrl,
-        headers
-    };
-}
-
-
-/* =========================================================
-   API REQUEST
-   ========================================================= */
-
-let requests = 0;
-let errors = 0;
-
-async function apiRequest(url, apiKey, authType) {
-
-    requests++;
-
-    updateCounters();
-
-    const request = buildRequest(
-        url,
-        apiKey,
-        authType
-    );
-
-    const proxyUrl =
-        PROXY_URL +
-        "?url=" +
-        encodeURIComponent(request.url);
-
-    try {
-
-        const response = await fetch(proxyUrl, {
-            method: "GET",
-            headers: request.headers
-        });
-
-        const text = await response.text();
-
-        let data;
-
-        try {
-            data = JSON.parse(text);
-        } catch {
-            data = {
-                raw: text
-            };
-        }
-
-        if (!response.ok) {
-
-            errors++;
-
-            return {
-                ok: false,
-                status: response.status,
-                data
-            };
-        }
-
-        return {
-            ok: true,
-            status: response.status,
-            data
-        };
-
-    } catch (error) {
-
-        errors++;
-
-        return {
-            ok: false,
-            status: 0,
-            data: {
-                error: error.message
-            }
-        };
-    }
-}
-
-
-/* =========================================================
-   ENDPOINT
-   ========================================================= */
-
-function buildEndpoint(template, competition, season, fixtureId) {
-
-    let endpoint = template;
-
-    if (competition) {
-        endpoint = endpoint.replace(
-            /\{league\}/g,
-            competition.id
-        );
-    }
-
-    endpoint = endpoint.replace(
-        /\{season\}/g,
-        season
-    );
-
-    endpoint = endpoint.replace(
-        /\{historicalSeason\}/g,
-        document.getElementById("historicalSeason").value
-    );
-
-    if (fixtureId) {
-
-        endpoint = endpoint.replace(
-            /\{fixture\}/g,
-            fixtureId
-        );
-    }
-
-    endpoint = endpoint.replace(/\{team\}/g, "TEAM_ID");
-    endpoint = endpoint.replace(/\{team1\}/g, "TEAM_ID_1");
-    endpoint = endpoint.replace(/\{team2\}/g, "TEAM_ID_2");
-    endpoint = endpoint.replace(/\{venue\}/g, "VENUE_ID");
-
-    return endpoint;
-}
-
-
-/* =========================================================
-   STAGIONE CORRENTE
-   ========================================================= */
-
-function currentSeason() {
-
-    return new Date().getFullYear();
-}
-
-
-/* =========================================================
-   TROVA ID PARTITA
-   ========================================================= */
-
-function findFixtureId(data) {
-
-    let result = null;
-
-    function walk(value) {
-
-        if (result) return;
-
-        if (!value || typeof value !== "object") {
-            return;
-        }
-
-        if (Array.isArray(value)) {
-
-            for (const item of value) {
-                walk(item);
-                if (result) return;
-            }
-
-            return;
-        }
-
-        if (
-            value.fixture &&
-            typeof value.fixture === "object" &&
-            value.fixture.id
-        ) {
-            result = value.fixture.id;
-            return;
-        }
-
-        if (
-            value.fixture &&
-            (typeof value.fixture === "number" ||
-             typeof value.fixture === "string")
-        ) {
-            result = value.fixture;
-            return;
-        }
-
-        if (value.id && value.date) {
-
-            result = value.id;
-            return;
-        }
-
-        for (const value2 of Object.values(value)) {
-            walk(value2);
-            if (result) return;
-        }
-    }
-
-    walk(data);
-
-    return result;
-}
-
-
-/* =========================================================
-   ANALISI DI UN RISULTATO
-   ========================================================= */
-
-function analyzeFields(data, fields) {
-
-    return fields.map(([name, terms]) => {
-
-        return {
-            name,
-            available: fieldAvailable(data, terms)
-        };
-
-    });
-}
-
-
-/* =========================================================
-   RISULTATI
-   ========================================================= */
-
-function renderResult(test, result) {
-
-    const container = document.getElementById("results");
-
-    const available =
-        result.fields.filter(x => x.available).length;
-
-    const total =
-        result.fields.length;
-
-    const status =
-        available === total
-            ? "available"
-            : available > 0
-                ? "partial"
-                : "missing";
-
-    const badge =
-        status === "available"
-            ? `<span class="badge ok">COMPLETO</span>`
-            : status === "partial"
-                ? `<span class="badge partial">PARZIALE</span>`
-                : `<span class="badge no">NON TROVATO</span>`;
-
-    const fieldHtml =
-        result.fields.map(field => {
-
-            if (field.available) {
-
-                return `
-                    <div class="data-item available">
-                        ✅ ${escapeHtml(field.name)}
-                    </div>
-                `;
-
-            }
-
-            return `
-                <div class="data-item missing">
-                    ❌ ${escapeHtml(field.name)}
+            html += `
+                <div class="field">
+                    <span>HTTP</span>
+                    <span>${output.http}</span>
                 </div>
             `;
-
-        }).join("");
-
-    const html = `
-        <div class="result">
-
-            <div class="result-header">
-                ${escapeHtml(test.title)}
-                ${badge}
-            </div>
-
-            <div class="result-body">
-
-                <p>
-                    <strong>
-                        ${available}/${total} dati individuati
-                    </strong>
-                </p>
-
-                <div class="endpoint">
-                    ${escapeHtml(result.endpoint)}
-                </div>
-
-                <div class="data-list">
-                    ${fieldHtml}
-                </div>
-
-                ${
-                    result.fixtureId
-                    ? `
-                        <p class="small">
-                            ID partita utilizzato:
-                            <strong>${escapeHtml(result.fixtureId)}</strong>
-                        </p>
-                    `
-                    : ""
-                }
-
-                ${
-                    result.error
-                    ? `
-                        <p style="color:#a51f1f;">
-                            Errore: ${escapeHtml(result.error)}
-                        </p>
-                    `
-                    : ""
-                }
-
-            </div>
-        </div>
-    `;
-
-    container.insertAdjacentHTML(
-        "beforeend",
-        html
-    );
-}
-
-
-/* =========================================================
-   TEST SINGOLO
-   ========================================================= */
-
-async function executeTest(
-    test,
-    competition,
-    apiKey,
-    authType
-) {
-
-    const baseUrl =
-        normalizeBaseUrl(
-            document.getElementById("baseUrl").value
-        );
-
-    const season = currentSeason();
-
-    /*
-        Prima richiesta: endpoint principale.
-    */
-
-    let endpointTemplate =
-        test.endpoints[0];
-
-    let endpoint =
-        baseUrl +
-        buildEndpoint(
-            endpointTemplate,
-            competition,
-            season
-        );
-
-    const first = await apiRequest(
-        endpoint,
-        apiKey,
-        authType
-    );
-
-    if (!first.ok) {
-
-        renderResult(test, {
-            endpoint,
-            fields: test.fields.map(([name]) => ({
-                name,
-                available: false
-            })),
-            error:
-                "Richiesta fallita. HTTP " +
-                first.status
-        });
-
-        return;
-    }
-
-    let data = first.data;
-
-    /*
-        Se abbiamo una lista di partite, prendiamo il primo
-        ID disponibile e possiamo fare una seconda richiesta
-        mirata per i test che necessitano della singola partita.
-    */
-
-    const fixtureId =
-        findFixtureId(data);
-
-    const needsFixture =
-        [
-            "single",
-            "events",
-            "match_stats",
-            "xg",
-            "player_match",
-            "lineups",
-            "odds",
-            "extra",
-            "historical_stats"
-        ].includes(test.type);
-
-    if (needsFixture && fixtureId) {
-
-        let fixtureTemplate =
-            test.endpoints.find(e =>
-                e.includes("{fixture}")
-            );
-
-        if (fixtureTemplate) {
-
-            endpoint =
-                baseUrl +
-                buildEndpoint(
-                    fixtureTemplate,
-                    competition,
-                    season,
-                    fixtureId
-                );
-
-            const second =
-                await apiRequest(
-                    endpoint,
-                    apiKey,
-                    authType
-                );
-
-            if (second.ok) {
-                data = second.data;
-            }
         }
+
+        output.fields.forEach(item => {
+
+            html += `
+                <div class="field">
+                    <span>${item.field}</span>
+                    <span class="${item.available ? "available" : "unavailable"}">
+                        ${item.available ? "✅ DISPONIBILE" : "❌ NON DISPONIBILE"}
+                    </span>
+                </div>
+            `;
+        });
     }
 
-    const fields =
-        analyzeFields(
-            data,
-            test.fields
-        );
+    div.innerHTML = html;
 
-    renderResult(test, {
-        endpoint,
-        fields,
-        fixtureId
-    });
+    results.appendChild(div);
 }
 
 
 /* =========================================================
-   AVVIO COMPLETO
-   ========================================================= */
+   AVVIA ANALISI
+========================================================= */
 
-async function startTest() {
+startTestButton.addEventListener("click",startTest);
 
-    const baseUrl =
-        normalizeBaseUrl(
-            document.getElementById("baseUrl").value
+
+async function startTest(){
+
+    if(!connectionOK){
+
+        showConnectionError(
+            "Devi prima eseguire con successo il TEST CONNESSIONE."
         );
 
-    const apiKey =
-        document.getElementById("apiKey").value.trim();
-
-    const authType =
-        document.getElementById("authType").value;
-
-    const competitions =
-        getSelectedCompetitions();
-
-    const tests =
-        getSelectedTests();
-
-    if (!baseUrl) {
-        showStatus(
-            "Inserisci il link dell'API.",
-            "error"
-        );
         return;
     }
 
-    if (!apiKey) {
-        showStatus(
-            "Inserisci la API Key.",
-            "error"
-        );
+    const selectedCompetitions =
+        [...document.querySelectorAll(".competition-check:checked")]
+        .map(input => Number(input.value));
+
+    if(selectedCompetitions.length === 0){
+
+        alert("Seleziona almeno un campionato.");
         return;
     }
 
-    if (!competitions.length) {
-        showStatus(
-            "Seleziona almeno un campionato.",
-            "error"
-        );
+    const mode =
+        document.querySelector(
+            'input[name="matchMode"]:checked'
+        ).value;
+
+    const selectedTests =
+        [...document.querySelectorAll(
+            mode === "future"
+            ? ".future-test:checked"
+            : ".past-test:checked"
+        )]
+        .map(input => input.value);
+
+    if(selectedTests.length === 0){
+
+        alert("Seleziona almeno una richiesta da analizzare.");
         return;
     }
 
-    if (!tests.length) {
-        showStatus(
-            "Seleziona almeno un'indagine.",
-            "error"
-        );
-        return;
-    }
+    startTestButton.disabled = true;
+    testConnectionButton.disabled = true;
+
+    results.innerHTML = "";
 
     requests = 0;
     errors = 0;
+    completedTests = 0;
 
-    document.getElementById("results").innerHTML = "";
+    updateCounters();
 
-    showStatus(
-        "Test in corso...",
-        "info"
-    );
+    const total =
+        selectedCompetitions.length *
+        selectedTests.length;
 
-    document.getElementById("startTest").disabled = true;
+    let completed = 0;
 
-    /*
-        Evitiamo di fare inutilmente lo stesso test
-        più volte quando il dato non dipende dal campionato.
-    */
+    for(const competitionId of selectedCompetitions){
 
-    const competitionDependent = new Set([
-        "future_matches",
-        "current_fixtures",
-        "historical_fixtures",
-        "historical_statistics",
-        "team_history",
-        "home_away",
-        "standings",
-        "player_season",
-        "availability",
-        "coverage"
-    ]);
+        for(const testId of selectedTests){
 
-    try {
+            let output;
 
-        for (const test of tests) {
+            if(mode === "future"){
 
-            if (competitionDependent.has(test.id)) {
-
-                for (const competition of competitions) {
-
-                    await executeTest(
-                        test,
-                        competition,
-                        apiKey,
-                        authType
+                output =
+                    await runFutureTest(
+                        testId,
+                        competitionId
                     );
-                }
 
-            } else {
+            }else{
 
-                await executeTest(
-                    test,
-                    competitions[0],
-                    apiKey,
-                    authType
-                );
+                output =
+                    await runPastTest(
+                        testId,
+                        competitionId
+                    );
             }
+
+            completedTests++;
+
+            completed++;
+
+            renderResult({
+                test:
+                    COMPETITIONS.find(
+                        c => c.id === competitionId
+                    ).name +
+                    " — " +
+                    output.test,
+
+                http:output.http,
+                error:output.error,
+                fields:output.fields
+            });
+
+            updateCounters();
         }
-
-        showStatus(
-            "Test completato.",
-            "success"
-        );
-
-    } catch (error) {
-
-        showStatus(
-            "Errore durante il test: " +
-            error.message,
-            "error"
-        );
-
-    } finally {
-
-        document.getElementById("startTest").disabled = false;
-
-        updateCounters();
     }
+
+    startTestButton.disabled = false;
+    testConnectionButton.disabled = false;
+
+    connectionStatus.className = "status ok";
+    connectionStatus.textContent =
+        "✅ Analisi completata — " +
+        completed +
+        " test eseguiti.";
+
+    connectionStatus.style.display = "block";
 }
 
 
 /* =========================================================
-   CONTATORI
-   ========================================================= */
+   SELEZIONE AUTOMATICA DEI CAMPIONATI
+========================================================= */
 
-function updateCounters() {
+document.addEventListener("DOMContentLoaded",() => {
 
-    const tests =
-        document.querySelectorAll(".test:checked").length;
+    const first =
+        document.querySelector(".competition-check");
 
-    const competitions =
-        document.querySelectorAll(".competition:checked").length;
+    if(first)
+        first.checked = true;
 
-    document.getElementById("selectedCount")
-        .textContent = tests;
-
-    document.getElementById("competitionCount")
-        .textContent = competitions;
-
-    document.getElementById("requestCount")
-        .textContent = requests;
-
-    document.getElementById("errorCount")
-        .textContent = errors;
-}
+});
 
 
 /* =========================================================
-   SALVATAGGIO CONFIGURAZIONE
-   ========================================================= */
+   CONTROLLO SICUREZZA
+========================================================= */
 
-function saveConfig() {
+window.addEventListener("beforeunload",() => {
 
-    const config = {
+    if(apiKey.value.trim() !== ""){
 
-        apiName:
-            document.getElementById("apiName").value,
-
-        baseUrl:
-            document.getElementById("baseUrl").value,
-
-        authType:
-            document.getElementById("authType").value
-    };
-
-    localStorage.setItem(
-        "footballApiTesterConfig",
-        JSON.stringify(config)
-    );
-
-    showStatus(
-        "Configurazione salvata.",
-        "success"
-    );
-}
-
-
-function loadConfig() {
-
-    const saved =
-        localStorage.getItem(
-            "footballApiTesterConfig"
+        localStorage.setItem(
+            "footballApiKey",
+            apiKey.value.trim()
         );
-
-    if (!saved) return;
-
-    try {
-
-        const config =
-            JSON.parse(saved);
-
-        document.getElementById("apiName").value =
-            config.apiName || "";
-
-        document.getElementById("baseUrl").value =
-            config.baseUrl || "";
-
-        document.getElementById("authType").value =
-            config.authType || "x-apisports-key";
-
-    } catch {}
-}
-
-
-function clearConfig() {
-
-    localStorage.removeItem(
-        "footballApiTesterConfig"
-    );
-
-    document.getElementById("apiName").value = "";
-    document.getElementById("baseUrl").value = "";
-
-    showStatus(
-        "Configurazione cancellata.",
-        "success"
-    );
-}
+    }
+});
 
 
 /* =========================================================
-   EVENTI
-   ========================================================= */
+   BLOCCO ZOOM MOBILE
+========================================================= */
 
-document
-    .getElementById("startTest")
-    .addEventListener(
-        "click",
-        startTest
-    );
+document.addEventListener(
+    "gesturestart",
+    event => event.preventDefault()
+);
 
-document
-    .getElementById("saveConfig")
-    .addEventListener(
-        "click",
-        saveConfig
-    );
+document.addEventListener(
+    "gesturechange",
+    event => event.preventDefault()
+);
 
-document
-    .getElementById("clearConfig")
-    .addEventListener(
-        "click",
-        clearConfig
-    );
-
-
-/* =========================================================
-   AVVIO
-   ========================================================= */
-
-renderCompetitions();
-renderTests();
-loadConfig();
-updateCounters();
+document.addEventListener(
+    "gestureend",
+    event => event.preventDefault()
+);
 
 </script>
-
 </body>
 </html>
